@@ -1,9 +1,11 @@
 import React, {PropTypes} from 'react';
+import * as FeedState from './FeedState';
 import {
   Text,
   View,
   StyleSheet
 } from 'react-native';
+import Card from '../../components/card/card';
 
 import * as NavigationState from '../../modules/navigation/NavigationState';
 
@@ -16,6 +18,7 @@ const color = () => Math.floor(255 * Math.random());
 const FeedView = React.createClass({
   propTypes: {
     index: PropTypes.number.isRequired,
+    cards: PropTypes.array.isRequired,
     dispatch: PropTypes.func.isRequired
   },
 
@@ -33,15 +36,24 @@ const FeedView = React.createClass({
     }));
   },
 
-  render() {
+  increment(index) {
+    this.props.dispatch(FeedState.increment(this.props.cards, index)) 
+  },
 
-    const index = this.props.index;
-    const text = `View #${index}`;
+  render() {
+    console.log(this.props.cards)
+    const {index, cards} = this.props;
+
     return (
       <View style={[styles.container, {backgroundColor: this.state.background}]}>
-        <Text onPress={this.onNextPress}>
-          {text}
-        </Text>
+        {cards.map((card, index) => (
+        <Card
+          key={index}
+          card={card}
+          track={index}
+          increment={this.increment}>
+        </Card>
+        ))}
       </View>
     );
   }
