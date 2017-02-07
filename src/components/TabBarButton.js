@@ -19,7 +19,7 @@ export default React.createClass({
         onPress={this.props.action}
         style={[styles.button, this.props.isSelected && styles.selected]}
         >
-        <Icon name='caret-down' size={20} color='#900' /><Text>{this.props.text}</Text>
+        <Text>{this.props.text}</Text>
       </TouchableOpacity>
     );
   }
