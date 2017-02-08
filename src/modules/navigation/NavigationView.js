@@ -19,20 +19,20 @@ const NavigationView = React.createClass({
   propTypes: {
     onNavigateBack: PropTypes.func.isRequired,
     onNavigateCompleted: PropTypes.func.isRequired,
-    navigationState: PropTypes.shape({
-      tabs: PropTypes.shape({
-        routes: PropTypes.arrayOf(PropTypes.shape({
-          key: PropTypes.string.isRequired,
-          title: PropTypes.string.isRequired
-        })).isRequired
-      }).isRequired
-      // HomeTab: NavigationPropTypes.navigationState.isRequired,
-      // FeedTab: NavigationPropTypes.navigationState.isRequired,
-      // FavoriteTab: NavigationPropTypes.navigationState.isRequired,
-      // SearchTab: NavigationPropTypes.navigationState.isRequired,
-      // NotificationTab: NavigationPropTypes.navigationState.isRequired,
-      // ProfileTab: NavigationPropTypes.navigationState.isRequired,
-    }),
+    // navigationState: PropTypes.shape({
+    //   tabs: PropTypes.shape({
+    //     routes: PropTypes.arrayOf(PropTypes.shape({
+    //       key: PropTypes.string.isRequired,
+    //       title: PropTypes.string.isRequired
+    //     })).isRequired
+    //   }).isRequired
+    //   // HomeTab: NavigationPropTypes.navigationState.isRequired,
+    //   // FeedTab: NavigationPropTypes.navigationState.isRequired,
+    //   // FavoriteTab: NavigationPropTypes.navigationState.isRequired,
+    //   // SearchTab: NavigationPropTypes.navigationState.isRequired,
+    //   // NotificationTab: NavigationPropTypes.navigationState.isRequired,
+    //   // ProfileTab: NavigationPropTypes.navigationState.isRequired,
+    // }),
     switchTab: PropTypes.func.isRequired,
     pushRoute: PropTypes.func.isRequired
   },
