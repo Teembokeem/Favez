@@ -1,38 +1,41 @@
-import {Map} from 'immutable';
+import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 
 // Initial state
-const initialState = Map({
-    cards: [{
-        value: 0,
-        header: {
-            topic: 'Archeology Stuff',
-        },
-        user: {
-            picture: '../img/what.jpg',
-            username: '@indy',
-        },
-        timeAgo: '12 Minutes Ago',
-        body: {
-            title: 'Check out this Marrakech album',
-            site: 'imgur.com',
-        }
-    },
-    {
-        value: 0,
-        header: {
-            topic: 'Archeology Stuff',
-        },
-        user: {
-            picture: '../img/what.jpg',
-            username: '@indy',
-        },
-        timeAgo: '12 Minutes Ago',
-        body: {
-            title: 'Check out this Marrakech album',
-            site: 'imgur.com',
-        }
-    }],
+const initialState = fromJS({
+    cards:{
+      index: 0,
+      data: [{
+          value: 0,
+          header: {
+              topic: 'Archeology Stuff',
+          },
+          user: {
+              picture: '../img/what.jpg',
+              username: '@indy',
+          },
+          timeAgo: '12 Minutes Ago',
+          body: {
+              title: 'Check out this Marrakech album',
+              site: 'imgur.com',
+          }
+      },
+      {
+          value: 0,
+          header: {
+              topic: 'Archeology Stuff',
+          },
+          user: {
+              picture: '../img/what.jpg',
+              username: '@indy',
+          },
+          timeAgo: '12 Minutes Ago',
+          body: {
+              title: 'Check out this Marrakech album',
+              site: 'imgur.com',
+          }
+      }
+    ]},
     value: 0,
   loading: false
 });
@@ -69,9 +72,20 @@ export async function requestRandomNumber() {
 export default function FeedStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
-        console.log("incrementing", state.get('cards')[action.payload]);
-        // action.item[action.payload].value++
-        return state.setIn(['cards', action.payload, 'value'],  3);
+        // console.log("incrementing",state.get('cards')[action.payload]['value']);
+        // const newValue = state.get('cards')[action.payload]['value'] + 1;
+        // console.log(newValue)
+        // return state.setIn(['cards', action.payload, 'value'],  newValue);
+
+        const cards = state.get('cards');
+        console.log(cards);
+        const mapValue = cards.getIn(['data', action.payload, 'value']);
+        console.log(mapValue);
+        const newValue = mapValue + 1;  
+        console.log(newValue);
+
+        return state.setIn(['cards', 'data', action.payload, 'value'], newValue);
+
 
     case RESET:
       return initialState;

@@ -89,8 +89,10 @@ export default function NavigationReducer(state = initialState, action) {
       // Push a route into the scenes stack.
       const route = action.payload;
       const tabs = state.get('tabs');
+      console.log(tabs)
       const tabKey = tabs.getIn(['routes', tabs.get('index')]).get('key');
       const scenes = state.get(tabKey).toJS();
+      console.log(tabKey, state.get(tabKey), state.get(tabKey).toJS())
       let nextScenes;
       // fixes issue #52
       // the try/catch block prevents throwing an error when the route's key pushed

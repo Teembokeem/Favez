@@ -56,6 +56,10 @@ const FeedView = React.createClass({
         ))}
       </View>
     );
+  },
+
+  componentWillUpdate() {
+    console.log('hello')
   }
 });
 
