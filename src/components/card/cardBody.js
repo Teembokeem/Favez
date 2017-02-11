@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  Image,
   View
 } from 'react-native';
 
@@ -14,24 +15,28 @@ const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 function CardBody({body, value}) {
 
     return (
-      <TouchableOpacity style={[styles.card]}>
-          <Text style={[styles.hello]}>{body.title}</Text>
-          <Text style={[styles.hello]}>{value}</Text>
-      </TouchableOpacity>
+      <View style={[styles.cardBody]}>
+          <Text style={[styles.hello]}>{body.message}</Text>
+          <Image
+            style={styles.cardBodyImage}
+            source={{uri: body.image_scraped}}
+          >
+
+          </Image>
+      </View>
     );
   };
 
 const styles = StyleSheet.create({
-  card: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
-    // top: 0,
-    // backgroundColor: '#eee',
-    // flexDirection: 'row',
-    // justifyContent: 'space-around',
+  cardBody: {
+    padding: 7,
   },
+  cardBodyImage: {
+    width: 340,
+    height: 90,
+    alignSelf: 'center'
+  },
+
   hello: {
           textAlign: 'center'
   },
