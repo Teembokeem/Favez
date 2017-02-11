@@ -3,6 +3,7 @@ import * as FeedState from './FeedState';
 import {
   Text,
   View,
+  ScrollView,
   StyleSheet
 } from 'react-native';
 import Card from '../../components/card/card';
@@ -24,7 +25,7 @@ const FeedView = React.createClass({
 
   getInitialState() {
     return {
-      background: `rgba(${color()},${color()},${color()}, 1)`
+      background: `rgba(255,255,255, 1)`
     };
   },
 
@@ -41,11 +42,13 @@ const FeedView = React.createClass({
   },
 
   render() {
-    console.log(this.props.cards)
     const {index, cards} = this.props;
 
     return (
-      <View style={[styles.container, {backgroundColor: this.state.background}]}>
+      // <View style={[styles.container, {backgroundColor: this.state.background}]}>
+      <ScrollView 
+        contentContainerStyle={styles.container}
+      >
         {cards.map((card, index) => (
         <Card
           key={index}
@@ -54,7 +57,7 @@ const FeedView = React.createClass({
           increment={this.increment}>
         </Card>
         ))}
-      </View>
+      </ScrollView>
     );
   },
 
@@ -66,9 +69,13 @@ const FeedView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#f9f9f9',
+    // justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 50,
     alignItems: 'center'
-  }
+    // justifyContent: 'center'
+  },
 });
 
 export default FeedView;
