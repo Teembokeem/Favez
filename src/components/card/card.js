@@ -13,7 +13,8 @@ import {
 } from 'react-native';
 
 function Card({card, increment, track}) {
-    const {header, body, value,  user} = card;
+    const {header, body, value,  user, timeAgo} = card;
+    console.log("tiome ago", timeAgo)
     return (
       <View style={[styles.card]}>
           <CardHeader
@@ -24,6 +25,7 @@ function Card({card, increment, track}) {
           </CardHeader>
           <CardUser
            user={user}
+           time={timeAgo}
           >
           </CardUser>
           <CardBody
@@ -43,7 +45,11 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: 10,
+    overflow: 'hidden',
+    width: 360,
+    marginBottom: 20
   },
   hello: {
     textAlign: 'center'
