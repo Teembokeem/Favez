@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: 'hidden',
     width: 360,
-    marginBottom: 20
+    marginBottom: 50
   },
   hello: {
     textAlign: 'center'
