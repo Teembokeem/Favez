@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import {
   NavigationExperimental,
   View,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native';
 const {
@@ -11,6 +12,7 @@ const {
 } = NavigationExperimental;
 import AppRouter from '../AppRouter';
 import TabBar from '../../components/TabBar';
+import FeedNavHeader from '../feed/feedNavHeader/FeedNavHeader';
 
 // Customize bottom tab bar height here if desired
 const TAB_BAR_HEIGHT = 50;
@@ -19,39 +21,71 @@ const NavigationView = React.createClass({
   propTypes: {
     onNavigateBack: PropTypes.func.isRequired,
     onNavigateCompleted: PropTypes.func.isRequired,
-    // navigationState: PropTypes.shape({
-    //   tabs: PropTypes.shape({
-    //     routes: PropTypes.arrayOf(PropTypes.shape({
-    //       key: PropTypes.string.isRequired,
-    //       title: PropTypes.string.isRequired
-    //     })).isRequired
-    //   }).isRequired
-    //   // HomeTab: NavigationPropTypes.navigationState.isRequired,
-    //   // FeedTab: NavigationPropTypes.navigationState.isRequired,
-    //   // FavoriteTab: NavigationPropTypes.navigationState.isRequired,
-    //   // SearchTab: NavigationPropTypes.navigationState.isRequired,
-    //   // NotificationTab: NavigationPropTypes.navigationState.isRequired,
-    //   // ProfileTab: NavigationPropTypes.navigationState.isRequired,
-    // }),
+    navigationState: PropTypes.shape({
+      tabs: PropTypes.shape({
+        routes: PropTypes.arrayOf(PropTypes.shape({
+          key: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired
+        })).isRequired
+      }).isRequired,
+      HomeTab: NavigationPropTypes.navigationState.isRequired,
+      FeedTab: NavigationPropTypes.navigationState.isRequired,
+      FavoriteTab: NavigationPropTypes.navigationState.isRequired,
+      SearchTab: NavigationPropTypes.navigationState.isRequired,
+      NotificationTab: NavigationPropTypes.navigationState.isRequired,
+      ProfileTab: NavigationPropTypes.navigationState.isRequired,
+    }),
     switchTab: PropTypes.func.isRequired,
     pushRoute: PropTypes.func.isRequired
   },
   // NavigationHeader accepts a prop style
   // NavigationHeader.title accepts a prop textStyle
   renderHeader(sceneProps) {
-    return (
-      <NavigationHeader
-        {...sceneProps}
-        onNavigateBack={this.props.onNavigateBack}
-        renderTitleComponent={() => {
+    console.log("your scene prioops", sceneProps);
+      if (sceneProps.scene.index != 0) {
           return (
-            <NavigationHeader.Title>
-              {sceneProps.scene.route.title}
-            </NavigationHeader.Title>
+            <NavigationHeader
+              {...sceneProps}
+              style={styles.navigationHeader}
+              onNavigateBack={this.props.onNavigateBack}
+              renderTitleComponent={() => {
+                console.log(sceneProps)
+              }}
+            />
           );
-        }}
-      />
-    );
+      } else {
+        switch (sceneProps.scene.route.key) {
+          case 'Feed':
+
+            return (
+              <FeedNavHeader>
+              </FeedNavHeader>
+            );
+          case 'Favorite':
+
+            /*return (
+              <TouchableOpacity
+              style={styles.headerLeftButton}
+              >
+                <IoniconIcon style={styles.headerLeftButtonImage} name="md-list-box" size={30} color="#900"/>
+              </TouchableOpacity>
+            );*/
+
+          default:
+            return (
+              <NavigationHeader
+                {...sceneProps}
+                style={styles.navigationHeader}
+                onNavigateBack={this.props.onNavigateBack}
+                renderTitleComponent={() => {
+                  console.log(sceneProps)
+                }}
+              />
+            );
+          
+        }
+      
+      }
   },
   renderScene(sceneProps) {
     // render scene and apply padding to cover
