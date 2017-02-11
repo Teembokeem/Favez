@@ -3,7 +3,7 @@ import * as FeedState from './FeedState';
 import {
   Text,
   View,
-  ScrollView,
+  ListView,
   StyleSheet
 } from 'react-native';
 import Card from '../../components/card/card';
@@ -43,21 +43,24 @@ const FeedView = React.createClass({
 
   render() {
     const {index, cards} = this.props;
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     return (
       // <View style={[styles.container, {backgroundColor: this.state.background}]}>
-      <ScrollView 
+      <ListView 
         contentContainerStyle={styles.container}
+        dataSource={ds.cloneWithRows(cards)}
+        renderRow={(rowData) => 
+          <Card
+            key={index}
+            card={rowData}
+            track={index}
+            increment={this.increment}>
+          </Card>
+        
+        }
       >
-        {cards.map((card, index) => (
-        <Card
-          key={index}
-          card={card}
-          track={index}
-          increment={this.increment}>
-        </Card>
-        ))}
-      </ScrollView>
+      </ListView>
     );
   },
 
