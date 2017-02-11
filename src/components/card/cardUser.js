@@ -1,37 +1,65 @@
 import React, {PropTypes} from 'react';
 // import TabBarButton from '../components/TabBarButton';
-
+import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
   NavigationExperimental,
   StyleSheet,
   TouchableOpacity,
   Text,
+  Image,
   View
 } from 'react-native';
 
-function CardUser({user}) {
+function CardUser({user, time}) {
+  console.log("tiume", time)
     return (
-        <TouchableOpacity style={[styles.card]}>
-            <Text style={[styles.hello]}>{user.picture}</Text>
-            <Text style={[styles.hello]}>{user.username}</Text>
-        </TouchableOpacity>
+        <View style={[styles.cardUserContainer]}>
+            <Image source={{uri: user.picture}} style={[styles.cardUserImage]} />
+            <View
+              style={styles.cardUserInfoColumn}>
+              <Text style={[styles.cardUserName]}>{user.username}</Text>
+              <Text style={styles.cardUserAgo}>{time}</Text>
+            </View>
+            <TouchableOpacity>
+              <IoniconIcon style={styles.cardUserSubscribe} name="md-person-add"/>
+            </TouchableOpacity>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
-    // top: 0,
-    // backgroundColor: '#eee',
-    // flexDirection: 'row',
-    // justifyContent: 'space-around',
+  cardUserContainer: {
+    padding: 7,
+    paddingRight: 14,
+    flexDirection: 'row',
+    borderBottomWidth: 2,
+    width: 360,
+    borderColor: '#f8f8f8',
+    alignItems: 'center'
   },
-  hello: {
-          textAlign: 'center'
+  cardUserImage: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    marginRight: 6
   },
+  cardUserInfoColumn: {
+    flex: 1,
+    paddingTop: 4
+  },
+  cardUserName: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 13
+  },
+  cardUserAgo: {
+    fontFamily: 'Hind-Light',
+    fontSize: 13,
+    position: 'relative',
+    bottom: 4
+  },
+  cardUserSubscribe: {
+    fontSize: 25,
+  }
 });
 
 export default CardUser;
