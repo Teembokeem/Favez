@@ -11,28 +11,34 @@ const initialState = fromJS({
               topic: 'Archeology Stuff',
           },
           user: {
-              picture: '../img/what.jpg',
-              username: '@indy',
+              picture: 'https://facebook.github.io/react/img/logo_og.png',
+              username: '@react',
           },
           timeAgo: '12 Minutes Ago',
           body: {
-              title: 'Check out this Marrakech album',
-              site: 'imgur.com',
+              message: 'Check out this Marrakech album',
+              site_semantic: 'imgur.com',
+              uri: '',
+              title_scraped: 'Welcome to Marrakech, Morroco - a guide by a tourist',
+              image_scraped: 'https://www.travelpirates.com/media/images/2015/02/newyork-oslo-cheap-flights-1423497189-LeT5-slide.jpg'
           }
       },
       {
           value: 0,
           header: {
-              topic: 'Archeology Stuff',
+              topic: 'Travel Stuff',
           },
           user: {
-              picture: '../img/what.jpg',
-              username: '@indy',
+              picture: 'http://ionicframework.com/img/ionic-logo-blog.png',
+              username: '@ionic',
           },
-          timeAgo: '12 Minutes Ago',
+          timeAgo: '30 Minutes Ago',
           body: {
-              title: 'Check out this Marrakech album',
-              site: 'imgur.com',
+              message: 'TOKYOOOOOOOOO',
+              site_semantic: 'reddit.com',
+              uri: '',
+              title_scraped: 'Tokyo, a magical trip across the sea',
+              image_scraped: 'https://ecs7.tokopedia.net/img/product-1/2016/6/13/6152631/6152631_e9cb4b91-da5d-4610-b758-6c738546baf3.jpg'
           }
       }
     ]},
@@ -72,18 +78,10 @@ export async function requestRandomNumber() {
 export default function FeedStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
-        // console.log("incrementing",state.get('cards')[action.payload]['value']);
-        // const newValue = state.get('cards')[action.payload]['value'] + 1;
-        // console.log(newValue)
-        // return state.setIn(['cards', action.payload, 'value'],  newValue);
 
         const cards = state.get('cards');
-        console.log(cards);
         const mapValue = cards.getIn(['data', action.payload, 'value']);
-        console.log(mapValue);
         const newValue = mapValue + 1;  
-        console.log(newValue);
-
         return state.setIn(['cards', 'data', action.payload, 'value'], newValue);
 
 
