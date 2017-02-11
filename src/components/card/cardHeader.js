@@ -1,6 +1,6 @@
 import React from 'react';
 // import TabBarButton from '../components/TabBarButton';
-
+import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
   NavigationExperimental,
   StyleSheet,
@@ -12,29 +12,45 @@ import {
 function CardHeader({header, increment, track}) {
 
     return (
-      <TouchableOpacity 
-       style={[styles.card]}
-       onPress={() => increment(track)}
+      <View 
+       style={styles.cardHeader}
       >
-          <Text style={[styles.hello]}>{header.topic}</Text>
-      </TouchableOpacity>
+          <Text style={[styles.cardHeaderText]}>{header.topic.toUpperCase()}</Text>
+          <TouchableOpacity
+            onPress={() => increment(track)}
+
+          >
+              <IoniconIcon style={styles.cardheaderMore} name="ios-more"/>
+          </TouchableOpacity>
+      </View>
     );
 };
 
 const styles = StyleSheet.create({
-  card: {
-    // position: 'absolute',
-    // bottom: 0,
-    // left: 0,
-    // right: 0,
-    // top: 0,
-    // backgroundColor: '#eee',
-    // flexDirection: 'row',
-    // justifyContent: 'space-around',
+  cardHeader: {
+    height: 50,
+    paddingLeft: 7,
+    paddingRight: 14,
+    justifyContent: 'center',
+    backgroundColor: '#e8e8e8',
+    width: 360,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
-  hello: {
-          textAlign: 'center'
+  cardHeaderText: {
+      flex: 1,
+      alignSelf: 'center',
+      fontFamily: 'Hind-Bold',
+      textAlign: 'left',
+      fontSize: 20,
   },
+  cardheaderMore: {
+    paddingTop: 10,
+    fontSize: 30,
+    flex: 1,
+    alignSelf: 'center'
+
+  }
 });
 
 export default CardHeader;
