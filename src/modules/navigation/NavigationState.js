@@ -51,10 +51,10 @@ const initialState = fromJS({
     ]
   },
   // Scenes for the `HomeTab` tab.
-  // HomeTab: {
-  //   index: 0,
-  //   routes: [{key: 'Counter', title: 'Counter Screen'}]
-  // },
+  HomeTab: {
+    index: 0,
+    routes: [{key: 'Counter', title: 'Counter Screen'}]
+  },
   // Scenes for the `FeedTab` tab.
   FeedTab: {
     index: 0,
