@@ -6,9 +6,11 @@ import {
   ListView,
   StyleSheet
 } from 'react-native';
+import {Actions} from 'react-native-router-flux';
+
 import Card from '../../components/card/card';
 
-import * as NavigationState from '../../modules/navigation/NavigationState';
+// import * as NavigationState from '../../modules/navigation/NavigationState';
 
 const color = () => Math.floor(255 * Math.random());
 
@@ -23,22 +25,15 @@ const FeedView = React.createClass({
     dispatch: PropTypes.func.isRequired
   },
 
-  getInitialState() {
-    return {
-      background: `rgba(255,255,255, 1)`
-    };
-  },
-
-  onNextPress() {
-    const index = this.props.index;
-    this.props.dispatch(NavigationState.pushRoute({
-      key: `Feed_${index + 1}`,
-      title: `Feed Screen #${index + 1}`
-    }));
-  },
-
   increment(index) {
+    console.log('fook')
+    // Actions.counter({type: 'shit'})
     this.props.dispatch(FeedState.increment(this.props.cards, index)) 
+  },
+
+  moving() {
+    console.log('movinggggg')
+    Actions.counter()
   },
 
   render() {
@@ -55,6 +50,7 @@ const FeedView = React.createClass({
             key={index}
             card={rowData}
             track={index}
+            moving={this.moving}
             increment={this.increment}>
           </Card>
         
@@ -63,10 +59,6 @@ const FeedView = React.createClass({
       </ListView>
     );
   },
-
-  componentWillUpdate() {
-    console.log('hello')
-  }
 });
 
 const styles = StyleSheet.create({

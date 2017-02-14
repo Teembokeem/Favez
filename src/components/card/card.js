@@ -12,9 +12,8 @@ import {
   View
 } from 'react-native';
 
-function Card({card, increment, track}) {
+function Card({card, increment, track, moving}) {
     const {header, body, value,  user, timeAgo} = card;
-    console.log("tiome ago", timeAgo)
     return (
       <View style={[styles.card]}>
           <CardHeader
@@ -31,6 +30,7 @@ function Card({card, increment, track}) {
           <CardBody
            body={body}
            value={value}
+           moving={moving}
           >
           </CardBody>
           <CardActions>

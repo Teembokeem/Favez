@@ -1,83 +1,56 @@
 /*eslint-disable react/prop-types*/
 
 import React from 'react';
+import {Scene, Router} from 'react-native-router-flux';
+import {StyleSheet} from 'react-native';
+import TabIcon from '../components/TabIcon';
+
 import CounterViewContainer from './counter/CounterViewContainer';
 import IntroViewContainer from './intro/IntroViewContainer';
-import ColorViewContainer from './colors/ColorViewContainer';
+// import ColorViewContainer from './colors/ColorViewContainer';
 import FeedViewContainer from './feed/FeedViewContainer';
-import FavoriteViewContainer from './favorite/FavoriteViewContainer';
+import TabsViewContainer from './tabs/TabsViewContainer';
+// import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
-import NotificationViewContainer from './notification/NotificationViewContainer';
-import ProfileViewContainer from './profile/ProfileViewContainer';
+// import NotificationViewContainer from './notification/NotificationViewContainer';
+// import ProfileViewContainer from './profile/ProfileViewContainer';
 
-/**
- * AppRouter is responsible for mapping a navigator scene to a view
- */
-export default function AppRouter(props) {
-  const key = props.scene.route.key;
-  console.log("THIS IS THE KEY", key)
 
-  // if (key === 'Counter') {
-  //   return <CounterViewContainer />;
-  // }
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabBarStyle: {
+    backgroundColor: '#eee',
+  },
+  tabBarSelectedItemStyle: {
+    backgroundColor: '#ddd',
+  },
+});
 
-  if (key === 'Intro') {
-    return <IntroViewContainer />;
-  }
+const NavigationView = React.createClass({
 
-  /*if (key.indexOf('Color') === 0) {
-    const index = props.scenes.indexOf(props.scene);
+  render() {
     return (
-      <ColorViewContainer
-        index={index}
-      />
-    );
-  }*/
-
-  if (key.indexOf('Feed') === 0) {
-    const index = props.scenes.indexOf(props.scene);
-    return (
-      <FeedViewContainer
-        index={index}
-      />
-    );
-  }
-
-  if (key.indexOf('Favorite') === 0) {
-    const index = props.scenes.indexOf(props.scene);
-    return (
-      <FavoriteViewContainer
-        index={index}
-      />
+      <Router>
+        <Scene key='intro' title='Begin' initial={true}>
+          <Scene key='begin' component={IntroViewContainer} title='Intro'/>
+        </Scene>
+        <Scene key='tabbar'>
+          <Scene key='main'
+            tabs
+            tabBarStyle={styles.tabBarStyle}
+            tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+            >
+            <Scene key='feed' component={FeedViewContainer} title='Counter' icon={TabIcon} />
+            <Scene key='counter' component={CounterViewContainer} title='Feed' initial={true} 
+            icon={TabIcon} />
+            <Scene key='search' component={SearchViewContainer} icon={TabIcon} />
+          </Scene>
+        </Scene>
+      </Router>
     );
   }
+});
 
-  if (key.indexOf('Search') === 0) {
-    const index = props.scenes.indexOf(props.scene);
-    return (
-      <SearchViewContainer
-        index={index}
-      />
-    );
-  }
-
-  if (key.indexOf('Notification') === 0) {
-    const index = props.scenes.indexOf(props.scene);
-    return (
-      <NotificationViewContainer
-        index={index}
-      />
-    );
-  }
-
-  if (key.indexOf('Profile') === 0) {
-    const index = props.scenes.indexOf(props.scene);
-    return (
-      <ProfileViewContainer
-        index={index}
-      />
-    );
-  }
-
-  throw new Error('Unknown navigation key: ' + key);
-}
+export default NavigationView;

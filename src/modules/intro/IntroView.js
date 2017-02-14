@@ -1,62 +1,26 @@
 import React, {PropTypes} from 'react';
+import * as IntroState from './IntroState';
 import {
   Text,
   View,
-  StyleSheet
+  ListView,
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
+import {Actions} from 'react-native-router-flux';
 
-import * as NavigationState from '../../modules/navigation/NavigationState';
-
-const color = () => Math.floor(255 * Math.random());
 
 /**
  * Sample view to demonstrate navigation patterns.
  * @TODO remove this module in a live application.
  */
 const IntroView = React.createClass({
-  propTypes: {
-    index: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired
-  },
 
-  getInitialState() {
-    return {
-      background: `rgba(${color()},${color()},${color()}, 1)`
-    };
-  },
-
-  onNextPress() {
-    this.props.dispatch(NavigationState.pushRoute({
-      key: 'Feed',
-      title: 'Feed Screen'
-    }));
-  },
-
-  onSignInPress() {
-    this.props.dispatch(NavigationState.pushRoute({
-      key: 'Login',
-      title: 'Login Screen'
-    }));
-  },
-  onRegisterPress() {
-    this.props.dispatch(NavigationState.pushRoute({
-      key: 'Register',
-      title: 'Register Screen'
-    }));
-  },
 
   render() {
+
     return (
-      <View style={[styles.container, {backgroundColor: 'red'}]}>
-        <Text onPress={this.onSignInPress}>
-          SIGN IN
-        </Text>
-        <Text onPress={this.onRegisterPress}>
-          BECOME A FAVER
-        </Text>
-        <Text onPress={this.onNextPress}>
-          SKIP THIS STEP FOR NOW
-        </Text>
+      <View style={styles.container}>
       </View>
     );
   }
@@ -65,8 +29,12 @@ const IntroView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    backgroundColor: '#f9f9f9',
+    // justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 50,
     alignItems: 'center'
+    // justifyContent: 'center'
   }
 });
 

@@ -1,5 +1,5 @@
 import * as CounterState from './CounterState';
-import * as NavigationState from '../../modules/navigation/NavigationState';
+// import * as NavigationState from '../../modules/navigation/NavigationState';
 import React, {PropTypes} from 'react';
 import {
   StyleSheet,
@@ -11,10 +11,10 @@ import {
 
 const CounterView = React.createClass({
   propTypes: {
-    counter: PropTypes.number.isRequired,
+    // counter: PropTypes.number.isRequired,
     userName: PropTypes.string,
     userProfilePhoto: PropTypes.string,
-    loading: PropTypes.bool.isRequired,
+    // loading: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired
   },
   increment() {
@@ -55,6 +55,7 @@ const CounterView = React.createClass({
     );
   },
   render() {
+    console.log('IN HERE BITCHES')
     const loadingStyle = this.props.loading
       ? {backgroundColor: '#eee'}
       : null;
