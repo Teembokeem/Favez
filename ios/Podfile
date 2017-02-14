@@ -15,7 +15,3 @@ target 'PepperoniAppTemplate' do
 end
 
 # Auth0 Lock
-
-pod 'Lock/TouchID'
-pod 'Lock/SMS'
-pod 'Lock/Email'
