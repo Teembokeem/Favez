@@ -9,16 +9,14 @@ import {
   View
 } from 'react-native';
 
-function CardHeader({header, increment, track}) {
+function CardHeader({header, increment, track, moving}) {
 
     return (
       <View 
        style={styles.cardHeader}
       >
-          <Text style={[styles.cardHeaderText]}>{header.topic.toUpperCase()}</Text>
+          <Text onPress={moving} style={[styles.cardHeaderText]}>{header.topic.toUpperCase()}</Text>
           <TouchableOpacity
-            onPress={() => increment(track)}
-
           >
               <IoniconIcon style={styles.cardheaderMore} name="ios-more"/>
           </TouchableOpacity>

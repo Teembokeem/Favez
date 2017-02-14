@@ -2,45 +2,24 @@ import React, {PropTypes} from 'react';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
+  Button
 } from 'react-native';
+import {Actions} from 'react-native-router-flux'
 
-// import * as NavigationState from '../../modules/navigation/NavigationState';
-
-const color = () => Math.floor(255 * Math.random());
-
-/**
- * Sample view to demonstrate navigation patterns.
- * @TODO remove this module in a live application.
- */
 const SearchView = React.createClass({
-  propTypes: {
-    index: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired
-  },
+  propTypes: {},
 
-  getInitialState() {
-    return {
-      background: `rgba(${color()},${color()},${color()}, 1)`
-    };
-  },
-
-  onNextPress() {
-    const index = this.props.index;
-    this.props.dispatch(NavigationState.pushRoute({
-      key: `Search_${index + 1}`,
-      title: `Search Screen #${index + 1}`
-    }));
+  back() {
+    Actions.pop()
   },
 
   render() {
-
-    const index = this.props.index;
-    const text = `View #${index}`;
     return (
-      <View style={[styles.container, {backgroundColor: this.state.background}]}>
-        <Text onPress={this.onNextPress}>
-          {text}
+      <View style={styles.container}>
+        <Button onPress={this.back} title='Back'/>
+        <Text>
+          Search
         </Text>
       </View>
     );

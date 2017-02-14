@@ -18,8 +18,8 @@ function Card({card, increment, track, moving}) {
       <View style={[styles.card]}>
           <CardHeader
             header={header}
-            increment={increment}
-           track={track}
+            moving={moving}
+            track={track}
           >
           </CardHeader>
           <CardUser
@@ -30,7 +30,6 @@ function Card({card, increment, track, moving}) {
           <CardBody
            body={body}
            value={value}
-           moving={moving}
           >
           </CardBody>
           <CardActions>

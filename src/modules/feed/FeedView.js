@@ -9,31 +9,18 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 import Card from '../../components/card/card';
+import SearchHeader from '../../components/search/search';
 
-// import * as NavigationState from '../../modules/navigation/NavigationState';
-
-const color = () => Math.floor(255 * Math.random());
-
-/**
- * Sample view to demonstrate navigation patterns.
- * @TODO remove this module in a live application.
- */
 const FeedView = React.createClass({
-  propTypes: {
-    index: PropTypes.number.isRequired,
-    cards: PropTypes.array.isRequired,
-    dispatch: PropTypes.func.isRequired
-  },
+  propTypes: {},
 
   increment(index) {
-    console.log('fook')
-    // Actions.counter({type: 'shit'})
     this.props.dispatch(FeedState.increment(this.props.cards, index)) 
   },
 
   moving() {
     console.log('movinggggg')
-    Actions.counter()
+    Actions.subbar()
   },
 
   render() {
@@ -41,24 +28,25 @@ const FeedView = React.createClass({
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     return (
-      // <View style={[styles.container, {backgroundColor: this.state.background}]}>
-      <ListView 
-        contentContainerStyle={styles.container}
-        dataSource={ds.cloneWithRows(cards)}
-        renderRow={(rowData) => 
-          <Card
-            key={index}
-            card={rowData}
-            track={index}
-            moving={this.moving}
-            increment={this.increment}>
-          </Card>
-        
-        }
-      >
-      </ListView>
+      <View>
+        <SearchHeader />
+        <ListView
+          contentContainerStyle={styles.container}
+          dataSource={ds.cloneWithRows(cards)}
+          renderRow={(rowData) =>
+            <Card
+              key={index}
+              card={rowData}
+              track={index}
+              moving={this.moving}
+              increment={this.increment}>
+            </Card>
+          }
+        >
+        </ListView>
+      </View>
     );
-  },
+  }
 });
 
 const styles = StyleSheet.create({

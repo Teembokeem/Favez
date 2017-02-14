@@ -1,47 +1,23 @@
 import React, {PropTypes} from 'react';
 import {
-  Text,
+  Button,
   View,
   StyleSheet
 } from 'react-native';
+import {Actions} from 'react-native-router-flux'
 
-import * as NavigationState from '../../modules/navigation/NavigationState';
-
-const color = () => Math.floor(255 * Math.random());
-
-/**
- * Sample view to demonstrate navigation patterns.
- * @TODO remove this module in a live application.
- */
 const NotificationView = React.createClass({
-  propTypes: {
-    index: PropTypes.number.isRequired,
-    dispatch: PropTypes.func.isRequired
-  },
+  propTypes: {},
 
-  getInitialState() {
-    return {
-      background: `rgba(${color()},${color()},${color()}, 1)`
-    };
-  },
-
-  onNextPress() {
-    const index = this.props.index;
-    this.props.dispatch(NavigationState.pushRoute({
-      key: `Notification_${index + 1}`,
-      title: `Notification Screen #${index + 1}`
-    }));
+  moveIntro() {
+    Actions.intro()
   },
 
   render() {
-
-    const index = this.props.index;
-    const text = `View #${index}`;
     return (
-      <View style={[styles.container, {backgroundColor: this.state.background}]}>
-        <Text onPress={this.onNextPress}>
-          {text}
-        </Text>
+      <View style={styles.container}>
+        <Button title='Notification' onPress={this.moveIntro}>
+        </Button>
       </View>
     );
   }

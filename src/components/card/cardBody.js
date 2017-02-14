@@ -12,7 +12,7 @@ import {
 
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
-function CardBody({body, value, moving}) {
+function CardBody({body, value}) {
 
     return (
       <View style={[styles.cardBody]}>
@@ -26,7 +26,7 @@ function CardBody({body, value, moving}) {
             style={styles.cardBodySiteTitleContainer}
           >
             <Text 
-            onPress={moving} style={styles.cardBodyScrapedTitle}>{body.title_scraped}</Text>
+            style={styles.cardBodyScrapedTitle}>{body.title_scraped}</Text>
             <Text style={styles.cardBodySiteSemantic}>{body.site_semantic}</Text>
           </View>
       </View>

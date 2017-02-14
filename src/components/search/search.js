@@ -14,8 +14,7 @@ import {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
-function FeedNavHeader() {
-    // const {header, body, value,  user} = card;
+function SearchHeader() {
     return (
       <View style={[styles.feedNavHeader]}>
         <TouchableOpacity
@@ -26,6 +25,7 @@ function FeedNavHeader() {
         <TextInput
             style={styles.headerSearchBar}
             placeholder="SEARCH"
+            placeholderStyle={styles.placeHolder}
         >
              <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
 
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
         width: 240,
         marginLeft: 20,
         marginRight: 20,
-        // paddingLeft: 25,
+        paddingLeft: 5,
         paddingRight: 20,
         backgroundColor: '#f8f8f6',
         alignSelf: 'center',
-        textAlign: 'center',
+        textAlign: 'left',
         justifyContent: 'center',
         borderRadius: 7,
         height: 35,
@@ -87,12 +87,15 @@ const styles = StyleSheet.create({
         height: 24,
         fontSize: 20,
         // position: 'absolute',
-        left: 15,
+        left: 0,
         color: "#a9a9a9",
         alignSelf: 'flex-start',
         margin: 5
     },
+    placeHolder: {
+        marginLeft: 20,
+    }
 
 });
 
-export default FeedNavHeader;
+export default SearchHeader;
