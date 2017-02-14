@@ -32,8 +32,6 @@ const SearchHeader = React.createClass({
             <TouchableOpacity
                 onPress={this.openSearchModal}
                 style={styles.headerSearchBar}
-                placeholder="SEARCH"
-                placeholderStyle={styles.placeHolder}
             >
                 <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
 
@@ -86,11 +84,11 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         backgroundColor: '#f8f8f6',
         alignSelf: 'center',
-        textAlign: 'center',
+        // textAlign: 'center',
         justifyContent: 'center',
         borderRadius: 7,
         height: 35,
-        fontFamily: 'Hind-Medium'
+        // fontFamily: 'Hind-Medium'
     },
     searchBarIcon: {
         height: 24,
