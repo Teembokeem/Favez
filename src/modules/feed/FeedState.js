@@ -1,6 +1,6 @@
 import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 
 // Initial state
 const initialState = fromJS({

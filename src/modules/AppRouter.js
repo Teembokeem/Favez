@@ -32,11 +32,11 @@ const NavigationView = React.createClass({
   render() {
     return (
       <Router>
-        <Scene key='modal' component={Modal} >
+        {/*<Scene key='modal' component={Modal} >*/}
           <Scene key='intro' title='Begin' >
             <Scene key='begin' component={IntroViewContainer} title='Intro' />
           </Scene>
-          <Scene key='tabbar' initial={true}>
+          <Scene key='tabbar' initial={true} >
             <Scene
               key='main'
               tabs
@@ -64,7 +64,7 @@ const NavigationView = React.createClass({
             </Scene>
           </Scene>
           <Scene key='searchModal' component={SearchModalContainer} />
-        </Scene>
+        {/*</Scene>*/}
       </Router>
     );
   }
