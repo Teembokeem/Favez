@@ -14,17 +14,21 @@ import SearchHeader from '../../components/search/search';
 const FeedView = React.createClass({
   propTypes: {},
 
+  componentWillMount() {
+    this.props.dispatch(FeedState.getFullList()) 
+  },
+
   increment(index) {
     this.props.dispatch(FeedState.increment(this.props.cards, index)) 
   },
 
   moving() {
-    console.log('movinggggg')
     Actions.subbar()
   },
 
   render() {
-    const {index, cards} = this.props;
+    const {index, cards, value, loading} = this.props;
+    console.log('is this loading? ', loading)
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     return (
@@ -47,7 +51,7 @@ const FeedView = React.createClass({
       </View>
     );
   }
-});
+})
 
 const styles = StyleSheet.create({
   container: {

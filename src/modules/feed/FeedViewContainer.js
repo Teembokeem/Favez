@@ -7,7 +7,8 @@ export default connect(
   state => {
     return {
       cards: state.getIn(['feed', 'cards']).get('data').toJS(),
-      loading: state.getIn(['feed', 'loading'])
+      loading: state.getIn(['feed', 'loading']),
+      value: state.getIn(['feed', 'value']),
     }
   }
 )(FeedView);

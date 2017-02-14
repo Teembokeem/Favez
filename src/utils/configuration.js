@@ -1,6 +1,10 @@
 import {Map} from 'immutable';
 
-let configuration = Map();
+let configuration = Map(
+  {
+    API_ROOT: 'https://jsonplaceholder.typicode.com',
+  }
+);
 
 export function setConfiguration(name, value) {
   configuration = configuration.set(name, value);

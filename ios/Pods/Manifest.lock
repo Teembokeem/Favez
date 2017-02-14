@@ -14,10 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
-  - Lock (1.28.1):
-    - Lock/Core (= 1.28.1)
-    - Lock/UI (= 1.28.1)
-    - Lock/WebView (= 1.28.1)
   - Lock/Core (1.28.1):
     - AFNetworking (~> 3.0)
   - Lock/CoreUI (1.28.1):
@@ -33,15 +29,12 @@ PODS:
     - TouchIDAuth (~> 0.1)
   - Lock/UI (1.28.1):
     - Lock/CoreUI
-  - Lock/WebView (1.28.1):
-    - Lock/CoreUI
   - Masonry (0.6.4)
   - SimpleKeychain (0.7.0)
   - TouchIDAuth (0.2.0):
     - SimpleKeychain (~> 0.3)
 
 DEPENDENCIES:
-  - Lock (~> 1.26)
   - Lock/Email
   - Lock/SMS
   - Lock/TouchID
@@ -53,6 +46,6 @@ SPEC CHECKSUMS:
   SimpleKeychain: b50cef3b87939d480ea1143425c00f5b4b70fe21
   TouchIDAuth: 0cf861f58a2cacfc1c12cb02de4850729d943c81
 
-PODFILE CHECKSUM: 5a56c6e89b02e01246db73117ba5ad78d3e0bc71
+PODFILE CHECKSUM: 5adddb95d953a8b4996a564f9bec1463410729bf
 
 COCOAPODS: 1.2.0

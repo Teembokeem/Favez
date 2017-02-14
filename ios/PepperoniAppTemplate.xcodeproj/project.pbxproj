@@ -24,7 +24,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		140ED2AC1D01E1AD002B40FF /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		146834051AC3E58100842450 /* ReferenceProxy in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
-		2087DBC0C1AE4D288BE0BBDC /* libA0RNLock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 206BADC7FB5443D98CEF7A05 /* libA0RNLock.a */; };
 		27648C6700C44B239B75658C /* Hind-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1CED90EAE015416CBF4303DE /* Hind-SemiBold.ttf */; };
 		327FF4C28B304A55B8D62433 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CA41E95FC33D41F58BD7A08C /* FontAwesome.ttf */; };
 		37C6BAA99426AB91CBF77101 /* libPods-PepperoniAppTemplateTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51B433FF2BC5BCBBD373BADF /* libPods-PepperoniAppTemplateTests.a */; };
@@ -260,11 +259,9 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PepperoniAppTemplate/main.m; sourceTree = "<group>"; };
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		1CED90EAE015416CBF4303DE /* Hind-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Hind-SemiBold.ttf"; path = "../fonts/Hind-SemiBold.ttf"; sourceTree = "<group>"; };
-		206BADC7FB5443D98CEF7A05 /* libA0RNLock.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = archive.ar; name = libA0RNLock.a; path = libA0RNLock.a; sourceTree = "<group>"; };
 		30F0629252610683D99638B5 /* libPods-PepperoniAppTemplate.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PepperoniAppTemplate.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		335799D0E5C74503BBF387FB /* Hind-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Hind-Light.ttf"; path = "../fonts/Hind-Light.ttf"; sourceTree = "<group>"; };
 		337261EAAB394352AA10F64E /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
-		37E0E3CF904F4CFA927526EB /* A0RNLock.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = A0RNLock.xcodeproj; path = "../node_modules/react-native-lock/ios/A0RNLock.xcodeproj"; sourceTree = "<group>"; };
 		3CF4E3F2378086A3953E90E3 /* Pods-PepperoniAppTemplateTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PepperoniAppTemplateTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PepperoniAppTemplateTests/Pods-PepperoniAppTemplateTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4C08645563A140C5B91033D6 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		51B433FF2BC5BCBBD373BADF /* libPods-PepperoniAppTemplateTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PepperoniAppTemplateTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -314,7 +311,6 @@
 				00C302EA1ABCBA2D00DB3ED1 /* ReferenceProxy in Frameworks */,
 				139FDEF61B0652A700C62182 /* ReferenceProxy in Frameworks */,
 				87E9106C2DDB4EE783D15230 /* libRNVectorIcons.a in Frameworks */,
-				2087DBC0C1AE4D288BE0BBDC /* libA0RNLock.a in Frameworks */,
 				C19024325D490FA9847E85A2 /* libPods-PepperoniAppTemplate.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -511,7 +507,6 @@
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				95436488DB024F0EA5930748 /* RNVectorIcons.xcodeproj */,
-				37E0E3CF904F4CFA927526EB /* A0RNLock.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -1066,8 +1061,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pepperoni.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1086,8 +1079,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.pepperoni.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1107,7 +1098,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 				);
 				INFOPLIST_FILE = PepperoniAppTemplate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1133,7 +1123,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 				);
 				INFOPLIST_FILE = PepperoniAppTemplate/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1191,7 +1180,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1236,7 +1224,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
-					"$(SRCROOT)/../node_modules/react-native-lock/ios/A0RNLock/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

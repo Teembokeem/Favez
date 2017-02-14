@@ -13,7 +13,7 @@ import {Actions} from 'react-native-router-flux';
 const IntroView = React.createClass({
    componentWillMount() {
     console.log('ok')
-          auth0.showLogin();
+          // auth0.showLogin();
      
   },
 
