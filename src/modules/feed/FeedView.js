@@ -43,7 +43,7 @@ const FeedView = React.createClass({
               card={rowData}
               track={index}
               moving={this.moving}
-              increment={this.increment}>
+              increment={this.increment} >
             </Card>
           }
         >

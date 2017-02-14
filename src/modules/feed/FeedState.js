@@ -1,7 +1,7 @@
 import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
-import {getFeedList} from '../../services/feed'
+import {getFeedList} from '../../services/feed';
 
 // Initial state
 const initialState = fromJS({
