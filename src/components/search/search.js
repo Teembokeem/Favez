@@ -1,4 +1,5 @@
 import React from 'react';
+import {Actions} from 'react-native-router-flux'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
@@ -14,30 +15,38 @@ import {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
-function SearchHeader() {
-    return (
-      <View style={[styles.feedNavHeader]}>
-        <TouchableOpacity
-            style={styles.headerLeftButton}
-        >
-             <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
-        </TouchableOpacity>
-        <TextInput
-            style={styles.headerSearchBar}
-            placeholder="SEARCH"
-            placeholderStyle={styles.placeHolder}
-        >
-             <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
+const SearchHeader = React.createClass({
 
-        </TextInput>
-        <TouchableOpacity
-            style={styles.headerRightButton}
-        >
-             <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
-        </TouchableOpacity>
-      </View>
-    );
-};
+    openSearchModal() {
+        Actions.searchModal();
+    },
+
+    render() {
+        return (
+        <View style={[styles.feedNavHeader]}>
+            <TouchableOpacity
+                style={styles.headerLeftButton}
+            >
+                <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
+            </TouchableOpacity>
+            <TouchableOpacity
+                onPress={this.openSearchModal}
+                style={styles.headerSearchBar}
+                placeholder="SEARCH"
+                placeholderStyle={styles.placeHolder}
+            >
+                <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
+
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.headerRightButton}
+            >
+                <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
+            </TouchableOpacity>
+        </View>
+        );
+    }
+});
 
 const styles = StyleSheet.create({
     feedNavHeader: {
@@ -77,7 +86,7 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         backgroundColor: '#f8f8f6',
         alignSelf: 'center',
-        textAlign: 'left',
+        textAlign: 'center',
         justifyContent: 'center',
         borderRadius: 7,
         height: 35,

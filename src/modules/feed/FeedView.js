@@ -28,7 +28,7 @@ const FeedView = React.createClass({
     const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <SearchHeader />
         <ListView
           contentContainerStyle={styles.container}
