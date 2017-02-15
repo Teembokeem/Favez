@@ -2,7 +2,6 @@ import React from 'react';
 // import TabBarButton from '../components/TabBarButton';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
-  NavigationExperimental,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -32,6 +31,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: '#e8e8e8',
     width: 360,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
   },

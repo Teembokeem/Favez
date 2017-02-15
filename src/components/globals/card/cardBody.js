@@ -4,7 +4,6 @@ import React, {PropTypes} from 'react';
 import {
   NavigationExperimental,
   StyleSheet,
-  TouchableOpacity,
   Text,
   Image,
   View
@@ -12,29 +11,31 @@ import {
 
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
-function CardBody({body, value}) {
+function CardBody({body}) {
 
-    return (
-      <View style={[styles.cardBody]}>
-          <Text style={[styles.cardBodyMessage]}>{body.message}</Text>
-          <Image
-            style={styles.cardBodyImage}
-            source={{uri: body.image_scraped}}
-          >
-          </Image>
-          <View
-            style={styles.cardBodySiteTitleContainer}
-          >
-            <Text 
-            style={styles.cardBodyScrapedTitle}>{body.title_scraped}</Text>
-            <Text style={styles.cardBodySiteSemantic}>{body.site_semantic}</Text>
-          </View>
-      </View>
-    );
+  return (
+    <View style={[styles.cardBody]}>
+        <Text style={[styles.cardBodyMessage]}>{body.message}</Text>
+        <Image
+          style={styles.cardBodyImage}
+          source={{uri: body.image_scraped}}
+        >
+        </Image>
+        <View
+          style={styles.cardBodySiteTitleContainer}
+        >
+          <Text
+          style={styles.cardBodyScrapedTitle}>{body.title_scraped}</Text>
+          <Text style={styles.cardBodySiteSemantic}>{body.site_semantic}</Text>
+        </View>
+    </View>
+  );
   };
 
 const styles = StyleSheet.create({
   cardBody: {
+    flex: 1,
+    // height: 1000,
     paddingTop: 15,
     paddingRight: 7,
     paddingLeft: 7
@@ -47,7 +48,8 @@ const styles = StyleSheet.create({
   cardBodyImage: {
     width: 340,
     height: 150,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    flexGrow: 1
   },
   cardBodySiteTitleContainer: {
     height: 70,
@@ -77,8 +79,8 @@ const styles = StyleSheet.create({
   },
 
   hello: {
-          textAlign: 'center'
-  },
+    textAlign: 'center'
+  }
 });
 
 export default CardBody;

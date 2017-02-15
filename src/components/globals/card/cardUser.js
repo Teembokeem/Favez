@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 // import TabBarButton from '../components/TabBarButton';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
-  NavigationExperimental,
   StyleSheet,
   TouchableOpacity,
   Text,
@@ -11,25 +10,26 @@ import {
 } from 'react-native';
 
 function CardUser({user, time}) {
-  console.log("tiume", time)
-    return (
-        <View style={[styles.cardUserContainer]}>
-            <Image source={{uri: user.picture}} style={[styles.cardUserImage]} />
-            <View
-              style={styles.cardUserInfoColumn}>
-              <Text style={[styles.cardUserName]}>{user.username}</Text>
-              <Text style={styles.cardUserAgo}>{time}</Text>
-            </View>
-            <TouchableOpacity>
-              <IoniconIcon style={styles.cardUserSubscribe} name="md-person-add"/>
-            </TouchableOpacity>
-        </View>
-    );
+  console.log('tiume', time);
+  return (
+      <View style={[styles.cardUserContainer]}>
+          <Image source={{uri: user.picture}} style={[styles.cardUserImage]} />
+          <View
+            style={styles.cardUserInfoColumn}>
+            <Text style={[styles.cardUserName]}>{user.username}</Text>
+            <Text style={styles.cardUserAgo}>{time}</Text>
+          </View>
+          <TouchableOpacity>
+            <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
+          </TouchableOpacity>
+      </View>
+  );
 };
 
 const styles = StyleSheet.create({
   cardUserContainer: {
     padding: 7,
+    flex: 1,
     paddingRight: 14,
     flexDirection: 'row',
     borderBottomWidth: 2,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     bottom: 4
   },
   cardUserSubscribe: {
-    fontSize: 25,
+    fontSize: 25
   }
 });
 
