@@ -30,6 +30,7 @@
     "preset": "react-native"
   },
   "dependencies": {
+    "auth0-js": "^8.2.0",
     "bluebird": "^3.3.5",
     "es6-symbol": "^3.0.2",
     "event-emitter": "^0.3.4",
