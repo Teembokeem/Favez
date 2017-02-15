@@ -1,26 +1,46 @@
 import React, {PropTypes} from 'react';
 import {
-  Text,
   View,
+  ScrollView,
   StyleSheet,
-  Button
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
+
+import SearchHeader from '../../components/search/searchHeader/searchHeader';
+import Header from '../../components/globals/header/header';
+import LocationSpecifier from '../../components/search/locationSpecifier/locationSpecifier';
+import Category from '../../components/search/category/category';
 
 const SearchView = React.createClass({
   propTypes: {},
 
   back() {
-    Actions.pop()
+    Actions.pop();
   },
 
   render() {
+    const {index, categories} = this.props;
+
     return (
       <View style={styles.container}>
-        <Button onPress={this.back} title='Back'/>
-        <Text>
-          Search
-        </Text>
+
+        <ScrollView
+          contentContainerStyle={styles.container}
+        >
+          <SearchHeader />
+          <Header
+            title={'Topics'} />
+          <LocationSpecifier
+          />
+          {categories.map((category, idx) => (
+            <Category
+              key={'category' + idx}
+              category={category}
+              track={index}
+              moving={this.moving}
+            />
+          ))}
+        </ScrollView>
       </View>
     );
   }
@@ -28,8 +48,9 @@ const SearchView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
+    // flex: 1,
+    marginBottom: 50,
+    justifyContent: 'flex-start',
     alignItems: 'center'
   }
 });

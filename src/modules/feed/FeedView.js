@@ -3,13 +3,13 @@ import * as FeedState from './FeedState';
 import {
   Text,
   View,
-  ListView,
+  ScrollView,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import Card from '../../components/card/card';
-import SearchHeader from '../../components/search/search';
+import Card from '../../components/globals/card/card';
+import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 
 const FeedView = React.createClass({
   propTypes: {},
@@ -19,35 +19,33 @@ const FeedView = React.createClass({
   },
 
   increment(index) {
-    this.props.dispatch(FeedState.increment(this.props.cards, index)) 
+    this.props.dispatch(FeedState.increment(this.props.cards, index));
   },
 
   moving() {
-    Actions.subbar()
+    console.log('movinggggg');
+    Actions.subbar();
   },
 
   render() {
-    const {index, cards, value, loading} = this.props;
-    console.log('is this loading? ', loading)
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
+    const {index, cards} = this.props;
+    // const ds = this.state.dataSource;
     return (
       <View style={{flex: 1}}>
-        <SearchHeader />
-        <ListView
+        <FeedHeader />
+        <ScrollView
           contentContainerStyle={styles.container}
-          dataSource={ds.cloneWithRows(cards)}
-          renderRow={(rowData) =>
-            <Card
-              key={index}
-              card={rowData}
+        >
+        {cards.map((card, idx) => (
+          <Card
+              key={'feed ' + idx}
+              card={card}
               track={index}
               moving={this.moving}
-              increment={this.increment} >
-            </Card>
-          }
-        >
-        </ListView>
+              increment={this.increment}
+          />
+        ))}
+        </ ScrollView>
       </View>
     );
   }
@@ -55,9 +53,10 @@ const FeedView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flexGrow: 1,
     backgroundColor: '#f9f9f9',
     // justifyContent: 'center',
+    // height: 1000,
     paddingTop: 20,
     paddingBottom: 50,
     alignItems: 'center'

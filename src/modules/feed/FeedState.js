@@ -28,11 +28,11 @@ const initialState = fromJS({
     {
       value: 0,
       header: {
-        topic: 'Travel Stuff',
+        topic: 'Travel Stuff'
       },
       user: {
         picture: 'http://ionicframework.com/img/ionic-logo-blog.png',
-        username: '@ionic',
+        username: '@ionic'
       },
       timeAgo: '30 Minutes Ago',
       body: {
@@ -57,7 +57,7 @@ const FEED_RESPONSE = 'FeedState/FEED_RESPONSE';
 
 // Action creators
 export function increment(cards, index) {
-  Actions.intro()
+  Actions.intro();
   return {type: INCREMENT, item: cards, payload: index};
 }
 

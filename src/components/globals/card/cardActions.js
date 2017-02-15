@@ -2,12 +2,9 @@ import React from 'react';
 // import TabBarButton from '../components/TabBarButton';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
-import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
   NavigationExperimental,
   StyleSheet,
-  TouchableOpacity,
-  Text,
   View
 } from 'react-native';
 
@@ -27,9 +24,9 @@ const CardActions = React.createClass({
       <View
         style={styles.cardActionContainer}
       >
-        <EntypoIcon style={styles.cardActionLeft} name="share"/>
-        <FontAwesomeIcon style={styles.cardActionMiddle} name="heart"/>
-        <FontAwesomeIcon style={styles.cardActionRight} name="thumbs-up"/>
+        <EntypoIcon style={styles.cardActionLeft} name='share'/>
+        <FontAwesomeIcon style={styles.cardActionMiddle} name='heart'/>
+        <FontAwesomeIcon style={styles.cardActionRight} name='thumbs-up'/>
       </View>
     );
   }
@@ -38,6 +35,7 @@ const CardActions = React.createClass({
 const styles = StyleSheet.create({
   cardActionContainer: {
     height: 50,
+    flex: 1,
     paddingTop: 20,
     width: 360,
     flexDirection: 'row',
@@ -72,8 +70,8 @@ const styles = StyleSheet.create({
     color: '#b8b8b8'
   },
   hello: {
-          textAlign: 'center'
-  },
+    textAlign: 'center'
+  }
 });
 
 export default CardActions;
