@@ -3,6 +3,7 @@ import {loop, combineReducers} from 'redux-loop';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 // import CounterStateReducer from '../modules/counter/CounterState';
 import FeedStateReducer from '../modules/feed/FeedState';
+import SearchStateReducer from '../modules/search/SearchState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
 
 const reducers = {
@@ -10,6 +11,7 @@ const reducers = {
   // counter: CounterStateReducer,
 
   feed: FeedStateReducer,
+  search: SearchStateReducer,
 
   // @NOTE: By convention, the navigation state must live in a subtree called
   //`navigationState`
