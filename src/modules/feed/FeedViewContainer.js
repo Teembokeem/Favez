@@ -8,6 +8,6 @@ export default connect(
     return {
       cards: state.getIn(['feed', 'cards']).get('data').toJS(),
       loading: state.getIn(['feed', 'loading'])
-    }
+    };
   }
 )(FeedView);
