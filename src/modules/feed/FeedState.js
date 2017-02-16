@@ -8,12 +8,26 @@ const initialState = fromJS({
     index: 0,
     data: [{
       value: 0,
-      header: {
-        topic: 'Archeology Stuff',
+      list: {
+        creator: {
+          username: 'pewdiepie',
+          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+        },
+        collaborators: [
+        ],
+        name: 'Archeology Stuff',
+        picture: 'https://firstfloorcherry.files.wordpress.com/2016/11/vsco-photo-4.jpg?w=636&h=424&crop=1',
+        topics: [
+          'gaming'
+        ],
+        tags: [
+          'horror',
+          'noooooo'
+        ]
       },
-      user: {
-        picture: 'https://facebook.github.io/react/img/logo_og.png',
-        username: '@react',
+      author: {
+        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+        username: 'react'
       },
       timeAgo: '12 Minutes Ago',
       body: {
@@ -26,20 +40,34 @@ const initialState = fromJS({
     },
     {
       value: 0,
-      header: {
-        topic: 'Travel Stuff'
+      list: {
+        creator: {
+          username: 'pewdiepie',
+          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+        },
+        collaborators: [
+        ],
+        name: 'Classic Horror Game text text',
+        picture: 'https://lh3.googleusercontent.com/-45wPZp5uAdxXj6JAoFgfoVkVRxrQ8ugxUCQjknRdUozgMSCIxQG-Wn6nK5RBbfE7Q=h900',
+        topics: [
+          'gaming'
+        ],
+        tags: [
+          'horror',
+          'noooooo'
+        ]
       },
-      user: {
-        picture: 'http://ionicframework.com/img/ionic-logo-blog.png',
-        username: '@ionic'
+      author: {
+        username: 'pewdiepie',
+        avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
       },
-      timeAgo: '30 Minutes Ago',
+      timeAgo: '9 hours ago',
       body: {
-        message: 'TOKYOOOOOOOOO',
-        site_semantic: 'reddit.com',
+        message: '',
+        site_semantic: 'amazon.com',
         uri: '',
-        title_scraped: 'Tokyo, a magical trip across the sea',
-        image_scraped: 'https://ecs7.tokopedia.net/img/product-1/2016/6/13/6152631/6152631_e9cb4b91-da5d-4610-b758-6c738546baf3.jpg'
+        title_scraped: 'Amnesia: The Dark Descent',
+        image_scraped: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Amnesia-The-Dark-Descent-Cover-Art.png/250px-Amnesia-The-Dark-Descent-Cover-Art.png'
       }
     }
     ]
