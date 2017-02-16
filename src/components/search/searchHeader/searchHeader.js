@@ -13,7 +13,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 25 : 0;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
 const SearchHeader = React.createClass({
 
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     // borderBottomColor: 'rgba(0, 0, 0, .15)',
     // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
     elevation: 4,
+    flex: 1,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingTop: STATUSBAR_HEIGHT,
-    height: APPBAR_HEIGHT
+    // height: APPBAR_HEIGHT
   },
   headerSearchBar: {
     width: 340,

@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     width: 375,
     justifyContent: 'flex-start',
     padding: 20,
-    paddingBottom: 30,
-    paddingTop: 30,
+    paddingTop: 10,
     borderBottomWidth: 1,
     borderColor: '#efefef'
   },

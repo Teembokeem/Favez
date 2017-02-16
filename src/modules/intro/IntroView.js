@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import * as IntroState from './IntroState';
-import {showLogin} from '../../services/auth0';
+// import {showLogin} from '../../../services/auth0';
 import {
   Text,
   View,
