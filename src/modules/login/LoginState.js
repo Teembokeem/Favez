@@ -4,6 +4,10 @@ import {Actions} from 'react-native-router-flux';
 
 // Initial state
 const initialState = fromJS({
+  user: {
+    email: '',
+    password: '',
+  },
   value: 0,
   loading: false
 });
@@ -21,7 +25,6 @@ export default function LoginStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
       return state
-
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import * as RegisterState from './RegisterState';
-import {showLogin} from '../../services/auth0';
+import HeaderBack from '../../components/globals/headerBack/headerBack';
+import Register from '../../components/register/register';
+
 import {
   Text,
   View,
@@ -11,17 +13,16 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 const RegisterView = React.createClass({
-   componentWillMount() {
-    console.log('ok')
-    showLogin();
-     
+
+  back() {
+    Actions.pop()
   },
 
   render() {
-
     return (
-      <View style={styles.container}>
-        
+      <View style={styles.container} >
+        <HeaderBack back={this.back} />
+        <Register />
       </View>
     );
   }

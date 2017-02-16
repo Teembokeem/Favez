@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import * as LoginState from './LoginState';
-import HeaderBack from '../../components/headerBack/headerBack';
+import HeaderBack from '../../components/globals/headerBack/headerBack';
+import Login from '../../components/login/login';
 import {
   Text,
   View,
@@ -17,9 +18,14 @@ const LoginView = React.createClass({
   },
 
   render() {
+    const {user} = this.props
+    console.log('this is user', user)
     return (
       <View style={styles.container} >
         <HeaderBack back={this.back} />
+        {/*<Login
+          user={user}
+        />*/}
       </View>
     );
   }
