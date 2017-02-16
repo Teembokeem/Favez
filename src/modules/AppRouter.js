@@ -13,7 +13,6 @@ import NotificationViewContainer from './notification/NotificationViewContainer'
 import ProfileViewContainer from './profile/ProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
-
 import SearchModalContainer from './modals/SearchModalContainer';
 
 
