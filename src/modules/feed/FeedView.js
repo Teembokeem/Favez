@@ -50,7 +50,7 @@ const FeedView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     // flexGrow: 1,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: '#e9e9e9',
     // justifyContent: 'center',
     // height: 1000,
     paddingTop: 20,
