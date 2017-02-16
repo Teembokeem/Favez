@@ -1,6 +1,7 @@
 import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
+import {getFeedList} from '../../services/feed';
 
 // Initial state
 const initialState = fromJS({
@@ -72,12 +73,15 @@ const initialState = fromJS({
     }
     ]
   },
-  value: 0,
-  loading: false
+  value: [],
+  loading: true,
 });
 
 // Actions
 const INCREMENT = 'FeedState/INCREMENT';
+const FEED_REQUEST = 'FeedState/FEED_REQUEST';
+const FEED_LIST = 'FeedState/FEED_LIST';
+const FEED_RESPONSE = 'FeedState/FEED_RESPONSE';
 
 // Action creators
 export function increment(cards, index) {
@@ -85,14 +89,32 @@ export function increment(cards, index) {
   return {type: INCREMENT, item: cards, payload: index};
 }
 
+export async function getFullList() {
+  return {
+    type: FEED_REQUEST,
+    payload: getListResponse,
+  };
+}
+
+export async function getListResponse() {
+  return {
+    type: FEED_RESPONSE,
+    payload: await getFeedList(),
+  };
+}
+
 // Reducer
 export default function FeedStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case INCREMENT:
-      const cards = state.get('cards');
-      const mapValue = cards.getIn(['data', action.payload, 'value']);
-      const newValue = mapValue + 1;  
-      return state.setIn(['cards', 'data', action.payload, 'value'], newValue);
+    case FEED_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(action.payload)
+      );
+    case FEED_RESPONSE:
+      return state
+        .set('loading', false)
+        .set('value', action.payload);
 
     default:
       return state;

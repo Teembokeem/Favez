@@ -14,6 +14,10 @@ import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 const FeedView = React.createClass({
   propTypes: {},
 
+  componentWillMount() {
+    this.props.dispatch(FeedState.getFullList()) 
+  },
+
   increment(index) {
     this.props.dispatch(FeedState.increment(this.props.cards, index));
   },
@@ -45,7 +49,7 @@ const FeedView = React.createClass({
       </View>
     );
   }
-});
+})
 
 const styles = StyleSheet.create({
   container: {

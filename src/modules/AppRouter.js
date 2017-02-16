@@ -11,6 +11,8 @@ import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
 import ProfileViewContainer from './profile/ProfileViewContainer';
+import LoginViewContainer from './login/LoginViewContainer';
+import RegisterViewContainer from './register/RegisterViewContainer';
 
 import SearchModalContainer from './modals/SearchModalContainer';
 
@@ -33,10 +35,12 @@ const NavigationView = React.createClass({
     return (
       <Router>
         {/*<Scene key='modal' component={Modal} >*/}
-          <Scene key='intro' title='Begin' >
-            <Scene key='begin' component={IntroViewContainer} title='Intro' />
+          <Scene key='intro' title='Begin'>
+            <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
+            <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
+            <Scene key='register' component={RegisterViewContainer} title='Regiser' hideNavBar />
           </Scene>
-          <Scene key='tabbar' initial={true} >
+          <Scene key='tabbar' initial={true}>
             <Scene
               key='main'
               tabs
