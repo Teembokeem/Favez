@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     paddingTop: STATUSBAR_HEIGHT,
-    height: APPBAR_HEIGHT + STATUSBAR_HEIGHT
+    height: APPBAR_HEIGHT
   },
   flex1: {
     height: 35,
