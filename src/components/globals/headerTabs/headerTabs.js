@@ -4,11 +4,12 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
+  TouchableOpacity,
   View
 } from 'react-native';
 
-function HeaderTabs({selected, tabs}) {
-  console.log("yoooooo vars", selected, tabs)
+function HeaderTabs({selected, tabs, setFilter}) {
+  console.log("yoooooo vars", selected)
   return (
     <View style={[styles.HeaderTabs]}>
       {tabs.map((tab, index) => {
@@ -17,11 +18,15 @@ function HeaderTabs({selected, tabs}) {
             style={styles.container}
             key={'tab ' + index}
           >
-            <Text
-              style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
+            <TouchableOpacity
+                onPress={() => setFilter(tab)}
             >
-            {tab.toUpperCase()}
-            </ Text>
+              <Text
+                style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
+              >
+              {tab.toUpperCase()}
+              </ Text>
+            </TouchableOpacity>
           </ View>
         );
       })}
