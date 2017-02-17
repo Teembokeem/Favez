@@ -1,16 +1,6 @@
 import {connect} from 'react-redux';
 import ProfileView from './ProfileView';
 
-
-function findSubset(state, subSetType) {
-  switch (subSetType) {
-    case 'lists':
-      return state.getIn(['profile', 'user', 'data']).toJS().username;
-    default:
-      return null;
-  }
-}
-
 export default connect(
   state => {
     const filteredLists = state.getIn(['profile', 'lists']).get('data').toJS().filter((list) => {
