@@ -6,14 +6,16 @@ export default connect(
     const filteredLists = state.getIn(['profile', 'lists']).get('data').toJS().filter((list) => {
       if (state.getIn(['profile', 'selected']) === 'lists') {
         return state.getIn(['profile', 'user', 'data']).toJS().username === list.creator.name;
+      } else if (state.getIn(['profile', 'selected']) === 'collabs') {
+        return state.getIn(['profile', 'user', 'data']).toJS().username !== list.creator.name && list.collaborators.indexOf(state.getIn(['profile', 'user', 'data']).toJS().username) > -1;
       } else {
-        return state.getIn(['profile', 'user', 'data']).toJS().username !== list.creator.name;
+        return state.getIn(['profile', 'user', 'data']).toJS().username !== list.creator.name && list.collaborators.indexOf(state.getIn(['profile', 'user', 'data']).toJS().username) === -1;
       }
     });
     return {
       user: state.getIn(['profile', 'user', 'data']).toJS(),
       lists: filteredLists,
-      faves: state.getIn(['profile', 'faves']).get('data').toJS(),
+      favez: state.getIn(['profile', 'favez']).get('data').toJS(),
       selected: state.getIn(['profile', 'selected']),
       loading: state.getIn(['profile', 'loading'])
     };
