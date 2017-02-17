@@ -55,7 +55,9 @@ const ProfileView = React.createClass({
             selected={selectedTab}
             tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}
           />
-          {child}
+          <View style={styles.contentContainer}>
+            {child}
+          </View>
         </ScrollView>
       </View>
     );
@@ -65,6 +67,10 @@ const ProfileView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  contentContainer: {
     justifyContent: 'center',
     alignItems: 'center'
   }
