@@ -1,23 +1,48 @@
 import React, {PropTypes} from 'react';
+import * as NotificationState from './NotificationState';
 import {
-  Button,
   View,
+  ScrollView,
   StyleSheet
 } from 'react-native';
-import {Actions} from 'react-native-router-flux'
+import {Actions} from 'react-native-router-flux';
+
+import NotificationHeader from '../../components/notification/notificationHeader/notificationHeader';
+import Header from '../../components/globals/header/Header';
+import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
+import Notification from '../../components/notification/notification/notification';
 
 const NotificationView = React.createClass({
   propTypes: {},
 
   moveIntro() {
-    Actions.intro()
+    Actions.intro();
+  },
+
+  setFilter(val) {
+    this.props.dispatch(NotificationState.setFilter(val));
   },
 
   render() {
+    const {notifications, selected} = this.props;
     return (
       <View style={styles.container}>
-        <Button title='Notification' onPress={this.moveIntro}>
-        </Button>
+        <NotificationHeader />
+        <Header title={'Notifications'}/>
+        <HeaderTabs
+          setFilter={this.setFilter}
+          selected={selected}
+          tabs={['alerts', 'invitations']}/>
+        <ScrollView
+          contentContainerStyle={styles.contentContainer}
+        >
+          {notifications.map((notification, index) => (
+            <Notification
+              key={'notification ' + index}
+              notification={notification}
+            />
+          ))}
+        </ScrollView>
       </View>
     );
   }
@@ -26,8 +51,8 @@ const NotificationView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'flex-start',
+    // alignItems: 'flex-end'
   }
 });
 
