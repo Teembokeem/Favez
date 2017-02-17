@@ -4,87 +4,127 @@ import {
   StyleSheet,
   View,
   Text,
+  Image,
   TouchableOpacity
 } from 'react-native';
 
-const ProfileSummary = React.createClass({
-
-  openFavoriteModal() {
-    Actions.FavoriteModal();
-  },
-
-  render() {
-    return (
-    <View style={styles.ProfileSummaryContainer}>
-        <View
-          style={styles.ProfileSummaryRow1}
+function ProfileSummary({user}) {
+  const {name, username, followers, following, caption, avatar} = user;
+  return (
+  <View style={styles.ProfileSummaryContainer}>
+      <View
+        style={styles.ProfileSummaryRow1}
+      >
+        <TouchableOpacity
+            style={styles.ProfileSummaryRow1LeftContent}
         >
-          <TouchableOpacity
-              style={styles.ProfileSummaryRow1LeftContent}
-          >
-            <Text></Text>
-            <Text></Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.ProfileSummaryRow1Avatar}
-          >
-            {/*<Image source={{uri: }}/>*/}
-          </TouchableOpacity>
-          <TouchableOpacity
-              style={styles.ProfileSummaryRow1RightContent}
-          >
-            <Text></Text>
-            <Text></Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.ProfileSummaryRow2}>
-          <Text></Text>
-          <Text></Text>
-          <View></View>
-          <Text></Text>
-        </View>
-    </View>
-    );
-  }
-});
+          <Text style={styles.ProfileSummaryRow1LeftNum}>{followers.length.toString()}</Text>
+          <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.ProfileSummaryRow1CenterContent}
+        >
+          <Image style={styles.ProfileSummaryRow1Avatar} source={{uri: avatar}}/>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.ProfileSummaryRow1RightContent}
+        >
+          <Text style={styles.ProfileSummaryRow1RightNum}>{following.length.toString()}</Text>
+          <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.ProfileSummaryRow2}>
+        <Text style={styles.ProfileSummaryRow2Username}>{'@' + username}</Text>
+        <Text style={styles.ProfileSummaryRow2Name}>{name.first + ' ' + name.last + '.'}</Text>
+        <View style={styles.ProfileSummaryRow2Bar}></View>
+        <Text style={styles.ProfileSummaryRow2Caption}>{caption}</Text>
+      </View>
+  </View>
+  );
+}
 
 const styles = StyleSheet.create({
   ProfileSummaryContainer: {
     // alignItems: 'center',
     // borderBottomColor: 'rgba(0, 0, 0, .15)',
     // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
-    elevation: 4,
-    // flex: 1,
+    // elevation: 4,
+    // // flex: 1,
+    // width: 375,
+    // flexDirection: 'row',
+    // justifyContent: 'flex-start',
+  },
+  ProfileSummaryRow1: {
+    flex: 1,
     width: 375,
+    padding: 10,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  flex1: {
-    height: 35,
+  ProfileSummaryRow1LeftContent: {
     flex: 1,
-    paddingLeft: 20
+    flexDirection: 'column',
+    alignItems: 'center'
   },
-  headerLeftButtonIcon: {
-    width: 35,
-    fontSize: 30,
-    color: '#000000',
-    alignSelf: 'flex-start'
+  ProfileSummaryRow1LeftNum: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 15,
+    height: 17
   },
-  flex2: {
+  ProfileSummaryRow1LeftText: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 15
+  },
+  ProfileSummaryRow1CenterContent: {
     flex: 1,
-    paddingRight: 20
+    padding: 15,
+    alignItems: 'center'
   },
-  headerRightButtonIcon: {
-    height: 35,
-    width: 35,
-    fontSize: 25,
-    // top: 30,
-    // margin: 10,
-    color: '#000000',
-    alignSelf: 'flex-end'
+  ProfileSummaryRow1Avatar: {
+    width: 90,
+    height: 90,
+    borderRadius: 45
   },
-  placeHolder: {
-    marginLeft: 20
+  ProfileSummaryRow1RightContent: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  ProfileSummaryRow1RightNum: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 15,
+    height: 17
+  },
+  ProfileSummaryRow1RightText: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 15
+  },
+  ProfileSummaryRow2: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  ProfileSummaryRow2Username: {
+    fontSize: 20,
+    fontFamily: 'Hind-Bold',
+    height: 25
+  },
+  ProfileSummaryRow2Name: {
+    fontSize: 14,
+    fontFamily: 'Hind-Bold'
+  },
+  ProfileSummaryRow2Bar: {
+    width: 50,
+    marginTop: 10,
+    height: 7,
+    backgroundColor: '#f1f1f1'
+  },
+  ProfileSummaryRow2Caption: {
+    marginTop: 10,
+    fontFamily: 'Hind-Regular',
+    fontSize: 14,
+    color: '#b8b8b8'
   }
 
 });
