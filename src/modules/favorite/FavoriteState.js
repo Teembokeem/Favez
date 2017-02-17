@@ -1,4 +1,4 @@
-import {Map, fromJS} from 'immutable';
+import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
 
@@ -65,7 +65,7 @@ const initialState = fromJS({
       {
         creator: {
           name: 'h3h3',
-          avatar: '../../../images/h3h3.png'
+          avatar: 'http://hipsters.com/uploads/cache/pins/2012/09/5066ae09a5b5e-194x.jpg'
         },
         collaborators: [
           'greenmario',
@@ -125,6 +125,7 @@ const initialState = fromJS({
 
 // Actions
 const INCREMENT = 'FavoriteState/INCREMENT';
+const SETFILTER = 'FavoriteState/SETFILTER';
 
 // Action creators
 export function increment(cards, index) {
@@ -132,12 +133,18 @@ export function increment(cards, index) {
   return {type: INCREMENT, item: cards, payload: index};
 }
 
+export function setFilter(value) {
+  return {type: SETFILTER, payload: value};
+}
+
 // Reducer
 export default function FavoriteStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
       return state;
-
+    case SETFILTER:
+      return state
+        .set('selected', action.payload);
     default:
       return state;
   }
