@@ -12,12 +12,15 @@ import FavoriteHeader from '../../components/favorite/favoriteHeader/favoriteHea
 import Header from '../../components/globals/header/Header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import List from '../../components/globals/list/list';
+import Card from '../../components/globals/card/card';
 
 const FavoriteView = React.createClass({
   propTypes: {},
   renderChildren() {
     switch (this.props.selected) {
       case 'your lists':
+      case 'collabs':
+        console.log(this.props.selected)
         return (
           this.props.lists.map((list, index) => (
               <List
@@ -25,6 +28,18 @@ const FavoriteView = React.createClass({
                 key={'list ' + index}
               >
               </List>
+          ))
+        );
+      case 'liked':
+        return (
+          this.props.favez.map((fave, index) => (
+              <Card
+                key={'fave ' + index}
+                card={fave}
+                track={index}
+                moving={this.moving}
+                increment={this.increment}
+            />
           ))
         );
       default :
