@@ -5,13 +5,17 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  ScrollView
 } from 'react-native';
 
 function HeaderTabs({selected, tabs, setFilter}) {
   console.log("yoooooo vars", selected)
   return (
-    <View style={[styles.HeaderTabs]}>
+    <ScrollView
+      contentContainerStyle={[styles.HeaderTabs]}
+      directionalLockEnabled={true}
+    >
       {tabs.map((tab, index) => {
         return (
           <View
@@ -30,13 +34,13 @@ function HeaderTabs({selected, tabs, setFilter}) {
           </ View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   HeaderTabs: {
-    width: 375,
+    // width: 600,
     padding: 6,
     borderBottomWidth: 1,
     flexDirection: 'row',
@@ -49,6 +53,7 @@ const styles = StyleSheet.create({
   HeaderTabsTab: {
     fontFamily: 'Hind-Bold',
     fontSize: 18,
+    // width: 200
     // paddingBottom: 5
   },
   HeaderTabsSeparator: {
