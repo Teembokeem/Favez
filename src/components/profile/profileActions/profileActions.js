@@ -1,5 +1,7 @@
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
+import EvilIcon from 'react-native-vector-icons/EvilIcons';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {
   StyleSheet,
   View,
@@ -14,15 +16,16 @@ const ProfileActions = React.createClass({
   },
 
   render() {
+    const self = this.props.self;
     return (
     <View style={styles.ProfileActionsContainer}>
         <TouchableOpacity style={styles.ProfileActionsButton1}>
-          <Text>{'icon here'}</Text>
-          <Text></Text>
+          <EvilIcon style={styles.ProfileActionsButton1Icon} name='pencil' />
+          <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : 'FOLLOW'}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.ProfileActionsButton2}>
-          <Text>{'icon here'}</Text>
-          <Text></Text>
+          <FAIcon style={styles.ProfileActionsButton2Icon} name='address-book-o' />
+          <Text style={styles.ProfileActionsButton2Text}>{self ? ' INVITE FRIENDS' : 'INVITE TO COLLAB'}</Text>
         </TouchableOpacity>
     </View>
     );
@@ -37,35 +40,49 @@ const styles = StyleSheet.create({
     elevation: 4,
     // flex: 1,
     width: 375,
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  ProfileActionsButton1: {
+    flex: 1,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: 250,
+    justifyContent: 'center',
+    padding: 5,
+    borderRadius: 7,
+    marginTop: 10,
+    backgroundColor: '#0076ff'
   },
-  flex1: {
-    height: 35,
-    flex: 1,
-    paddingLeft: 20
-  },
-  headerLeftButtonIcon: {
-    width: 35,
+  ProfileActionsButton1Icon: {
     fontSize: 30,
-    color: '#000000',
-    alignSelf: 'flex-start'
+    color: 'white'
   },
-  flex2: {
+  ProfileActionsButton1Text: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 14,
+    color: 'white'
+  },
+  ProfileActionsButton2: {
     flex: 1,
-    paddingRight: 20
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: 250,
+    justifyContent: 'center',
+    padding: 5,
+    borderRadius: 7,
+    marginTop: 10,
+    backgroundColor: 'black'
   },
-  headerRightButtonIcon: {
-    height: 35,
-    width: 35,
-    fontSize: 25,
-    // top: 30,
-    // margin: 10,
-    color: '#000000',
-    alignSelf: 'flex-end'
+  ProfileActionsButton2Icon: {
+    fontSize: 20,
+    color: 'white'
   },
-  placeHolder: {
-    marginLeft: 20
+  ProfileActionsButton2Text: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 14,
+    color: 'white'
   }
 
 });
