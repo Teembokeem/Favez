@@ -4,6 +4,82 @@ import { Actions } from 'react-native-router-flux';
 
 // Initial state
 const initialState = fromJS({
+  user: {
+    index: 0,
+    data: {
+      name: {
+        first: 'Luigi',
+        last: 'M'
+      },
+      username: 'greenmario',
+      followers: [
+        {
+          ref: 'follower_1'
+        },
+        {
+          ref: 'follower_2'
+        },
+        {
+          ref: 'follower_3'
+        },
+        {
+          ref: 'follower_4'
+        },
+        {
+          ref: 'follower_5'
+        },
+        {
+          ref: 'follower_6'
+        },
+        {
+          ref: 'follower_7'
+        },
+        {
+          ref: 'follower_8'
+        },
+        {
+          ref: 'follower_9'
+        },
+        {
+          ref: 'follower_10'
+        }
+      ],
+      following: [
+        {
+          ref: 'following_1'
+        },
+        {
+          ref: 'following_2'
+        },
+        {
+          ref: 'following_3'
+        },
+        {
+          ref: 'following_4'
+        },
+        {
+          ref: 'following_5'
+        },
+        {
+          ref: 'following_6'
+        },
+        {
+          ref: 'following_7'
+        },
+        {
+          ref: 'following_8'
+        },
+        {
+          ref: 'following_9'
+        },
+        {
+          ref: 'following_10'
+        }
+      ],
+      caption: 'It\s a-me, Luigi <3',
+      avatar: 'https://s-media-cache-ak0.pinimg.com/736x/77/0f/67/770f67e11fdcbf0a31bed432420ceda0.jpg'
+    }
+  },
   lists: {
     index: 0,
     data: [
@@ -83,39 +159,72 @@ const initialState = fromJS({
       }
     ]
   },
-  faves: {
+  favez: {
     index: 0,
-    data: [
-      {
-        list: {
-          creator: {
-            username: 'pewdiepie',
-            avatar: '../../../images/pewdiepie.png'
-          },
-          collaborators: [
-          ],
-          name: 'Classic Horror Game text text',
-          topics: [
-            'gaming'
-          ],
-          tags: [
-            'horror',
-            'noooooo'
-          ]
+    data: [{
+      value: 0,
+      list: {
+        creator: {
+          username: 'pewdiepie',
+          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
         },
-        author: {
-          avatar: 'http://ionicframework.com/img/ionic-logo-blog.png',
-          username: 'ionic'
-        },
-        timeAgo: '9 hours ago',
-        body: {
-          message: '',
-          site_semantic: 'amazon.com',
-          uri: '',
-          title_scraped: 'Amnesia: The Dark Descent',
-          image_scraped: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Amnesia-The-Dark-Descent-Cover-Art.png/250px-Amnesia-The-Dark-Descent-Cover-Art.png'
-        }
+        collaborators: [
+        ],
+        name: 'Archeology Stuff',
+        picture: 'https://firstfloorcherry.files.wordpress.com/2016/11/vsco-photo-4.jpg?w=636&h=424&crop=1',
+        topics: [
+          'gaming'
+        ],
+        tags: [
+          'horror',
+          'noooooo'
+        ]
+      },
+      author: {
+        avatar: 'https://facebook.github.io/react/img/logo_og.png',
+        username: 'react'
+      },
+      timeAgo: '12 Minutes Ago',
+      body: {
+        message: 'Check out this Marrakech album',
+        site_semantic: 'imgur.com',
+        uri: '',
+        title_scraped: 'Welcome to Marrakech, Morroco - a guide by a tourist',
+        image_scraped: 'https://www.travelpirates.com/media/images/2015/02/newyork-oslo-cheap-flights-1423497189-LeT5-slide.jpg'
       }
+    },
+    {
+      value: 0,
+      list: {
+        creator: {
+          username: 'pewdiepie',
+          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+        },
+        collaborators: [
+        ],
+        name: 'Classic Horror Game text text',
+        picture: 'https://lh3.googleusercontent.com/-45wPZp5uAdxXj6JAoFgfoVkVRxrQ8ugxUCQjknRdUozgMSCIxQG-Wn6nK5RBbfE7Q=h900',
+        topics: [
+          'gaming'
+        ],
+        tags: [
+          'horror',
+          'noooooo'
+        ]
+      },
+      author: {
+        username: 'pewdiepie',
+        avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+      },
+      timeAgo: '9 hours ago',
+      body: {
+        message: '',
+        site_semantic: 'amazon.com',
+        uri: '',
+        title_scraped: 'Amnesia: The Dark Descent',
+        image_scraped: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Amnesia-The-Dark-Descent-Cover-Art.png/250px-Amnesia-The-Dark-Descent-Cover-Art.png'
+      }
+    }
     ]
   },
   selected: 'your lists',
