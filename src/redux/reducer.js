@@ -6,6 +6,7 @@ import FeedStateReducer from '../modules/feed/FeedState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
 import NotificationStateReducer from '../modules/notification/NotificationState';
+import ProfileStateReducer from '../modules/profile/ProfileState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
 
 const reducers = {
@@ -16,6 +17,7 @@ const reducers = {
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
   notification: NotificationStateReducer,
+  profile: ProfileStateReducer,
 
   // @NOTE: By convention, the navigation state must live in a subtree called
   //`navigationState`
