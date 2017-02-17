@@ -141,7 +141,7 @@ const initialState = fromJS({
       {
         creator: {
           name: 'h3h3',
-          avatar: 'http://hipsters.com/uploads/cache/pins/2012/09/5066ae09a5b5e-194x.jpg'
+          avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg'
         },
         collaborators: [
           'greenmario',
@@ -194,7 +194,7 @@ const initialState = fromJS({
       }
     ]
   },
-  selected: 'favez',
+  selected: 'lists',
   value: 0,
   loading: false
 });
