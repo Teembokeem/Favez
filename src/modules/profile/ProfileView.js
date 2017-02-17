@@ -21,6 +21,7 @@ const ProfileView = React.createClass({
     switch (this.props.selected) {
       case 'lists':
       case 'collabs':
+      case 'subscriptions':
         return (
           this.props.lists.map((list, index) => (
             <List
@@ -29,6 +30,18 @@ const ProfileView = React.createClass({
             >
 
             </List>
+          ))
+        );
+      case 'likes':
+        return (
+          this.props.favez.map((fave, idx) => (
+            <Card
+                key={'fave ' + idx}
+                card={fave}
+                track={idx}
+                moving={this.moving}
+                increment={this.increment}
+            />
           ))
         );
       default :
