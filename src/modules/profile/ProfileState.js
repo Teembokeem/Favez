@@ -156,21 +156,40 @@ const initialState = fromJS({
           'COD',
           'umadbro'
         ]
-      }
+      },
+      {
+        creator: {
+          name: 'indy',
+          avatar: 'http://www.projectdiaspora.com/images/24.media.tumblr.com/tumblr_md6e30Eal71rbda9ro1_500.jpg'
+        },
+        collaborators: [
+        ],
+        name: 'Dope Fres',
+        picture: 'https://artandpolitik.files.wordpress.com/2014/02/2014-01-13-07-25-07-1.jpg',
+        topics: [
+          'Travel'
+        ],
+        tags: [
+          'Dallas',
+          'Texas'
+        ]
+      },
     ]
   },
-  faves: {
+  favez: {
     index: 0,
     data: [
       {
+        value: 0,
         list: {
           creator: {
             username: 'pewdiepie',
-            avatar: '../../../images/pewdiepie.png'
+            avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
           },
           collaborators: [
           ],
-          name: 'Classic Horror Game text text',
+          name: 'Archeology Stuff',
+          picture: 'https://firstfloorcherry.files.wordpress.com/2016/11/vsco-photo-4.jpg?w=636&h=424&crop=1',
           topics: [
             'gaming'
           ],
@@ -180,8 +199,40 @@ const initialState = fromJS({
           ]
         },
         author: {
-          avatar: 'http://ionicframework.com/img/ionic-logo-blog.png',
-          username: 'ionic'
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          username: 'react'
+        },
+        timeAgo: '12 Minutes Ago',
+        body: {
+          message: 'Check out this Marrakech album',
+          site_semantic: 'imgur.com',
+          uri: '',
+          title_scraped: 'Welcome to Marrakech, Morroco - a guide by a tourist',
+          image_scraped: 'https://www.travelpirates.com/media/images/2015/02/newyork-oslo-cheap-flights-1423497189-LeT5-slide.jpg'
+        }
+      },
+      {
+        value: 0,
+        list: {
+          creator: {
+            username: 'pewdiepie',
+            avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+          },
+          collaborators: [
+          ],
+          name: 'Classic Horror Game text text',
+          picture: 'https://lh3.googleusercontent.com/-45wPZp5uAdxXj6JAoFgfoVkVRxrQ8ugxUCQjknRdUozgMSCIxQG-Wn6nK5RBbfE7Q=h900',
+          topics: [
+            'gaming'
+          ],
+          tags: [
+            'horror',
+            'noooooo'
+          ]
+        },
+        author: {
+          username: 'pewdiepie',
+          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
         },
         timeAgo: '9 hours ago',
         body: {
