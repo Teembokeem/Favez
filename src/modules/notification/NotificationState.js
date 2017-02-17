@@ -84,7 +84,7 @@ const initialState = fromJS({
         },
         fromUser: {
           username: 'pewdiepie',
-          avatar: 'https://s-media-cache-ak0.pinimg.com/236x/74/fe/30/74fe30b1b708341165632946ab762c01.jpg',
+          avatar: 'http://cdn.playbuzz.com/cdn/9f1b4d0d-cb73-4d11-b430-070eb9647f35/a0b6f2ab-0896-408f-bc72-a96ad35c969c.jpg',
           name: {
             first: 'pewdiepie',
             last: ''
@@ -94,7 +94,7 @@ const initialState = fromJS({
         body: {
           list_ref: {
             name: 'List Example 3',
-            picture: 'http://www.lovethispic.com/uploaded_images/147563-Foggy-City.jpg'
+            picture: 'https://c1.staticflickr.com/3/2916/14199432020_b8f32a689d_b.jpg'
           }
         }
       },
