@@ -9,9 +9,13 @@ import {
   View
 } from 'react-native';
 
-function ListHeader({creator}) {
-  const {avatar, name} = creator;
+function returnText(number) {
+  return number > 1 ? 's' : '';
+}
 
+function ListHeader({creator, collaborators}) {
+  const {avatar, name} = creator;
+  const semantics = returnText(collaborators);
   return (
     <View style={styles.ListHeader}>
       <View style={styles.leftContent}>
@@ -22,7 +26,7 @@ function ListHeader({creator}) {
         <Text
           style={styles.ListHeaderUsername}
         >
-          {'@' + name}
+          {'@' + name}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <View style={styles.rightContent}>
@@ -52,6 +56,7 @@ const styles = StyleSheet.create({
     color: 'black'
   },
   ListHeaderUsername: {
+    width: 200,
     paddingLeft: 5,
     fontFamily: 'Hind-Bold',
     fontSize: 15,
