@@ -11,7 +11,7 @@ import {Actions} from 'react-native-router-flux';
 import FavoriteHeader from '../../components/favorite/favoriteHeader/favoriteHeader';
 import Header from '../../components/globals/header/Header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
-import List from '../../components/globals/list/List';
+import List from '../../components/globals/list/list';
 
 const FavoriteView = React.createClass({
   propTypes: {},
@@ -24,7 +24,7 @@ const FavoriteView = React.createClass({
           this.props.lists.map((list, index) => (
               <List
                 list={list}
-                key={index}
+                key={'list ' + index}
               >
               </List>
           ))
