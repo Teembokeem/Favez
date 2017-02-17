@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 
 function CardUser({user, time}) {
-  console.log('tiume', time);
   return (
       <View style={[styles.cardUserContainer]}>
           <Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />

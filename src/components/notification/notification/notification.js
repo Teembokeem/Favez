@@ -13,10 +13,8 @@ import {
 // import NotificationFooter from './NotificationFooter';
 
 function renderNotificationBody(notification) {
-  console.log('rendering', notification)
   switch (notification.type) {
     case 'invitation_accept':
-      console.log('invitation_accept!')
       return (
         <View
           style={styles.NotificationBodyContainer}
@@ -230,7 +228,6 @@ function renderNotificationExtra(notification) {
 }
 
 function Notification({notification}) {
-  console.log('hi categories', notification);
   const {toUser, fromUser, type, body} = notification;
   const notificationBody = renderNotificationBody(notification);
   const notificationSymbol = renderNotificationSymbol(notification);

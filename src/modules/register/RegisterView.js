@@ -12,7 +12,6 @@ import {Actions} from 'react-native-router-flux';
 
 const RegisterView = React.createClass({
    componentWillMount() {
-    console.log('ok')
     showLogin();
      
   },

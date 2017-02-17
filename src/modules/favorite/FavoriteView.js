@@ -16,10 +16,8 @@ import List from '../../components/globals/list/list';
 const FavoriteView = React.createClass({
   propTypes: {},
   renderChildren() {
-    console.log('your props', this.props.selected);
     switch (this.props.selected) {
       case 'your lists':
-        console.log('sending lists');
         return (
           this.props.lists.map((list, index) => (
               <List

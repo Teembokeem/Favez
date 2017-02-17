@@ -11,7 +11,6 @@ import {
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 function Category({category}) {
-  console.log('hi categories', category);
   const {ref, semantic, color, image} = category;
   if (ref !== 'location-specific') {
     return (
