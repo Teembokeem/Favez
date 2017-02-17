@@ -96,6 +96,13 @@ const initialState = fromJS({
         topics: [
           'travel'
         ],
+        comments: [
+          {
+            user: 'h3h3',
+            avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg',
+            message: 'sup dude thats crazy'
+          }
+        ],
         tags: [
           'cheaptravelling',
           'beautifuladventure'
@@ -114,6 +121,13 @@ const initialState = fromJS({
         topics: [
           'gaming'
         ],
+        comments: [
+          {
+            user: 'h3h3',
+            avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg',
+            message: 'sup dude thats also crazy'
+          }
+        ],
         tags: [
           'horrorgames',
           'wiiu',
@@ -131,6 +145,8 @@ const initialState = fromJS({
         picture: 'https://scontent.cdninstagram.com/hphotos-xaf1/t51.2885-15/e15/11385222_844494872265884_2020626255_n.jpg',
         topics: [
           'animals'
+        ],
+        comments: [
         ],
         tags: [
           'dogtraining',
@@ -152,6 +168,8 @@ const initialState = fromJS({
         topics: [
           'gaming'
         ],
+        comments: [
+        ],
         tags: [
           'COD',
           'umadbro'
@@ -168,6 +186,8 @@ const initialState = fromJS({
         picture: 'https://artandpolitik.files.wordpress.com/2014/02/2014-01-13-07-25-07-1.jpg',
         topics: [
           'Travel'
+        ],
+        comments: [
         ],
         tags: [
           'Dallas',
