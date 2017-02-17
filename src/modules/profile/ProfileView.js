@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import * as ProfileState from './ProfileState';
 import {
   Text,
   View,
@@ -34,15 +35,21 @@ const ProfileView = React.createClass({
     }
   },
 
+  setFilter(val) {
+    this.props.dispatch(ProfileState.setFilter(val));
+  },
+
   render() {
+    const authIsSelf = true;
+    const {user} = this.props;
     const child = this.renderChildren();
     const selectedTab = this.props.selected;
     return (
       <View style={styles.container}>
         <ScrollView>
           <ProfileHeader />
-          <ProfileSummary />
-          <ProfileActions />
+          <ProfileSummary user={user}/>
+          <ProfileActions self={authIsSelf}/>
           <HeaderTabs
             setFilter={this.setFilter}
             selected={selectedTab}
