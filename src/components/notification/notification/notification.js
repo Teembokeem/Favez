@@ -166,7 +166,7 @@ function renderNotificationSymbol(notification) {
         <View
           style={styles.NotificationSymbolContainer}
         >
-          <Image source={notification.body.list_ref.picture}/>
+          <Image style={styles.NotificationSymbolListPicture} source={{uri: notification.body.list_ref.picture}}/>
         </View>
       );
     case 'follow':
@@ -175,7 +175,7 @@ function renderNotificationSymbol(notification) {
           style={styles.NotificationSymbolContainer}
         >
           <View>
-            <FAIcon name='group'/>
+            <FAIcon style={styles.NotificationSymbolGroup} name='group'/>
           </View>
         </View>
       );
@@ -185,7 +185,7 @@ function renderNotificationSymbol(notification) {
           style={styles.NotificationSymbolContainer}
         >
           <View>
-            <FAIcon name='user'/>
+            <FAIcon style={styles.NotificationSymbolUser} name='user'/>
           </View>
         </View>
       );
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexWrap: 'wrap',
     padding: 7,
-    minWidth: 240,
+    minWidth: 250,
   },
   NotificationBodyAllText: {
     fontFamily: 'Hind-Regular',
@@ -298,7 +298,19 @@ const styles = StyleSheet.create({
   },
   NotificationSymbolContainer: {
     flex: 1,
-    width: 50
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  NotificationSymbolListPicture: {
+    width: 45,
+    height: 45,
+    borderRadius: 10
+  },
+  NotificationSymbolGroup: {
+    fontSize: 30,
+  },
+  NotificationSymbolUser: {
+    fontSize: 30,
   }
 });
 
