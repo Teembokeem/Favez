@@ -34,6 +34,10 @@ const FavoriteView = React.createClass({
     }
   },
 
+  setFilter(val) {
+    this.props.dispatch(FavoriteState.setFilter(val));
+  },
+
   render() {
     const child = this.renderChildren();
     // const {faves, lists} = this.props;
@@ -45,6 +49,7 @@ const FavoriteView = React.createClass({
           <FavoriteHeader />
           <Header title={'FAVEZ'} />
           <HeaderTabs
+            setFilter={this.setFilter}
             selected={selectedTab}
             tabs={['your lists', 'collabs', 'liked']}
           />
