@@ -20,6 +20,7 @@ const ProfileView = React.createClass({
   renderChildren() {
     switch (this.props.selected) {
       case 'lists':
+      case 'collabs':
         return (
           this.props.lists.map((list, index) => (
             <List
@@ -71,8 +72,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   contentContainer: {
+    backgroundColor: '#e9e9e9',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 50,
+    paddingTop: 20
   }
 });
 
