@@ -44,6 +44,18 @@ const ProfileView = React.createClass({
             />
           ))
         );
+      case 'comments':
+        return (
+          this.props.favez.map((fave, idx) => (
+            <Card
+                key={'fave ' + idx}
+                card={fave}
+                track={idx}
+                moving={this.moving}
+                increment={this.increment}
+            />
+          ))
+        );
       default :
         return null;
     }
