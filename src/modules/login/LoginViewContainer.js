@@ -6,8 +6,8 @@ import LoginView from './LoginView';
 export default connect(
   state => {
     return {
-      user: state.getIn(['intro', 'user']),
-      loading: state.getIn(['intro', 'loading']),
+      user: state.getIn(['login', 'user']).toJS(),
+      loading: state.getIn(['login', 'loading']),
     }
   }
 )(LoginView);

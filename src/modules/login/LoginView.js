@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import * as LoginState from './LoginState';
 import HeaderBack from '../../components/globals/headerBack/headerBack';
-import Login from '../../components/login/login';
+import Form from '../../components/login/login';
 import {
   Text,
   View,
@@ -19,27 +19,14 @@ const LoginView = React.createClass({
 
   render() {
     const {user} = this.props
-    console.log('this is user', user)
     return (
-      <View style={styles.container} >
+      <View >
         <HeaderBack back={this.back} />
-        {/*<Login
-          user={user}
-        />*/}
+        <Form
+        
+        />
       </View>
     );
-  }
-});
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#f9f9f9',
-    // justifyContent: 'center',
-    paddingTop: 20,
-    paddingBottom: 50,
-    alignItems: 'center'
-    // justifyContent: 'center'
   }
 });
 

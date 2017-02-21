@@ -1,6 +1,4 @@
 import React from 'react';
-// import TabBarButton from '../components/TabBarButton';
-
 import {
   StyleSheet,
   Text,
@@ -8,67 +6,56 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import {Field, reduxForm} from 'redux-form/immutable'
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-function Login({user}) {
-  const {email, password} = user;
+const submit = values => {
+  console.log('submitting form', values)
+}
+
+const renderInput = ({ input: { onChange, ...restInput }}) => {
+  return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
+}
+
+
+const Form = props => {
+  const {handleSubmit} = props
+
   return (
-    <TouchableOpacity style={[styles.Category]}>
-      <Image
-        style={styles.CategoryColor}
-      />
-      <Text>Login</Text>
-      <TextInput
-        value={email}
-        placeholder='EMAIL'
-      />
-      <TextInput
-        value={password}
-        placeholder='PASSWORD'
-      />
-      <Ionicon style={styles.CategoryArrow} name='md-arrow-round-forward'/>
-    </TouchableOpacity>
-  );
+    <View style={styles.container}>
+      <Text>Email:</Text>
+      <Field name="email" component={renderInput} />
+      <Text>Email:</Text>
+      <TextInput style={styles.input} />
+      <TouchableOpacity onPress={handleSubmit(submit)}>
+        <Text style={styles.button}>Submit</Text>
+      </TouchableOpacity>
+    </View>
+  )
 }
 
 const styles = StyleSheet.create({
-  Category: {
-    // flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
-    backgroundColor: 'white',
-    width: 375,
-    padding: 10,
-    paddingTop: 7,
-    paddingBottom: 7,
-    flexDirection: 'row',
-    marginBottom: 1
-  },
-  CategoryColor: {
-    borderRadius: 10,
-    width: 65,
-    height: 65
-  },
-  CategoryText: {
-    alignSelf: 'center',
-    marginLeft: 20,
-    fontFamily: 'Hind-Bold',
-    fontSize: 18
-  },
-  CategoryArrow: {
-    // position: 'absolute',
-    marginLeft: 80,
-    fontSize: 30,
-    color: '#afafaf',
-    alignSelf: 'center'
-  },
-  hello: {
-    textAlign: 'center'
-  },
-  buttonWrapper: {
+  container: {
     flex: 1,
-    position: 'relative'
+  },
+  button: {
+    backgroundColor: 'blue',
+    color: 'white',
+    height: 30,
+    lineHeight: 30,
+    marginTop: 10,
+    textAlign: 'center',
+    width: 250
+  },
+  input: {
+    borderColor: 'black',
+    color: 'black',
+    borderWidth: 1,
+    height: 37,
+    width: 250
   }
 });
 
-export default Login;
+export default reduxForm({
+  form: 'test'
+})(Form)

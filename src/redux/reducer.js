@@ -1,7 +1,8 @@
 import {Map, fromJS} from 'immutable';
 import {loop, combineReducers} from 'redux-loop';
+import { reducer as formReducer } from 'redux-form/immutable'
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
-// import CounterStateReducer from '../modules/counter/CounterState';
+import LoginStateReducer from '../modules/login/LoginState';
 import FeedStateReducer from '../modules/feed/FeedState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
@@ -11,9 +12,12 @@ const reducers = {
   // Counter sample app state. This can be removed in a live application
   // counter: CounterStateReducer,
 
+  login: LoginStateReducer,
   feed: FeedStateReducer,
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
+  form: formReducer,
+  
 
   // @NOTE: By convention, the navigation state must live in a subtree called
   //`navigationState`
