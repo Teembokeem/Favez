@@ -13,7 +13,6 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 const RegisterView = React.createClass({
-
   back() {
     Actions.pop()
   },

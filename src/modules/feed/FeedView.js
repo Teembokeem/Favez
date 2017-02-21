@@ -23,7 +23,6 @@ const FeedView = React.createClass({
   },
 
   moving() {
-    console.log('movinggggg');
     Actions.subbar();
   },
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import IoniconIcon from 'react-native-vector-icons/Ionicons';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
   View,
@@ -11,7 +10,7 @@ import {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
-const FavoriteHeader = React.createClass({
+const ProfileHeader = React.createClass({
 
   openFavoriteModal() {
     Actions.FavoriteModal();
@@ -19,23 +18,14 @@ const FavoriteHeader = React.createClass({
 
   render() {
     return (
-    <View style={[styles.feedNavHeader]}>
+    <View style={[styles.ProfileHeader]}>
         <View
           style={styles.flex1}
         >
           <TouchableOpacity
-              style={styles.headerLeftButton}
-          >
-              <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={styles.flex2}
-        >
-          <TouchableOpacity
               style={styles.headerRightButton}
           >
-              <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
+              <Ionicon style={styles.headerRightButtonIcon} name="ios-settings"/>
           </TouchableOpacity>
         </View>
     </View>
@@ -44,7 +34,7 @@ const FavoriteHeader = React.createClass({
 });
 
 const styles = StyleSheet.create({
-  feedNavHeader: {
+  ProfileHeader: {
     // alignItems: 'center',
     backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
     // borderBottomColor: 'rgba(0, 0, 0, .15)',
@@ -54,8 +44,8 @@ const styles = StyleSheet.create({
     width: 375,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingTop: STATUSBAR_HEIGHT
-    // height: APPBAR_HEIGHT + STATUSBAR_HEIGHT * 2
+    paddingTop: STATUSBAR_HEIGHT,
+    height: APPBAR_HEIGHT
   },
   flex1: {
     height: 35,
@@ -75,7 +65,7 @@ const styles = StyleSheet.create({
   headerRightButtonIcon: {
     height: 35,
     width: 35,
-    fontSize: 35,
+    fontSize: 25,
     // top: 30,
     // margin: 10,
     color: '#000000',
@@ -87,4 +77,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default FavoriteHeader;
+export default ProfileHeader;

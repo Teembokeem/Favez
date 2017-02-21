@@ -4,34 +4,42 @@ import React from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  TouchableOpacity,
+  View,
+  ScrollView
 } from 'react-native';
 
-function HeaderTabs({selected, tabs}) {
-  console.log("yoooooo vars", selected, tabs)
+function HeaderTabs({selected, tabs, setFilter}) {
   return (
-    <View style={[styles.HeaderTabs]}>
+    <ScrollView
+      contentContainerStyle={[styles.HeaderTabs]}
+      directionalLockEnabled={true}
+    >
       {tabs.map((tab, index) => {
         return (
           <View
             style={styles.container}
             key={'tab ' + index}
           >
-            <Text
-              style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
+            <TouchableOpacity
+                onPress={() => setFilter(tab)}
             >
-            {tab.toUpperCase()}
-            </ Text>
+              <Text
+                style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
+              >
+              {tab.toUpperCase()}
+              </ Text>
+            </TouchableOpacity>
           </ View>
         );
       })}
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   HeaderTabs: {
-    width: 375,
+    // width: 600,
     padding: 6,
     borderBottomWidth: 1,
     flexDirection: 'row',
@@ -44,6 +52,7 @@ const styles = StyleSheet.create({
   HeaderTabsTab: {
     fontFamily: 'Hind-Bold',
     fontSize: 18,
+    // width: 200
     // paddingBottom: 5
   },
   HeaderTabsSeparator: {

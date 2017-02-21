@@ -96,6 +96,13 @@ const initialState = fromJS({
         topics: [
           'travel'
         ],
+        comments: [
+          {
+            user: 'h3h3',
+            avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg',
+            message: 'sup dude thats crazy'
+          }
+        ],
         tags: [
           'cheaptravelling',
           'beautifuladventure'
@@ -113,6 +120,13 @@ const initialState = fromJS({
         picture: 'http://scontent.cdninstagram.com/t51.2885-15/e15/13266656_1008822862540946_1215052117_n.jpg?ig_cache_key=MTI2MTAzNjkzMjk3NTc3NzU0MA%3D%3D.2',
         topics: [
           'gaming'
+        ],
+        comments: [
+          {
+            user: 'h3h3',
+            avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg',
+            message: 'sup dude thats also crazy'
+          }
         ],
         tags: [
           'horrorgames',
@@ -132,6 +146,8 @@ const initialState = fromJS({
         topics: [
           'animals'
         ],
+        comments: [
+        ],
         tags: [
           'dogtraining',
           'doge',
@@ -141,7 +157,7 @@ const initialState = fromJS({
       {
         creator: {
           name: 'h3h3',
-          avatar: 'http://hipsters.com/uploads/cache/pins/2012/09/5066ae09a5b5e-194x.jpg'
+          avatar: 'https://68.media.tumblr.com/c18f99297ea726d2265dd9b770bc7996/tumblr_n0lawvWAgP1truepqo1_500.jpg'
         },
         collaborators: [
           'greenmario',
@@ -152,89 +168,111 @@ const initialState = fromJS({
         topics: [
           'gaming'
         ],
+        comments: [
+        ],
         tags: [
           'COD',
           'umadbro'
         ]
-      }
+      },
+      {
+        creator: {
+          name: 'indy',
+          avatar: 'http://www.projectdiaspora.com/images/24.media.tumblr.com/tumblr_md6e30Eal71rbda9ro1_500.jpg'
+        },
+        collaborators: [
+        ],
+        name: 'Dope Fres',
+        picture: 'https://artandpolitik.files.wordpress.com/2014/02/2014-01-13-07-25-07-1.jpg',
+        topics: [
+          'Travel'
+        ],
+        comments: [
+        ],
+        tags: [
+          'Dallas',
+          'Texas'
+        ]
+      },
     ]
   },
   favez: {
     index: 0,
-    data: [{
-      value: 0,
-      list: {
-        creator: {
+    data: [
+      {
+        value: 0,
+        list: {
+          creator: {
+            username: 'pewdiepie',
+            avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+          },
+          collaborators: [
+          ],
+          name: 'Archeology Stuff',
+          picture: 'https://firstfloorcherry.files.wordpress.com/2016/11/vsco-photo-4.jpg?w=636&h=424&crop=1',
+          topics: [
+            'gaming'
+          ],
+          tags: [
+            'horror',
+            'noooooo'
+          ]
+        },
+        author: {
+          avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          username: 'react'
+        },
+        timeAgo: '12 Minutes Ago',
+        body: {
+          message: 'Check out this Marrakech album',
+          site_semantic: 'imgur.com',
+          uri: '',
+          title_scraped: 'Welcome to Marrakech, Morroco - a guide by a tourist',
+          image_scraped: 'https://www.travelpirates.com/media/images/2015/02/newyork-oslo-cheap-flights-1423497189-LeT5-slide.jpg'
+        }
+      },
+      {
+        value: 0,
+        list: {
+          creator: {
+            username: 'pewdiepie',
+            avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
+          },
+          collaborators: [
+          ],
+          name: 'Classic Horror Game text text',
+          picture: 'https://lh3.googleusercontent.com/-45wPZp5uAdxXj6JAoFgfoVkVRxrQ8ugxUCQjknRdUozgMSCIxQG-Wn6nK5RBbfE7Q=h900',
+          topics: [
+            'gaming'
+          ],
+          tags: [
+            'horror',
+            'noooooo'
+          ]
+        },
+        author: {
           username: 'pewdiepie',
           avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
         },
-        collaborators: [
-        ],
-        name: 'Archeology Stuff',
-        picture: 'https://firstfloorcherry.files.wordpress.com/2016/11/vsco-photo-4.jpg?w=636&h=424&crop=1',
-        topics: [
-          'gaming'
-        ],
-        tags: [
-          'horror',
-          'noooooo'
-        ]
-      },
-      author: {
-        avatar: 'https://facebook.github.io/react/img/logo_og.png',
-        username: 'react'
-      },
-      timeAgo: '12 Minutes Ago',
-      body: {
-        message: 'Check out this Marrakech album',
-        site_semantic: 'imgur.com',
-        uri: '',
-        title_scraped: 'Welcome to Marrakech, Morroco - a guide by a tourist',
-        image_scraped: 'https://www.travelpirates.com/media/images/2015/02/newyork-oslo-cheap-flights-1423497189-LeT5-slide.jpg'
+        timeAgo: '9 hours ago',
+        body: {
+          message: '',
+          site_semantic: 'amazon.com',
+          uri: '',
+          title_scraped: 'Amnesia: The Dark Descent',
+          image_scraped: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Amnesia-The-Dark-Descent-Cover-Art.png/250px-Amnesia-The-Dark-Descent-Cover-Art.png'
+        }
       }
-    },
-    {
-      value: 0,
-      list: {
-        creator: {
-          username: 'pewdiepie',
-          avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
-        },
-        collaborators: [
-        ],
-        name: 'Classic Horror Game text text',
-        picture: 'https://lh3.googleusercontent.com/-45wPZp5uAdxXj6JAoFgfoVkVRxrQ8ugxUCQjknRdUozgMSCIxQG-Wn6nK5RBbfE7Q=h900',
-        topics: [
-          'gaming'
-        ],
-        tags: [
-          'horror',
-          'noooooo'
-        ]
-      },
-      author: {
-        username: 'pewdiepie',
-        avatar: 'https://pmcvariety.files.wordpress.com/2016/01/pewdiepie-revelmode.jpg'
-      },
-      timeAgo: '9 hours ago',
-      body: {
-        message: '',
-        site_semantic: 'amazon.com',
-        uri: '',
-        title_scraped: 'Amnesia: The Dark Descent',
-        image_scraped: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/62/Amnesia-The-Dark-Descent-Cover-Art.png/250px-Amnesia-The-Dark-Descent-Cover-Art.png'
-      }
-    }
     ]
   },
-  selected: 'your lists',
+  selected: 'lists',
   value: 0,
   loading: false
 });
 
 // Actions
-const INCREMENT = 'FavoriteState/INCREMENT';
-const SETFILTER = 'FavoriteState/SETFILTER';
+const INCREMENT = 'ProfileState/INCREMENT';
+const SETFILTER = 'ProfileState/SETFILTER';
 
 // Action creators
 export function increment(cards, index) {
@@ -247,7 +285,7 @@ export function setFilter(value) {
 }
 
 // Reducer
-export default function FavoriteStateReducer(state = initialState, action = {}) {
+export default function ProfileStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
       return state;

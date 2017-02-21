@@ -13,7 +13,6 @@ import ListBody from './listBody';
 import ListFooter from './listFooter';
 
 function List({list}) {
-  console.log('hi categories', list);
   const {creator, collaborators, name, picture, topics, tags} = list;
   return (
     <View

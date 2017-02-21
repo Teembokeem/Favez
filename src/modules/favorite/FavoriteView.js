@@ -11,27 +11,44 @@ import {Actions} from 'react-native-router-flux';
 import FavoriteHeader from '../../components/favorite/favoriteHeader/favoriteHeader';
 import Header from '../../components/globals/header/Header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
-import List from '../../components/globals/list/List';
+import List from '../../components/globals/list/list';
+import Card from '../../components/globals/card/card';
 
 const FavoriteView = React.createClass({
   propTypes: {},
   renderChildren() {
-    console.log('your props', this.props.selected);
     switch (this.props.selected) {
       case 'your lists':
-        console.log('sending lists');
+      case 'collabs':
+        console.log(this.props.selected)
         return (
           this.props.lists.map((list, index) => (
               <List
                 list={list}
-                key={index}
+                key={'list ' + index}
               >
               </List>
+          ))
+        );
+      case 'liked':
+        return (
+          this.props.favez.map((fave, index) => (
+              <Card
+                key={'fave ' + index}
+                card={fave}
+                track={index}
+                moving={this.moving}
+                increment={this.increment}
+            />
           ))
         );
       default :
         return null;
     }
+  },
+
+  setFilter(val) {
+    this.props.dispatch(FavoriteState.setFilter(val));
   },
 
   render() {
@@ -45,6 +62,7 @@ const FavoriteView = React.createClass({
           <FavoriteHeader />
           <Header title={'FAVEZ'} />
           <HeaderTabs
+            setFilter={this.setFilter}
             selected={selectedTab}
             tabs={['your lists', 'collabs', 'liked']}
           />
