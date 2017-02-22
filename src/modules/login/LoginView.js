@@ -9,21 +9,21 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import LoginHeader from '../../components/login/loginHeader/loginHeader';
-import Header from '../../components/globals/header/Header';
+import BackHeader from '../../components/globals/backHeader/backHeader';
+import Header from '../../components/globals/header/header';
 import LoginForm from '../../components/login/loginForm/loginForm';
 
 
 const LoginView = React.createClass({
 
   back() {
-    Actions.pop()
+    Actions.pop();
   },
 
   render() {
     return (
       <View style={styles.container} >
-        <LoginHeader
+        <BackHeader
           back={this.back}
         />
         <Header
