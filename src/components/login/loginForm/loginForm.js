@@ -10,33 +10,33 @@ import {Field, reduxForm} from 'redux-form/immutable'
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const submit = values => {
-  console.log('submitting form', values)
-}
+  console.log('submitting form', values);
+};
 
-const renderInput = ({ input: { onChange, ...restInput }}) => {
+const renderInput = ({input: {onChange, ...restInput}}) => {
   return <TextInput style={styles.input} onChangeText={onChange} {...restInput} />
-}
+};
 
 
 const Form = props => {
-  const {handleSubmit} = props
+  const {handleSubmit} = props;
 
   return (
     <View style={styles.container}>
       <Text>Email:</Text>
-      <Field name="email" component={renderInput} />
+      <Field name='email' component={renderInput} />
       <Text>Email:</Text>
       <TextInput style={styles.input} />
       <TouchableOpacity onPress={handleSubmit(submit)}>
         <Text style={styles.button}>Submit</Text>
       </TouchableOpacity>
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1
   },
   button: {
     backgroundColor: 'blue',
@@ -58,4 +58,4 @@ const styles = StyleSheet.create({
 
 export default reduxForm({
   form: 'test'
-})(Form)
+})(Form);
