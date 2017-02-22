@@ -2,7 +2,7 @@ import {Map} from 'immutable';
 
 let configuration = Map(
   {
-    API_ROOT: 'https://jsonplaceholder.typicode.com',
+    API_ROOT: 'https://favezback.herokuapp.com/api',
   }
 );
 

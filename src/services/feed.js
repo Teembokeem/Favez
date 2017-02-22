@@ -1,5 +1,5 @@
 import {get, post, put, delete} from '../utils/api'
 
-export async function getFeedList() {
+export async function getFeedAll() {
   return get('/posts');
 };
