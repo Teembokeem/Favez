@@ -7,7 +7,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 import SearchHeader from '../../components/search/searchHeader/searchHeader';
-import Header from '../../components/globals/header/Header';
+import Header from '../../components/globals/header/header';
 import LocationSpecifier from '../../components/search/locationSpecifier/locationSpecifier';
 import Category from '../../components/search/category/category';
 
