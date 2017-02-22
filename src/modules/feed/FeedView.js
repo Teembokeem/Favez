@@ -18,30 +18,26 @@ const FeedView = React.createClass({
     this.props.dispatch(FeedState.getFullList()) 
   },
 
-  increment(index) {
-    this.props.dispatch(FeedState.increment(this.props.cards, index));
-  },
-
   moving() {
     Actions.subbar();
   },
 
   render() {
-    const {index, cards} = this.props;
+    const {index, list} = this.props;
     // const ds = this.state.dataSource;
+    console.log('list', list)
     return (
       <View style={{flex: 1}}>
         <FeedHeader />
         <ScrollView
           contentContainerStyle={styles.container}
         >
-        {cards.map((card, idx) => (
+        {list.map((card, idx) => (
           <Card
               key={'feed ' + idx}
               card={card}
               track={index}
               moving={this.moving}
-              increment={this.increment}
           />
         ))}
         </ ScrollView>

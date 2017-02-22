@@ -8,7 +8,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 import NotificationHeader from '../../components/notification/notificationHeader/notificationHeader';
-import Header from '../../components/globals/header/Header';
+import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Notification from '../../components/notification/notification/notification';
 

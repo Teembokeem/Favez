@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
 import * as LoginState from './LoginState';
-import HeaderBack from '../../components/globals/headerBack/headerBack';
-import Form from '../../components/login/login';
 import {
   Text,
   View,
@@ -11,22 +9,42 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
+import BackHeader from '../../components/globals/backHeader/backHeader';
+import Header from '../../components/globals/header/header';
+import LoginForm from '../../components/login/loginForm/loginForm';
+
+
 const LoginView = React.createClass({
 
   back() {
-    Actions.pop()
+    Actions.pop();
   },
 
   render() {
-    const {user} = this.props
     return (
-      <View >
-        <HeaderBack back={this.back} />
-        <Form
-        
+      <View style={styles.container} >
+        <BackHeader
+          back={this.back}
+        />
+        <Header
+          title={'Login'}
+        />
+        <LoginForm
         />
       </View>
     );
+  }
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // backgroundColor: '#f9f9f9',
+    // justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 50,
+    alignItems: 'center'
+    // justifyContent: 'center'
   }
 });
 

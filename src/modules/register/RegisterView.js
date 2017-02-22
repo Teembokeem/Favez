@@ -1,7 +1,8 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import * as RegisterState from './RegisterState';
-import HeaderBack from '../../components/globals/headerBack/headerBack';
-import Register from '../../components/register/register';
+import BackHeader from '../../components/globals/backHeader/backHeader';
+import Header from '../../components/globals/header/header';
+import RegisterForm from '../../components/register/registerForm/registerForm';
 
 import {
   Text,
@@ -20,8 +21,14 @@ const RegisterView = React.createClass({
   render() {
     return (
       <View style={styles.container} >
-        <HeaderBack back={this.back} />
-        <Register />
+         <BackHeader
+          back={this.back}
+        />
+        <Header
+          title={'Register'}
+        />
+        <RegisterForm
+        />
       </View>
     );
   }
@@ -30,7 +37,7 @@ const RegisterView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f9f9f9',
+    // backgroundColor: '#f9f9f9',
     // justifyContent: 'center',
     paddingTop: 20,
     paddingBottom: 50,

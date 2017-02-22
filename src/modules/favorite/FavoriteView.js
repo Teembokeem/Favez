@@ -9,7 +9,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 import FavoriteHeader from '../../components/favorite/favoriteHeader/favoriteHeader';
-import Header from '../../components/globals/header/Header';
+import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import List from '../../components/globals/list/list';
 import Card from '../../components/globals/card/card';

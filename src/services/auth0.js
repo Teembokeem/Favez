@@ -14,12 +14,36 @@ const auth = new auth0.WebAuth({
       responseType: 'token id_token',
     })
 
-export function showLogin() {
-  // auth0
-  // .signup({
-  //   email: 'test@email.com',
-  //   password: 'password'
-  // })
-  // .then(function(res) {
-  // })
+export function register(email, password) {
+  console.log(email, password)
+  auth.signup({ 
+            connection: 'Username-Password-Authentication', 
+            email: email, 
+            password: password
+        }, (err, results) => { 
+            if (err) {
+              console.log(err);
+              return alert('Something went wrong: ' + err); 
+            } else {
+              console.log(results)
+              return alert('success signup without login!') 
+
+            }
+        });
+}
+
+export function login(email, password) {
+  console.log('hello login')
+  auth.authorize({
+    connection: 'Username-Password-Authentication'
+    // email: email,
+    // password: password
+
+  }, (err, results) => {
+    if (err) {
+      console.log('ERROR', err);
+    } else {
+      console.log('RESULTS', results);
+    }
+  });
 }

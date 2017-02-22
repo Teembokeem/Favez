@@ -9,13 +9,13 @@ import {
   View
 } from 'react-native';
 
-function CardUser({user, time}) {
+function CardUser({card, time}) {
   return (
       <View style={[styles.cardUserContainer]}>
-          <Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />
+          {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
           <View
             style={styles.cardUserInfoColumn}>
-            <Text style={[styles.cardUserName]}>{'@' + user.username}</Text>
+            <Text style={[styles.cardUserName]}>{'@' + card.owner}</Text>
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
           <TouchableOpacity>
