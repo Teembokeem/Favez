@@ -1,13 +1,11 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity
+  TextInput
 } from 'react-native';
 import {
   FieldsContainer,
-  FieldSet,
+  Fieldset,
   Form,
   ActionsContainer,
   Button
@@ -16,9 +14,9 @@ import {
   Input,
   Switch,
   Select
-} from 'react-native-clean-form/redux-form-immutable'
-import {Field, reduxForm} from 'redux-form/immutable'
-import Ionicon from 'react-native-vector-icons/Ionicons';
+} from 'react-native-clean-form/redux-form-immutable';
+import {reduxForm} from 'redux-form/immutable';
+// import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const submit = values => {
   console.log('submitting form', values);
@@ -35,19 +33,19 @@ const LoginForm = props => {
   return (
     <Form style={styles.container}>
       <FieldsContainer>
-        <FieldSet label='Email'>
+        <Fieldset label='Email'>
           <Input name='email' placeholder='email' />
-        </FieldSet>
-        <FieldSet label='Password'>
+        </Fieldset>
+        <Fieldset label='Password'>
           <Input name='password' placeholder='password' />
-        </FieldSet>
+        </Fieldset>
       </FieldsContainer>
       <ActionsContainer>
         <Button
           onPress={handleSubmit(submit)}
           iconPlacement='left'
           submitting={submitting}>
-          Authenticate
+          {'Authenticate'}
         </Button>
       </ActionsContainer>
     </Form>
