@@ -37,7 +37,9 @@ const NavigationView = React.createClass({
           <Scene key='intro' title='Begin' initial={true} >
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
-            <Scene key='register' component={RegisterViewContainer} title='Regiser' hideNavBar />
+            <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />
+            {/*<Scene key='verify' component={VerifyViewContainer} title='verify' hideNavBar />*/}
+            {/*<Scene key='reset' component={ResetViewContainer} title='Reset' hideNavBar />*/}
           </Scene>
           <Scene key='tabbar' >
             <Scene
