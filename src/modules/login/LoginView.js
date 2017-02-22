@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react';
 import * as LoginState from './LoginState';
 import HeaderBack from '../../components/globals/headerBack/headerBack';
 import Form from '../../components/login/login';
+import Form from '../../components/login/login';
 import {
   Text,
   View,
