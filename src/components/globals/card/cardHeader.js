@@ -9,17 +9,17 @@ import {
   View
 } from 'react-native';
 
-function CardHeader({header, moving}) {
+function CardHeader({card, moving}) {
 
   return (
     <View
       style={styles.cardHeader}
     >
-        <Image
+        {/*<Image
           source={{uri: header.picture}}
           style={{width: 360, height: 50, position: 'absolute', top: 0, left: 0}}
-        />
-        <Text numberOfLines={1} onPress={moving} style={[styles.cardHeaderText]}>{header.name.toUpperCase()}</Text>
+        />*/}
+        <Text numberOfLines={1} onPress={moving} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
         <TouchableOpacity
         >
             <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>

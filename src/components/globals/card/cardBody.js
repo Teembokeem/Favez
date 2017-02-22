@@ -11,22 +11,22 @@ import {
 
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
-function CardBody({body}) {
+function CardBody({card}) {
 
   return (
     <View style={[styles.cardBody]}>
-        <Text style={[styles.cardBodyMessage]}>{body.message}</Text>
-        <Image
+        <Text style={[styles.cardBodyMessage]}>{card.description}</Text>
+        {/*<Image
           style={styles.cardBodyImage}
-          source={{uri: body.image_scraped}}
+          source={{uri: c}}
         >
-        </Image>
+        </Image>*/}
         <View
           style={styles.cardBodySiteTitleContainer}
         >
           <Text
-          style={styles.cardBodyScrapedTitle}>{body.title_scraped}</Text>
-          <Text style={styles.cardBodySiteSemantic}>{body.site_semantic}</Text>
+          style={styles.cardBodyScrapedTitle}>{card.name}</Text>
+          <Text style={styles.cardBodySiteSemantic}>{card.location}</Text>
         </View>
     </View>
   );

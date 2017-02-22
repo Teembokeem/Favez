@@ -10,21 +10,19 @@ import {
   View
 } from 'react-native';
 
-function Card({card, increment, track, moving}) {
-  const {list, author, body, user, timeAgo} = card;
+function Card({card, track, moving}) {
   return (
     <View style={styles.card}>
         <CardHeader
-          header={list}
+          card={card}
           moving={moving}
           track={track}
         />
         <CardUser
-          user={author}
-          time={timeAgo}
+          card={card}
         />
         <CardBody
-          body={body}
+          card={card}
         />
         <CardActions />
     </View>
