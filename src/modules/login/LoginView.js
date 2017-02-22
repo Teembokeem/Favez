@@ -1,8 +1,5 @@
 import React, {PropTypes} from 'react';
 import * as LoginState from './LoginState';
-import HeaderBack from '../../components/globals/headerBack/headerBack';
-import Form from '../../components/login/login';
-import Form from '../../components/login/login';
 import {
   Text,
   View,
@@ -12,6 +9,11 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
+import LoginHeader from '../../components/login/loginHeader/loginHeader';
+import Header from '../../components/globals/header/Header';
+import LoginForm from '../../components/login/loginForm/loginForm';
+
+
 const LoginView = React.createClass({
 
   back() {
@@ -19,15 +21,30 @@ const LoginView = React.createClass({
   },
 
   render() {
-    const {user} = this.props
     return (
-      <View >
-        <HeaderBack back={this.back} />
-        <Form
-        
+      <View style={styles.container} >
+        <LoginHeader
+          back={this.back}
+        />
+        <Header
+          title={'Login'}
+        />
+        <LoginForm
         />
       </View>
     );
+  }
+});
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    // backgroundColor: '#f9f9f9',
+    // justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 50,
+    alignItems: 'center'
+    // justifyContent: 'center'
   }
 });
 
