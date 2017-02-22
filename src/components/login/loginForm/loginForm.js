@@ -3,9 +3,20 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  View
+  TouchableOpacity
 } from 'react-native';
+import {
+  FieldsContainer,
+  FieldSet,
+  Form,
+  ActionsContainer,
+  Button
+} from 'react-native-clean-form';
+import {
+  Input,
+  Switch,
+  Select
+} from 'react-native-clean-form/redux-form-immutable'
 import {Field, reduxForm} from 'redux-form/immutable'
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
@@ -18,19 +29,28 @@ const renderInput = ({input: {onChange, ...restInput}}) => {
 };
 
 
-const Form = props => {
-  const {handleSubmit} = props;
+const LoginForm = props => {
+  const {handleSubmit, submitting} = props;
 
   return (
-    <View style={styles.container}>
-      <Text>Email:</Text>
-      <Field name='email' component={renderInput} />
-      <Text>Email:</Text>
-      <TextInput style={styles.input} />
-      <TouchableOpacity onPress={handleSubmit(submit)}>
-        <Text style={styles.button}>Submit</Text>
-      </TouchableOpacity>
-    </View>
+    <Form style={styles.container}>
+      <FieldsContainer>
+        <FieldSet label='Email'>
+          <Input name='email' placeholder='email' />
+        </FieldSet>
+        <FieldSet label='Password'>
+          <Input name='password' placeholder='password' />
+        </FieldSet>
+      </FieldsContainer>
+      <ActionsContainer>
+        <Button
+          onPress={handleSubmit(submit)}
+          iconPlacement='left'
+          submitting={submitting}>
+          Authenticate
+        </Button>
+      </ActionsContainer>
+    </Form>
   );
 };
 
@@ -58,4 +78,4 @@ const styles = StyleSheet.create({
 
 export default reduxForm({
   form: 'test'
-})(Form);
+})(LoginForm);
