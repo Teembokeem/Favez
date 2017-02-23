@@ -63,9 +63,9 @@ const NavigationView = React.createClass({
               tabBarStyle={styles.tabBarStyle}
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
-              <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} hideNavBar/>
-              <Scene key='bookmark' component={SearchViewContainer} title='BookMark' initial={true} icon={TabIcon} hideNavBar/>
-              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} hideNavBar/>
+              <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
+              <Scene key='bookmark' component={SearchViewContainer} title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
+              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>
             </Scene>
           </Scene>
           <Scene key='searchModal' component={SearchModalContainer} />

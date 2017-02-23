@@ -32,9 +32,15 @@ function renderIcon(display) {
         <Ionicon style={styles.Icon} name={display} />
       );
     case 'emoji-happy':
+    case 'share':
       return (
         <EIcon style={styles.Icon} name={display}/>
-      )
+      );
+    case 'bookmark-plus-outline':
+    case 'message-text':
+      return (
+        <MCIcon style={styles.Icon} name={display}/>
+      );
   }
 
 }
