@@ -24,13 +24,15 @@ const styles = StyleSheet.create({
     width: 375,
     justifyContent: 'flex-start',
     padding: 20,
-    paddingTop: 10,
+    paddingTop: 0,
     borderBottomWidth: 1,
     borderColor: '#efefef'
   },
   headerText: {
     fontFamily: 'Hind-Bold',
+    lineHeight: 40,
     fontSize: 35,
+    paddingTop: 10,
     paddingBottom: 5
   },
   headerSeparator: {
