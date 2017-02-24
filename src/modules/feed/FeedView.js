@@ -23,16 +23,16 @@ const FeedView = React.createClass({
   },
 
   render() {
-    const {index, list} = this.props;
+    const {index, lists} = this.props;
     // const ds = this.state.dataSource;
-    console.log('list', list)
+    console.log('lists', lists)
     return (
       <View style={{flex: 1}}>
         <FeedHeader />
         <ScrollView
           contentContainerStyle={styles.container}
         >
-        {list.map((card, idx) => (
+        {lists.map((card, idx) => (
           <Card
               key={'feed ' + idx}
               card={card}

@@ -34,12 +34,14 @@ export function register(email, password) {
 
 export function login(email, password) {
   console.log('hello login')
-  auth.authorize({
-    connection: 'Username-Password-Authentication'
-    // email: email,
-    // password: password
+  auth.client.login({
+    // connection: 'Username-Password-Authentication',
+    username: email,
+    realm: 'tests',
+    password: password
 
   }, (err, results) => {
+    console.log('done', err, results)
     if (err) {
       console.log('ERROR', err);
     } else {

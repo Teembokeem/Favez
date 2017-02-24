@@ -5,7 +5,7 @@ import {getListAll} from '../../services/list';
 
 // Initial state
 const initialState = fromJS({
-  lists: [],
+  list: [],
   loading: true,
 });
 
@@ -43,10 +43,10 @@ const initialState = fromJS({
 // }
 
 // Actions
-const INCREMENT = 'FeedState/INCREMENT';
-const FEED_REQUEST = 'FeedState/FEED_REQUEST';
-const FEED_LIST = 'FeedState/FEED_LIST';
-const FEED_RESPONSE = 'FeedState/FEED_RESPONSE';
+const INCREMENT = 'ListShowState/INCREMENT';
+const LISTSHOW_REQUEST = 'ListShowState/LISTSHOW_REQUEST';
+const LISTSHOW_LIST = 'ListShowState/LISTSHOW_LIST';
+const LISTSHOW_RESPONSE = 'ListShowState/LISTSHOW_RESPONSE';
 
 // Action creators
 export function increment(cards, index) {
@@ -56,44 +56,45 @@ export function increment(cards, index) {
 
 // export async function getFullList() {
 //   return {
-//     type: FEED_REQUEST,
+//     type: LISTSHOW_REQUEST,
 //     payload: getListResponse,
 //   };
 // }
 
 // export async function getListResponse() {
 //   return {
-//     type: FEED_RESPONSE,
+//     type: LISTSHOW_RESPONSE,
 //     payload: await getListAll(),
 //   };
 // }
 
 export async function getFullList() {
   return {
-    type: FEED_REQUEST
+    type: LISTSHOW_REQUEST,
     // payload: getListResponse,
   };
 }
 
 export async function requestFullList() {
   return {
-    type: FEED_RESPONSE,
+    type: LISTSHOW_RESPONSE,
     payload: await getListAll(),
   };
 }
 
 // Reducer
-export default function FeedStateReducer(state = initialState, action = {}) {
+export default function ListShowStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case FEED_REQUEST:
+    case LISTSHOW_REQUEST:
       return loop(
         state.set('loading', true),
         Effects.promise(requestFullList)
       );
-    case FEED_RESPONSE:
+    case LISTSHOW_RESPONSE:
+    console.log(action.payload.data[1])
       return state
         .set('loading', false)
-        .set('lists', action.payload.data);
+        .set('list', action.payload.data[1]);
 
     default:
       return state;

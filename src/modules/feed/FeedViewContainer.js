@@ -6,7 +6,7 @@ import FeedView from './FeedView';
 export default connect(
   state => {
     return {
-      list: state.getIn(['feed', 'list']),
+      lists: state.getIn(['feed', 'lists']),
       // cards: state.getIn(['feed', 'cards']).get('data').toJS(),
       loading: state.getIn(['feed', 'loading'])
     };

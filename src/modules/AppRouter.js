@@ -7,6 +7,7 @@ import TabIcon from '../components/TabIcon';
 
 import IntroViewContainer from './intro/IntroViewContainer';
 import FeedViewContainer from './feed/FeedViewContainer';
+import ListShowViewContainer from './list-show/ListShowViewContainer';
 import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
@@ -21,10 +22,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   tabBarStyle: {
-    backgroundColor: '#eee',
+    backgroundColor: 'white',
   },
   tabBarSelectedItemStyle: {
-    backgroundColor: '#ddd',
+    backgroundColor: 'white',
   },
 });
 
@@ -34,7 +35,7 @@ const NavigationView = React.createClass({
     return (
       <Router>
         {/*<Scene key='modal' component={Modal} >*/}
-          <Scene key='intro' title='Begin' initial={true} >
+          <Scene key='intro' title='Begin' >
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
             <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />
@@ -48,11 +49,11 @@ const NavigationView = React.createClass({
               tabBarStyle={styles.tabBarStyle}
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
-              <Scene key='feed' component={FeedViewContainer} title='Feed' initial={true} icon={TabIcon} hideNavBar/>
-              <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} hideNavBar/>
-              <Scene key='favorite' component={FavoriteViewContainer} title='Favorite' icon={TabIcon} hideNavBar/>
-              <Scene key='notification' component={NotificationViewContainer} title='Notice' icon={TabIcon} hideNavBar/>
-              <Scene key='profile' component={ProfileViewContainer} title='Profile' icon={TabIcon} hideNavBar/>
+              <Scene key='feed' component={FeedViewContainer} title='Feed' initial={true} icon={TabIcon} display='featured-play-list' hideNavBar/>
+              <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
+              <Scene key='favorite' component={FavoriteViewContainer} title='Favorite' icon={TabIcon} display='ios-heart' hideNavBar/>
+              <Scene key='notification' component={NotificationViewContainer} title='Notice' icon={TabIcon} display='bell' hideNavBar/>
+              <Scene key='profile' component={ProfileViewContainer} title='Profile' icon={TabIcon} display='emoji-happy' hideNavBar/>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>
@@ -63,9 +64,9 @@ const NavigationView = React.createClass({
               tabBarStyle={styles.tabBarStyle}
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
-              <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} hideNavBar/>
-              <Scene key='bookmark' component={SearchViewContainer} title='BookMark' initial={true} icon={TabIcon} hideNavBar/>
-              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} hideNavBar/>
+              <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
+              <Scene key='bookmark' component={ListShowViewContainer} title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
+              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>
             </Scene>
           </Scene>
           <Scene key='searchModal' component={SearchModalContainer} />
