@@ -1,9 +1,10 @@
 import {Map, fromJS} from 'immutable';
 import {loop, combineReducers} from 'redux-loop';
-import { reducer as formReducer } from 'redux-form/immutable'
+import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 import LoginStateReducer from '../modules/login/LoginState';
 import FeedStateReducer from '../modules/feed/FeedState';
+import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
 import NotificationStateReducer from '../modules/notification/NotificationState';
@@ -16,6 +17,7 @@ const reducers = {
 
   login: LoginStateReducer,
   feed: FeedStateReducer,
+  listShow: ListShowStateReducer,
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
   form: formReducer,
