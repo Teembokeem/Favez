@@ -1,5 +1,5 @@
 import React from 'react';
-import {register} from '../../../services/auth0';
+import {register} from '../../../services/auth';
 import {
   StyleSheet,
   View,
@@ -12,12 +12,6 @@ import {Field, reduxForm} from 'redux-form/immutable';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const submit = values => {
-  console.log('submitting form', values.toJS());
-
-  return register(values.toJS().email, values.toJS().password);
-};
-
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
   console.log(props);
   return <TextInput style={styles.LoginFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
@@ -25,7 +19,11 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 
 const LoginForm = props => {
-  const {handleSubmit} = props;
+  const {handleSubmit, register} = props;
+
+  const submit = values => {
+    register(values.toJS());
+  };
 
   return (
     <View style={styles.LoginFormContainer}>
@@ -38,7 +36,7 @@ const LoginForm = props => {
           <Field name='email' component={renderInput} type='email' placeholder='EMAIL OR PHONE NUMBER' style={styles.LoginFormEmailInput}/>
         </View>
       </View>
-      <View style={styles.LoginFormFieldUsernameContainer}>
+      {/*<View style={styles.LoginFormFieldUsernameContainer}>
         <View style={styles.LoginFormUsernameIconContainer}>
           <Text style={styles.LoginFormUsernameText}>@</Text>
         </View>
@@ -46,7 +44,7 @@ const LoginForm = props => {
           <Text style={styles.LoginFormUsernameLabel}>{'USERNAME'}</Text>
           <Field name='username' component={renderInput} type='text' placeholder='USERNAME' style={styles.LoginFormUsernameInput}/>
         </View>
-      </View>
+      </View>*/}
       <View style={styles.LoginFormFieldPasswordContainer}>
         <View style={styles.LoginFormPasswordIconContainer}>
           <Ionicon style={styles.LoginFormPasswordIcon} name='md-key'/>

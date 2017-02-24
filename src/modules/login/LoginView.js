@@ -8,7 +8,6 @@ import {
   TouchableOpacity
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-
 import BackHeader from '../../components/globals/backHeader/backHeader';
 import Header from '../../components/globals/header/header';
 import LoginForm from '../../components/login/loginForm/loginForm';
@@ -20,7 +19,13 @@ const LoginView = React.createClass({
     Actions.pop();
   },
 
+  login(data){
+    this.props.dispatch(LoginState.login(data))
+  },
+
   render() {
+    // const {user} = this.props
+    // console.log('new user', user)
     return (
       <View style={styles.container} >
         <BackHeader
@@ -30,6 +35,7 @@ const LoginView = React.createClass({
           title={'Login'}
         />
         <LoginForm
+          login={this.login}
         />
       </View>
     );
