@@ -8,23 +8,24 @@ import {
 import {
   Button
 } from 'react-native-clean-form';
-import {login} from '../../../services/auth0';
+
 import {Field, reduxForm} from 'redux-form/immutable';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-const submit = values => {
-  login(values.toJS().email, values.toJS().password)
-};
 
-const renderInput = ({input: {onChange, ...restInput}}) => {
-  // console.log(restInput);
-  return <TextInput style={styles.LoginFormEmailInput} onChangeText={onChange} placeholder='hello' {...restInput}/>
+
+const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
+  return <TextInput style={styles.LoginFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 
 
 const LoginForm = props => {
-  const {handleSubmit, submitting} = props;
+  const {handleSubmit, submitting, login} = props;
+
+  const submit = values => {
+    login(values.toJS())
+  };
 
   return (
     <View style={styles.LoginFormContainer}>
@@ -34,7 +35,7 @@ const LoginForm = props => {
         </View>
         <View style={styles.LoginFormEmailInputContainer}>
           <Text style={styles.LoginFormEmailLabel}>{'EMAIL'}</Text>
-          <Field name='email' component={renderInput} type='email' style={styles.LoginFormEmailInput}/>
+          <Field name='email' component={renderInput} type='email' placeholder='EMAIL' style={styles.LoginFormEmailInput}/>
         </View>
       </View>
       <View style={styles.LoginFormFieldPasswordContainer}>
@@ -43,7 +44,7 @@ const LoginForm = props => {
         </View>
         <View style={styles.LoginFormPasswordInputContainer}>
           <Text style={styles.LoginFormPasswordLabel}>{'PASSWORD'}</Text>
-          <Field name='password' component={renderInput} type='password' style={styles.LoginFormPasswordInput} secureTextEntry={true}/>
+          <Field name='password' component={renderInput} type='password' placeholder='PASSWORD' style={styles.LoginFormPasswordInput} secureTextEntry={true}/>
         </View>
       </View>
       <View style={styles.LoginButtonContainer}>

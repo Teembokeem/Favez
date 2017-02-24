@@ -3,6 +3,7 @@ import {loop, combineReducers} from 'redux-loop';
 import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 import LoginStateReducer from '../modules/login/LoginState';
+import RegisterStateReducer from '../modules/register/RegisterState';
 import FeedStateReducer from '../modules/feed/FeedState';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
@@ -16,6 +17,7 @@ const reducers = {
   // counter: CounterStateReducer,
 
   login: LoginStateReducer,
+  register: RegisterStateReducer,
   feed: FeedStateReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,

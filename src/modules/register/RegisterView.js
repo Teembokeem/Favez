@@ -18,6 +18,11 @@ const RegisterView = React.createClass({
     Actions.pop()
   },
 
+  register(data) {
+    console.log('register event')
+    this.props.dispatch(RegisterState.register(data))
+  },
+
   render() {
     return (
       <View style={styles.container} >
@@ -28,6 +33,7 @@ const RegisterView = React.createClass({
           title={'Register'}
         />
         <RegisterForm
+          register={this.register}
         />
       </View>
     );
