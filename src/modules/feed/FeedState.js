@@ -5,7 +5,7 @@ import {getListAll} from '../../services/list';
 
 // Initial state
 const initialState = fromJS({
-  list: [],
+  lists: [],
   loading: true,
 });
 
@@ -70,7 +70,7 @@ export function increment(cards, index) {
 
 export async function getFullList() {
   return {
-    type: FEED_REQUEST,
+    type: FEED_REQUEST
     // payload: getListResponse,
   };
 }
@@ -93,7 +93,7 @@ export default function FeedStateReducer(state = initialState, action = {}) {
     case FEED_RESPONSE:
       return state
         .set('loading', false)
-        .set('list', action.payload.data);
+        .set('lists', action.payload.data);
 
     default:
       return state;
