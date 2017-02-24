@@ -7,6 +7,7 @@ import TabIcon from '../components/TabIcon';
 
 import IntroViewContainer from './intro/IntroViewContainer';
 import FeedViewContainer from './feed/FeedViewContainer';
+import ListShowViewContainer from './list-show/ListShowViewContainer';
 import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
@@ -64,7 +65,7 @@ const NavigationView = React.createClass({
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
               <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
-              <Scene key='bookmark' component={SearchViewContainer} title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
+              <Scene key='bookmark' component={ListShowViewContainer} title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
               <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>
             </Scene>
           </Scene>
