@@ -9,6 +9,7 @@ import {
   View
 } from 'react-native';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 function Category({category}) {
   const {ref, semantic, color, image} = category;
@@ -24,11 +25,8 @@ function Category({category}) {
   } else {
     return (
       <TouchableOpacity style={[styles.Category]}>
-        <Image
-          style={styles.CategoryColor}
-          source={image}
-        />
-        <Text style={[styles.CategoryText, {color: color}]}>{semantic.toUpperCase()}</Text>
+        <SLIcon style={styles.CategoryIcon} name='globe'/>
+        <Text style={[styles.CategoryText]}>{semantic.toUpperCase()}</Text>
         <Ionicon style={styles.CategoryArrow} name='md-arrow-round-forward'/>
       </TouchableOpacity>
     );
@@ -53,6 +51,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 65,
     height: 65
+  },
+  CategoryIcon: {
+    fontSize: 55,
+    paddingLeft: 5,
+    width: 65,
+    height: 65,
+    color: '#81dde2'
   },
   CategoryText: {
     alignSelf: 'center',
