@@ -1,13 +1,12 @@
-import React, {PropTypes} from 'react';
-import * as FeedState from './FeedState';
+import React from 'react';
+import * as ListActions from '../../redux/list/listActions';
+// import * as UIActions from '../../redux/ui/uiActions';
 import {
-  Text,
   View,
   ScrollView,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-
 import Card from '../../components/globals/card/card';
 import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 
@@ -15,17 +14,18 @@ const FeedView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    this.props.dispatch(FeedState.getFullList()) 
+    this.props.dispatch(ListActions.getFullList());
   },
 
   moving() {
+    this.props.dispatch(ListActions.setList());
     Actions.subbar();
   },
 
   render() {
     const {index, lists} = this.props;
     // const ds = this.state.dataSource;
-    console.log('lists', lists)
+    console.log('lists', lists);
     return (
       <View style={{flex: 1}}>
         <FeedHeader />
@@ -44,7 +44,7 @@ const FeedView = React.createClass({
       </View>
     );
   }
-})
+});
 
 const styles = StyleSheet.create({
   container: {
