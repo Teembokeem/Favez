@@ -16,11 +16,11 @@ function CardBody({card}) {
   return (
     <View style={[styles.cardBody]}>
         <Text style={[styles.cardBodyMessage]}>{card.description}</Text>
-        {/*<Image
+        <Image
           style={styles.cardBodyImage}
-          source={{uri: c}}
+          source={{uri: card._favez[0].image}}
         >
-        </Image>*/}
+        </Image>
         <View
           style={styles.cardBodySiteTitleContainer}
         >
