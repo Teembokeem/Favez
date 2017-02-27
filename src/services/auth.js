@@ -35,6 +35,7 @@ export async function genToken(){
 
 // figure out a place to put this...
 if ( !getAuthenticationToken() ) {
+  console.log('genning token')
   genToken()
   .then(function(res){
     setAuthenticationToken(res.access_token)  
