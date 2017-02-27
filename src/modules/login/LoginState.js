@@ -28,13 +28,13 @@ export async function login(data) {
 }
 
 export async function requestLogin(data) {
-  return authLogin(data)
+  return await authLogin(data)
     .then((res) => ({type: LOGIN_SUCCESS, payload: res}))
     .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
 }
 
 export async function requestUserInfo() {
-  return authUserInfo()
+  return await authUserInfo()
     .then((res) => ({type: USER_SUCCESS, payload: res}))
     .catch((err) => ({type: USER_FAILURE, payload: err}));
 }
@@ -55,13 +55,13 @@ export default function LoginStateReducer(state = initialState, action = {}) {
       );
     case LOGIN_FAILURE:
     case USER_FAILURE:
-      console.log('there was an error')
+      console.log('there was an error', action)
       return state.set('error', action.payload)
     case USER_SUCCESS:
-      console.log(action)
+      console.log(action, state)
       return state
-        // .set('loading', false)
-        // .set('user', action.payload)
+        .set('loading', false)
+        .set('user', action.payload)
     default:
       return state;
   }

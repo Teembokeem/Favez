@@ -4,7 +4,8 @@ import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 import LoginStateReducer from '../modules/login/LoginState';
 import RegisterStateReducer from '../modules/register/RegisterState';
-import FeedStateReducer from '../modules/feed/FeedState';
+// import FeedStateReducer from '../modules/feed/FeedState';
+import ListReducer from './list/listReducer';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
@@ -18,7 +19,7 @@ const reducers = {
 
   login: LoginStateReducer,
   register: RegisterStateReducer,
-  feed: FeedStateReducer,
+  list: ListReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
