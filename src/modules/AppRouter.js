@@ -14,7 +14,8 @@ import NotificationViewContainer from './notification/NotificationViewContainer'
 import ProfileViewContainer from './profile/ProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
-import SearchModalContainer from './modals/SearchModalContainer';
+import SearchModalContainer from './modals/searchModal/searchModalContainer';
+import ContextMenuContainer from './modals/contextMenu/contextMenuContainer';
 
 
 const styles = StyleSheet.create({
@@ -60,16 +61,16 @@ const NavigationView = React.createClass({
           <Scene key='subbar'>
             <Scene
               key='secondary'
-              tabs
-              tabBarStyle={styles.tabBarStyle}
-              tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
+              component={ListShowViewContainer}
+              hideNavBar={true}
             >
-              <Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
-              <Scene key='bookmark' component={ListShowViewContainer} title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
-              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>
+              {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
+              <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
+              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}
             </Scene>
           </Scene>
           <Scene key='searchModal' component={SearchModalContainer} />
+          <Scene key='contextMenu' component={ContextMenuContainer} />
         {/*</Scene>*/}
       </Router>
     );
