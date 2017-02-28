@@ -1,5 +1,6 @@
 import React, {PropTypes} from 'react';
-import * as ListShowState from './ListShowState';
+// import * as ListShowState from './ListShowState';
+import * as ListActions from '../../redux/list/listActions';
 import {
   Text,
   View,
@@ -8,34 +9,48 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import Header from '../../components/globals/header/header';
 import ListShowHeader from '../../components/list-show/listShowHeader/listShowHeader';
+import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
+import FooterTabs from '../../components/globals/footerTabs/footerTabs';
 
 const ListShowView = React.createClass({
   propTypes: {},
-  state: {
-    ready: null
-  },
-
   componentWillMount() {
-    this.setState({ready: false})
-    return this.props.dispatch(ListShowState.getFullList()) 
+    // this.setState({ready: false})
+    // return this.props.dispatch(ListActions.getFullList()) 
   },
 
   componentWillReceiveProps(nextProps) {
-    this.setState({ready: !nextProps.loading});
+    // this.setState({ready: !nextProps.loading});
   },
+
 
   moving() {
     Actions.subbar();
   },
 
   render() {
-    if (!this.state.ready) return null;
+    // if (!this.state.ready) return null;
     const {index, list} = this.props;
+    const tabProps = [
+      {
+        name: 'share',
+        icon: 'share',
+        action: 'menu'
+      },
+      {
+        name: 'bookmark',
+        icon: 'bookmark-plus-outline',
+        action: 'bool'
+      },
+      {
+        name: 'message',
+        icon: 'message-text',
+        action: 'outbound'
+      }
+    ];
     // const ds = this.state.dataSource;
-    console.log('list', list)
     return (
       <View style={{flex: 1}}>
         <ListShowHeader />
@@ -46,7 +61,7 @@ const ListShowView = React.createClass({
           <HeaderTabs
             setFilter={this.setFilter}
             tabs={['your lists', 'collabs', 'liked']}
-          />        
+          />      
           {/*{list.map((card, idx) => (
           <Card
               key={'feed ' + idx}
@@ -57,6 +72,9 @@ const ListShowView = React.createClass({
         ))}*/}
         <Text>{list.description}</Text>
         </ ScrollView>
+        <FooterTabs
+          TabProps={tabProps}
+        />
       </View>
     );
   }
