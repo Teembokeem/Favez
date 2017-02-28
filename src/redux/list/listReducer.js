@@ -1,15 +1,16 @@
-import {Map, fromJS} from 'immutable';
+import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import {
   LIST_REQUEST,
-  LIST_RESPONSE
+  LIST_RESPONSE,
+  SET_LIST
 } from './listActions';
 
 // Initial state
 const initialState = fromJS({
   all: [],
-  index: 0,
-  loading: true,
+  current: {},
+  loading: true
 });
 // {
 //   value: 0,
@@ -56,6 +57,10 @@ export default function ListReducer(state = initialState, action = {}) {
       return state
         .set('loading', false)
         .set('all', action.payload.data);
+    case SET_LIST:
+      console.log('action: setlist', state.get('all'), action.payload, state.get('all')[action.payload])
+      return state
+        .set('current', state.get('all')[action.payload]);
 
     default:
       return state;
