@@ -17,9 +17,12 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 const SearchHeader = React.createClass({
 
-    openSearchModal() {
-        Actions.searchModal();
-    },
+  openContext() {
+    Actions.contextMenu({hello: 'hi'});
+  },
+  openSearchModal() {
+    Actions.searchModal();
+  },
 
     render() {
         return (
@@ -38,6 +41,7 @@ const SearchHeader = React.createClass({
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.headerRightButton}
+                onPress={() => this.openContext()}
             >
                 <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
             </TouchableOpacity>
