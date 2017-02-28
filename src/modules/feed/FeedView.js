@@ -17,9 +17,9 @@ const FeedView = React.createClass({
     this.props.dispatch(ListActions.getFullList());
   },
 
-  moving() {
-    this.props.dispatch(ListActions.setList());
-    Actions.subbar();
+  moving(idx) {
+    this.props.dispatch(ListActions.setList(idx)).then(() => Actions.subbar());
+    // Actions.subbar();
   },
 
   render() {
@@ -36,7 +36,7 @@ const FeedView = React.createClass({
           <Card
               key={'feed ' + idx}
               card={card}
-              track={index}
+              track={idx}
               moving={this.moving}
           />
         ))}
