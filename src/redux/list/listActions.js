@@ -2,10 +2,11 @@ import {Actions} from 'react-native-router-flux';
 import {getListAll} from '../../services/list';
 
 // Actions
-export const INCREMENT = 'FeedState/INCREMENT';
-export const LIST_REQUEST = 'FeedState/LIST_REQUEST';
-export const LIST_LIST = 'FeedState/LIST_LIST';
-export const LIST_RESPONSE = 'FeedState/LIST_RESPONSE';
+export const INCREMENT = 'INCREMENT';
+export const LIST_REQUEST = 'LIST_REQUEST';
+export const LIST_RESPONSE = 'LIST_RESPONSE';
+export const LIST_LIST = 'LIST_LIST';
+export const SET_LIST = 'SET_LIST';
 
 // Action creators
 export function increment(cards, index) {
@@ -20,9 +21,16 @@ export async function getFullList() {
   };
 }
 
+export async function setList(index) {
+  return {
+    type: SET_LIST,
+    payload: index
+  };
+}
+
 export async function requestFullList() {
   return {
     type: LIST_RESPONSE,
-    payload: await getListAll(),
+    payload: await getListAll()
   };
-};
+}
