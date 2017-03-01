@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
+import * as FeedActions from './FeedState';
 // import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
@@ -14,7 +15,7 @@ const FeedView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    this.props.dispatch(ListActions.getFullList());
+    // this.props.dispatch(ListActions.getFullList());
   },
 
   moving(idx) {
@@ -22,13 +23,20 @@ const FeedView = React.createClass({
     // Actions.subbar();
   },
 
+  setVisibilityHeaderMore() {
+    this.props.dispatch(FeedActions.setVisibility());
+  },
+
   render() {
-    const {index, lists} = this.props;
+    const {index, lists, headerMore} = this.props;
     // const ds = this.state.dataSource;
-    console.log('lists', lists);
+    console.log(this.props)
     return (
       <View style={{flex: 1}}>
-        <FeedHeader />
+        <FeedHeader
+          setVisible={this.setVisibilityHeaderMore}
+          visible={headerMore}
+        />
         <ScrollView
           contentContainerStyle={styles.container}
         >
