@@ -34,10 +34,11 @@ export async function genToken(){
 
 
 // figure out a place to put this...
-if ( !getAuthenticationToken() ) {
+if ( getAuthenticationToken() ) {
   console.log('genning token')
   genToken()
   .then(function(res){
+    console.log(res.access_token, 'hi')
     setAuthenticationToken(res.access_token)  
   })
 } else {

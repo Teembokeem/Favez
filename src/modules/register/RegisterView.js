@@ -1,5 +1,5 @@
 import React from 'react';
-import * as RegisterState from './RegisterState';
+import * as UserActions from '../../redux/user/userActions';
 import BackHeader from '../../components/globals/backHeader/backHeader';
 import Header from '../../components/globals/header/header';
 import RegisterForm from '../../components/register/registerForm/registerForm';
@@ -20,7 +20,7 @@ const RegisterView = React.createClass({
 
   register(data) {
     console.log('register event')
-    this.props.dispatch(RegisterState.register(data))
+    this.props.dispatch(UserActions.register(data))
   },
 
   render() {

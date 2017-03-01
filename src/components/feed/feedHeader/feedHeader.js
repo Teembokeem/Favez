@@ -10,15 +10,39 @@ import {
   TextInput,
   View,
   Platform,
-  TouchableOpacity
+  TouchableOpacity,
+  ActionSheetIOS
 } from 'react-native';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+const ACTION_BUTTONS = [
+  'Create New List',
+  'Add fave from clipboard link',
+  'Add fave from website',
+  'Discover fave by topic',
+  'Cancel'
+];
+
+const CANCEL_INDEX = 4;
 
 const SearchHeader = React.createClass({
 
-  openContext() {
-    Actions.contextMenu({hello: 'hi'});
+  openActionSheet() {
+    // Actions.contextMenu({hello: 'hi'});
+    ActionSheetIOS.showActionSheetWithOptions({
+      options: ACTION_BUTTONS,
+      cancelButtonIndex: CANCEL_INDEX,
+    },
+    (buttonIndex) => {
+        if ( buttonIndex == 0 ) Actions.contextMenu({hello: 'hi'});
+        if ( buttonIndex == 1 ) console.log('hi 1', buttonIndex);
+        if ( buttonIndex == 2 ) console.log('hi 2', buttonIndex);
+        if ( buttonIndex == 3 ) console.log('hi 3', buttonIndex);
+        if ( buttonIndex == 4 ) console.log('hi 4', buttonIndex);
+
+
+    //   this.setState({ clicked: ACTION_BUTTONS[buttonIndex] });
+    });
   },
   openSearchModal() {
     Actions.searchModal();
@@ -41,7 +65,7 @@ const SearchHeader = React.createClass({
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.headerRightButton}
-                onPress={() => this.openContext()}
+                onPress={() => this.openActionSheet()}
             >
                 <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
             </TouchableOpacity>
