@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import * as LoginState from './LoginState';
+import * as UserActions from '../../redux/user/userActions';
 import {
   Text,
   View,
@@ -20,12 +20,12 @@ const LoginView = React.createClass({
   },
 
   login(data){
-    this.props.dispatch(LoginState.login(data))
+    this.props.dispatch(UserActions.login(data))
   },
 
   render() {
-    // const {user} = this.props
-    // console.log('new user', user)
+    const {user} = this.props
+    console.log('new user', user)
     return (
       <View style={styles.container} >
         <BackHeader

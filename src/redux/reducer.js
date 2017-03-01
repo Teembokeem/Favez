@@ -2,9 +2,8 @@ import {Map, fromJS} from 'immutable';
 import {loop, combineReducers} from 'redux-loop';
 import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
-import LoginStateReducer from '../modules/login/LoginState';
-import RegisterStateReducer from '../modules/register/RegisterState';
-import FeedStateReducer from '../modules/feed/FeedState';
+import UserStateReducer from './user/userReducer';
+// import FeedStateReducer from '../modules/feed/FeedState';
 import ListReducer from './list/listReducer';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
@@ -17,9 +16,7 @@ const reducers = {
   // Counter sample app state. This can be removed in a live application
   // counter: CounterStateReducer,
 
-  login: LoginStateReducer,
-  register: RegisterStateReducer,
-  feed: FeedStateReducer,
+  user: UserStateReducer,
   list: ListReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,
