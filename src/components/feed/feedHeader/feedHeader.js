@@ -12,42 +12,47 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
+import ContextMenu from '../../../modules/modals/contextMenu/contextMenu';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 const SearchHeader = React.createClass({
-
-  openContext() {
-    Actions.contextMenu({hello: 'hi'});
-  },
   openSearchModal() {
     Actions.searchModal();
   },
+  renderModal() {
 
-    render() {
-        return (
-        <View style={[styles.feedNavHeader]}>
-            <TouchableOpacity
-                style={styles.headerLeftButton}
-            >
-                <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={this.openSearchModal}
-                style={styles.headerSearchBar}
-            >
-                <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
+  },
 
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.headerRightButton}
-                onPress={() => this.openContext()}
-            >
-                <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
-            </TouchableOpacity>
-        </View>
-        );
-    }
+  render() {
+    console.log(this.props)
+    return (
+    <View style={[styles.feedNavHeader]}>
+        <TouchableOpacity
+            style={styles.headerLeftButton}
+        >
+            <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
+        </TouchableOpacity>
+        <TouchableOpacity
+            onPress={this.openSearchModal}
+            style={styles.headerSearchBar}
+        >
+            <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
+
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.headerRightButton}
+            onPress={() => this.props.setVisible()}
+        >
+            <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
+        </TouchableOpacity>
+        <ContextMenu
+            setVisible={this.props.setVisible}
+            visible={this.props.visible}
+        />
+    </View>
+    );
+  }
 });
 
 const styles = StyleSheet.create({
