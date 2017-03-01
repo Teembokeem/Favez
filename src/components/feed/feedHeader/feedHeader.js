@@ -81,18 +81,6 @@ const SearchHeader = React.createClass({
     </View>
     );
   }
-=======
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.headerRightButton}
-                onPress={() => this.openActionSheet()}
-            >
-                <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
-            </TouchableOpacity>
-        </View>
-        );
-    }
->>>>>>> alex
 });
 
 const styles = StyleSheet.create({

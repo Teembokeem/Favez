@@ -11,7 +11,6 @@ const apiCred = env.AUTH0_API_CREDENTIAL
 
 
 export async function authRegister(data) {
-  console.log('inside', data)
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -38,7 +37,6 @@ if ( getAuthenticationToken() ) {
   console.log('genning token')
   genToken()
   .then(function(res){
-    console.log(res.access_token, 'hi')
     setAuthenticationToken(res.access_token)  
   })
 } else {
