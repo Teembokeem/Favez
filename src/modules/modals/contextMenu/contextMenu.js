@@ -1,46 +1,51 @@
-import React, {Component} from 'react';
-import {Modal, Text, TouchableHighlight, View} from 'react-native';
+import React, {
+} from 'react';
+import {
+  Modal,
+  Text,
+  TouchableOpacity,
+  View,
+  StyleSheet
+} from 'react-native';
 
-const ContextMenu = React.createClass({
-  hello: 'ho',
-
-  setModalVisible(visible) {
-    this.setState({modalVisible: visible});
-  },
-
-  render() {
-    const modalVisible = false;
-    console.log('yay', this);
-    return (
-      <View style={{marginTop: 22}}>
-        <Modal
-          animationType={'slide'}
-          transparent={false}
-          visible={modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
-          >
-         <View style={{marginTop: 22}}>
+function ContextMenu({setVisible, visible}) {
+  return (
+    <View style={styles.container}>
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={visible}
+        >
+          <View style={{marginTop: 22}}>
           <View>
             <Text>Hello World!</Text>
 
-            <TouchableHighlight onPress={() => {
-              this.setModalVisible(!modalVisible);
+            <TouchableOpacity onPress={() => {
+              setVisible();
             }}>
               <Text>Hide Modal</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
 
           </View>
-         </View>
-        </Modal>
+        </View>
+      </Modal>
+    </View>
+  );
+}
 
-        <TouchableHighlight onPress={() => {
-          this.setModalVisible(!modalVisible);
-        }}>
-          <Text>Show Modal</Text>
-        </TouchableHighlight>
-
-      </View>
-    );
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: 'black',
+    // backgroundColor: '#f9f9f9',
+    // justifyContent: 'center',
+    paddingTop: 20,
+    paddingBottom: 50,
+    alignItems: 'center',
+    position: 'absolute',
+    left: 0,
+    top: 0
+    // justifyContent: 'center'
   }
 });
 
