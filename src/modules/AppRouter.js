@@ -15,7 +15,7 @@ import ProfileViewContainer from './profile/ProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
-import ContextMenuContainer from './modals/contextMenu/contextMenuContainer';
+import CreateListContainer from './create-list/CreateListViewContainer';
 
 
 const styles = StyleSheet.create({
@@ -62,6 +62,13 @@ const NavigationView = React.createClass({
                   {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
                   <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
                   <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}
+                </Scene>
+                <Scene
+                  key='createList'
+                  hideNavBar={true}
+                  hideTabBar={true}
+                >
+                  <Scene key='createListIndex' component={CreateListContainer} />
                 </Scene>
               </Scene>
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
