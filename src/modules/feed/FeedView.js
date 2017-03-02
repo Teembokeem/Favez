@@ -27,6 +27,16 @@ const FeedView = React.createClass({
     this.props.dispatch(FeedActions.setVisibility());
   },
 
+  selectContextItem(item) {
+    switch (item) {
+      case 'create':
+        this.setVisibilityHeaderMore();
+        return Actions.createList();
+      default :
+        return Actions.createList();
+      }
+  },
+
   render() {
     const {index, lists, headerMore} = this.props;
     // const ds = this.state.dataSource;
@@ -36,6 +46,7 @@ const FeedView = React.createClass({
         <FeedHeader
           setVisible={this.setVisibilityHeaderMore}
           visible={headerMore}
+          selectContextItem={this.selectContextItem}
         />
         <ScrollView
           contentContainerStyle={styles.container}
