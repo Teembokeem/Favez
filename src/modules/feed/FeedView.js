@@ -15,11 +15,11 @@ const FeedView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    // this.props.dispatch(ListActions.getFullList());
+    this.props.dispatch(ListActions.getFullList());
   },
 
   moving(idx) {
-    this.props.dispatch(ListActions.setList(idx)).then(() => Actions.subbar());
+    this.props.dispatch(ListActions.setList(idx)).then(() => Actions.listShow());
     // Actions.subbar();
   },
 

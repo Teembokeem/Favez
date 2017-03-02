@@ -44,6 +44,7 @@ export default class extends React.Component {
     }
 
     render(){
+        console.log(this)
         return (
             <Animated.View style={styles.container}>
                 <View style={{  flex: 1,  

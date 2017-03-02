@@ -50,7 +50,20 @@ const NavigationView = React.createClass({
               tabBarStyle={styles.tabBarStyle}
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
-              <Scene key='feed' component={FeedViewContainer} title='Feed' initial={true} icon={TabIcon} display='featured-play-list' hideNavBar/>
+              <Scene key='feed' title='Feed' icon={TabIcon} display='featured-play-list' hideNavBar>
+                <Scene key='feedIndex' component={FeedViewContainer} title='Feed'/>
+                <Scene key='searchModal' component={SearchModalContainer} hideTabBar={true}/>
+                <Scene></Scene>
+                <Scene
+                  key='listShow'
+                  hideNavBar={true}
+                >
+                  <Scene key='listShowIndex' component={ListShowViewContainer}/>
+                  {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
+                  <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
+                  <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}
+                </Scene>
+              </Scene>
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
               <Scene key='favorite' component={FavoriteViewContainer} title='Favorite' icon={TabIcon} display='ios-heart' hideNavBar/>
               <Scene key='notification' component={NotificationViewContainer} title='Notice' icon={TabIcon} display='bell' hideNavBar/>
@@ -58,19 +71,9 @@ const NavigationView = React.createClass({
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>
-          <Scene key='subbar'>
-            <Scene
-              key='secondary'
-              component={ListShowViewContainer}
-              hideNavBar={true}
-            >
-              {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
-              <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
-              <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}
-            </Scene>
-          </Scene>
-          <Scene key='searchModal' component={SearchModalContainer} />
-          <Scene key='contextMenu' component={ContextMenuContainer} />
+          {/*<Scene key='subbar'>
+          </Scene>*/}
+          {/*<Scene key='contextMenu' component={ContextMenuContainer} />*/}
         {/*</Scene>*/}
       </Router>
     );

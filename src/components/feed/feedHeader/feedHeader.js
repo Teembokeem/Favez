@@ -46,6 +46,7 @@ const SearchHeader = React.createClass({
     });
   },
   openSearchModal() {
+      console.log(Actions)
     Actions.searchModal();
   },
   renderModal() {
