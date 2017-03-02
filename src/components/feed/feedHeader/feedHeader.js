@@ -78,6 +78,7 @@ const SearchHeader = React.createClass({
         <ContextMenu
             setVisible={this.props.setVisible}
             visible={this.props.visible}
+            selectContextItem={this.props.selectContextItem}
         />
     </View>
     );
