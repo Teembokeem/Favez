@@ -9,8 +9,13 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-// import Card from '../../components/globals/card/card';
-import FeedHeader from '../../components/feed/feedHeader/feedHeader';
+
+
+import ImagePicker from '../../components/create-list/imagePicker/imagePicker';
+import Header from '../../components/globals/header/header';
+import CreateListHeader from '../../components/create-list/createListHeader/createListHeader';
+import CreateListForm from '../../components/create-list/createListForm/createListForm';
+
 
 const FeedView = React.createClass({
   propTypes: {},
@@ -29,19 +34,18 @@ const FeedView = React.createClass({
   },
 
   render() {
-    const {lists, headerMore} = this.props;
+    // const {} = this.props;
     // const ds = this.state.dataSource;
-    console.log(this.props)
+    console.log(this.props);
     return (
       <View style={{flex: 1}}>
-        <FeedHeader
-          setVisible={this.setVisibilityHeaderMore}
-          visible={headerMore}
-        />
+        <CreateListHeader />
         <ScrollView
           contentContainerStyle={styles.container}
         >
-        <Text>  ASAHSSHAHSAHSAHSASHASAHSAHSAHSASHASHASHASHASH</Text>
+          <Header title={'Create List'}/>
+          <ImagePicker />
+          <CreateListForm />
         </ ScrollView>
       </View>
     );
@@ -51,13 +55,14 @@ const FeedView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     // flexGrow: 1,
-    backgroundColor: '#e9e9e9',
+    // backgroundColor: '#e9e9e9',
     // justifyContent: 'center',
     // height: 1000,
     paddingTop: 20,
-    paddingBottom: 50,
-    alignItems: 'center'
-    // justifyContent: 'center'
+    // paddingBottom: 10,
+    alignItems: 'center',
+    width: 375
+    
   },
 });
 
