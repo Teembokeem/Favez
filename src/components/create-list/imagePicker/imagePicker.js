@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   ImagePickerText: {
-    fontFamily: 'Hind-Regular',
+    fontFamily: 'Hind-Medium',
+    fontSize: 15,
     color: '#b8b8b8'
   }
 
