@@ -117,11 +117,10 @@ const SET_TOPIC = 'ListShowState/SET_TOPIC';
 
 // Action creators
 export function setFilter(value) {
-  return {type: SET_TOPIC, payload: value};
+  return {type: SET_FILTER, payload: value};
 }
 
 export function setTopic(value) {
-  console.log("hiiiiiiii")
   return {type: SET_TOPIC, payload: value};
 }
 

@@ -27,7 +27,6 @@ const SearchView = React.createClass({
   },
 
   setTopic(val) {
-    console.log('val', val)
     this.props.dispatch(SearchState.setTopic(val));
   },
 
@@ -76,7 +75,6 @@ const SearchView = React.createClass({
       case 'lists':
       case 'sites':
       case 'filter':
-        console.log(this.props.lists, 'this lists')
         return (
           this.props.lists.map((card, idx) => (
             <Card
