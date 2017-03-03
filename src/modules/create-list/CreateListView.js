@@ -1,14 +1,15 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
-import * as FeedActions from './FeedState';
+import * as CreateListActions from './CreateListState';
 // import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
   ScrollView,
+  Text,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import Card from '../../components/globals/card/card';
+// import Card from '../../components/globals/card/card';
 import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 
 const FeedView = React.createClass({
@@ -24,21 +25,11 @@ const FeedView = React.createClass({
   },
 
   setVisibilityHeaderMore() {
-    this.props.dispatch(FeedActions.setVisibility());
-  },
-
-  selectContextItem(item) {
-    switch (item) {
-      case 'create':
-        this.setVisibilityHeaderMore();
-        return Actions.createList();
-      default :
-        return Actions.createList();
-      }
+    this.props.dispatch(CreateListActions.setVisibility());
   },
 
   render() {
-    const {index, lists, headerMore} = this.props;
+    const {lists, headerMore} = this.props;
     // const ds = this.state.dataSource;
     console.log(this.props)
     return (
@@ -46,19 +37,11 @@ const FeedView = React.createClass({
         <FeedHeader
           setVisible={this.setVisibilityHeaderMore}
           visible={headerMore}
-          selectContextItem={this.selectContextItem}
         />
         <ScrollView
           contentContainerStyle={styles.container}
         >
-        {lists.map((card, idx) => (
-          <Card
-              key={'feed ' + idx}
-              card={card}
-              track={idx}
-              moving={this.moving}
-          />
-        ))}
+        <Text>  ASAHSSHAHSAHSAHSASHASAHSAHSAHSASHASHASHASHASH</Text>
         </ ScrollView>
       </View>
     );

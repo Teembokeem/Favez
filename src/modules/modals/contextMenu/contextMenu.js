@@ -16,7 +16,7 @@ import EIcon from 'react-native-vector-icons/Entypo';
 
 const window = Dimensions.get('window');
 
-function ContextMenu({setVisible, visible}) {
+function ContextMenu({setVisible, visible, selectContextItem}) {
   return (
     <View style={styles.overlay}>
       <Modal
@@ -27,7 +27,10 @@ function ContextMenu({setVisible, visible}) {
         >
           <View style={styles.container}>
             <View style={styles.menuContainer}>
-              <TouchableOpacity style={styles.menuRow}>
+              <TouchableOpacity
+                style={styles.menuRow}
+                onPress={() => selectContextItem('create')}
+              >
                 <View style={styles.IconContainer}>
                   <IoniconIcon style={styles.listIcon}name='ios-list'/>
                 </View>
