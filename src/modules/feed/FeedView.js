@@ -39,7 +39,7 @@ const FeedView = React.createClass({
   render() {
     const {index, lists, headerMore} = this.props;
     // const ds = this.state.dataSource;
-    console.log(this.props)
+    console.log(this.props.lists)
     return (
       <View style={{flex: 1}}>
         <FeedHeader

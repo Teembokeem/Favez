@@ -2,7 +2,8 @@ import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import {setAuthenticationToken, setAuth0Token} from '../../utils/authentication';
 import {
-  REGISTER_REQUEST,
+  AUTH_REGISTER_REQUEST,
+  AUTH_REGISTER_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
   LOGIN_REQUEST,
@@ -13,6 +14,7 @@ import {
   requestLogin,
   requestUserInfo,
   requestRegister,
+  createUser,
 } from './userActions';
 
 // Initial state
@@ -26,15 +28,20 @@ const initialState = fromJS({
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case REGISTER_REQUEST:
+    case AUTH_REGISTER_REQUEST:
       return loop(
         state.set('loading', true),
         Effects.promise(() => requestRegister(action.payload))
       );
+    case AUTH_REGISTER_SUCCESS:
+      return loop(
+        state.set('user', {}),
+        Effects.promise(() => createUser(action.payload))
+      );
     case REGISTER_SUCCESS:
       return state
         .set('loading', false)
-        .set('user', action.payload);
+        .set('user', action.payload.data);
     case LOGIN_REQUEST:
       return loop(
         state.set('loading', true),
@@ -50,7 +57,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case REGISTER_FAILURE:
-      console.log('there was an error', action)
+      console.log('there was an error', action.payload)
       return state.set('error', action.payload)
     case USER_SUCCESS:
       return state

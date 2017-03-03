@@ -64,7 +64,6 @@ export async function del(path, suppressRedBox) {
 export async function request(method, path, body, suppressRedBox) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
-    console.log('response', response)
     return handleResponse(
       path,
       response
@@ -96,7 +95,6 @@ async function sendRequest(method, path, body) {
   try {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
-    console.log('this is the token', token)
     const headers = getRequestHeaders(body, token);
     const options = body
       ? {method, headers, body: JSON.stringify(body)}
