@@ -4,6 +4,10 @@ import {
   authRegister,
 } from '../../services/auth';
 
+import {
+  getUser,
+} from '../../services/user';
+
 // Actions
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';

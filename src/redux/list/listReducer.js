@@ -61,7 +61,6 @@ export default function ListReducer(state = initialState, action = {}) {
       console.log('action: setlist', state.get('all'), action.payload, state.get('all')[action.payload])
       return state
         .set('current', state.get('all')[action.payload]);
-
     default:
       return state;
   }

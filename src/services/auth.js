@@ -58,6 +58,7 @@ export async function authLogin(data) {
     'password': data.password,
     'connection': 'Username-Password-Authentication',
     'grant_type': 'password',
+    'scope': 'openid'
   }
   return await post('/oauth/ro', body);
 }

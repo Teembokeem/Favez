@@ -1,7 +1,7 @@
 import Promise from 'bluebird';
 import HttpError from 'standard-http-error';
 import {getConfiguration} from '../utils/configuration';
-import {getAuthenticationToken} from '../utils/authentication';
+import {getAuth0Token} from '../utils/authentication';
 
 const EventEmitter = require('event-emitter');
 
@@ -95,8 +95,7 @@ async function sendRequest(method, path, body) {
 
   try {
     const endpoint = url(path);
-    const token = await getAuthenticationToken();
-    console.log('token', token)
+    const token = await getAuth0Token();
     const headers = getRequestHeaders(body, token);
     const options = body
       ? {method, headers, body: JSON.stringify(body)}

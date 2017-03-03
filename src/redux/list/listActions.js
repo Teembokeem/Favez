@@ -22,6 +22,7 @@ export async function getFullList() {
 }
 
 export async function setList(index) {
+  console.log('this index now', index)
   return {
     type: SET_LIST,
     payload: index

@@ -20,7 +20,6 @@ const FeedView = React.createClass({
 
   moving(idx) {
     this.props.dispatch(ListActions.setList(idx)).then(() => Actions.listShow());
-    // Actions.subbar();
   },
 
   setVisibilityHeaderMore() {

@@ -2,7 +2,7 @@ import {Map} from 'immutable';
 
 let configuration = Map(
   {
-    API_ROOT: 'https://favezback.herokuapp.com/api',
+    API_ROOT: 'https://favezback.herokuapp.com',
     AUTH_ROOT: 'https://favez.auth0.com'
   }
 );
