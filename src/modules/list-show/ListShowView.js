@@ -1,6 +1,5 @@
 import React, {PropTypes} from 'react';
-// import * as ListShowState from './ListShowState';
-import * as ListActions from '../../redux/list/listActions';
+import * as ListShowState from './ListShowState';
 import {
   Text,
   View,
@@ -13,12 +12,15 @@ import ListShowHeader from '../../components/list-show/listShowHeader/listShowHe
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import FooterTabs from '../../components/globals/footerTabs/footerTabs';
+import Line from '../../components/globals/fave/line';
+import Info from '../../components/globals/fave/info';
+import Card from '../../components/globals/card/card';
 
 const ListShowView = React.createClass({
   propTypes: {},
   componentWillMount() {
     // this.setState({ready: false})
-    // return this.props.dispatch(ListActions.getFullList()) 
+    return this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
   componentWillReceiveProps(nextProps) {
@@ -30,9 +32,48 @@ const ListShowView = React.createClass({
     Actions.subbar();
   },
 
+  setFilter(val) {
+    this.props.dispatch(ListShowState.setFilter(val));
+  },
+
+  renderChildren() {
+    switch (this.props.selected) {
+      case 'info':
+        return (
+          <Info
+            fave={this.props.list}
+          />
+        )
+      case 'favez':
+        return (
+          this.props.list._favez.map((fave, index) => (
+            <Line
+              fave={fave}
+              key={'fave ' + index}
+            />
+          ))
+        );
+      case 'similar':
+        return (
+          this.props.similar.map((fave, index) => (
+              <Card
+                key={'fave ' + index}
+                card={fave}
+                track={index}
+                moving={this.moving}
+            />
+          ))
+        );
+      default :
+        return null;
+    }
+  },
+
+
   render() {
     // if (!this.state.ready) return null;
-    const {index, list} = this.props;
+    const {index, list, selected, similar} = this.props;
+    console.log('similar', similar)
     const tabProps = [
       {
         name: 'share',
@@ -50,27 +91,21 @@ const ListShowView = React.createClass({
         action: 'outbound'
       }
     ];
-    // const ds = this.state.dataSource;
+
     return (
       <View style={{flex: 1}}>
         <ListShowHeader />
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.contentContainer}
         >
           <Header title={list.name}/>
           <HeaderTabs
             setFilter={this.setFilter}
-            tabs={['your lists', 'collabs', 'liked']}
-          />      
-          {/*{list.map((card, idx) => (
-          <Card
-              key={'feed ' + idx}
-              card={card}
-              track={index}
-              moving={this.moving}
+            selected={selected}
+            tabs={['favez', 'info', 'similar']}
           />
-        ))}*/}
-        <Text>{list.description}</Text>
+          {this.renderChildren()}
+        {/*<Text>{list.description}</Text>*/}
         </ ScrollView>
         <FooterTabs
           TabProps={tabProps}
@@ -88,8 +123,10 @@ const styles = StyleSheet.create({
     // height: 1000,
     // paddingTop: 20,
     // marginTop: 20,
-    paddingBottom: 50,
-    alignItems: 'center'
+    justifyContent: 'flex-start',
+    // paddingBottom: 50,
+    alignItems: 'center',
+    flex: 1
     // justifyContent: 'center'
   },
 });

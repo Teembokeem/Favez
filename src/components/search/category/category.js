@@ -11,11 +11,14 @@ import {
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
 
-function Category({category}) {
+function Category({category, moving}) {
   const {ref, semantic, color, image} = category;
   if (ref !== 'location-specific') {
     return (
-      <TouchableOpacity style={[styles.Category]}>
+      <TouchableOpacity
+        style={[styles.Category]}
+        onPress={() => moving(category)}
+      >
         <View
           style={[styles.CategoryColor, {backgroundColor: color}]}
         />
@@ -24,7 +27,10 @@ function Category({category}) {
     );
   } else {
     return (
-      <TouchableOpacity style={[styles.Category]}>
+      <TouchableOpacity
+        style={[styles.Category]}
+        onPress={() => moving(category)}
+      >
         <SLIcon style={styles.CategoryIcon} name='globe'/>
         <Text style={[styles.CategoryText]}>{semantic.toUpperCase()}</Text>
         <Ionicon style={styles.CategoryArrow} name='md-arrow-round-forward'/>

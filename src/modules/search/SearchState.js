@@ -106,24 +106,34 @@ const initialState = fromJS({
     ]
   },
   value: 0,
-  loading: false
+  loading: false,
+  topic: null,
+  selected: 'lists'
 });
 
 // Actions
-const INCREMENT = 'FeedState/INCREMENT';
+const SET_FILTER = 'ListShowState/SET_FILTER';
+const SET_TOPIC = 'ListShowState/SET_TOPIC';
 
 // Action creators
-export function increment(cards, index) {
-  Actions.intro();
-  return {type: INCREMENT, item: cards, payload: index};
+export function setFilter(value) {
+  return {type: SET_TOPIC, payload: value};
+}
+
+export function setTopic(value) {
+  console.log("hiiiiiiii")
+  return {type: SET_TOPIC, payload: value};
 }
 
 // Reducer
 export default function FeedStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case INCREMENT:
-      return state;
-
+    case SET_FILTER:
+      return state
+        .set('selected', action.payload);
+    case SET_TOPIC:
+      return state
+        .set('topic', action.payload);
     default:
       return state;
   }

@@ -18,6 +18,7 @@ const FavoriteHeader = React.createClass({
   },
 
   render() {
+    const {toggleMenu} = this.props;
     return (
     <View style={[styles.feedNavHeader]}>
         <View
@@ -25,6 +26,7 @@ const FavoriteHeader = React.createClass({
         >
           <TouchableOpacity
               style={styles.headerLeftButton}
+              onPress={toggleMenu}
           >
               <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
           </TouchableOpacity>
