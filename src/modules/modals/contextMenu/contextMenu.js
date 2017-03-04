@@ -42,7 +42,10 @@ function ContextMenu({setVisible, visible, selectContextItem}) {
                 </View>
                 <Text style={styles.IconText}>Add fave from clipboard link</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuRow}>
+              <TouchableOpacity
+                style={styles.menuRow}
+                onPress={() => selectContextItem('web')}
+              >
                 <View style={styles.IconContainer}>
                   <MIcon style={styles.webIcon} name='web'/>
                 </View>
