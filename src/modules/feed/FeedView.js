@@ -31,6 +31,9 @@ const FeedView = React.createClass({
       case 'create':
         this.setVisibilityHeaderMore();
         return Actions.createList();
+      case 'web':
+        this.setVisibilityHeaderMore();
+        return Actions.addFave();
       default :
         return Actions.createList();
       }
