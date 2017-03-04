@@ -16,6 +16,7 @@ import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
 import CreateListContainer from './create-list/CreateListViewContainer';
+import AddFaveContainer from './add-fave/AddFaveViewContainer';
 
 
 const styles = StyleSheet.create({
@@ -69,6 +70,13 @@ const NavigationView = React.createClass({
                   hideTabBar={true}
                 >
                   <Scene key='createListIndex' component={CreateListContainer} />
+                </Scene>
+                <Scene
+                  key='addFave'
+                  hideNavBar={true}
+                  hideTabBar={true}
+                >
+                  <Scene key='addFaveIndex' component={AddFaveContainer} />
                 </Scene>
               </Scene>
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
