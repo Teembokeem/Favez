@@ -4,6 +4,7 @@ import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 import UserStateReducer from './user/userReducer';
 import FeedStateReducer from '../modules/feed/FeedState';
+import AddFaveReducer from '../modules/add-fave/AddFaveState';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
@@ -20,6 +21,7 @@ const reducers = {
 
   user: UserStateReducer,
   feed: FeedStateReducer,
+  addFave: AddFaveReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
