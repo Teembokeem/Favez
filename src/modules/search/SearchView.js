@@ -110,7 +110,7 @@ const SearchView = React.createClass({
       <View style={styles.container}>
 
         <ScrollView
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.contentContainer}
         >
           <SearchHeader />
           {
@@ -131,9 +131,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   contentContainer: {
-    backgroundColor: '#e9e9e9',
-    marginBottom: 30,
+    // backgroundColor: '#e9e9e9',
+    // marginBottom: 40,
     padding: 10,
+    paddingBottom: 40,
     paddingTop: 15,
     alignItems: 'center'
   }

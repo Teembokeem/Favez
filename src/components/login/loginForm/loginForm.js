@@ -145,5 +145,5 @@ const styles = StyleSheet.create({
 });
 
 export default reduxForm({
-  form: 'test'
+  form: 'login'
 })(LoginForm);
