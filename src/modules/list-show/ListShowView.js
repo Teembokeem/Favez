@@ -73,7 +73,6 @@ const ListShowView = React.createClass({
   render() {
     // if (!this.state.ready) return null;
     const {index, list, selected, similar} = this.props;
-    console.log('similar', similar)
     const tabProps = [
       {
         name: 'share',

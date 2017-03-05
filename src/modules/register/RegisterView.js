@@ -19,7 +19,6 @@ const RegisterView = React.createClass({
   },
 
   register(data) {
-    console.log('register event')
     this.props.dispatch(UserActions.register(data))
   },
 

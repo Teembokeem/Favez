@@ -11,7 +11,6 @@ import {
 
 
 function Info({fave}) {
-  console.log('hiiiii', fave)
   return (
     <View>
       <Text>Description</Text>
