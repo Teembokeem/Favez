@@ -1,6 +1,7 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
 import * as AddFaveActions from './AddFaveState';
+import * as FaveActions from '../../redux/fave/faveActions';
 // import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
@@ -29,7 +30,7 @@ const AddFaveView = React.createClass({
 
   scrapeUrl(url) {
     console.log('sending to scraper...', url);
-    this.props.dispatch(AddFaveActions.scrapeUrl(url)).then((err, res) => {
+    this.props.dispatch(FaveActions.scrapeUrl(url)).then((err, res) => {
       if (err) console.log('errors', err);
       console.log('Response', res);
     });
