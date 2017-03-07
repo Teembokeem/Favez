@@ -51,6 +51,8 @@ const ListShowHeader = React.createClass({
   render() {
     // const {url} = this.props;
     console.log('BROWSER SHIT', this.props);
+    const {browser} = this.props;
+    const {url, scrape} = browser;
     return (
     <View style={{flex: 1}}>
       <View style={[styles.NavBarContainer]}>
@@ -68,8 +70,8 @@ const ListShowHeader = React.createClass({
             <TextInput
               ref={TEXT_INPUT_REF}
               autoCapitalize="none"
-              defaultValue={this.props.url}
-              onSubmitEditing={() => this.onSubmitEditing(this.props.url, this.props.setBrowserUrl)}
+              defaultValue={url}
+              onSubmitEditing={() => this.onSubmitEditing(url, this.props.setBrowserUrl)}
               onChange={this.handleTextInputChange}
               clearButtonMode="while-editing"
               style={styles.addressBarTextInput}
@@ -79,7 +81,7 @@ const ListShowHeader = React.createClass({
             style={styles.flex2}
           >
             <TouchableOpacity
-              onPress={() => this.props.scrapeUrl(this.props.url)}
+              onPress={() => this.props.scrapeUrl(url)}
               style={styles.headerRightButton}
             >
                 <IoniconIcon style={styles.headerRightButtonIcon} name="ios-heart"/>
@@ -89,7 +91,7 @@ const ListShowHeader = React.createClass({
       <View style={styles.WebViewContainer}>
         <WebView
           onNavigationStateChange={(webView) => this.props.setBrowserUrl(webView.url)}
-          source={{uri: this.props.url}}
+          source={{uri: url}}
           style={styles.FaveBrowser}
         />
       </View>
