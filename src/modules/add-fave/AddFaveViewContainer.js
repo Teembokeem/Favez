@@ -5,11 +5,10 @@ import AddFaveView from './AddFaveView';
 
 export default connect(
   state => {
-    console.log(state.getIn(['addFave', 'browser']))
+    console.log(state.getIn(['ui', 'browser']))
     return {
       lists: state.getIn(['list', 'all']),
-      url: state.getIn(['addFave', 'browser', 'url']),
-      fave_current: state.getIn(['fave', 'current'])
+      browser: state.getIn(['ui', 'browser']).toJS()
       // headerContextMenu: state.getIn(['feed', 'header'])
       // cards: state.getIn(['feed', 'cards']).get('data').toJS(),
       // loading: state.getIn(['feed', 'loading'])
