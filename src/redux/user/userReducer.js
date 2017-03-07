@@ -14,7 +14,7 @@ import {
   requestLogin,
   requestUserInfo,
   requestRegister,
-  createUser,
+  createUser
 } from './userActions';
 
 // Initial state
@@ -22,7 +22,7 @@ const initialState = fromJS({
   user: {},
   value: 0,
   loading: false,
-  error: {},
+  error: {}
 });
 
 // Reducer
@@ -57,12 +57,12 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case REGISTER_FAILURE:
-      console.log('there was an error', action.payload)
-      return state.set('error', action.payload)
+      console.log('there was an error', action.payload);
+      return state.set('error', action.payload);
     case USER_SUCCESS:
       return state
         .set('loading', false)
-        .set('user', action.payload)
+        .set('user', action.payload);
     default:
       return state;
   }

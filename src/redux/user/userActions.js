@@ -25,19 +25,19 @@ export const USER_FAILURE = 'USER_FAILURE';
 export async function login(data) {
   return {
     type: LOGIN_REQUEST,
-    payload: data,
+    payload: data
   };
 }
 
 export async function register(data) {
   return {
     type: AUTH_REGISTER_REQUEST,
-    payload: data,
+    payload: data
   };
 }
 
 export async function requestRegister(data) {
-  console.log('here', data)
+  console.log('here', data);
   return authRegister(data)
     .then((res) => ({type: AUTH_REGISTER_SUCCESS, payload: res}))
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
