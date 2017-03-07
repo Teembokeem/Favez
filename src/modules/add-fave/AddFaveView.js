@@ -13,11 +13,18 @@ const AddFaveView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    this.props.dispatch(ListActions.getFullList());
+    // this.props.dispatch(ListActions.getFullList());
   },
 
   setBrowserUrl(url) {
-    this.props.dispatch(AddFaveActions.setBrowserUrl(url));
+    console.log('log everytime i browse', url)
+    if (url) {
+      this.props.dispatch(AddFaveActions.setBrowserUrl(url)).then((err, res) => {
+        // Actions.refresh();
+      });
+    } else {
+      return;
+    }
   },
 
 
