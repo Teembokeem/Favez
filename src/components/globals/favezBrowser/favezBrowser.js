@@ -22,7 +22,7 @@ const ListShowHeader = React.createClass({
 
   handleTextInputChange(event) {
     var url = event.nativeEvent.text;
-    if (!/^[a-zA-Z-_]+:/.test(url)) {
+    if (!/^(http|https):/.test(url)) {
       url = 'https://' + url;
     }
     this.inputText = url;
@@ -48,8 +48,33 @@ const ListShowHeader = React.createClass({
     Actions.pop();
   },
 
+  logInfo(state) {
+    console.log('stuff', state)
+  },
   render() {
     // const {url} = this.props;
+    let jsCode = `
+        var newDiv = document.createElement("div"); 
+        newDiv.style.position = 'absolute';
+        newDiv.style.top = '0';
+        newDiv.style.left = '0';
+        newDiv.style['z-index'] = '99';
+        var newContent = document.createTextNode(document.querySelectorAll('img')[2].src);
+        newDiv.appendChild(newContent); //add the text node to the newly created div. 
+
+        var newImg = document.createElement('img');
+        newImg.src = document.querySelectorAll('img')[2].src;
+        newImg.style.maxWidth = 400
+        newImg.style.maxHeight = 400
+        newImg.style.position = 'absolute';
+        newImg.style.top = '0';
+        newImg.style.left = '0';
+        newImg.style['z-index'] = '99';
+
+        // add the newly created element and its content into the DOM 
+        document.body.prepend(newDiv);
+        document.body.prepend(newImg) 
+    `;
     console.log('BROWSER SHIT', this.props)
     return (
     <View style={{flex: 1}}>
@@ -68,7 +93,7 @@ const ListShowHeader = React.createClass({
             <TextInput
               ref={TEXT_INPUT_REF}
               autoCapitalize="none"
-              defaultValue={'https://www.google.com'}
+              defaultValue={this.props.url}
               onSubmitEditing={() => this.onSubmitEditing(this.props.url, this.props.setBrowserUrl)}
               onChange={this.handleTextInputChange}
               clearButtonMode="while-editing"
@@ -87,7 +112,9 @@ const ListShowHeader = React.createClass({
       </View>
       <View style={styles.WebViewContainer}>
         <WebView
+          onNavigationStateChange={(webView) => this.props.setBrowserUrl(webView.url)}
           source={{uri: this.props.url}}
+          injectedJavaScript={jsCode}
           style={styles.FaveBrowser}
         />
       </View>
