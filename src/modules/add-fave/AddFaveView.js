@@ -1,8 +1,5 @@
 import React from 'react';
-import * as ListActions from '../../redux/list/listActions';
-import * as AddFaveActions from './AddFaveState';
-import * as FaveActions from '../../redux/fave/faveActions';
-// import * as UIActions from '../../redux/ui/uiActions';
+import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
   StyleSheet
@@ -20,7 +17,7 @@ const AddFaveView = React.createClass({
   setBrowserUrl(url) {
     console.log('log everytime i browse', url)
     if (url) {
-      this.props.dispatch(AddFaveActions.setBrowserUrl(url)).then((err, res) => {
+      this.props.dispatch(UIActions.setBrowserUrl(url)).then((err, res) => {
         // Actions.refresh();
       });
     } else {
@@ -30,17 +27,17 @@ const AddFaveView = React.createClass({
 
   scrapeUrl(url) {
     console.log('sending to scraper...', url);
-    return this.props.dispatch(FaveActions.scrapeUrl(url));
+    return this.props.dispatch(UIActions.scrapeUrl(url));
   },
 
 
   render() {
-    const {index, lists, headerMore, url} = this.props;
+    const {index, lists, headerMore, browser} = this.props;
     console.log('INSTANTIATING ADD FAVE VIEW', this.props)
     return (
       <View style={{flex: 1}}>
         <FavezBrowser
-          url={url}
+          browser={browser}
           scrapeUrl={this.scrapeUrl}
           setBrowserUrl={this.setBrowserUrl}
         />
