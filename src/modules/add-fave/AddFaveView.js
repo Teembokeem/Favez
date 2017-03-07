@@ -27,6 +27,14 @@ const AddFaveView = React.createClass({
     }
   },
 
+  scrapeUrl(url) {
+    console.log('sending to scraper...', url);
+    this.props.dispatch(AddFaveActions.scrapeUrl(url)).then((err, res) => {
+      if (err) console.log('errors', err);
+      console.log('Response', res);
+    });
+  },
+
 
   render() {
     const {index, lists, headerMore, url} = this.props;
@@ -35,6 +43,7 @@ const AddFaveView = React.createClass({
       <View style={{flex: 1}}>
         <FavezBrowser
           url={url}
+          scrapeUrl={this.scrapeUrl}
           setBrowserUrl={this.setBrowserUrl}
         />
       </View>
