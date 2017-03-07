@@ -20,7 +20,7 @@ export async function faveScrapeUrl(data) {
       'https://i.imgur.com/QReYxk2b.jpg'
     ];
     if (sendTempArr) {
-      resolve({status: 200, data: TempArr, attemptedUrl: data});
+      resolve({status: 200, data: TempArr, url: data});
     } else {
       reject({status: 404, err: 'you messed up man...'});
     }

@@ -30,7 +30,7 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_SCRAPE_SUCCESS:
       return state
         .set('loading', false)
-        .set('current', {url: action.payload.data});
+        .set('current', {url: action.payload.url, scrapedImages: action.payload.data});
     case FAVE_SCRAPE_FAILURE:
       console.log('ERROR');
       return state.set('error', action.payload);
