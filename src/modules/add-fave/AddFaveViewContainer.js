@@ -8,7 +8,8 @@ export default connect(
     console.log(state.getIn(['addFave', 'browser']))
     return {
       lists: state.getIn(['list', 'all']),
-      url: state.getIn(['addFave', 'browser', 'url'])
+      url: state.getIn(['addFave', 'browser', 'url']),
+      fave_current: state.getIn(['fave', 'current'])
       // headerContextMenu: state.getIn(['feed', 'header'])
       // cards: state.getIn(['feed', 'cards']).get('data').toJS(),
       // loading: state.getIn(['feed', 'loading'])
