@@ -4,7 +4,6 @@ import { reducer as formReducer } from 'redux-form/immutable';
 // import NavigationStateReducer from '../modules/navigation/NavigationState';
 import UserStateReducer from './user/userReducer';
 import FeedStateReducer from '../modules/feed/FeedState';
-import AddFaveReducer from '../modules/add-fave/AddFaveState';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
 import FavoriteStateReducer from '../modules/favorite/FavoriteState';
@@ -14,6 +13,7 @@ import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState'
 
 import ListReducer from './list/listReducer';
 import FaveReducer from './fave/faveReducer';
+import UIReducer from './ui/uiReducer';
 
 const reducers = {
   // Counter sample app state. This can be removed in a live application
@@ -21,7 +21,6 @@ const reducers = {
 
   user: UserStateReducer,
   feed: FeedStateReducer,
-  addFave: AddFaveReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,
   favorite: FavoriteStateReducer,
@@ -31,6 +30,7 @@ const reducers = {
 
   list: ListReducer,
   fave: FaveReducer,
+  ui: UIReducer,
   // @NOTE: By convention, the navigation state must live in a subtree called
   //`navigationState`
   // navigationState: NavigationStateReducer,
