@@ -14,6 +14,7 @@ const initialState = fromJS({
   browser: {
     url: 'https://www.google.com',
     scrape: {
+      scraped: false,
       url: '',
       title: '',
       images: []
@@ -33,11 +34,12 @@ export default function UIReducer(state = initialState, action = {}) {
         Effects.promise(() => requestScrape(action.payload))
       );
     case UI_BROWSER_SCRAPE_SUCCESS:
+    console.log('setting state', state, action)
       return state
         .set('loading', false)
-        .setIn(['browser', 'scrape'], {url: action.payload.url, title: '', images: action.payload.data});
+        .setIn(['browser', 'scrape'], {url: state.getIn(['browser', 'url']), title: '', images: action.payload.data.images, scraped: true});
     case UI_BROWSER_SCRAPE_FAILURE:
-      console.log('ERROR');
+      console.log('ERROR', action);
       return state.set('error', action.payload);
     default :
       return state;
