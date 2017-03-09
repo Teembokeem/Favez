@@ -23,6 +23,11 @@ const LoginView = React.createClass({
     this.props.dispatch(UserActions.login(data))
   },
 
+  componentDidUpdate() {
+    const {user} = this.props
+    if (user.email) Actions.tabbar()
+  },
+
   render() {
     const {user} = this.props
     console.log('new user', user)

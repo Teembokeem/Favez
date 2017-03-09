@@ -60,6 +60,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
       console.log('there was an error', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:
+      console.log('payyyy up', action.payload)
       return state
         .set('loading', false)
         .set('user', action.payload);

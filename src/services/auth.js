@@ -11,10 +11,12 @@ const apiCred = env.AUTH0_API_CREDENTIAL
 
 
 export async function authRegister(data) {
+  console.log('data', data.phone)
   let body = {
     'client_id': apiCred,
     'username': data.email,
     'email': data.email,
+    'phone_number': data.phone,
     'password': data.password,
     'connection': 'Username-Password-Authentication',
   }

@@ -36,15 +36,15 @@ const LoginForm = props => {
           <Field name='email' component={renderInput} type='email' placeholder='EMAIL OR PHONE NUMBER' style={styles.LoginFormEmailInput}/>
         </View>
       </View>
-      {/*<View style={styles.LoginFormFieldUsernameContainer}>
+      <View style={styles.LoginFormFieldUsernameContainer}>
         <View style={styles.LoginFormUsernameIconContainer}>
           <Text style={styles.LoginFormUsernameText}>@</Text>
         </View>
         <View style={styles.LoginFormUsernameInputContainer}>
-          <Text style={styles.LoginFormUsernameLabel}>{'USERNAME'}</Text>
-          <Field name='username' component={renderInput} type='text' placeholder='USERNAME' style={styles.LoginFormUsernameInput}/>
+          <Text style={styles.LoginFormUsernameLabel}>{'PHONE'}</Text>
+          <Field name='phone' component={renderInput} type='text' placeholder='PHONE' style={styles.LoginFormUsernameInput}/>
         </View>
-      </View>*/}
+      </View>
       <View style={styles.LoginFormFieldPasswordContainer}>
         <View style={styles.LoginFormPasswordIconContainer}>
           <Ionicon style={styles.LoginFormPasswordIcon} name='md-key'/>
