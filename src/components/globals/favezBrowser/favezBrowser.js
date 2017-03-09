@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   WebView,
+  Text,
   TextInput,
   Dimensions,
   Platform,
@@ -48,14 +49,32 @@ const ListShowHeader = React.createClass({
     Actions.pop();
   },
 
-  render() {
-    // const {url} = this.props;
-    console.log('BROWSER SHIT', this.props);
-    const {browser} = this.props;
-    const {url, scrape} = browser;
-    return (
-    <View style={{flex: 1}}>
-      <View style={[styles.NavBarContainer]}>
+  renderHeader(isScraped, url) {
+    if (isScraped) {
+      return (
+        <View style={[styles.NavBarContainer]}>
+          <View
+            style={styles.flex1}
+          >
+            <TouchableOpacity
+              onPress={this.back}
+                style={styles.headerLeftButton}
+            >
+              <FAIcon style={styles.headerLeftButtonIcon} name="close" />
+            </TouchableOpacity>
+          </View>
+          <View style={styles.HeaderTextContainer}>
+            <Text
+              style={styles.HeaderText}
+            >Pick Image</Text>
+          </View>
+          <View style={styles.flex2}>
+          </View>
+        </View>
+      );
+    } else {
+      return (
+        <View style={[styles.NavBarContainer]}>
           <View
             style={styles.flex1}
           >
@@ -88,10 +107,90 @@ const ListShowHeader = React.createClass({
             </TouchableOpacity>
           </View>
       </View>
+      );
+    }
+  },
+
+  selectImageJS() {
+    const JS =
+    `var imageContainer = document.querySelector('div.container');
+      imageContainer.onclick = function(e) {
+        window.postMessage(e.target.getAttribute('src'))
+      }
+    `;
+    return JS;
+  },
+  selectImageHTML(images) {
+    let imageList = '';
+    function concatImages() {
+      images.forEach((image) => {
+        imageList += `<img class="image" src=${image.src}/>`;
+      });
+      return imageList;
+    }
+    const HTML =
+      `<!DOCTYPE html>
+      <html>
+        <head>
+          <title>Hello Static World</title>
+          <meta http-equiv="content-type" content="text/html; charset=utf-8">
+          <meta name="viewport" content="width=320, user-scalable=no">
+          <style type="text/css">
+            body {
+              margin: 0;
+              padding: 0;
+              font: 62.5% arial, sans-serif;
+              background: 'white';
+              display: block;
+            }
+            .container {
+              position: relative;
+              // width: 300px;
+              // display: flex;
+              text-align: center;
+              // display: flex;
+              // align-items: center;
+              // justify-content: center;
+              flex-flow: 'row wrap';
+
+            }
+            .image {
+              flex-basis: 25%;
+              border-radius: 10%;
+              padding: 5px;
+            }
+          </style>
+        </head>
+        <body>
+          <div class="container">
+            ${concatImages()}          
+          </div>
+        </body>
+      </html>`;
+    return HTML;
+  },
+
+  onMessage(event) {
+    console.log('RECEIVING THINGS', event.nativeEvent.data);
+  },
+
+  render() {
+    // const {url} = this.props;
+    console.log('BROWSER SHIT', this.props);
+    const {browser} = this.props;
+    const {url, scrape} = browser;
+    const {scraped, images} = scrape;
+    const sourceDelegate = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
+    return (
+    <View style={{flex: 1}}>
+      {this.renderHeader(scraped, url)}
       <View style={styles.WebViewContainer}>
         <WebView
-          onNavigationStateChange={(webView) => this.props.setBrowserUrl(webView.url)}
-          source={{uri: url}}
+          onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserUrl(webView.url)}
+          // source={require('./selectImage.html')}
+          injectedJavaScript={scraped ? this.selectImageJS() : ''}
+          source={sourceDelegate}
+          onMessage={this.onMessage}
           style={styles.FaveBrowser}
         />
       </View>
@@ -144,7 +243,16 @@ const styles = StyleSheet.create({
     paddingTop: 3,
     paddingBottom: 3,
     flex: 1,
-    fontSize: 14,
+    fontSize: 14
+  },
+  HeaderTextContainer: {
+    flex: 6,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  HeaderText: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 16
   },
   flex2: {
     flex: 1,
