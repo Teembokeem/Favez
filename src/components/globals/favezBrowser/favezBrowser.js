@@ -157,9 +157,9 @@ const ListShowHeader = React.createClass({
             }
             .image {
               border-radius: 10%;
-              // width: 45% !important;
+              width: 45% !important;
               flex: 1;
-              // height: 45% !important;
+              // height: 100% !important;
               padding: 5px;
             }
           </style>
