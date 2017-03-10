@@ -36,7 +36,10 @@ function ContextMenu({setVisible, visible, selectContextItem}) {
                 </View>
                 <Text style={styles.IconText}>Create New List</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.menuRow}>
+              <TouchableOpacity
+                onPress={() => selectContextItem('form')}
+                style={styles.menuRow}
+              >
                 <View style={styles.IconContainer}>
                   <MCIcon style={styles.linkIcon} name='link-variant'/>
                 </View>
