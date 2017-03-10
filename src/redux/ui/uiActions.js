@@ -11,14 +11,11 @@ export const UI_BROWSER_SCRAPE_FAILURE = 'UI_BROWSER_SCRAPE_FAILURE';
 
 // Action creators
 export function setBrowserUrl(url) {
-  console.log('NEVNEIVNESILVNEILSNVLIESNVIELSNVIELSNVEILSVNEILSVNSEILVENSILVESNVILSENVILSVNSILVENSILVESILVSENVLEISNVEILSNVSEILVNSELI')
   return {type: UI_BROWSER_SET_URL, payload: url};
 }
 
 // SCRAPE URL
 export async function scrapeUrl(url) {
-  console.log('Fave Model Action: scrapeUrl');
-  console.log('returning action type');
   return {type: UI_BROWSER_SCRAPE_REQUEST, payload: url};
 }
 
