@@ -52,5 +52,5 @@ export async function createList(obj) {
 export async function requestCreateList(data) {
   return await listCreate(data)
     .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
-    .then((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
+    .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
 }

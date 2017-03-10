@@ -3,7 +3,11 @@ import {loop, Effects} from 'redux-loop';
 import {
   LIST_REQUEST,
   LIST_RESPONSE,
-  SET_LIST
+  SET_LIST,
+  LIST_CREATE_REQUEST,
+  LIST_CREATE_SUCCESS,
+  LIST_CREATE_FAILURE,
+  requestCreateList
 } from './listActions';
 
 // Initial state
@@ -59,9 +63,21 @@ export default function ListReducer(state = initialState, action = {}) {
         .set('loading', false)
         .set('all', action.payload.data);
     case SET_LIST:
-      console.log('action: setlist', state.get('all'), action.payload, state.get('all')[action.payload])
       return state
         .set('current', state.get('all')[action.payload]);
+    case LIST_CREATE_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestCreateList(action.payload))
+      );
+    case LIST_CREATE_SUCCESS:
+      console.log('SUCCESS', state, action);
+      return state
+        .set('loading', false)
+        .set('myLists', state.get('myLists').concat(action.payload.data));
+    case LIST_CREATE_FAILURE:
+      console.log('ERROR', state, action);
+      return state.set('ERROR', action);
     default:
       return state;
   }
