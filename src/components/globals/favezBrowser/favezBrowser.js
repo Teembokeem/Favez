@@ -150,13 +150,16 @@ const ListShowHeader = React.createClass({
               text-align: center;
               // display: flex;
               // align-items: center;
-              // justify-content: center;
+              align-items: flex-start
+              justify-content: flex-start;
               flex-flow: 'row wrap';
 
             }
             .image {
-              flex-basis: 25%;
               border-radius: 10%;
+              // width: 45% !important;
+              flex: 1;
+              // height: 45% !important;
               padding: 5px;
             }
           </style>
