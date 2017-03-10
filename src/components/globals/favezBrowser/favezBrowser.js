@@ -34,7 +34,7 @@ const ListShowHeader = React.createClass({
   },
 
   pressGoButton(passedUrl, method) {
-    console.log('everythingggg', passedUrl, method)
+    console.log('everythingggg', passedUrl, method);
     var url = this.inputText.toLowerCase();
     if (url === passedUrl) {
       this.reload();
@@ -60,7 +60,7 @@ const ListShowHeader = React.createClass({
               onPress={this.back}
                 style={styles.headerLeftButton}
             >
-              <FAIcon style={styles.headerLeftButtonIcon} name="close" />
+              <FAIcon style={styles.headerLeftButtonIcon} name='close'/>
             </TouchableOpacity>
           </View>
           <View style={styles.HeaderTextContainer}>
@@ -82,17 +82,17 @@ const ListShowHeader = React.createClass({
               onPress={this.back}
                 style={styles.headerLeftButton}
             >
-              <FAIcon style={styles.headerLeftButtonIcon} name="close" />
+              <FAIcon style={styles.headerLeftButtonIcon} name='close' />
             </TouchableOpacity>
           </View>
           <View style={styles.addressBarContainer}>
             <TextInput
               ref={TEXT_INPUT_REF}
-              autoCapitalize="none"
+              autoCapitalize='none'
               defaultValue={url}
               onSubmitEditing={() => this.onSubmitEditing(url, this.props.setBrowserUrl)}
               onChange={this.handleTextInputChange}
-              clearButtonMode="while-editing"
+              clearButtonMode='while-editing'
               style={styles.addressBarTextInput}
             />
           </View>
@@ -103,7 +103,7 @@ const ListShowHeader = React.createClass({
               onPress={() => this.props.scrapeUrl(url)}
               style={styles.headerRightButton}
             >
-                <IoniconIcon style={styles.headerRightButtonIcon} name="ios-heart"/>
+                <IoniconIcon style={styles.headerRightButtonIcon} name='ios-heart'/>
             </TouchableOpacity>
           </View>
       </View>
@@ -173,14 +173,9 @@ const ListShowHeader = React.createClass({
     return HTML;
   },
 
-  onMessage(event) {
-    console.log('RECEIVING THINGS', event.nativeEvent.data);
-  },
-
   render() {
-    // const {url} = this.props;
     console.log('BROWSER SHIT', this.props);
-    const {browser} = this.props;
+    const {browser, setNewFave} = this.props;
     const {url, scrape} = browser;
     const {scraped, images} = scrape;
     const sourceDelegate = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
@@ -193,7 +188,7 @@ const ListShowHeader = React.createClass({
           // source={require('./selectImage.html')}
           injectedJavaScript={scraped ? this.selectImageJS() : ''}
           source={sourceDelegate}
-          onMessage={this.onMessage}
+          onMessage={(e) => setNewFave({url: scraped.url, image: e.nativeEvent.data})}
           style={styles.FaveBrowser}
         />
       </View>
@@ -275,7 +270,7 @@ const styles = StyleSheet.create({
   },
   WebViewContainer: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'center'
   },
   FaveBrowser: {
     width: window.width,
