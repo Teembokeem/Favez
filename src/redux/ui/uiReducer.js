@@ -34,7 +34,7 @@ export default function UIReducer(state = initialState, action = {}) {
         Effects.promise(() => requestScrape(action.payload))
       );
     case UI_BROWSER_SCRAPE_SUCCESS:
-    console.log('setting state', state, action)
+      console.log('setting state', state, action);
       return state
         .set('loading', false)
         .setIn(['browser', 'scrape'], {url: state.getIn(['browser', 'url']), title: '', images: action.payload.data.images, scraped: true});
