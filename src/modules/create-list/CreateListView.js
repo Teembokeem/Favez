@@ -37,7 +37,10 @@ const FeedView = React.createClass({
 
   createList(values) {
     console.log('CREATING LIST', values.toJS());
-    this.props.dispatch(ListActions.createList(values.toJS())).then(() => Actions.listShow())
+    this.props.dispatch(ListActions.createList(values.toJS())).then(() => {
+      console.log('done');
+      Actions.pop();
+    }) ;
   },
 
   render() {
