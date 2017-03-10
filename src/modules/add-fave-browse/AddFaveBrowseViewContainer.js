@@ -1,7 +1,7 @@
 import {
   connect
 } from 'react-redux';
-import AddFaveView from './AddFaveView';
+import AddFaveBrowseView from './AddFaveBrowseView';
 
 export default connect(
   state => {
@@ -14,4 +14,4 @@ export default connect(
       // loading: state.getIn(['feed', 'loading'])
     };
   }
-)(AddFaveView);
+)(AddFaveBrowseView);

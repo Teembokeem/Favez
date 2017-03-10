@@ -7,7 +7,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 import FavezBrowser from '../../components/globals/favezBrowser/favezBrowser';
 
-const AddFaveView = React.createClass({
+const AddFaveBrowseView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
@@ -59,4 +59,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddFaveView;
+export default AddFaveBrowseView;
