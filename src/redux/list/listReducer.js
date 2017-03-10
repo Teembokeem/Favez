@@ -9,6 +9,7 @@ import {
 // Initial state
 const initialState = fromJS({
   all: [],
+  myLists: [],
   current: {},
   loading: true
 });
