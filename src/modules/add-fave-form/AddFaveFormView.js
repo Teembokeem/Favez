@@ -16,7 +16,7 @@ const AddFaveFormView = React.createClass({
 
 
   render() {
-    const {index, lists, headerMore, browser} = this.props;
+    const {index, lists, headerMore, fave} = this.props;
     console.log('INSTANTIATING ADD FAVE VIEW', this.props)
     return (
       <View style={styles.container}>
