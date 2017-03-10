@@ -56,7 +56,7 @@ const CreateListForm = props => {
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
-          <Field name='Location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>
+          <Field name='location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>
         </View>
         <View style={styles.CreateListFormLocationIconContainer}>
           <SLIcon style={styles.CreateListFormLocationIcon} name='globe'/>
