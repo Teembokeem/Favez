@@ -5,10 +5,9 @@ import AddFaveFormView from './AddFaveFormView';
 
 export default connect(
   state => {
-    console.log(state.getIn(['ui', 'browser']))
     return {
-      lists: state.getIn(['list', 'all']),
-      browser: state.getIn(['ui', 'browser']).toJS()
+      lists: state.getIn(['list', 'myLists']),
+      fave: state.getIn(['fave', 'current'])
       // headerContextMenu: state.getIn(['feed', 'header'])
       // cards: state.getIn(['feed', 'cards']).get('data').toJS(),
       // loading: state.getIn(['feed', 'loading'])
