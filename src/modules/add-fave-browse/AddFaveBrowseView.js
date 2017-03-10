@@ -5,6 +5,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import FaveActions from '../../redux/fave/faveActions';
 import FavezBrowser from '../../components/globals/favezBrowser/favezBrowser';
 
 const AddFaveBrowseView = React.createClass({
@@ -15,11 +16,9 @@ const AddFaveBrowseView = React.createClass({
   },
 
   setBrowserUrl(url) {
-    console.log('log everytime i browse', url)
+    console.log('log everytime i browse', url);
     if (url) {
-      this.props.dispatch(UIActions.setBrowserUrl(url)).then((err, res) => {
-        // Actions.refresh();
-      });
+      this.props.dispatch(UIActions.setBrowserUrl(url));
     } else {
       return;
     }
@@ -30,6 +29,9 @@ const AddFaveBrowseView = React.createClass({
     return this.props.dispatch(UIActions.scrapeUrl(url));
   },
 
+  setNewFave(fave) {
+    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.AddFaveForm());
+  },
 
   render() {
     const {index, lists, headerMore, browser} = this.props;
@@ -40,6 +42,7 @@ const AddFaveBrowseView = React.createClass({
           browser={browser}
           scrapeUrl={this.scrapeUrl}
           setBrowserUrl={this.setBrowserUrl}
+          setNewFave={this.setNewFave}
         />
       </View>
     );
