@@ -16,7 +16,8 @@ import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
 import CreateListContainer from './create-list/CreateListViewContainer';
-import AddFaveContainer from './add-fave/AddFaveViewContainer';
+import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
+import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 
 
 const styles = StyleSheet.create({
@@ -72,11 +73,18 @@ const NavigationView = React.createClass({
                   <Scene key='createListIndex' component={CreateListContainer} />
                 </Scene>
                 <Scene
-                  key='addFave'
+                  key='addFaveBrowse'
                   hideNavBar={true}
                   hideTabBar={true}
                 >
-                  <Scene key='addFaveIndex' component={AddFaveContainer} />
+                  <Scene key='addFaveBrowseIndex' component={AddFaveBrowseViewContainer} />
+                </Scene>
+                <Scene
+                  key='addFaveForm'
+                  hideNavBar={true}
+                  hideTabBar={true}
+                >
+                  <Scene key='addFaveFormIndex' component={AddFaveFormViewContainer} />
                 </Scene>
               </Scene>
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
