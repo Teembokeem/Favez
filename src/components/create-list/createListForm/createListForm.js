@@ -4,6 +4,7 @@ import {
   View,
   Text,
   TouchableOpacity,
+  Dimensions,
   Switch,
   // Dimensions,
   TextInput
@@ -17,16 +18,19 @@ import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
 
+const window = Dimensions.get('window');
+
+
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
   return <TextInput style={styles.CreateListFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, login} = props;
+  const {handleSubmit, submitting, createList} = props;
 
   const submit = values => {
-    login(values.toJS())
+    createList(values);
   };
   let value = false;
 
@@ -64,7 +68,7 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(cool) => {value = !value;}}
+            onValueChange={(isPressed) => {value = isPressed;}}
             style={{marginBottom: 10}}
             value={value}
           />
@@ -76,7 +80,7 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(cool) => {value = !value;}}
+            onValueChange={(isPressed) => {value = isPressed;}}
             style={{marginBottom: 10}}
             value={value}
           />
@@ -90,7 +94,19 @@ const CreateListForm = props => {
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
       </View>
+      <TouchableOpacity
+        onPress={handleSubmit(submit)}
+        submitting={submitting}
+        style={styles.CreateListButton}
+      >
+        <View
+          style={styles.CreateListButtonTextContainer}
+        >
+          <Text style={styles.CreateListButtonText}>CREATE LIST</Text>
+        </View>
+      </TouchableOpacity>
     </View>
+
   );
 };
 
@@ -293,6 +309,28 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: -10,
     fontFamily: 'Hind-Regular'
+  },
+  CreateListButton: {
+    // flex: 1,
+    // position: 'absolute',
+    bottom: 0,
+    height: 50,
+    width: window.height,
+    backgroundColor: '#4caf4e',
+    // alignItems: 'center',
+    // alignItems: 'flex-start',
+    // justifyContent: 'center'
+  },
+  CreateListButtonTextContainer: {
+    width: 375,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  CreateListButtonText: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 19,
+    color: 'white'
   }
 });
 

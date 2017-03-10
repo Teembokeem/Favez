@@ -6,7 +6,6 @@ import {
   View,
   ScrollView,
   Text,
-  Dimensions,
   TouchableOpacity,
   StyleSheet
 } from 'react-native';
@@ -18,7 +17,6 @@ import Header from '../../components/globals/header/header';
 import CreateListHeader from '../../components/create-list/createListHeader/createListHeader';
 import CreateListForm from '../../components/create-list/createListForm/createListForm';
 
-const window = Dimensions.get('window');
 
 const FeedView = React.createClass({
   propTypes: {},
@@ -34,6 +32,12 @@ const FeedView = React.createClass({
 
   setVisibilityHeaderMore() {
     this.props.dispatch(CreateListActions.setVisibility());
+    // TODO get this onto UI actions.
+  },
+
+  createList(values) {
+    console.log('CREATING LIST', values.toJS());
+    this.props.dispatch(ListActions.createList(values.toJS())).then(() => Actions.listShow())
   },
 
   render() {
@@ -48,17 +52,10 @@ const FeedView = React.createClass({
         >
           <Header title={'Create List'}/>
           <ImagePicker />
-          <CreateListForm />
+          <CreateListForm
+            createList={this.createList}
+          />
         </ ScrollView>
-        <TouchableOpacity
-          style={styles.CreateListButton}
-        >
-          <View
-            style={styles.CreateListButtonTextContainer}
-          >
-            <Text style={styles.CreateListButtonText}>CREATE LIST</Text>
-          </View>
-        </TouchableOpacity>
       </View>
     );
   }
@@ -70,32 +67,10 @@ const styles = StyleSheet.create({
     // backgroundColor: '#e9e9e9',
     // justifyContent: 'center',
     // height: 1000,
-    paddingTop: 20,
-    // paddingBottom: 10,
+    // paddingTop: 20,
+    // paddingBottom: 40,
     alignItems: 'center',
     width: 375
-  },
-  CreateListButton: {
-    // flex: 1,
-    position: 'absolute',
-    bottom: 0,
-    height: 50,
-    width: window.height,
-    backgroundColor: '#4caf4e',
-    // alignItems: 'center',
-    // alignItems: 'flex-start',
-    // justifyContent: 'center'
-  },
-  CreateListButtonTextContainer: {
-    width: 375,
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  CreateListButtonText: {
-    fontFamily: 'Hind-Bold',
-    fontSize: 19,
-    color: 'white'
   }
 });
 
