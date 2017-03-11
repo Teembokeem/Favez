@@ -5,7 +5,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import FaveActions from '../../redux/fave/faveActions';
+import * as FaveActions from '../../redux/fave/faveActions';
 import FavezBrowser from '../../components/globals/favezBrowser/favezBrowser';
 
 const AddFaveBrowseView = React.createClass({
@@ -30,7 +30,7 @@ const AddFaveBrowseView = React.createClass({
   },
 
   setNewFave(fave) {
-    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.AddFaveForm());
+    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.addFaveForm());
   },
 
   render() {
