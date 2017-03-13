@@ -16,6 +16,7 @@ const FeedView = React.createClass({
 
   componentWillMount() {
     this.props.dispatch(ListActions.getFullList());
+    this.props.dispatch(ListActions.getMyLists());
   },
 
   moving(idx) {
