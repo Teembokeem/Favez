@@ -1,6 +1,7 @@
 import * as env from '../../env';
-import {get, post} from '../utils/authApi'
-import {setAuthenticationToken, getAuthenticationToken} from '../utils/authentication';
+import * as auth from '../utils/authApi';
+import {get} from '../utils/api';
+import {setAuthenticationToken, getAuthenticationToken, setAuth0Token} from '../utils/authentication';
 
 // const clientID = env.AUTH0_CLIENT_ID;
 // const domain = env.AUTH0_DOMAIN;
@@ -20,7 +21,7 @@ export async function authRegister(data) {
     'password': data.password,
     'connection': 'Username-Password-Authentication'
   };
-  return await post('/dbconnections/signup', body) ;
+  return await auth.post('/dbconnections/signup', body) ;
 }
 
 export async function genToken() {
@@ -30,7 +31,7 @@ export async function genToken() {
     'audience': 'https://favez.auth0.com/api/v2/',
     'grant_type': 'client_credentials'
   };
-  return await post('/oauth/token', body);
+  return await auth.post('/oauth/token', body);
 }
 
 
@@ -62,13 +63,16 @@ export async function authLogin(data) {
     'grant_type': 'password',
     'scope': 'openid'
   };
-  return await post('/oauth/ro', body)
+  return await auth.post('/oauth/ro', body)
     .then((res) => {
       console.log('SUCCESS /oauth/ro: ', res);
+      setAuth0Token(res.access_token);
+      setAuthenticationToken(res.id_token);
+      return get('/authorize');
     })
     .catch((err) => {return err;}) ;
 }
 
 export async function authUserInfo() {
-  return await get('/userinfo');
+  return await auth.get('/userinfo');
 }

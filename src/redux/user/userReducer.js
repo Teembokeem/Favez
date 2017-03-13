@@ -1,6 +1,5 @@
-import {Map, fromJS} from 'immutable';
+import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
-import {setAuthenticationToken, setAuth0Token} from '../../utils/authentication';
 import {
   AUTH_REGISTER_REQUEST,
   AUTH_REGISTER_SUCCESS,
@@ -48,8 +47,6 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestLogin(action.payload))
       );
     case LOGIN_SUCCESS:
-      setAuth0Token(action.payload.access_token);
-      setAuthenticationToken(action.payload.id_token);
       return loop(
         state.set('user', {}),
         Effects.promise(requestUserInfo)
