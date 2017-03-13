@@ -1,13 +1,17 @@
 import {Actions} from 'react-native-router-flux';
 import {
   getListAll,
-  listCreate
+  listCreate,
+  listGetMyLists
 } from '../../services/list';
 
 // Actions
 export const INCREMENT = 'INCREMENT';
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
+export const LIST_MYLIST_REQUEST = 'LIST_MYLIST_REQUEST';
+export const LIST_MYLIST_SUCCESS = 'LIST_MYLIST_SUCCESS';
+export const LIST_MYLIST_FAILURE = 'LIST_MYLIST_FAILURE';
 export const LIST_LIST = 'LIST_LIST';
 export const SET_LIST = 'SET_LIST';
 export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
@@ -32,6 +36,18 @@ export async function requestFullList() {
     type: LIST_RESPONSE,
     payload: await getListAll()
   };
+}
+
+export async function getMyLists() {
+  return {
+    type: LIST_MYLIST_REQUEST
+  };
+}
+
+export async function requestGetMyLists() {
+  return await listGetMyLists()
+    .then((res) => ({type: LIST_MYLIST_SUCCESS, payload: res}))
+    .catch((err) => ({type: LIST_MYLIST_FAILURE, payload: err}));
 }
 
 export async function setList(index) {
