@@ -37,10 +37,16 @@ const FeedView = React.createClass({
 
   createList(values) {
     console.log('CREATING LIST', values.toJS());
-    this.props.dispatch(ListActions.createList(values.toJS())).then(() => {
-      console.log('done');
-      Actions.pop();
-    }) ;
+    this.props.dispatch(ListActions.createList(values.toJS()))
+      .then(() => {
+        this.props.dispatch(ListActions.getMyLists()).then(() => {
+          console.log('refreshing lists');
+          Actions.pop();
+        });
+      })
+      .catch((err) => {
+        console.log('ERROR: ', err);
+      }) ;
   },
 
   render() {
