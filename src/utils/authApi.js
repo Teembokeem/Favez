@@ -64,7 +64,6 @@ export async function del(path, suppressRedBox) {
 export async function request(method, path, body, suppressRedBox) {
   try {
     const response = await sendRequest(method, path, body, suppressRedBox);
-    console.log('response', response)
     return handleResponse(
       path,
       response
