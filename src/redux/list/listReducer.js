@@ -4,10 +4,14 @@ import {
   LIST_REQUEST,
   LIST_RESPONSE,
   SET_LIST,
+  LIST_MYLIST_REQUEST,
+  LIST_MYLIST_SUCCESS,
+  LIST_MYLIST_FAILURE,
   LIST_CREATE_REQUEST,
   LIST_CREATE_SUCCESS,
   LIST_CREATE_FAILURE,
-  requestCreateList
+  requestCreateList,
+  requestGetMyLists
 } from './listActions';
 
 // Initial state
@@ -65,6 +69,19 @@ export default function ListReducer(state = initialState, action = {}) {
     case SET_LIST:
       return state
         .set('current', state.get('all')[action.payload]);
+    case LIST_MYLIST_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestGetMyLists())
+      );
+    case LIST_MYLIST_SUCCESS:
+      console.log('SUCCESS', state, action);
+      return state
+        .set('loading', false)
+        .set('myLists', state.get('myLists').concat(action.payload.data));
+    case LIST_MYLIST_FAILURE:
+      console.log('ERROR', state, action);
+      return state.set('ERROR', action);
     case LIST_CREATE_REQUEST:
       return loop(
         state.set('loading', true),
@@ -73,8 +90,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_CREATE_SUCCESS:
       console.log('SUCCESS', state, action);
       return state
-        .set('loading', false)
-        .set('myLists', state.get('myLists').concat(action.payload.data));
+        .set('loading', false);
     case LIST_CREATE_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
