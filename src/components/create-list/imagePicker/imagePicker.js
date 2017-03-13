@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native';
 
-function HeaderTabs() {
+function ImagePicker() {
   return (
     <View
       style={styles.ImagePickerContainer}
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default HeaderTabs;
+export default ImagePicker;
