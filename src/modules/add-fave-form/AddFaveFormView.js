@@ -10,7 +10,7 @@ import {
 import {Actions} from 'react-native-router-flux';
 import Header from '../../components/globals/header/header';
 import AddFaveFormHeader from '../../components/add-fave-form/addFaveFormHeader/addFaveFormHeader';
-
+import AddFaveFormButton from '../../components/add-fave-form/addFaveFormButton/addFaveFormButton';
 const AddFaveFormView = React.createClass({
   propTypes: {},
 
@@ -35,15 +35,16 @@ const AddFaveFormView = React.createClass({
         <AddFaveFormHeader />
         <ScrollView>
           <Header title={'Add Fave'}/>
-          <View style={{flex: 1, flexDirection: 'row'}}>
-            <View style={{padding: 10}}>
-              <Image style={{height: 55, width: 55, borderRadius: 10}} source={{uri: fave.image}}/>
+          <View style={styles.faveSummaryContainer}>
+            <View style={styles.faveSummaryImageContainer}>
+              <Image style={styles.faveSummaryImage} source={{uri: fave.image}}/>
             </View>
-            <View style={{paddingTop: 10}}>
-              <Text style={{fontFamily: 'Hind-Bold', fontSize: 18}}>{'Site Text'}</Text>
-              <Text style={{fontFamily: 'Hind-Medium', fontSize: 13}}>{fave.image}</Text>
+            <View style={styles.faveSummaryTextContainer}>
+              <Text style={styles.faveSummaryScrapedTitle}>{'Site Text'}</Text>
+              <Text style={styles.faveSummaryImageUrl}>{fave.image}</Text>
             </View>
           </View>
+          <AddFaveFormButton />
           <View>
             <Text style={{fontSize: 25, fontFamily: 'Hind-Bold', paddingLeft: 10, paddingTop: 10}}>LISTS</Text>
             {lists.map((list, idx) => {
@@ -70,6 +71,35 @@ const styles = StyleSheet.create({
     alignItems: 'center'
     // justifyContent: 'center'
   },
+  faveSummaryContainer: {
+    flex: 1, flexDirection: 'row'
+  },
+  faveSummaryImageContainer: {
+    padding: 10
+  },
+  faveSummaryImage: {
+    height: 55,
+    width: 55,
+    borderRadius: 10
+  },
+  faveSummaryTextContainer: {
+    paddingTop: 10
+  },
+  faveSummaryScrapedTitle: {
+    fontFamily: 'Hind-Bold',
+    fontSize: 18,
+    paddingTop: 9
+  },
+  faveSummaryImageUrl: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 13,
+    position: 'relative',
+    top: -7
+  },
+  createListButtonContainer: {
+
+  }
+
 });
 
 export default AddFaveFormView;
