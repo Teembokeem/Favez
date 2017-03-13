@@ -1,11 +1,8 @@
 import React, {PropTypes} from 'react';
 import * as UserActions from '../../redux/user/userActions';
 import {
-  Text,
   View,
-  ListView,
-  StyleSheet,
-  TouchableOpacity
+  StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import BackHeader from '../../components/globals/backHeader/backHeader';
@@ -19,18 +16,18 @@ const LoginView = React.createClass({
     Actions.pop();
   },
 
-  login(data){
-    this.props.dispatch(UserActions.login(data))
+  login(data) {
+    this.props.dispatch(UserActions.login(data));
   },
 
   componentDidUpdate() {
-    const {user} = this.props
-    if (user.email) Actions.tabbar()
+    const {user} = this.props;
+    if (user.email) Actions.tabbar();
   },
 
   render() {
-    const {user} = this.props
-    console.log('new user', user)
+    const {user} = this.props;
+    console.log('new user', user);
     return (
       <View style={styles.container} >
         <BackHeader

@@ -1,46 +1,46 @@
 import * as env from '../../env';
 import {get, post} from '../utils/authApi'
-import {setAuthenticationToken, getAuthenticationToken} from '../utils/authentication'
+import {setAuthenticationToken, getAuthenticationToken} from '../utils/authentication';
 
-const clientID = env.AUTH0_CLIENT_ID;
-const domain = env.AUTH0_DOMAIN;
-const secret = env.AUTH0_SECRET
-const apiCred = env.AUTH0_API_CREDENTIAL
+// const clientID = env.AUTH0_CLIENT_ID;
+// const domain = env.AUTH0_DOMAIN;
+const secret = env.AUTH0_SECRET;
+const apiCred = env.AUTH0_API_CREDENTIAL;
 
 
 
 
 export async function authRegister(data) {
-  console.log('data', data.phone)
+  console.log('data', data.phone);
   let body = {
     'client_id': apiCred,
     'username': data.email,
     'email': data.email,
     'phone_number': data.phone,
     'password': data.password,
-    'connection': 'Username-Password-Authentication',
-  }
-  return await post('/dbconnections/signup', body) 
+    'connection': 'Username-Password-Authentication'
+  };
+  return await post('/dbconnections/signup', body) ;
 }
 
-export async function genToken(){
+export async function genToken() {
   let body = {
     'client_id': apiCred,
     'client_secret': secret,
     'audience': 'https://favez.auth0.com/api/v2/',
-    'grant_type': 'client_credentials',
-  }
-  return await post('/oauth/token', body) 
+    'grant_type': 'client_credentials'
+  };
+  return await post('/oauth/token', body);
 }
 
 
 // figure out a place to put this...
-if ( getAuthenticationToken() ) {
-  console.log('genning token')
+if ( getAuthenticationToken()) {
+  console.log('genning token');
   genToken()
-  .then(function(res){
-    setAuthenticationToken(res.access_token)  
-  })
+  .then((res) => {
+    setAuthenticationToken(res.access_token);
+  });
 } else {
   // fakeLogin()
   // .then(function(res){
@@ -61,8 +61,12 @@ export async function authLogin(data) {
     'connection': 'Username-Password-Authentication',
     'grant_type': 'password',
     'scope': 'openid'
-  }
-  return await post('/oauth/ro', body);
+  };
+  return await post('/oauth/ro', body)
+    .then((res) => {
+      console.log('SUCCESS /oauth/ro: ', res);
+    })
+    .catch((err) => {return err;}) ;
 }
 
 export async function authUserInfo() {

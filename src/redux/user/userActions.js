@@ -1,12 +1,12 @@
 import {
   authLogin,
   authUserInfo,
-  authRegister,
+  authRegister
 } from '../../services/auth';
 
 import {
   getUser,
-  postUser,
+  postUser
 } from '../../services/user';
 
 // Actions
@@ -29,6 +29,12 @@ export async function login(data) {
   };
 }
 
+export async function requestLogin(data) {
+  return await authLogin(data)
+    .then((res) => ({type: LOGIN_SUCCESS, payload: res}))
+    .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
+}
+
 export async function register(data) {
   return {
     type: AUTH_REGISTER_REQUEST,
@@ -47,12 +53,6 @@ export async function createUser(data) {
   return postUser(data)
     .then((res) => ({type: REGISTER_SUCCESS, payload: res}))
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
-}
-
-export async function requestLogin(data) {
-  return await authLogin(data)
-    .then((res) => ({type: LOGIN_SUCCESS, payload: res}))
-    .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
 }
 
 export async function requestUserInfo() {

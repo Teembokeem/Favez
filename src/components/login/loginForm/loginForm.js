@@ -16,7 +16,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 
 
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
-  return <TextInput style={styles.LoginFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
+  return <TextInput style={styles.LoginFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>;
 };
 
 
@@ -24,7 +24,7 @@ const LoginForm = props => {
   const {handleSubmit, submitting, login} = props;
 
   const submit = values => {
-    login(values.toJS())
+    login(values.toJS());
   };
 
   return (
