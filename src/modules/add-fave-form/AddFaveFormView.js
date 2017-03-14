@@ -11,6 +11,7 @@ import {
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
 import * as FaveActions from '../../redux/fave/faveActions';
+import * as ListActions from '../../redux/list/listActions';
 import * as UIActions from '../../redux/ui/uiActions';
 import Header from '../../components/globals/header/header';
 import AddFaveFormHeader from '../../components/add-fave-form/addFaveFormHeader/addFaveFormHeader';
@@ -86,8 +87,9 @@ const AddFaveFormView = React.createClass({
       list_id: selectedTab[selectedRadio],
       type: 'que'
     });
-    this.props.dispatch(FaveActions.createFave(fave)).then(() => {
-      console.log('did stuff');
+    this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
+      console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
+      this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
 
   },
@@ -95,7 +97,6 @@ const AddFaveFormView = React.createClass({
 
   render() {
     const {myLists, myCollabs, fave, tabs, selectedTab, selectedRadio} = this.props;
-    const child = this.renderList(selectedRadio, renderList);
     let renderList;
     switch (selectedTab) {
       case 'yours':
@@ -110,6 +111,7 @@ const AddFaveFormView = React.createClass({
         renderList = myLists;
         break;
     }
+    const child = this.renderList(selectedRadio, renderList);
     console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
       <View style={styles.container}>
@@ -122,7 +124,7 @@ const AddFaveFormView = React.createClass({
             </View>
             <View style={styles.faveSummaryTextContainer}>
               <Text style={styles.faveSummaryScrapedTitle}>{'Site Text'}</Text>
-              <Text style={styles.faveSummaryImageUrl}>{fave.image}</Text>
+              <Text style={styles.faveSummaryImageUrl}>{fave.link}</Text>
             </View>
           </View>
           <AddFaveFormButton />

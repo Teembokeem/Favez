@@ -15,8 +15,9 @@ const AddFaveBrowseView = React.createClass({
     // this.props.dispatch(ListActions.getFullList());
   },
 
-  setBrowserUrl(url) {
-    console.log('log everytime i browse', url);
+  setBrowserUrl(url, source) {
+    console.log('SET BROWSER URL: ', url);
+    console.log('SET BROWSER URL: ', source);
     if (url) {
       this.props.dispatch(UIActions.setBrowserUrl(url));
     } else {
@@ -30,6 +31,7 @@ const AddFaveBrowseView = React.createClass({
   },
 
   setNewFave(fave) {
+    console.log('hello', fave)
     return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.addFaveForm());
   },
 
