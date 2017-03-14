@@ -14,6 +14,7 @@ const addFaveFormSubmit = React.createClass({
 
   render() {
     console.log(this.props);
+    const {submit} = this.props;
     return (
     <View style={styles.addFaveFormSubmitContainer}>
       <TextInput
@@ -22,6 +23,7 @@ const addFaveFormSubmit = React.createClass({
         placeholderTextColor={'#c8c8c8'}
       />
       <TouchableOpacity
+      onPress={submit}
       style={styles.FormSubmitButton}
       >
         <Text
