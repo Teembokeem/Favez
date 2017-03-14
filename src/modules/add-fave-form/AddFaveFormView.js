@@ -1,16 +1,24 @@
 import React from 'react';
-import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
   ScrollView,
   Image,
   Text,
+  TouchableOpacity,
+  Dimensions,
   StyleSheet
 } from 'react-native';
+import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
+import * as UIActions from '../../redux/ui/uiActions';
 import Header from '../../components/globals/header/header';
 import AddFaveFormHeader from '../../components/add-fave-form/addFaveFormHeader/addFaveFormHeader';
 import AddFaveFormButton from '../../components/add-fave-form/addFaveFormButton/addFaveFormButton';
+import AddFaveFormSubmit from '../../components/add-fave-form/addFaveFormSubmit/addFaveFormSubmit';
+import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
+
+const window = Dimensions.get('window');
+
 const AddFaveFormView = React.createClass({
   propTypes: {},
 
@@ -18,18 +26,77 @@ const AddFaveFormView = React.createClass({
     // this.props.dispatch(ListActions.getFullList());
   },
 
-  renderList(lists) {
-    lists.forEach((list) => {
-      return (
-        <Text>{list.name}</Text>
-      );
-    });
+  renderList(selectedRadio, selectedTab, lists, collabs) {
+    let renderList;
+      console.log('digging into switch', selectedTab)
+    switch (selectedTab) {
+      case 'yours':
+      console.log('yours')
+        renderList = lists;
+        break;
+      case 'collabs':
+      console.log('ours')
+        renderList = collabs;
+        break;
+      default:
+        renderList = lists;
+        break;
+    }
+    return (
+        renderList.map((list) => (
+          <View
+            key={'list ' + list.id}
+            style={styles.ListContainer}
+          >
+            <View
+              style={styles.ListImageContainer}
+            >
+              <Image
+                style={styles.ListImage}
+                source={list._favez ? {uri: list._favez[0].image} : require('../../../images/default_list.png')}
+              />
+            </View>
+            <View
+              style={styles.ListTitleContainer}
+            >
+              <Text
+                style={styles.ListTitle}
+              >{list.name}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.ListSelectButton}
+              onPress={() => this.toggleListOption(list.id)}
+            >
+              {(list.id === selectedRadio)
+              ? (
+                <View style={styles.ListSelectSelected}>
+                  <IoniconIcon style={styles.ListSelectSelectorIcon} name='md-checkmark-circle'/>
+                </View>
+              )
+              : (
+                <View style={styles.ListSelectDeselected}></View>
+              )}
+            </TouchableOpacity>
+          </View>
+        ))
+    );
+  },
+
+  toggleListOption(list_id) {
+    return this.props.selectedRadio === list_id
+    ? this.props.dispatch(UIActions.setRadioSelect('addFaveForm', -1))
+    : this.props.dispatch(UIActions.setRadioSelect('addFaveForm', list_id));
+  },
+
+  setFilter(view, tab) {
+    this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
 
   render() {
-    const {index, lists, headerMore, fave} = this.props;
-    console.log('INSTANTIATING ADD FAVE VIEW', this.props)
+    const {myLists, myCollabs, fave, tabs, selectedTab, selectedRadio} = this.props;
+    const child = this.renderList(selectedRadio, selectedTab, myLists, myCollabs);
+    console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
       <View style={styles.container}>
         <AddFaveFormHeader />
@@ -45,15 +112,25 @@ const AddFaveFormView = React.createClass({
             </View>
           </View>
           <AddFaveFormButton />
-          <View>
-            <Text style={{fontSize: 25, fontFamily: 'Hind-Bold', paddingLeft: 10, paddingTop: 10}}>LISTS</Text>
-            {lists.map((list, idx) => {
-              return (
-                <Text style={{paddingLeft: 10, fontFamily: 'Hind-Medium', fontSize: 18}} key={'list ' + idx}>{list.name}</Text>
-              )
-            })}
+          <HeaderTabs
+            view={'addFaveForm'}
+            selected={selectedTab}
+            tabs={tabs}
+            setFilter={this.setFilter}
+          />
+          <View
+            style={styles.contentContainer}
+          >
+            {child}
           </View>
         </ScrollView>
+        {this.props.selectedRadio !== -1
+          ? (
+            <AddFaveFormSubmit
+              submit={this.submit}
+            />)
+          : null
+        }
       </View>
     );
   }
@@ -61,15 +138,10 @@ const AddFaveFormView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    // flexGrow: 1,
     flex: 1,
     backgroundColor: 'white',
-    // justifyContent: 'center',
-    // height: 1000,
     paddingTop: 20,
-    paddingBottom: 50,
     alignItems: 'center'
-    // justifyContent: 'center'
   },
   faveSummaryContainer: {
     flex: 1, flexDirection: 'row'
@@ -96,8 +168,64 @@ const styles = StyleSheet.create({
     position: 'relative',
     top: -7
   },
-  createListButtonContainer: {
+  ListContainer: {
+    flex: 1,
+    backgroundColor: 'white',
+    width: window.width,
+    flexDirection: 'row',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#e6e6e6'
+  },
+  ListImageContainer: {
+    flex: 1,
+    padding: 10
+  },
+  ListImage: {
+    width: 50,
+    height: 50,
+    borderRadius: 10,
+    borderColor: '#d8d8d8',
+    borderWidth: 0.5
+  },
+  ListTitleContainer: {
+    flex: 6,
+    justifyContent: 'center'
+  },
+  ListTitle: {
+    paddingLeft: 10,
+    fontFamily: 'Hind-Bold',
+    fontSize: 15
+  },
+  ListSelectButton: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  ListSelectDeselected: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderColor: '#e6e6e6',
+    borderWidth: 3,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  ListSelectSelected: {
+    width: 26,
+    height: 26,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  ListSelectSelectorIcon: {
+    fontSize: 31,
+    color: '#4caf4e'
 
+  },
+  ListSelectIcon: {
+    fontSize: 13
+  },
+  contentContainer: {
+    backgroundColor: '#f6f6f6',
+    paddingBottom: 40
   }
 
 });
