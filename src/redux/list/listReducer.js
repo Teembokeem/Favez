@@ -18,6 +18,7 @@ import {
 const initialState = fromJS({
   all: [],
   myLists: [],
+  collaborations: [],
   current: {},
   loading: true
 });
@@ -78,7 +79,7 @@ export default function ListReducer(state = initialState, action = {}) {
       console.log('SUCCESS', state, action);
       return state
         .set('loading', false)
-        .set('myLists', state.get('myLists').concat(action.payload.data));
+        .set('myLists', action.payload.data);
     case LIST_MYLIST_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
