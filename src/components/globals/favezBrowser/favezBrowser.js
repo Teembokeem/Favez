@@ -45,10 +45,6 @@ const ListShowHeader = React.createClass({
     this.refs[TEXT_INPUT_REF].blur();
   },
 
-  back() {
-    Actions.pop();
-  },
-
   renderHeader(isScraped, url) {
     if (isScraped) {
       return (
@@ -57,7 +53,7 @@ const ListShowHeader = React.createClass({
             style={styles.flex1}
           >
             <TouchableOpacity
-              onPress={this.back}
+              onPress={Actions.pop}
                 style={styles.headerLeftButton}
             >
               <FAIcon style={styles.headerLeftButtonIcon} name='close'/>

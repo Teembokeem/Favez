@@ -18,10 +18,6 @@ import Card from '../../components/globals/card/card';
 const SearchView = React.createClass({
   propTypes: {},
 
-  back() {
-    Actions.pop();
-  },
-
   setFilter(val) {
     this.props.dispatch(SearchState.setFilter(val));
   },

@@ -9,7 +9,7 @@ import {
   ScrollView
 } from 'react-native';
 
-function HeaderTabs({selected, tabs, setFilter}) {
+function HeaderTabs({view, selected, tabs, setFilter}) {
   return (
     <ScrollView
       contentContainerStyle={[styles.HeaderTabs]}
@@ -22,7 +22,7 @@ function HeaderTabs({selected, tabs, setFilter}) {
             key={'tab ' + index}
           >
             <TouchableOpacity
-                onPress={() => setFilter(tab)}
+                onPress={() => setFilter(view, tab)}
             >
               <Text
                 style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}

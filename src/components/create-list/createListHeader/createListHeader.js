@@ -16,16 +16,13 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 
 const SearchHeader = React.createClass({
-  cancel() {
-    Actions.pop();
-  },
   render() {
     console.log(this.props)
     return (
     <View style={[styles.createListNavHeader]}>
         <TouchableOpacity
             style={styles.headerRightButton}
-            onPress={() => this.cancel()}
+            onPress={Actions.pop}
         >
           <Text
             style={styles.headerText}

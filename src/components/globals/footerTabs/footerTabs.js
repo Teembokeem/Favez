@@ -16,9 +16,6 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 function openFavoriteModal() {
   Actions.FavoriteModal();
 }
-function back() {
-  Actions.pop();
-}
 
 function delegatePress(action) {
   switch (action) {

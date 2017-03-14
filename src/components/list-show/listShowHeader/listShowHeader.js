@@ -16,9 +16,6 @@ const ListShowHeader = React.createClass({
   openFavoriteModal() {
     Actions.FavoriteModal();
   },
-  back() {
-    Actions.pop();
-  },
 
   render() {
     return (
@@ -27,7 +24,7 @@ const ListShowHeader = React.createClass({
           style={styles.flex1}
         >
           <TouchableOpacity
-            onPress={this.back}
+            onPress={Actions.pop}
               style={styles.headerLeftButton}
           >
             <IoniconIcon style={styles.headerLeftButtonIcon} name="md-arrow-round-back" />

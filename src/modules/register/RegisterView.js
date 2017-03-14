@@ -14,9 +14,6 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 const RegisterView = React.createClass({
-  back() {
-    Actions.pop()
-  },
 
   register(data) {
     this.props.dispatch(UserActions.register(data))
@@ -26,7 +23,7 @@ const RegisterView = React.createClass({
     return (
       <View style={styles.container} >
          <BackHeader
-          back={this.back}
+          back={Actions.pop}
         />
         <Header
           title={'Register'}

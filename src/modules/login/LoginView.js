@@ -12,10 +12,6 @@ import LoginForm from '../../components/login/loginForm/loginForm';
 
 const LoginView = React.createClass({
 
-  back() {
-    Actions.pop();
-  },
-
   login(data) {
     this.props.dispatch(UserActions.login(data));
   },
@@ -31,7 +27,7 @@ const LoginView = React.createClass({
     return (
       <View style={styles.container} >
         <BackHeader
-          back={this.back}
+          back={Actions.pop}
         />
         <Header
           title={'Login'}
