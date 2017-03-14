@@ -1,56 +1,20 @@
 import React from 'react';
-import {Actions} from 'react-native-router-flux'
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import IoniconIcon from 'react-native-vector-icons/Ionicons';
+import {Actions} from 'react-native-router-flux';
 import {
-  NavigationExperimental,
   StyleSheet,
   Text,
-  TextInput,
   View,
   Platform,
-  TouchableOpacity,
-  ActionSheetIOS
+  Dimensions,
+  TouchableOpacity
 } from 'react-native';
-import ContextMenu from '../../../modules/modals/contextMenu/contextMenu';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
-const ACTION_BUTTONS = [
-  'Create New List',
-  'Add fave from clipboard link',
-  'Add fave from website',
-  'Discover fave by topic',
-  'Cancel'
-];
-
-const CANCEL_INDEX = 4;
+const window = Dimensions.get('window');
 
 const SearchHeader = React.createClass({
 
-  openActionSheet() {
-    // Actions.contextMenu({hello: 'hi'});
-    ActionSheetIOS.showActionSheetWithOptions({
-      options: ACTION_BUTTONS,
-      cancelButtonIndex: CANCEL_INDEX,
-    },
-    (buttonIndex) => {
-        if ( buttonIndex == 0 ) Actions.contextMenu({hello: 'hi'});
-        if ( buttonIndex == 1 ) console.log('hi 1', buttonIndex);
-        if ( buttonIndex == 2 ) console.log('hi 2', buttonIndex);
-        if ( buttonIndex == 3 ) console.log('hi 3', buttonIndex);
-        if ( buttonIndex == 4 ) console.log('hi 4', buttonIndex);
-
-
-    //   this.setState({ clicked: ACTION_BUTTONS[buttonIndex] });
-    });
-  },
-  back() {
-    Actions.pop();
-  },
-
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
     <View style={[styles.feedNavHeader]}>
         <TouchableOpacity
@@ -66,7 +30,7 @@ const SearchHeader = React.createClass({
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.headerRightButton}
-            onPress={() => this.back()}
+            onPress={Actions.pop}
         >
           <Text style={styles.headerRightCancel}>Cancel</Text>
         </TouchableOpacity>
@@ -78,7 +42,8 @@ const SearchHeader = React.createClass({
 const styles = StyleSheet.create({
   feedNavHeader: {
     alignItems: 'center',
-    backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
+    backgroundColor: 'white',
+    width: window.width,
     // borderBottomColor: 'rgba(0, 0, 0, .15)',
     // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
     elevation: 4,
