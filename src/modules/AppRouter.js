@@ -52,10 +52,9 @@ const NavigationView = React.createClass({
               tabBarStyle={styles.tabBarStyle}
               tabBarSelectedItemStyle={styles.tabBarSelectedItemStyle}
             >
-              <Scene key='feed' title='Feed' icon={TabIcon} display='featured-play-list' hideNavBar>
-                <Scene key='feedIndex' component={FeedViewContainer} title='Feed'/>
+              <Scene key='feed' title='Feed' icon={TabIcon} display='featured-play-list'>
+                <Scene key='feedIndex' component={FeedViewContainer} title='Feed' hideNavBar={true} hideTabBar={false}/>
                 <Scene key='searchModal' component={SearchModalContainer} hideTabBar={true}/>
-                <Scene></Scene>
                 <Scene
                   key='listShow'
                   hideNavBar={true}
