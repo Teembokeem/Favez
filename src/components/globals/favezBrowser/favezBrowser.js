@@ -109,7 +109,18 @@ const ListShowHeader = React.createClass({
 
   selectImageJS() {
     const JS =
-    `var imageContainer = document.querySelector('div.container');
+    `
+      var originalPostMessage = window.postMessage;
+      var patchedPostMessage = function(message, targetOrigin, transfer) { 
+        originalPostMessage(message, targetOrigin, transfer);
+      };
+
+      patchedPostMessage.toString = function() { 
+        return String(Object.hasOwnProperty).replace('hasOwnProperty', 'postMessage');
+      };
+
+      window.postMessage = patchedPostMessage;
+      var imageContainer = document.querySelector('div.container');
       imageContainer.onclick = function(e) {
         window.postMessage(e.target.getAttribute('src'))
       }
@@ -179,14 +190,22 @@ const ListShowHeader = React.createClass({
     <View style={{flex: 1}}>
       {this.renderHeader(scraped, url)}
       <View style={styles.WebViewContainer}>
-        <WebView
-          onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserUrl(webView.url)}
-          // source={require('./selectImage.html')}
-          injectedJavaScript={scraped ? this.selectImageJS() : ''}
-          source={sourceDelegate}
-          onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data})}
-          style={styles.FaveBrowser}
-        />
+        {scraped
+          ? (
+            <WebView
+              source={sourceDelegate}
+              style={styles.FaveBrowser}
+              injectedJavaScript={scraped ? this.selectImageJS() : ''}
+              onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data})}
+            />
+          )
+          : (
+            <WebView
+              onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserUrl(webView.url)}
+              source={sourceDelegate}
+              style={styles.FaveBrowser}
+            />
+          )}
       </View>
     </View>
     );
