@@ -184,7 +184,7 @@ const ListShowHeader = React.createClass({
           // source={require('./selectImage.html')}
           injectedJavaScript={scraped ? this.selectImageJS() : ''}
           source={sourceDelegate}
-          onMessage={(e) => setNewFave({url: scraped.url, image: e.nativeEvent.data})}
+          onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data})}
           style={styles.FaveBrowser}
         />
       </View>
