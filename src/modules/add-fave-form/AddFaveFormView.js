@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
+import * as FaveActions from '../../redux/fave/faveActions';
 import * as UIActions from '../../redux/ui/uiActions';
 import Header from '../../components/globals/header/header';
 import AddFaveFormHeader from '../../components/add-fave-form/addFaveFormHeader/addFaveFormHeader';
@@ -26,22 +27,7 @@ const AddFaveFormView = React.createClass({
     // this.props.dispatch(ListActions.getFullList());
   },
 
-  renderList(selectedRadio, selectedTab, lists, collabs) {
-    let renderList;
-      console.log('digging into switch', selectedTab)
-    switch (selectedTab) {
-      case 'yours':
-      console.log('yours')
-        renderList = lists;
-        break;
-      case 'collabs':
-      console.log('ours')
-        renderList = collabs;
-        break;
-      default:
-        renderList = lists;
-        break;
-    }
+  renderList(selectedRadio, renderList) {
     return (
         renderList.map((list) => (
           <View
@@ -92,10 +78,38 @@ const AddFaveFormView = React.createClass({
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
+  submit() {
+    const {fave, selectedRadio, selectedTab} = this.props;
+    Object.assign(fave, {
+      name: 'new fave',
+      description: 'this is a new fave',
+      list_id: selectedTab[selectedRadio],
+      type: 'que'
+    });
+    this.props.dispatch(FaveActions.createFave(fave)).then(() => {
+      console.log('did stuff');
+    });
+
+  },
+
 
   render() {
     const {myLists, myCollabs, fave, tabs, selectedTab, selectedRadio} = this.props;
-    const child = this.renderList(selectedRadio, selectedTab, myLists, myCollabs);
+    const child = this.renderList(selectedRadio, renderList);
+    let renderList;
+    switch (selectedTab) {
+      case 'yours':
+        console.log('yours');
+        renderList = myLists;
+        break;
+      case 'collabs':
+        console.log('ours');
+        renderList = myCollabs;
+        break;
+      default:
+        renderList = myLists;
+        break;
+    }
     console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
       <View style={styles.container}>
@@ -227,7 +241,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
     paddingBottom: 40
   }
-
 });
 
 export default AddFaveFormView;
