@@ -1,8 +1,10 @@
-import {Map, fromJS} from 'immutable';
+import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
-import { Actions } from 'react-native-router-flux';
+// import { Actions } from 'react-native-router-flux';
 import {
   UI_BROWSER_SET_URL,
+  UI_SET_RADIO,
+  UI_SET_TAB,
   UI_BROWSER_SCRAPE_REQUEST,
   UI_BROWSER_SCRAPE_SUCCESS,
   UI_BROWSER_SCRAPE_FAILURE,
@@ -19,6 +21,13 @@ const initialState = fromJS({
       title: '',
       images: []
     }
+  },
+  addFaveForm: {
+    tabs: {
+      selected: 'yours',
+      set: ['yours', 'collabs']
+    },
+    radio: -1
   }
 });
 
@@ -28,6 +37,12 @@ export default function UIReducer(state = initialState, action = {}) {
     case UI_BROWSER_SET_URL:
       return state
         .setIn(['browser', 'url'], action.payload);
+    case UI_SET_RADIO:
+      return state
+        .setIn([action.payload.view, 'radio'], action.payload.tab);
+    case UI_SET_TAB:
+      return state
+        .setIn([action.payload.view, 'tabs', 'selected'], action.payload.tab);
     case UI_BROWSER_SCRAPE_REQUEST:
       return loop(
         state.set('loading', true),
