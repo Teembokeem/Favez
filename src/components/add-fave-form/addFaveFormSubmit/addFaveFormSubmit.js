@@ -11,7 +11,7 @@ import {
 const window = Dimensions.get('window');
 
 const addFaveFormSubmit = React.createClass({
-
+  text: 'Type a message (optional)',
   render() {
     console.log(this.props);
     const {submit} = this.props;
@@ -19,11 +19,12 @@ const addFaveFormSubmit = React.createClass({
     <View style={styles.addFaveFormSubmitContainer}>
       <TextInput
         style={styles.TextInput}
-        placeholder={'Type a message (optional)'}
+        placeholder={this.text}
         placeholderTextColor={'#c8c8c8'}
+        onChangeText={(text) => {this.text = text;}}
       />
       <TouchableOpacity
-      onPress={submit}
+      onPress={() => submit(this.text)}
       style={styles.FormSubmitButton}
       >
         <Text
