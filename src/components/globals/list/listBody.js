@@ -21,7 +21,7 @@ function ListBody({picture, name, topics, tags}) {
         </Text>
       </View>
       <View style={styles.ListBodyTags}>
-        {topics.map((topic, index) => (
+        {/*{topics.map((topic, index) => (
           <View
             style={styles.ListBodyTopicContainer}
             key={'topic ' + index}
@@ -40,7 +40,7 @@ function ListBody({picture, name, topics, tags}) {
               style={styles.ListBodyTag}
             >{'#' + tag.toUpperCase()}</Text>
           </View>
-        ))}
+        ))}*/}
       </View>
     </View>
   );
