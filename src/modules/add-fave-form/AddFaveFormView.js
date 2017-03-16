@@ -79,13 +79,13 @@ const AddFaveFormView = React.createClass({
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
-  submit() {
-    const {fave, selectedRadio, selectedTab} = this.props;
+  submit(text) {
+    const {fave, selectedRadio} = this.props;
     Object.assign(fave, {
       name: 'new fave',
-      description: 'this is a new fave',
-      list_id: selectedTab[selectedRadio],
-      type: 'que'
+      description: text,
+      list_id: this.setMyList()[selectedRadio].id,
+      type: 1
     });
     this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
       console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
@@ -94,23 +94,23 @@ const AddFaveFormView = React.createClass({
 
   },
 
-
-  render() {
-    const {myLists, myCollabs, fave, tabs, selectedTab, selectedRadio} = this.props;
-    let renderList;
+  setMyList() {
+    const {selectedTab, myLists, myCollabs} = this.props;
     switch (selectedTab) {
       case 'yours':
-        console.log('yours');
-        renderList = myLists;
-        break;
+        return myLists;
       case 'collabs':
         console.log('ours');
-        renderList = myCollabs;
-        break;
+        return myCollabs;
       default:
-        renderList = myLists;
-        break;
+        return myLists;
     }
+  },
+
+
+  render() {
+    const {fave, tabs, selectedTab, selectedRadio} = this.props;
+    let renderList = this.setMyList();
     const child = this.renderList(selectedRadio, renderList);
     console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
