@@ -28,6 +28,12 @@ const initialState = fromJS({
       set: ['yours', 'collabs']
     },
     radio: -1
+  },
+  favorite: {
+    tabs: {
+      selected: 'your lists',
+      set: ['your lists', 'collabs', 'liked']
+    }
   }
 });
 
