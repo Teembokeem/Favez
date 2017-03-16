@@ -14,19 +14,19 @@ function returnText(number) {
 }
 
 function ListHeader({creator, collaborators}) {
-  const {avatar, name} = creator;
+  const {picture, nickname} = creator;
   const semantics = returnText(collaborators);
   return (
     <View style={styles.ListHeader}>
       <View style={styles.leftContent}>
-        <Image 
-          source={{uri: avatar}}
+        <Image
+          source={picture ? {uri: picture} : require('../../../../images/default_avatar.png')}
           style={styles.ListHeaderAvatar}
         />
         <Text
           style={styles.ListHeaderUsername}
         >
-          {'@' + name}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
+          {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <View style={styles.rightContent}>
