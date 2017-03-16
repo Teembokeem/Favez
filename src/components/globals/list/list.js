@@ -12,8 +12,9 @@ import ListHeader from './listHeader';
 import ListBody from './listBody';
 import ListFooter from './listFooter';
 
-function List({list}) {
-  const {creator, collaborators, name, picture, topics, tags} = list;
+function List({list, user}) {
+  console.log(list)
+  const {creator, collaborators, name, _favez, topics, tags} = list;
   return (
     <View
       style={styles.ListContainer}
@@ -22,12 +23,12 @@ function List({list}) {
         style={styles.fadeLayer}
       ></View>
       <Image
-          source={{uri: picture}}
+          source={Array.isArray(_favez) && _favez.length > 0 ? {uri: _favez[0].image} : require('../../../../images/default_list_picture.png')}
           style={styles.ListBackground}
       />
       <ListHeader
-        creator={creator}
-        collaborators={collaborators.length}
+        creator={user}
+        /*collaborators={collaborators.length}*/
       />
       <ListBody
         name={name}
