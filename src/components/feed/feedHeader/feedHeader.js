@@ -4,16 +4,12 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
-  NavigationExperimental,
   StyleSheet,
-  Text,
-  TextInput,
   View,
   Platform,
   TouchableOpacity,
   ActionSheetIOS
 } from 'react-native';
-import ContextMenu from '../../../modules/modals/contextMenu/contextMenu';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 const ACTION_BUTTONS = [
@@ -26,13 +22,13 @@ const ACTION_BUTTONS = [
 
 const CANCEL_INDEX = 4;
 
-const SearchHeader = React.createClass({
+const FeedHeader = React.createClass({
 
   openActionSheet() {
     // Actions.contextMenu({hello: 'hi'});
     ActionSheetIOS.showActionSheetWithOptions({
       options: ACTION_BUTTONS,
-      cancelButtonIndex: CANCEL_INDEX,
+      cancelButtonIndex: CANCEL_INDEX
     },
     (buttonIndex) => {
         if ( buttonIndex == 0 ) Actions.contextMenu({hello: 'hi'});
@@ -46,40 +42,32 @@ const SearchHeader = React.createClass({
     });
   },
   openSearchModal() {
-      console.log(Actions)
+    console.log(Actions);
     Actions.searchModal();
-  },
-  renderModal() {
-
   },
 
   render() {
-    console.log(this.props)
+    console.log('======== FEED HEADER');
     return (
     <View style={[styles.feedNavHeader]}>
         <TouchableOpacity
             style={styles.headerLeftButton}
         >
-            <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
+            <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
         </TouchableOpacity>
         <TouchableOpacity
             onPress={this.openSearchModal}
             style={styles.headerSearchBar}
         >
-            <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
+            <FontAwesomeIcon style={styles.searchBarIcon} name='search'/>
 
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.headerRightButton}
-            onPress={() => this.props.setVisible()}
+            onPress={() => {console.log('hello from feed header');this.props.toggleContextMenu()}}
         >
-            <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
+            <EntypoIcon style={styles.headerRightButtonIcon} name='plus'/>
         </TouchableOpacity>
-        <ContextMenu
-            setVisible={this.props.setVisible}
-            visible={this.props.visible}
-            selectContextItem={this.props.selectContextItem}
-        />
     </View>
     );
   }
@@ -144,4 +132,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default SearchHeader;
+export default FeedHeader;
