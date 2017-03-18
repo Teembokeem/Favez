@@ -1,9 +1,10 @@
 import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
-// import { Actions } from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import {
   UI_BROWSER_SET_URL,
   UI_SET_RADIO,
+  UI_TOGGLE_CONTEXTMENU,
   UI_SET_TAB,
   UI_BROWSER_SCRAPE_REQUEST,
   UI_BROWSER_SCRAPE_SUCCESS,
@@ -33,6 +34,102 @@ const initialState = fromJS({
     tabs: {
       selected: 'your lists',
       set: ['your lists', 'collabs', 'liked']
+    },
+    header: {
+      contextMenu: {
+        visible: false,
+        set: [
+          {
+            pointer: 'create',
+            response: Actions.createList,
+            uiText: 'Create New List',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-list',
+              style: 'listIcon'
+            }
+          },
+          {
+            pointer: 'form',
+            response: Actions.addFaveForm,
+            uiText: 'Add fave from clipboard link',
+            icon: {
+              set: 'MCIcon',
+              identifier: 'link-variant',
+              style: 'linkIcon'
+            }
+          },
+          {
+            pointer: 'web',
+            response: Actions.addFaveBrowse,
+            uiText: 'Add fave from website',
+            icon: {
+              set: 'MIcon',
+              identifier: 'web',
+              style: 'webIcon'
+            }
+          },
+          {
+            pointer: 'none',
+            response: Actions.search,
+            uiText: 'Discover favez by topic',
+            icon: {
+              set: 'FIcon',
+              identifier: 'compass',
+              style: 'browseIcon'
+            }
+          }
+        ]
+      }
+    }
+  },
+  feed: {
+    header: {
+      contextMenu: {
+        visible: false,
+        set: [
+          {
+            pointer: 'create',
+            response: Actions.createList,
+            uiText: 'Create New List',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-list',
+              style: 'listIcon'
+            }
+          },
+          {
+            pointer: 'form',
+            response: Actions.addFaveForm,
+            uiText: 'Add fave from clipboard link',
+            icon: {
+              set: 'MCIcon',
+              identifier: 'link-variant',
+              style: 'linkIcon'
+            }
+          },
+          {
+            pointer: 'web',
+            response: Actions.addFaveBrowse,
+            uiText: 'Add fave from website',
+            icon: {
+              set: 'MIcon',
+              identifier: 'web',
+              style: 'webIcon'
+            }
+          },
+          {
+            pointer: 'none',
+            response: Actions.search,
+            uiText: 'Discover favez by topic',
+            icon: {
+              set: 'FIcon',
+              identifier: 'compass',
+              style: 'browseIcon'
+            }
+          }
+        ]
+      }
     }
   }
 });
@@ -43,6 +140,9 @@ export default function UIReducer(state = initialState, action = {}) {
     case UI_BROWSER_SET_URL:
       return state
         .setIn(['browser', 'url'], action.payload);
+    case UI_TOGGLE_CONTEXTMENU:
+      return state
+        .setIn([action.payload.view, action.payload.location, 'contextMenu', 'visible'], !state.getIn([action.payload.view, action.payload.location, 'contextMenu', 'visible']));
     case UI_SET_RADIO:
       return state
         .setIn([action.payload.view, 'radio'], action.payload.tab);

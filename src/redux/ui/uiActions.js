@@ -6,6 +6,7 @@ import {
 // Actions
 export const UI_BROWSER_SET_URL = 'UI_BROWSER_SET_URL';
 export const UI_SET_RADIO = 'UI_SET_RADIO';
+export const UI_TOGGLE_CONTEXTMENU = 'UI_TOGGLE_CONTEXTMENU';
 export const UI_SET_TAB = 'UI_SET_TAB';
 export const UI_BROWSER_SCRAPE_REQUEST = 'UI_BROWSER_SCRAPE_REQUEST';
 export const UI_BROWSER_SCRAPE_SUCCESS = 'UI_BROWSER_SCRAPE_SUCCESS';
@@ -18,6 +19,14 @@ export function setRadioSelect(view, tab) {
   return {
     type: UI_SET_RADIO,
     payload: {view, tab}
+  };
+}
+
+// TOGGLE HEADER CONTEXT MENU
+export function toggleContextMenu(view, location) {
+  return {
+    type: UI_TOGGLE_CONTEXTMENU,
+    payload: {view, location}
   };
 }
 
