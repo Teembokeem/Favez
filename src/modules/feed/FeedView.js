@@ -1,15 +1,17 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
-import * as FeedActions from './FeedState';
+import * as UIActions from '../../redux/ui/uiActions';
 // import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
+  Text,
   ScrollView,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import Card from '../../components/globals/card/card';
 import FeedHeader from '../../components/feed/feedHeader/feedHeader';
+import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 
 const FeedView = React.createClass({
   propTypes: {},
@@ -23,36 +25,49 @@ const FeedView = React.createClass({
     this.props.dispatch(ListActions.setList(idx)).then(() => Actions.listShow());
   },
 
-  setVisibilityHeaderMore() {
-    this.props.dispatch(FeedActions.setVisibility());
+  toggleContextMenu() {
+    this.props.dispatch(UIActions.toggleContextMenu('feed', 'header'));
   },
 
   selectContextItem(item) {
     switch (item) {
       case 'create':
-        this.setVisibilityHeaderMore();
+        this.toggleContextMenu();
         return Actions.createList();
       case 'form':
-        this.setVisibilityHeaderMore();
+        this.toggleContextMenu();
         return Actions.addFaveForm();
       case 'web':
-        this.setVisibilityHeaderMore();
+        this.toggleContextMenu();
         return Actions.addFaveBrowse();
       default :
         return Actions.createList();
       }
   },
 
+  renderModal() {
+    const {headerContextMenu} = this.props;
+    const {visible, set} = headerContextMenu;
+    return visible
+    ? (
+      <ContextMenu
+        toggleContextMenu={this.toggleContextMenu}
+        visible={visible}
+        items={set}
+      />
+    )
+    : null;
+  },
+
   render() {
-    const {index, lists, headerMore} = this.props;
+    const {lists} = this.props;
     // const ds = this.state.dataSource;
-    console.log(this.props.lists)
+    console.log(this.props)
     return (
       <View style={{flex: 1}}>
+        {this.renderModal()}
         <FeedHeader
-          setVisible={this.setVisibilityHeaderMore}
-          visible={headerMore}
-          selectContextItem={this.selectContextItem}
+          toggleContextMenu={this.toggleContextMenu}
         />
         <ScrollView
           contentContainerStyle={styles.container}
