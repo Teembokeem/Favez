@@ -8,8 +8,8 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
+import ContextMenu from '../../../modules/modals/contextMenu/contextMenu';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
 const FavoriteHeader = React.createClass({
 
@@ -17,29 +17,37 @@ const FavoriteHeader = React.createClass({
     Actions.FavoriteModal();
   },
 
+  renderModal() {
+    return (
+      <ContextMenu
+        setVisible={this.props.setVisible}
+        visible={this.props.visible}
+        selectContextItem={this.props.selectContextItem}
+      />
+    );
+  },
+
   render() {
     const {toggleMenu} = this.props;
     return (
     <View style={[styles.feedNavHeader]}>
-        <View
-          style={styles.flex1}
-        >
-          <TouchableOpacity
-              style={styles.headerLeftButton}
-              onPress={toggleMenu}
-          >
-              <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={styles.flex2}
-        >
-          <TouchableOpacity
-              style={styles.headerRightButton}
-          >
-              <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
-          </TouchableOpacity>
-        </View>
+      <TouchableOpacity
+          style={styles.headerLeftButton}
+          onPress={toggleMenu}
+      >
+          <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
+      </TouchableOpacity>
+      <View
+        style={styles.flexMiddle}
+      >
+
+      </View>
+      <TouchableOpacity
+          style={styles.headerRightButton}
+          onPress={() => renderModal()}
+      >
+          <EntypoIcon style={styles.headerRightButtonIcon} name='plus'/>
+      </TouchableOpacity>
     </View>
     );
   }
@@ -47,46 +55,34 @@ const FavoriteHeader = React.createClass({
 
 const styles = StyleSheet.create({
   feedNavHeader: {
-    // alignItems: 'center',
     backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
-    // borderBottomColor: 'rgba(0, 0, 0, .15)',
-    // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
     elevation: 4,
-    // flex: 1,
     width: 375,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    paddingTop: STATUSBAR_HEIGHT
-    // height: APPBAR_HEIGHT + STATUSBAR_HEIGHT * 2
+    paddingTop: APPBAR_HEIGHT
   },
-  flex1: {
-    height: 35,
+  headerLeftButton: {
     flex: 1,
-    paddingLeft: 20
+    padding: 10,
+    alignItems: 'center'
+  },
+  flexMiddle: {
+    flex: 6
   },
   headerLeftButtonIcon: {
-    width: 35,
     fontSize: 30,
-    color: '#000000',
-    alignSelf: 'flex-start'
+    color: '#000000'
   },
-  flex2: {
+  headerRightButton: {
     flex: 1,
-    paddingRight: 20
+    padding: 10,
+    alignItems: 'center'
   },
   headerRightButtonIcon: {
-    height: 35,
-    width: 35,
     fontSize: 35,
-    // top: 30,
-    // margin: 10,
-    color: '#000000',
-    alignSelf: 'flex-end'
-  },
-  placeHolder: {
-    marginLeft: 20
+    color: '#000000'
   }
-
 });
 
 export default FavoriteHeader;
