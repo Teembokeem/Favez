@@ -8,7 +8,6 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
-import ContextMenu from '../../../modules/modals/contextMenu/contextMenu';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 
 const FavoriteHeader = React.createClass({
@@ -17,23 +16,13 @@ const FavoriteHeader = React.createClass({
     Actions.FavoriteModal();
   },
 
-  renderModal() {
-    return (
-      <ContextMenu
-        setVisible={this.props.setVisible}
-        visible={this.props.visible}
-        selectContextItem={this.props.selectContextItem}
-      />
-    );
-  },
-
   render() {
-    const {toggleMenu} = this.props;
+    const {toggleContextMenu} = this.props;
     return (
     <View style={[styles.feedNavHeader]}>
       <TouchableOpacity
           style={styles.headerLeftButton}
-          onPress={toggleMenu}
+          onPress={(null)}
       >
           <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
       </TouchableOpacity>
@@ -44,7 +33,7 @@ const FavoriteHeader = React.createClass({
       </View>
       <TouchableOpacity
           style={styles.headerRightButton}
-          onPress={() => renderModal()}
+          onPress={() => toggleContextMenu()}
       >
           <EntypoIcon style={styles.headerRightButtonIcon} name='plus'/>
       </TouchableOpacity>
