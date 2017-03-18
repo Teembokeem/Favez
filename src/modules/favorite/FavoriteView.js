@@ -12,6 +12,8 @@ import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import List from '../../components/globals/list/list';
 import Card from '../../components/globals/card/card';
+import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
+
 
 const FavoriteView = React.createClass({
   propTypes: {},
@@ -64,15 +66,37 @@ const FavoriteView = React.createClass({
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
+  toggleContextMenu() {
+    this.props.dispatch(UIActions.toggleContextMenu('favorite', 'header'));
+  },
+
+  renderModal() {
+    const {headerContextMenu} = this.props;
+    const {visible, set} = headerContextMenu;
+    console.log('rendering modal', visible)
+    return visible
+    ? (
+      <ContextMenu
+        toggleContextMenu={this.toggleContextMenu}
+        visible={visible}
+        items={set}
+      />
+    )
+    : null;
+  },
+
   render() {
     const {tabs, selectedTab} = this.props;
     const child = this.renderList();
     console.log('this props', this.props)
     return (
       <View style={styles.container}>
+        {this.renderModal()}
         <ScrollView
         >
-          <FavoriteHeader />
+          <FavoriteHeader
+            toggleContextMenu={this.toggleContextMenu}
+          />
           <Header title={'FAVEZ'} />
           <HeaderTabs
             view={'favorite'}
