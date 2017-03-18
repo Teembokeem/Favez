@@ -16,9 +16,9 @@ import EIcon from 'react-native-vector-icons/Entypo';
 
 const window = Dimensions.get('window');
 
-function ContextMenu({setVisible, visible, selectContextItem}) {
+function ContextMenu({toggleContextMenu, visible, selectContextItem}) {
   return (
-    <View style={styles.overlay}>
+    // <View style={styles.overlay}>
       <Modal
         animationType={'slide'}
         transparent={true}
@@ -62,7 +62,7 @@ function ContextMenu({setVisible, visible, selectContextItem}) {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.menuRow}
-                onPress={() => setVisible()}
+                onPress={() => toggleContextMenu()}
               >
                 <View style={styles.IconContainer}>
                   <EIcon style={styles.cancelIcon} name='cross'/>
@@ -72,7 +72,7 @@ function ContextMenu({setVisible, visible, selectContextItem}) {
             </View>
           </View>
       </Modal>
-    </View>
+    // </View>
   );
 }
 
@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
   overlay: {
     height: window.height,
     width: window.width,
+    // backgroundColor: 'rgba(40, 40, 40, 0.9)',
     // backgroundColor: 'rgba(40, 40, 40, 0.5)'
   },
   container: {
@@ -92,6 +93,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     flexDirection: 'column',
     paddingBottom: 20
+  },
+  contextMenuModal: {
+    backgroundColor: 'rgba(40, 40, 40, 0.9)',
   },
   menuContainer: {
     height: 220,
