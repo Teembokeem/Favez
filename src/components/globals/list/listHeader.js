@@ -5,6 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   StyleSheet,
   Text,
+  TouchableOpacity,
   Image,
   View
 } from 'react-native';
@@ -13,7 +14,7 @@ function returnText(number) {
   return number > 1 ? 's' : '';
 }
 
-function ListHeader({creator, collaborators}) {
+function ListHeader({creator, collaborators, toggleContextMenu}) {
   const {picture, nickname} = creator;
   const semantics = returnText(collaborators);
   return (
@@ -29,9 +30,12 @@ function ListHeader({creator, collaborators}) {
           {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
-      <View style={styles.rightContent}>
+      <TouchableOpacity
+        style={styles.rightContent}
+        onPress={() => toggleContextMenu('list')}
+      >
         <IoniconIcon style={styles.ListHeaderMore} name='ios-more'/>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
