@@ -17,69 +17,71 @@ import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 
 const FavoriteView = React.createClass({
   propTypes: {},
-  renderList() {
-    const {myLists, myCollabs, selectedTab, user} = this.props;
+  renderList(ref) {
+    const {myLists, myCollabs, selectedTab} = this.props;
     switch (selectedTab) {
       case 'your lists':
       console.log('1', myLists)
-        return renderListChildren(myLists, 'list');
+        return this.renderListChildren(myLists, 'list', ref);
       case 'collabs':
       console.log('2')
-        return renderListChildren(myCollabs, 'list');
+        return this.renderListChildren(myCollabs, 'list', ref);
       case 'liked':
       console.log('3')
-        return renderListChildren(myLists, 'card');
+        return this.renderListChildren(myLists, 'card', ref);
       default :
         return null;
     }
-    function renderListChildren(listSet, childType) {
-      switch (childType) {
-        case 'list':
-        console.log('hello')
-          return (
-            listSet.map((list, index) => (
-                <List
-                  list={list}
-                  user={user}
-                  key={'list ' + index}
-                >
-                </List>
-            ))
-          );
-        case 'card':
-        default :
-          /*return (
-            this.props.favez.map((fave, index) => (
-                <Card
-                  key={'fave ' + index}
-                  card={fave}
-                  track={index}
-                  moving={this.moving}
-              />
-            ))
-          );*/
-          return null;
-      }
-
+  },
+  renderListChildren(listSet, childType, ref) {
+    const {user} = this.props;
+    switch (childType) {
+      case 'list':
+      console.log('hello', this.toggleContextMenu)
+        return (
+          listSet.map((list, index) => (
+              <List
+                list={list}
+                user={user}
+                key={'list ' + index}
+                toggleContextMenu={this.toggleContextMenu}
+              >
+              </List>
+          ))
+        );
+      case 'card':
+      default :
+        return (
+          this.props.favez.map((fave, index) => (
+              <Card
+                key={'fave ' + index}
+                card={fave}
+                track={index}
+                moving={this.moving}
+            />
+          ))
+        );
     }
+
   },
   setFilter(view, tab) {
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
-  toggleContextMenu() {
-    this.props.dispatch(UIActions.toggleContextMenu('favorite', 'header'));
+  toggleContextMenu(source) {
+    console.log('retrieving source', source)
+    this.props.dispatch(UIActions.toggleContextMenu('favorite', source));
   },
 
-  renderModal() {
-    const {headerContextMenu} = this.props;
-    const {visible, set} = headerContextMenu;
-    console.log('rendering modal', visible)
+  renderModal(menu) {
+    const {visible, set, ref} = menu;
+    console.log('sending refs', ref)
     return visible
     ? (
       <ContextMenu
         toggleContextMenu={this.toggleContextMenu}
         visible={visible}
+        source={ref}
         items={set}
       />
     )
@@ -87,16 +89,24 @@ const FavoriteView = React.createClass({
   },
 
   render() {
-    const {tabs, selectedTab} = this.props;
-    const child = this.renderList();
+    const {tabs, selectedTab, listContextMenu, headerContextMenu} = this.props;
+    let selectedMenu;
+    if (headerContextMenu.visible) {
+      selectedMenu = headerContextMenu;
+    } else {
+      selectedMenu = listContextMenu;
+    }
+    let {ref} = selectedMenu;
+    const child = this.renderList(ref);
     console.log('this props', this.props)
     return (
       <View style={styles.container}>
-        {this.renderModal()}
+        {this.renderModal(selectedMenu)}
         <ScrollView
         >
           <FavoriteHeader
             toggleContextMenu={this.toggleContextMenu}
+            source={ref}
           />
           <Header title={'FAVEZ'} />
           <HeaderTabs
