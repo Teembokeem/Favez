@@ -38,10 +38,11 @@ const initialState = fromJS({
     header: {
       contextMenu: {
         visible: false,
+        ref: 'header',
         set: [
           {
             pointer: 'create',
-            response: Actions.createList,
+            buttonAction: 'createList',
             uiText: 'Create New List',
             icon: {
               set: 'Ionicon',
@@ -51,7 +52,7 @@ const initialState = fromJS({
           },
           {
             pointer: 'form',
-            response: Actions.addFaveForm,
+            buttonAction: 'addFaveForm',
             uiText: 'Add fave from clipboard link',
             icon: {
               set: 'MCIcon',
@@ -61,7 +62,7 @@ const initialState = fromJS({
           },
           {
             pointer: 'web',
-            response: Actions.addFaveBrowse,
+            buttonAction: 'addFaveBrowse',
             uiText: 'Add fave from website',
             icon: {
               set: 'MIcon',
@@ -71,7 +72,55 @@ const initialState = fromJS({
           },
           {
             pointer: 'none',
-            response: Actions.search,
+            buttonAction: 'search',
+            uiText: 'Discover favez by topic',
+            icon: {
+              set: 'FIcon',
+              identifier: 'compass',
+              style: 'browseIcon'
+            }
+          }
+        ]
+      }
+    },
+    list: {
+      contextMenu: {
+        visible: false,
+        ref: 'list',
+        set: [
+          {
+            pointer: 'create',
+            buttonAction: 'createList',
+            uiText: 'Create New List',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-list',
+              style: 'listIcon'
+            }
+          },
+          {
+            pointer: 'form',
+            buttonAction: 'addFaveForm',
+            uiText: 'Add fave from clipboard link',
+            icon: {
+              set: 'MCIcon',
+              identifier: 'link-variant',
+              style: 'linkIcon'
+            }
+          },
+          {
+            pointer: 'web',
+            buttonAction: 'addFaveBrowse',
+            uiText: 'Add fave from website',
+            icon: {
+              set: 'MIcon',
+              identifier: 'web',
+              style: 'webIcon'
+            }
+          },
+          {
+            pointer: 'none',
+            buttonAction: 'search',
             uiText: 'Discover favez by topic',
             icon: {
               set: 'FIcon',
@@ -87,10 +136,11 @@ const initialState = fromJS({
     header: {
       contextMenu: {
         visible: false,
+        ref: 'header',
         set: [
           {
             pointer: 'create',
-            response: Actions.createList,
+            buttonAction: 'createList',
             uiText: 'Create New List',
             icon: {
               set: 'Ionicon',
@@ -100,7 +150,7 @@ const initialState = fromJS({
           },
           {
             pointer: 'form',
-            response: Actions.addFaveForm,
+            buttonAction: 'addFaveForm',
             uiText: 'Add fave from clipboard link',
             icon: {
               set: 'MCIcon',
@@ -110,7 +160,7 @@ const initialState = fromJS({
           },
           {
             pointer: 'web',
-            response: Actions.addFaveBrowse,
+            buttonAction: 'addFaveBrowse',
             uiText: 'Add fave from website',
             icon: {
               set: 'MIcon',
@@ -120,7 +170,7 @@ const initialState = fromJS({
           },
           {
             pointer: 'none',
-            response: Actions.search,
+            buttonAction: 'search',
             uiText: 'Discover favez by topic',
             icon: {
               set: 'FIcon',
