@@ -1,24 +1,19 @@
 import React, {PropTypes} from 'react';
-// import TabBarButton from '../components/TabBarButton';
-
 import {
-  NavigationExperimental,
   StyleSheet,
   Text,
   Image,
   View
 } from 'react-native';
 
-const {PropTypes: NavigationPropTypes} = NavigationExperimental;
-
 function CardBody({card}) {
-
+  const {_favez} = card;
   return (
     <View style={[styles.cardBody]}>
         <Text style={[styles.cardBodyMessage]}>{card.description}</Text>
         <Image
           style={styles.cardBodyImage}
-          source={{uri: card._favez[0].image}}
+          source={Array.isArray(_favez) && _favez.length > 0 ? {uri: _favez[0].image} : require('../../../../images/default_list_picture.png')}
         >
         </Image>
         <View
