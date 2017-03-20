@@ -48,7 +48,7 @@ const FavoriteView = React.createClass({
           );
         case 'card':
         default :
-          return (
+          /*return (
             this.props.favez.map((fave, index) => (
                 <Card
                   key={'fave ' + index}
@@ -57,7 +57,8 @@ const FavoriteView = React.createClass({
                   moving={this.moving}
               />
             ))
-          );
+          );*/
+          return null;
       }
 
     }

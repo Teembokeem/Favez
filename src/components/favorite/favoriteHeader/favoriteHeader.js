@@ -33,7 +33,7 @@ const FavoriteHeader = React.createClass({
       </View>
       <TouchableOpacity
           style={styles.headerRightButton}
-          onPress={() => toggleContextMenu()}
+          onPress={() => toggleContextMenu('header')}
       >
           <EntypoIcon style={styles.headerRightButtonIcon} name='plus'/>
       </TouchableOpacity>

@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
   ListBodyTags: {
     marginTop: 40,
     flexDirection: 'row',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    height: 30
   },
   ListBodyTopicContainer: {
     backgroundColor: '#611e97',
