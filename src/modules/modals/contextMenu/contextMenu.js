@@ -1,5 +1,6 @@
 import React, {
 } from 'react';
+import {Actions} from 'react-native-router-flux';
 import {
   Modal,
   Text,
@@ -16,9 +17,31 @@ import EIcon from 'react-native-vector-icons/Entypo';
 
 const window = Dimensions.get('window');
 
-function ContextMenu({toggleContextMenu, visible, selectContextItem}) {
+function iconDeserializer(icon) {
+  const {set, identifier, style} = icon;
+  switch (set) {
+    case 'Ionicon':
+      return (<IoniconIcon style={styles[style]} name={identifier} />);
+    case 'MCIcon':
+      return (<MCIcon style={styles[style]} name={identifier} />);
+    case 'MIcon':
+      return (<MIcon style={styles[style]} name={identifier} />);
+    case 'FIcon':
+      return (<FIcon style={styles[style]} name={identifier} />);
+    default:
+      return null;
+  }
+}
+
+function navigate(toggle, navigationPath) {
+  console.log('===============================', arguments)
+  toggle;
+  Actions[navigationPath]();
+}
+
+function ContextMenu({toggleContextMenu, visible, items, source}) {
+  console.log('source', source)
   return (
-    // <View style={styles.overlay}>
       <Modal
         animationType={'slide'}
         transparent={true}
@@ -27,42 +50,25 @@ function ContextMenu({toggleContextMenu, visible, selectContextItem}) {
         >
           <View style={styles.container}>
             <View style={styles.menuContainer}>
+              {items.map((item, idx) => {
+                let {buttonAction, uiText} = item;
+                console.log('your item', item)
+                return (
+                  <TouchableOpacity
+                    key={'icon ' + idx}
+                    style={styles.menuRow}
+                    onPress={() => {toggleContextMenu(source); Actions[buttonAction]()};}
+                  >
+                    <View style={styles.IconContainer}>
+                      {iconDeserializer(item.icon)}
+                    </View>
+                    <Text style={styles.IconText}>{uiText}</Text>
+                  </TouchableOpacity>
+                );
+              })}
               <TouchableOpacity
                 style={styles.menuRow}
-                onPress={() => selectContextItem('create')}
-              >
-                <View style={styles.IconContainer}>
-                  <IoniconIcon style={styles.listIcon}name='ios-list'/>
-                </View>
-                <Text style={styles.IconText}>Create New List</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => selectContextItem('form')}
-                style={styles.menuRow}
-              >
-                <View style={styles.IconContainer}>
-                  <MCIcon style={styles.linkIcon} name='link-variant'/>
-                </View>
-                <Text style={styles.IconText}>Add fave from clipboard link</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.menuRow}
-                onPress={() => selectContextItem('web')}
-              >
-                <View style={styles.IconContainer}>
-                  <MIcon style={styles.webIcon} name='web'/>
-                </View>
-                <Text style={styles.IconText}>Add fave from website</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.menuRow}>
-                <View style={styles.IconContainer}>
-                  <FIcon style={styles.browseIcon} name='compass'/>
-                </View>
-                <Text style={styles.IconText}>Discover favez by topic</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.menuRow}
-                onPress={() => toggleContextMenu()}
+                onPress={() => toggleContextMenu(source)}
               >
                 <View style={styles.IconContainer}>
                   <EIcon style={styles.cancelIcon} name='cross'/>
@@ -72,7 +78,6 @@ function ContextMenu({toggleContextMenu, visible, selectContextItem}) {
             </View>
           </View>
       </Modal>
-    // </View>
   );
 }
 
