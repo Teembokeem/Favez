@@ -41,7 +41,6 @@ const initialState = fromJS({
         ref: 'header',
         set: [
           {
-            pointer: 'create',
             buttonAction: 'createList',
             uiText: 'Create New List',
             icon: {
@@ -51,7 +50,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'form',
             buttonAction: 'addFaveForm',
             uiText: 'Add fave from clipboard link',
             icon: {
@@ -61,7 +59,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'web',
             buttonAction: 'addFaveBrowse',
             uiText: 'Add fave from website',
             icon: {
@@ -71,7 +68,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'none',
             buttonAction: 'search',
             uiText: 'Discover favez by topic',
             icon: {
@@ -89,29 +85,8 @@ const initialState = fromJS({
         ref: 'list',
         set: [
           {
-            pointer: 'create',
-            buttonAction: 'createList',
-            uiText: 'Create New List',
-            icon: {
-              set: 'Ionicon',
-              identifier: 'ios-list',
-              style: 'listIcon'
-            }
-          },
-          {
-            pointer: 'form',
-            buttonAction: 'addFaveForm',
-            uiText: 'Add fave from clipboard link',
-            icon: {
-              set: 'MCIcon',
-              identifier: 'link-variant',
-              style: 'linkIcon'
-            }
-          },
-          {
-            pointer: 'web',
-            buttonAction: 'addFaveBrowse',
-            uiText: 'Add fave from website',
+            buttonAction: 'browseList',
+            uiText: 'Browse List',
             icon: {
               set: 'MIcon',
               identifier: 'web',
@@ -119,13 +94,48 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'none',
-            buttonAction: 'search',
-            uiText: 'Discover favez by topic',
+            buttonAction: 'addCollaborator',
+            uiText: 'Add Collaborators',
             icon: {
-              set: 'FIcon',
-              identifier: 'compass',
-              style: 'browseIcon'
+              set: 'OIcon',
+              identifier: 'mail-read',
+              style: 'webIcon'
+            }
+          },
+          {
+            buttonAction: 'share',
+            uiText: 'Share',
+            icon: {
+              set: 'EIcon',
+              identifier: 'share',
+              style: 'webIcon'
+            }
+          },
+          {
+            buttonAction: 'copyUrl',
+            uiText: 'Copy URL',
+            icon: {
+              set: 'EIcon',
+              identifier: 'link',
+              style: 'webIcon'
+            }
+          },
+          {
+            buttonAction: 'settings',
+            uiText: 'Settings',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-settings',
+              style: 'webIcon'
+            }
+          },
+          {
+            buttonAction: 'delete',
+            uiText: 'Delete',
+            icon: {
+              set: 'MCIcon',
+              identifier: 'delete',
+              style: 'deleteIcon'
             }
           }
         ]
@@ -139,7 +149,6 @@ const initialState = fromJS({
         ref: 'header',
         set: [
           {
-            pointer: 'create',
             buttonAction: 'createList',
             uiText: 'Create New List',
             icon: {
@@ -149,7 +158,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'form',
             buttonAction: 'addFaveForm',
             uiText: 'Add fave from clipboard link',
             icon: {
@@ -159,7 +167,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'web',
             buttonAction: 'addFaveBrowse',
             uiText: 'Add fave from website',
             icon: {
@@ -169,7 +176,6 @@ const initialState = fromJS({
             }
           },
           {
-            pointer: 'none',
             buttonAction: 'search',
             uiText: 'Discover favez by topic',
             icon: {
