@@ -14,6 +14,7 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
 import FIcon from 'react-native-vector-icons/Foundation';
 import EIcon from 'react-native-vector-icons/Entypo';
+import OIcon from 'react-native-vector-icons/Octicons';
 
 const window = Dimensions.get('window');
 
@@ -28,6 +29,10 @@ function iconDeserializer(icon) {
       return (<MIcon style={styles[style]} name={identifier} />);
     case 'FIcon':
       return (<FIcon style={styles[style]} name={identifier} />);
+    case 'EIcon':
+      return (<EIcon style={styles[style]} name={identifier} />);
+    case 'OIcon':
+      return (<OIcon style={styles[style]} name={identifier} />);
     default:
       return null;
   }
@@ -57,7 +62,7 @@ function ContextMenu({toggleContextMenu, visible, items, source}) {
                   <TouchableOpacity
                     key={'icon ' + idx}
                     style={styles.menuRow}
-                    onPress={() => {toggleContextMenu(source); Actions[buttonAction]()};}
+                    onPress={() => {toggleContextMenu(source); Actions[buttonAction]()}}
                   >
                     <View style={styles.IconContainer}>
                       {iconDeserializer(item.icon)}
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(40, 40, 40, 0.9)',
   },
   menuContainer: {
-    height: 220,
+    height: 350,
     width: 320,
     alignSelf: 'center',
     backgroundColor: 'white',
@@ -114,7 +119,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderBottomWidth: 1,
     // borderColor: '#b8b8b8',
-    paddingLeft: 15,
+    paddingLeft: 30,
     // paddingRight: 30,
     // paddingTop: 5,
     // paddingBottom: 5,
@@ -134,6 +139,11 @@ const styles = StyleSheet.create({
   listIcon: {
     fontSize: 30,
     color: '#b8b8b8',
+    alignSelf: 'center'
+  },
+  deleteIcon: {
+    fontSize: 20,
+    color: '#ff0303',
     alignSelf: 'center'
   },
   linkIcon: {
@@ -156,7 +166,7 @@ const styles = StyleSheet.create({
   },
   cancelIcon: {
     maxWidth: 50,
-    fontSize: 25,
+    fontSize: 23,
     color: '#b8b8b8',
     alignSelf: 'center'
   }
