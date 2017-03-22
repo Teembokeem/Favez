@@ -123,7 +123,7 @@ const AddFaveFormView = React.createClass({
               <Image style={styles.faveSummaryImage} source={{uri: fave.image}}/>
             </View>
             <View style={styles.faveSummaryTextContainer}>
-              <Text style={styles.faveSummaryScrapedTitle}>{'Site Text'}</Text>
+              <Text style={styles.faveSummaryScrapedTitle}>{fave.title}</Text>
               <Text style={styles.faveSummaryImageUrl}>{fave.link}</Text>
             </View>
           </View>
@@ -163,6 +163,9 @@ const styles = StyleSheet.create({
     flex: 1, flexDirection: 'row'
   },
   faveSummaryImageContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: 10
   },
   faveSummaryImage: {
@@ -171,11 +174,15 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   faveSummaryTextContainer: {
+    flex: 5,
+    // alignItems: 'center',
+    justifyContent: 'center',
     paddingTop: 10
   },
   faveSummaryScrapedTitle: {
     fontFamily: 'Hind-Bold',
     fontSize: 18,
+    lineHeight: 20,
     paddingTop: 9
   },
   faveSummaryImageUrl: {
