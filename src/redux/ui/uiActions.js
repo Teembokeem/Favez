@@ -4,7 +4,7 @@ import {
 } from '../../services/ui';
 
 // Actions
-export const UI_BROWSER_SET_URL = 'UI_BROWSER_SET_URL';
+export const UI_BROWSER_SET_INFO = 'UI_BROWSER_SET_INFO';
 export const UI_SET_RADIO = 'UI_SET_RADIO';
 export const UI_TOGGLE_CONTEXTMENU = 'UI_TOGGLE_CONTEXTMENU';
 export const UI_SET_TAB = 'UI_SET_TAB';
@@ -38,10 +38,10 @@ export function setViewTab(view, tab) {
   };
 }
 // SET URL
-export function setBrowserUrl(url) {
+export function setBrowserInfo(url, title) {
   return {
-    type: UI_BROWSER_SET_URL,
-    payload: url
+    type: UI_BROWSER_SET_INFO,
+    payload: {url, title}
   };
 }
 

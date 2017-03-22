@@ -2,7 +2,7 @@ import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
 import {
-  UI_BROWSER_SET_URL,
+  UI_BROWSER_SET_INFO,
   UI_SET_RADIO,
   UI_TOGGLE_CONTEXTMENU,
   UI_SET_TAB,
@@ -16,6 +16,7 @@ import {
 const initialState = fromJS({
   browser: {
     url: 'https://www.google.com',
+    title: '',
     scrape: {
       scraped: false,
       url: '',
@@ -193,9 +194,10 @@ const initialState = fromJS({
 // Reducer
 export default function UIReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case UI_BROWSER_SET_URL:
+    case UI_BROWSER_SET_INFO:
       return state
-        .setIn(['browser', 'url'], action.payload);
+        .setIn(['browser', 'url'], action.payload.url)
+        .setIn(['browser', 'title'], action.payload.title);
     case UI_TOGGLE_CONTEXTMENU:
       return state
         .setIn([action.payload.view, action.payload.location, 'contextMenu', 'visible'], !state.getIn([action.payload.view, action.payload.location, 'contextMenu', 'visible']));
@@ -214,7 +216,7 @@ export default function UIReducer(state = initialState, action = {}) {
       console.log('setting state', state, action);
       return state
         .set('loading', false)
-        .setIn(['browser', 'scrape'], {url: state.getIn(['browser', 'url']), title: '', images: action.payload.data.images, scraped: true});
+        .setIn(['browser', 'scrape'], {url: state.getIn(['browser', 'url']), title: state.getIn(['browser', 'title']), images: action.payload.data.images, scraped: true});
     case UI_BROWSER_SCRAPE_FAILURE:
       console.log('ERROR', action);
       return state.set('error', action.payload);
