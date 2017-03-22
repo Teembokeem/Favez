@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
+import * as ListActions from '../../redux/list/listActions';
 import FavoriteHeader from '../../components/favorite/favoriteHeader/favoriteHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
@@ -17,33 +18,32 @@ import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 
 const FavoriteView = React.createClass({
   propTypes: {},
+  
   renderList(ref) {
     const {myLists, myCollabs, selectedTab} = this.props;
     switch (selectedTab) {
       case 'your lists':
-      console.log('1', myLists)
         return this.renderListChildren(myLists, 'list', ref);
       case 'collabs':
-      console.log('2')
         return this.renderListChildren(myCollabs, 'list', ref);
       case 'liked':
-      console.log('3')
         return this.renderListChildren(myLists, 'card', ref);
       default :
         return null;
     }
   },
-  renderListChildren(listSet, childType, ref) {
+  renderListChildren(listSet, childType) {
     const {user} = this.props;
     switch (childType) {
       case 'list':
-      console.log('hello', this.toggleContextMenu)
         return (
           listSet.map((list, index) => (
               <List
                 list={list}
                 user={user}
+                moving={this.moving}
                 key={'list ' + index}
+                index={index}
                 toggleContextMenu={this.toggleContextMenu}
               >
               </List>
@@ -69,13 +69,11 @@ const FavoriteView = React.createClass({
   },
 
   toggleContextMenu(source) {
-    console.log('retrieving source', source)
     this.props.dispatch(UIActions.toggleContextMenu('favorite', source));
   },
 
   renderModal(menu) {
     const {visible, set, ref} = menu;
-    console.log('sending refs', ref)
     return visible
     ? (
       <ContextMenu
@@ -88,6 +86,23 @@ const FavoriteView = React.createClass({
     : null;
   },
 
+  moving(idx) {
+    const {selectedTab} = this.props;
+    let list;
+    switch (selectedTab) {
+      case 'your lists':
+        list = 'myLists';
+        break;
+      case 'collabs':
+        list = 'collaborations';
+        break;
+      default:
+        list = 'myLists';
+        break;
+    }
+    this.props.dispatch(ListActions.setList(list, idx)).then(() => Actions.listShow());
+  },
+
   render() {
     const {tabs, selectedTab, listContextMenu, headerContextMenu} = this.props;
     let selectedMenu;
@@ -98,7 +113,7 @@ const FavoriteView = React.createClass({
     }
     let {ref} = selectedMenu;
     const child = this.renderList(ref);
-    console.log('this props', this.props)
+    console.log('this props', this.props);
     return (
       <View style={styles.container}>
         {this.renderModal(selectedMenu)}
