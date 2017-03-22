@@ -25,54 +25,64 @@ const window = Dimensions.get('window');
 
 
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
-  return <TextInput style={styles.EditProfileFormInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
+  return <TextInput style={styles.EditProfileFormInput} type={props.type} placeholderTextColor={props.propsExist ? '#000000' : '#b8b8b8'} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 
 
 const fieldSerials = [
   {
-    prop: 'name',
+    prop: 'displayname',
+    updateSpecial: false,
     header: 'name',
     iconSet: 'Ionicon',
     iconId: 'md-person'
   },
   {
-    prop: 'nickname',
+    prop: 'username',
+    updateSpecial: true,
+    auth0: 'nickname',
     header: 'username',
     iconSet: 'MC',
     iconId: 'at'
   },
   {
-    prop: 'site',
-    header: 'site',
+    prop: 'website',
+    updateSpecial: false,
+    header: 'your site',
     iconSet: 'MI',
     iconId: 'web'
   },
   {
-    prop: 'description',
+    prop: 'profile',
+    updateSpecial: false,
     header: 'description',
     iconSet: 'FA',
     iconId: 'list-alt'
   },
   {
     prop: 'email',
+    updateSpecial: true,
+    auth0: 'email',
     header: 'email',
     iconSet: 'Ionicon',
     iconId: 'md-mail'
   },
   {
     prop: 'phone',
+    updateSpecial: false,
     header: 'phone number',
     iconSet: 'MC',
     iconId: 'cellphone-iphone'
   },
   {
     prop: 'gender',
+    updateSpecial: false,
     header: 'gender',
     iconSet: 'MC',
     iconId: 'human-male-female'
   },
 ];
+
 function renderIcon(set, id) {
   switch (set) {
     case 'Ionicon':
@@ -90,7 +100,7 @@ function renderIcon(set, id) {
 function renderFields(user) {
   const {favez, auth0} = user;
   return fieldSerials.map((field, idx) => {
-    const {header, iconSet, iconId, prop} = field;
+    const {header, iconSet, iconId, prop, updateSpecial} = field;
     return (
       <View key={'field ' + idx} style={styles.EditProfileFieldContainer}>
         <View style={styles.EditProfileIconContainer}>
@@ -98,7 +108,7 @@ function renderFields(user) {
         </View>
         <View style={styles.EditProfileInputContainer}>
           <Text style={styles.EditProfileInputHeader}>{header.toUpperCase()}</Text>
-          <Field name={prop} component={renderInput} type='text' placeholder='fda' style={styles.EditProfileFormField}/>
+          <Field name={prop} component={renderInput} type='text' propsExist={favez[prop] ? true : false} updateSpecial={updateSpecial} placeholder={favez[prop] ? favez[prop] : header.charAt(0).toUpperCase() + header.slice(1)} style={styles.EditProfileFormField}/>
         </View>
       </View>
     );
