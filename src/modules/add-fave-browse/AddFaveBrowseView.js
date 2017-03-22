@@ -11,10 +11,17 @@ import FavezBrowser from '../../components/globals/favezBrowser/favezBrowser';
 const AddFaveBrowseView = React.createClass({
   propTypes: {},
 
-  componentWillMount() {
+  componentWillMount(props) {
+    console.log('will mount props', props, this.props)
     // this.props.dispatch(ListActions.getFullList());
     const {title, url} = this.props.browser;
-    if (url !== 'https://www.google.com' && title !== '') this.props.dispatch(UIActions.setBrowserInitialState());
+    if (this.props.viewList) {
+      return;
+    } else if (url !== 'https://www.google.com' && title !== '') {
+      this.props.dispatch(UIActions.setBrowserInitialState());
+    } else {
+      return;
+    }
   },
 
   setBrowserInfo(url, title) {
@@ -37,12 +44,13 @@ const AddFaveBrowseView = React.createClass({
   },
 
   render() {
-    const {browser} = this.props;
+    const {browser, viewList} = this.props;
     console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
       <View style={styles.container}>
         <FavezBrowser
           browser={browser}
+          showViewList={viewList}
           scrapeUrl={this.scrapeUrl}
           setBrowserInfo={this.setBrowserInfo}
           setNewFave={this.setNewFave}
