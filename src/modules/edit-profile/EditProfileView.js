@@ -12,7 +12,7 @@ import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
 import * as FaveActions from '../../redux/fave/faveActions';
 import * as ListActions from '../../redux/list/listActions';
-import * as UIActions from '../../redux/ui/uiActions';
+import * as UserActions from '../../redux/user/userActions';
 import Header from '../../components/globals/header/header';
 import EditProfileHeader from '../../components/edit-profile/editProfileHeader/editProfileHeader';
 import EditProfileForm from '../../components/edit-profile/editProfileForm/editProfileForm';
@@ -93,8 +93,9 @@ const EditProfileView = React.createClass({
     });
   },
   editProfile(vals) {
-    console.log('comparing diffs', vals);
+    console.log('comparing diffs', vals.toJS());
     console.log('user for reference', this.props.user.favez);
+    this.props.dispatch((UserActions.update(vals)))
   },
 
   render() {
