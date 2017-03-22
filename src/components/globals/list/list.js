@@ -12,8 +12,8 @@ import ListHeader from './listHeader';
 import ListBody from './listBody';
 import ListFooter from './listFooter';
 
-function List({list, user, toggleContextMenu}) {
-  console.log('inside List component', toggleContextMenu)
+function List({list, user, toggleContextMenu, moving, index}) {
+  console.log('inside List component', index)
   const {creator, collaborators, name, _favez, topics, tags} = list;
   return (
     <View
@@ -33,6 +33,8 @@ function List({list, user, toggleContextMenu}) {
       />
       <ListBody
         name={name}
+        index={index}
+        moving={moving}
         topics={topics}
         tags={tags}
       />
