@@ -6,6 +6,7 @@ import {
 // Actions
 export const UI_BROWSER_SET_INFO = 'UI_BROWSER_SET_INFO';
 export const UI_BROWSER_RELOAD = 'UI_BROWSER_RELOAD';
+export const UI_BROWSER_BROWSE_LIST = 'UI_BROWSER_BROWSE_LIST';
 export const UI_SET_RADIO = 'UI_SET_RADIO';
 export const UI_TOGGLE_CONTEXTMENU = 'UI_TOGGLE_CONTEXTMENU';
 export const UI_SET_TAB = 'UI_SET_TAB';
@@ -18,7 +19,7 @@ export const UI_BROWSER_SCRAPE_FAILURE = 'UI_BROWSER_SCRAPE_FAILURE';
 // SET TO INITIAL STATE
 export function setBrowserInitialState() {
   return {
-    type: UI_BROWSER_RELOAD
+    type: UI_BROWSER_BROWSE_LIST
   };
 }
 
@@ -27,6 +28,13 @@ export function setRadioSelect(view, tab) {
   return {
     type: UI_SET_RADIO,
     payload: {view, tab}
+  };
+}
+
+export function browseList(set, index) {
+  return {
+    type: UI_BROWSER_BROWSE_LIST,
+    payload: {set, index}
   };
 }
 

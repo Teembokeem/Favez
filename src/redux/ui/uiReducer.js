@@ -4,6 +4,7 @@ import {Actions} from 'react-native-router-flux';
 import {
   UI_BROWSER_SET_INFO,
   UI_BROWSER_RELOAD,
+  UI_BROWSER_BROWSE_LIST,
   UI_SET_RADIO,
   UI_TOGGLE_CONTEXTMENU,
   UI_SET_TAB,
@@ -18,6 +19,10 @@ const initialState = fromJS({
   browser: {
     url: 'https://www.google.com',
     title: '',
+    viewList: {
+      set: [],
+      index: 0
+    },
     scrape: {
       scraped: false,
       url: '',
@@ -221,6 +226,9 @@ export default function UIReducer(state = initialState, action = {}) {
     case UI_SET_RADIO:
       return state
         .setIn([action.payload.view, 'radio'], action.payload.tab);
+    case UI_BROWSER_BROWSE_LIST:
+      return state
+        .setIn(['browser', 'viewList'], {set: action.payload.set, index: action.payload.index || 0});
     case UI_SET_TAB:
       return state
         .setIn([action.payload.view, 'tabs', 'selected'], action.payload.tab);
