@@ -4,22 +4,25 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   StyleSheet,
   Text,
-  Image,
-  View
+  View,
+  TouchableOpacity
 } from 'react-native';
 
-function ListBody({picture, name, topics, tags}) {
+function ListBody({picture, name, topics, tags, moving, index}) {
 
   return (
     <View style={styles.ListBody}>
-      <View style={styles.ListBodyTitle}>
+      <TouchableOpacity
+        style={styles.ListBodyTitle}
+        onPress={() => moving(index)}
+      >
+        <MaterialIcons style={styles.ListBodyLock} name='lock'/>
         <Text
           style={styles.ListBodyName}
         >
-          <MaterialIcons style={styles.ListBodyLock} name='lock'/>
           {name.toUpperCase()}
         </Text>
-      </View>
+      </TouchableOpacity>
       <View style={styles.ListBodyTags}>
         {/*{topics.map((topic, index) => (
           <View
@@ -54,9 +57,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   ListBodyTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   ListBodyLock: {
     fontSize: 15,
+    alignSelf: 'center',
     color: 'white'
   },
   ListBodyName: {
