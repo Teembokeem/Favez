@@ -8,7 +8,7 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 15 : 20;
 
 const FavoriteHeader = React.createClass({
 
