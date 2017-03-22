@@ -25,10 +25,12 @@ const ProfileView = React.createClass({
       case 'lists':
       case 'collabs':
       case 'subscriptions':
+      console.log('your list', this.props.lists, 'and users :', this.props.user)
         return (
           this.props.lists.map((list, index) => (
             <List
               list={list}
+              creator={this.props.user}
               key={'list ' + index}
             >
 
@@ -76,7 +78,7 @@ const ProfileView = React.createClass({
 
   render() {
     const authIsSelf = true;
-    const {user} = this.props;
+    const {user} = this.props; 
     const child = this.renderChildren();
     const selectedTab = this.props.selected;
     return (
