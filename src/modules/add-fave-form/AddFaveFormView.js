@@ -90,9 +90,7 @@ const AddFaveFormView = React.createClass({
     });
     this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
       console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
-      this.props.dispatch(ListActions.getMyLists()).then(() => {
-        this.props.dispatch(UIActions.setBrowserInitialState()).then(Actions.feedIndex);
-      });
+      this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
 
   },

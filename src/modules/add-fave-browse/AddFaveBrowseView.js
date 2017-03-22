@@ -13,6 +13,8 @@ const AddFaveBrowseView = React.createClass({
 
   componentWillMount() {
     // this.props.dispatch(ListActions.getFullList());
+    const {title, url} = this.props.browser;
+    if (url !== 'https://www.google.com' && title !== '') this.props.dispatch(UIActions.setBrowserInitialState());
   },
 
   setBrowserInfo(url, title) {
