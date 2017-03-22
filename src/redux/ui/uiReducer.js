@@ -1,6 +1,6 @@
 import {fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
-import { Actions } from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 import {
   UI_BROWSER_SET_INFO,
   UI_BROWSER_RELOAD,
