@@ -5,83 +5,22 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
-  Switch,
-  // Dimensions,
   TextInput
 } from 'react-native';
-import {
-  Button
-} from 'react-native-clean-form';
-
 import {Field, reduxForm} from 'redux-form/immutable';
-import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
+// import {
+//   Button
+// } from 'react-native-clean-form';
 
 const window = Dimensions.get('window');
 
-
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
-  return <TextInput style={styles.EditProfileFormInput} type={props.type} placeholderTextColor={props.propsExist ? '#000000' : '#b8b8b8'} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
+  return <TextInput style={styles.EditProfileFormInput} type={props.type} placeholderTextColor={props.propsExist ? '#000000' : '#b8b8b8'} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>;
 };
-
-
-const fieldSerials = [
-  {
-    prop: 'displayname',
-    updateSpecial: false,
-    header: 'name',
-    iconSet: 'Ionicon',
-    iconId: 'md-person'
-  },
-  {
-    prop: 'username',
-    updateSpecial: true,
-    auth0: 'nickname',
-    header: 'username',
-    iconSet: 'MC',
-    iconId: 'at'
-  },
-  {
-    prop: 'website',
-    updateSpecial: false,
-    header: 'your site',
-    iconSet: 'MI',
-    iconId: 'web'
-  },
-  {
-    prop: 'profile',
-    updateSpecial: false,
-    header: 'description',
-    iconSet: 'FA',
-    iconId: 'list-alt'
-  },
-  {
-    prop: 'email',
-    updateSpecial: true,
-    auth0: 'email',
-    header: 'email',
-    iconSet: 'Ionicon',
-    iconId: 'md-mail'
-  },
-  {
-    prop: 'phone',
-    updateSpecial: false,
-    header: 'phone number',
-    iconSet: 'MC',
-    iconId: 'cellphone-iphone'
-  },
-  {
-    prop: 'gender',
-    updateSpecial: false,
-    header: 'gender',
-    iconSet: 'MC',
-    iconId: 'human-male-female'
-  },
-];
 
 function renderIcon(set, id) {
   switch (set) {
@@ -97,9 +36,9 @@ function renderIcon(set, id) {
       return null;
   }
 }
-function renderFields(user) {
+function renderFields(user, serials) {
   const {favez, auth0} = user;
-  return fieldSerials.map((field, idx) => {
+  return serials.map((field, idx) => {
     const {header, iconSet, iconId, prop, updateSpecial} = field;
     return (
       <View key={'field ' + idx} style={styles.EditProfileFieldContainer}>
@@ -117,25 +56,25 @@ function renderFields(user) {
 
 
 const EditProfileForm = props => {
-  const {handleSubmit, submitting, createList, user} = props;
-  const fields = renderFields(user);
+  const {handleSubmit, submitting, editProfile, user, fieldSerials} = props;
+  const fields = renderFields(user, fieldSerials);
   const submit = values => {
-    createList(values);
+    editProfile(values);
   };
 
-  console.log('hello ', props)
+  console.log('hello ', props);
   return (
     <View style={styles.EditProfileFormContainer}>
       {fields}
       <TouchableOpacity
         onPress={handleSubmit(submit)}
         submitting={submitting}
-        style={styles.CreateListButton}
+        style={styles.EditProfileButton}
       >
         <View
-          style={styles.CreateListButtonTextContainer}
+          style={styles.EditProfileButtonTextContainer}
         >
-          <Text style={styles.CreateListButtonText}>CREATE LIST</Text>
+          <Text style={styles.EditProfileButtonText}>EDIT PROFILE</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -189,27 +128,21 @@ const styles = StyleSheet.create({
   EditProfileFormInput: {
     fontSize: 16,
     fontFamily: 'Hind-Medium',
-    // paddingTop: 3,
     flex: 2
   },
-  CreateListButton: {
-    // flex: 1,
-    // position: 'absolute',
+  EditProfileButton: {
     bottom: 0,
     height: 50,
     width: window.height,
-    backgroundColor: '#4caf4e',
-    // alignItems: 'center',
-    // alignItems: 'flex-start',
-    // justifyContent: 'center'
+    backgroundColor: '#4caf4e'
   },
-  CreateListButtonTextContainer: {
+  EditProfileButtonTextContainer: {
     width: 375,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  CreateListButtonText: {
+  EditProfileButtonText: {
     fontFamily: 'Hind-Bold',
     fontSize: 19,
     color: 'white'
@@ -217,5 +150,5 @@ const styles = StyleSheet.create({
 });
 
 export default reduxForm({
-  form: 'createList'
+  form: 'editProfile'
 })(EditProfileForm);

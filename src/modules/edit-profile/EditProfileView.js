@@ -25,7 +25,59 @@ const EditProfileView = React.createClass({
   componentWillMount() {
     // this.props.dispatch(ListActions.getFullList());
   },
-
+  fieldSerials: [
+    {
+      prop: 'displayname',
+      updateSpecial: false,
+      header: 'name',
+      iconSet: 'Ionicon',
+      iconId: 'md-person'
+    },
+    {
+      prop: 'username',
+      updateSpecial: true,
+      auth0: 'nickname',
+      header: 'username',
+      iconSet: 'MC',
+      iconId: 'at'
+    },
+    {
+      prop: 'website',
+      updateSpecial: false,
+      header: 'your site',
+      iconSet: 'MI',
+      iconId: 'web'
+    },
+    {
+      prop: 'profile',
+      updateSpecial: false,
+      header: 'description',
+      iconSet: 'FA',
+      iconId: 'list-alt'
+    },
+    {
+      prop: 'email',
+      updateSpecial: true,
+      auth0: 'email',
+      header: 'email',
+      iconSet: 'Ionicon',
+      iconId: 'md-mail'
+    },
+    {
+      prop: 'phone',
+      updateSpecial: false,
+      header: 'phone number',
+      iconSet: 'MC',
+      iconId: 'cellphone-iphone'
+    },
+    {
+      prop: 'gender',
+      updateSpecial: false,
+      header: 'gender',
+      iconSet: 'MC',
+      iconId: 'human-male-female'
+    }
+  ],
   submit(text) {
     const {fave, selectedRadio} = this.props;
     console.log('selected radio', selectedRadio, this.setMyList())
@@ -39,6 +91,10 @@ const EditProfileView = React.createClass({
       console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
       this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
+  },
+  editProfile(vals) {
+    console.log('comparing diffs', vals);
+    console.log('user for reference', this.props.user.favez);
   },
 
   render() {
@@ -59,6 +115,8 @@ const EditProfileView = React.createClass({
             </View>
             <EditProfileForm
               user={user}
+              fieldSerials={this.fieldSerials}
+              editProfile={this.editProfile}
             />
           </View>
         </ScrollView>
