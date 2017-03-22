@@ -9,7 +9,9 @@ import {
 } from 'react-native';
 
 function ProfileSummary({user}) {
-  const {name, username, followers, following, caption, avatar} = user;
+  const {auth0, favez} = user;
+  const {nickname, picture, caption} = auth0;
+  const {id, followers, following} = favez;
   return (
   <View style={styles.ProfileSummaryContainer}>
       <View
@@ -18,24 +20,24 @@ function ProfileSummary({user}) {
         <TouchableOpacity
             style={styles.ProfileSummaryRow1LeftContent}
         >
-          <Text style={styles.ProfileSummaryRow1LeftNum}>{followers.length.toString()}</Text>
+          <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers.length.toString() : 0}</Text>
           <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.ProfileSummaryRow1CenterContent}
         >
-          <Image style={styles.ProfileSummaryRow1Avatar} source={{uri: avatar}}/>
+          <Image style={styles.ProfileSummaryRow1Avatar} source={{uri: picture}}/>
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.ProfileSummaryRow1RightContent}
         >
-          <Text style={styles.ProfileSummaryRow1RightNum}>{following.length.toString()}</Text>
+          <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 00}</Text>
           <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.ProfileSummaryRow2}>
-        <Text style={styles.ProfileSummaryRow2Username}>{'@' + username}</Text>
-        <Text style={styles.ProfileSummaryRow2Name}>{name.first + ' ' + name.last + '.'}</Text>
+        <Text style={styles.ProfileSummaryRow2Username}>{'@' + nickname}</Text>
+        {/*<Text style={styles.ProfileSummaryRow2Name}>{name.first + ' ' + name.last + '.'}</Text>*/}
         <View style={styles.ProfileSummaryRow2Bar}></View>
         <Text style={styles.ProfileSummaryRow2Caption}>{caption}</Text>
       </View>
