@@ -9,7 +9,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-
+import * as UIActions from '../../redux/ui/uiActions';
 import ListShowHeader from '../../components/list-show/listShowHeader/listShowHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
@@ -36,12 +36,12 @@ const ListShowView = React.createClass({
     Actions.subbar();
   },
 
-  setFilter(val) {
-    this.props.dispatch(ListShowState.setFilter(val));
+  setFilter(view, tab) {
+    this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
   renderChildren() {
-    switch (this.props.selected) {
+    switch (this.props.selectedTab) {
       case 'info':
         return (
           <Info
@@ -78,7 +78,7 @@ const ListShowView = React.createClass({
 
   render() {
     // if (!this.state.ready) return null;
-    const {index, list, selected, similar} = this.props;
+    const {index, list, selected, similar, selectedTab, tabs} = this.props;
     console.log('tghius props', this.props)
     const tabProps = [
       {
@@ -112,9 +112,10 @@ const ListShowView = React.createClass({
         >
           <Header title={list.name}/>
           <HeaderTabs
+            view={'listShow'}
             setFilter={this.setFilter}
-            selected={selected}
-            tabs={['favez', 'info', 'similar']}
+            selected={selectedTab}
+            tabs={tabs}
           />
           {this.renderChildren()}
         {/*<Text>{list.description}</Text>*/}
