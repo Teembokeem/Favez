@@ -13,12 +13,12 @@ import LoginForm from '../../components/login/loginForm/loginForm';
 const LoginView = React.createClass({
 
   login(data) {
-    this.props.dispatch(UserActions.login(data));
+    this.props.dispatch(UserActions.login(data))
   },
 
   componentDidUpdate() {
     const {user} = this.props;
-    if (user.email) Actions.tabbar();
+    if (user.favez) Actions.tabbar();
   },
 
   render() {
