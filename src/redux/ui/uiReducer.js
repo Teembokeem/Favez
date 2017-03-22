@@ -3,6 +3,7 @@ import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
 import {
   UI_BROWSER_SET_INFO,
+  UI_BROWSER_RELOAD,
   UI_SET_RADIO,
   UI_TOGGLE_CONTEXTMENU,
   UI_SET_TAB,
@@ -198,6 +199,16 @@ export default function UIReducer(state = initialState, action = {}) {
       return state
         .setIn(['browser', 'url'], action.payload.url)
         .setIn(['browser', 'title'], action.payload.title);
+    case UI_BROWSER_RELOAD:
+      return state
+        .setIn(['browser', 'url'],'https://www.google.com')
+        .setIn(['browser', 'title'], '')
+        .setIn(['browser', 'scrape'], {
+          scraped: false,
+          url: '',
+          title: '',
+          images: []
+        });
     case UI_TOGGLE_CONTEXTMENU:
       return state
         .setIn([action.payload.view, action.payload.location, 'contextMenu', 'visible'], !state.getIn([action.payload.view, action.payload.location, 'contextMenu', 'visible']));
