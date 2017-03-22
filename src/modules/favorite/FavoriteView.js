@@ -34,13 +34,14 @@ const FavoriteView = React.createClass({
   },
   renderListChildren(listSet, childType) {
     const {user} = this.props;
+    const {favez, auth0} = user;
     switch (childType) {
       case 'list':
         return (
           listSet.map((list, index) => (
               <List
                 list={list}
-                user={user}
+                user={auth0}
                 moving={this.moving}
                 key={'list ' + index}
                 index={index}
