@@ -3,7 +3,9 @@ import * as ListShowState from './ListShowState';
 import {
   Text,
   View,
+  Image,
   ScrollView,
+  Dimensions,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -15,6 +17,7 @@ import FooterTabs from '../../components/globals/footerTabs/footerTabs';
 import Line from '../../components/globals/fave/line';
 import Info from '../../components/globals/fave/info';
 import Card from '../../components/globals/card/card';
+const window = Dimensions.get('window');
 
 const ListShowView = React.createClass({
   propTypes: {},
@@ -76,6 +79,7 @@ const ListShowView = React.createClass({
   render() {
     // if (!this.state.ready) return null;
     const {index, list, selected, similar} = this.props;
+    console.log('tghius props', this.props)
     const tabProps = [
       {
         name: 'share',
@@ -96,6 +100,11 @@ const ListShowView = React.createClass({
 
     return (
       <View style={{flex: 1}}>
+        <View style={styles.ListBackgroundImageContainer}>
+          <Image
+            style={styles.ListBackgroundImage}
+            source={list._favez ? {uri: list._favez[0].image} : require('../../../images/default_list.png')}/>
+        </View>
         <ListShowHeader />
         <ScrollView
           contentContainerStyle={styles.contentContainer}
@@ -131,6 +140,19 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: 'center'
   },
+  ListBackgroundImageContainer: {
+    position: 'absolute',
+    width: window.width,
+    height: 200,
+    overflow: 'hidden'
+  },
+  ListBackgroundImage: {
+    width: window.width,
+    height: 300,
+    position: 'absolute',
+    top: 0
+    // maxHeight: 100
+  }
 });
 
 export default ListShowView;
