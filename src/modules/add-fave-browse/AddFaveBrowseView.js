@@ -15,11 +15,10 @@ const AddFaveBrowseView = React.createClass({
     // this.props.dispatch(ListActions.getFullList());
   },
 
-  setBrowserUrl(url, source) {
+  setBrowserInfo(url, title) {
     console.log('SET BROWSER URL: ', url);
-    console.log('SET BROWSER URL: ', source);
     if (url) {
-      this.props.dispatch(UIActions.setBrowserUrl(url));
+      this.props.dispatch(UIActions.setBrowserInfo(url, title));
     } else {
       return;
     }
@@ -43,7 +42,7 @@ const AddFaveBrowseView = React.createClass({
         <FavezBrowser
           browser={browser}
           scrapeUrl={this.scrapeUrl}
-          setBrowserUrl={this.setBrowserUrl}
+          setBrowserInfo={this.setBrowserInfo}
           setNewFave={this.setNewFave}
         />
       </View>
