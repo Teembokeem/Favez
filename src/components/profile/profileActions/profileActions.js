@@ -19,7 +19,10 @@ const ProfileActions = React.createClass({
     const self = this.props.self;
     return (
     <View style={styles.ProfileActionsContainer}>
-        <TouchableOpacity style={styles.ProfileActionsButton1}>
+        <TouchableOpacity
+          style={styles.ProfileActionsButton1}
+          onPress={Actions.editProfile}
+        >
           <EvilIcon style={styles.ProfileActionsButton1Icon} name='pencil' />
           <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : 'FOLLOW'}</Text>
         </TouchableOpacity>
