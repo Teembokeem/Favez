@@ -46,6 +46,7 @@ const ListShowHeader = React.createClass({
   },
 
   renderHeader(isScraped, url) {
+    console.log('your url', url)
     if (isScraped) {
       return (
         <View style={[styles.NavBarContainer]}>
@@ -183,9 +184,11 @@ const ListShowHeader = React.createClass({
   render() {
     console.log('BROWSER SHIT', this.props);
     const {browser, setNewFave} = this.props;
-    const {url, scrape, title} = browser;
+    let {url, scrape, title, viewList} = browser;
+    if (this.props.showViewList) url = viewList.set[viewList.index].link;
     const {scraped, images} = scrape;
     const sourceDelegate = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
+    console.log('your url in the beginning', url)
     return (
     <View style={{flex: 1}}>
       {this.renderHeader(scraped, url)}
