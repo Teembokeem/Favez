@@ -30,9 +30,9 @@ const AddFaveFormView = React.createClass({
 
   renderList(selectedRadio, renderList) {
     return (
-        renderList.map((list) => (
+        renderList.map((list, idx) => (
           <View
-            key={'list ' + list.id}
+            key={'list ' + idx}
             style={styles.ListContainer}
           >
             <View
@@ -52,9 +52,9 @@ const AddFaveFormView = React.createClass({
             </View>
             <TouchableOpacity
               style={styles.ListSelectButton}
-              onPress={() => this.toggleListOption(list.id)}
+              onPress={() => this.toggleListOption(idx)}
             >
-              {(list.id === selectedRadio)
+              {(idx === selectedRadio)
               ? (
                 <View style={styles.ListSelectSelected}>
                   <IoniconIcon style={styles.ListSelectSelectorIcon} name='md-checkmark-circle'/>
@@ -69,10 +69,10 @@ const AddFaveFormView = React.createClass({
     );
   },
 
-  toggleListOption(list_id) {
-    return this.props.selectedRadio === list_id
+  toggleListOption(id) {
+    return this.props.selectedRadio === id
     ? this.props.dispatch(UIActions.setRadioSelect('addFaveForm', -1))
-    : this.props.dispatch(UIActions.setRadioSelect('addFaveForm', list_id));
+    : this.props.dispatch(UIActions.setRadioSelect('addFaveForm', id));
   },
 
   setFilter(view, tab) {
@@ -81,15 +81,18 @@ const AddFaveFormView = React.createClass({
 
   submit(text) {
     const {fave, selectedRadio} = this.props;
+    console.log('selected radio', selectedRadio, this.setMyList())
     Object.assign(fave, {
-      name: 'new fave',
+      name: fave.title,
       description: text,
       list_id: this.setMyList()[selectedRadio].id,
       type: 1
     });
     this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
       console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
-      this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
+      this.props.dispatch(ListActions.getMyLists()).then(() => {
+        this.props.dispatch(UIActions.setBrowserInitialState()).then(Actions.feedIndex);
+      });
     });
 
   },
