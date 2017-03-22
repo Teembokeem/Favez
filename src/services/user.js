@@ -16,6 +16,10 @@ export async function postUser(authData) {
   return await post('/user', user);
 }
 
+export async function updateUser(toField) {
+  return await put('', toField);
+}
+
 export async function getSimilarList(id) {
   return await get('/lists/similar/' + id);
 }
