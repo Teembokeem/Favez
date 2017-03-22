@@ -52,7 +52,9 @@ const EditProfileView = React.createClass({
           <Header title={'Edit Profile'}/>
           <View style={styles.EditProfileFormContainer}>
             <View style={styles.EditProfileImageChanger}>
-              <Text style={styles.EditProfileImage}>Image</Text>
+              <TouchableOpacity>
+                <Image style={styles.EditProfileImage} source={{uri: auth0.picture}}/>
+              </TouchableOpacity>
               <Text style={styles.EditProfileImageText}>Tap to change profile picture</Text>
             </View>
             <EditProfileForm
@@ -71,6 +73,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     paddingTop: 20,
     alignItems: 'center'
+  },
+  EditProfileImageChanger: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 25,
+    paddingBottom: 13
+  },
+  EditProfileImage: {
+    width: 90,
+    height: 90,
+    borderRadius: 45
+  },
+  EditProfileImageText: {
+    paddingTop: 10,
+    fontFamily: 'Hind-SemiBold',
+    color: '#888888'
   }
 });
 
