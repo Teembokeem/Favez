@@ -69,7 +69,7 @@ export default function ListReducer(state = initialState, action = {}) {
         .set('all', action.payload.data);
     case SET_LIST:
       return state
-        .set('current', state.get('all')[action.payload]);
+        .set('current', state.get(action.payload.list)[action.payload.index]);
     case LIST_MYLIST_REQUEST:
       return loop(
         state.set('loading', true),

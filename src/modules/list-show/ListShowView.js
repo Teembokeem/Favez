@@ -19,7 +19,8 @@ import Card from '../../components/globals/card/card';
 const ListShowView = React.createClass({
   propTypes: {},
   componentWillMount() {
-    // this.setState({ready: false})
+    // this.setState({ready: false})\
+    console.log('hello', this.props)
     return this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
@@ -43,16 +44,18 @@ const ListShowView = React.createClass({
           <Info
             fave={this.props.list}
           />
-        )
+        );
       case 'favez':
-        return (
+        return this.props.list._favez && Array.isArray(this.props.list._favez)
+        ? (
           this.props.list._favez.map((fave, index) => (
             <Line
               fave={fave}
               key={'fave ' + index}
             />
           ))
-        );
+        )
+        : (null);
       case 'similar':
         return (
           this.props.similar.map((fave, index) => (

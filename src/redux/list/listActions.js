@@ -50,11 +50,11 @@ export async function requestGetMyLists() {
     .catch((err) => ({type: LIST_MYLIST_FAILURE, payload: err}));
 }
 
-export async function setList(index) {
+export async function setList(list, index) {
   console.log('this index now', index);
   return {
     type: SET_LIST,
-    payload: index
+    payload: {list,index}
   };
 }
 
