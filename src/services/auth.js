@@ -65,14 +65,21 @@ export async function authLogin(data) {
   };
   return await auth.post('/oauth/ro', body)
     .then((res) => {
-      console.log('SUCCESS /oauth/ro: ', res);
       setAuth0Token(res.access_token);
       setAuthenticationToken(res.id_token);
-      return get('/authorize');
+      return res;
     })
     .catch((err) => {return err;}) ;
 }
 
 export async function authUserInfo() {
-  return await auth.get('/userinfo');
+  return get('/authorize')
+    .then((response) => {
+      return auth.get('/userinfo')
+        .then((auth0response) => {
+          return {auth0: auth0response, favez: response.data}
+        })
+        .catch((err) => (err));
+    })
+    .catch((err) => (err));
 }
