@@ -75,7 +75,7 @@ const ListShowHeader = React.createClass({
             style={styles.flex1}
           >
             <TouchableOpacity
-              onPress={this.back}
+              onPress={Actions.pop}
                 style={styles.headerLeftButton}
             >
               <FAIcon style={styles.headerLeftButtonIcon} name='close' />
