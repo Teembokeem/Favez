@@ -92,7 +92,7 @@ const NavigationView = React.createClass({
               <Scene key='notification' component={NotificationViewContainer} title='Notice' icon={TabIcon} display='bell' hideNavBar/>
               <Scene key='profile' title='Profile' icon={TabIcon} display='emoji-happy'>
                 <Scene key='profileIndex' component={ProfileViewContainer} title='Profile' hideNavBar={true} hideTabBar={false}/>
-                <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={false}/>
+                <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={true}/>
                 </ Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
