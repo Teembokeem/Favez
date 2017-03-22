@@ -40,6 +40,10 @@ const ListShowView = React.createClass({
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
+  browseFave(idx) {
+    this.props.dispatch(UIActions.browseList(this.props.list._favez, idx)).then(() => Actions.addFaveBrowse({viewList: true}));
+  },
+
   renderChildren() {
     switch (this.props.selectedTab) {
       case 'info':
@@ -54,6 +58,8 @@ const ListShowView = React.createClass({
           this.props.list._favez.map((fave, index) => (
             <Line
               fave={fave}
+              index={index}
+              browseFave={this.browseFave}
               key={'fave ' + index}
             />
           ))
