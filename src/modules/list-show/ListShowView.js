@@ -101,6 +101,7 @@ const ListShowView = React.createClass({
     return (
       <View style={{flex: 1}}>
         <View style={styles.ListBackgroundImageContainer}>
+          <View style={styles.ListBackgroundOverlay}></View>
           <Image
             style={styles.ListBackgroundImage}
             source={list._favez ? {uri: list._favez[0].image} : require('../../../images/default_list.png')}/>
@@ -145,6 +146,13 @@ const styles = StyleSheet.create({
     width: window.width,
     height: 200,
     overflow: 'hidden'
+  },
+  ListBackgroundOverlay: {
+    position: 'absolute',
+    height: 200,
+    width: window.width,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    zIndex: 3
   },
   ListBackgroundImage: {
     width: window.width,
