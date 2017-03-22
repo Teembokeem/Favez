@@ -86,7 +86,7 @@ const ListShowHeader = React.createClass({
               ref={TEXT_INPUT_REF}
               autoCapitalize='none'
               defaultValue={url}
-              onSubmitEditing={() => this.onSubmitEditing(url, this.props.setBrowserUrl)}
+              onSubmitEditing={() => this.onSubmitEditing(url, this.props.setBrowserInfo)}
               onChange={this.handleTextInputChange}
               clearButtonMode='while-editing'
               style={styles.addressBarTextInput}
@@ -183,7 +183,7 @@ const ListShowHeader = React.createClass({
   render() {
     console.log('BROWSER SHIT', this.props);
     const {browser, setNewFave} = this.props;
-    const {url, scrape} = browser;
+    const {url, scrape, title} = browser;
     const {scraped, images} = scrape;
     const sourceDelegate = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
     return (
@@ -196,12 +196,12 @@ const ListShowHeader = React.createClass({
               source={sourceDelegate}
               style={styles.FaveBrowser}
               injectedJavaScript={scraped ? this.selectImageJS() : ''}
-              onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data})}
+              onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data, title: title})}
             />
           )
           : (
             <WebView
-              onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserUrl(webView.url)}
+              onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserInfo(webView.url, webView.title)}
               source={sourceDelegate}
               style={styles.FaveBrowser}
             />
