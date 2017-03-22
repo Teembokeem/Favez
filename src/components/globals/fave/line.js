@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 
-function Line({fave}) {
+function Line({fave, browseFave, index}) {
   return (
     <View style={styles.FaveContainer}>
       <View style={styles.FaveHeader}>
@@ -18,15 +18,16 @@ function Line({fave}) {
         <Text style={styles.FaveUsername}>@{fave.owner}: </Text>
         <Text style={styles.FaveUserDescription}>{fave.description ? fave.description : ''}</Text>
       </View>
-      <View
+      <TouchableOpacity
         style={styles.FaveInfoContainer}
+        onPress={() => browseFave(index)}
       >
         <Image style={styles.FaveInfoIcon} source={{uri: fave.image}}/>
         <View style={styles.FaveInfoTextContainer}>
           <Text style={styles.FaveInfoName}>{fave.name}</Text>
           <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.FaveInfoLink}>{fave.link}</Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }
