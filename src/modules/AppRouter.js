@@ -12,6 +12,7 @@ import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
 import ProfileViewContainer from './profile/ProfileViewContainer';
+import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
@@ -89,7 +90,10 @@ const NavigationView = React.createClass({
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
               <Scene key='favorite' component={FavoriteViewContainer} title='Favorite' icon={TabIcon} display='ios-heart' hideNavBar/>
               <Scene key='notification' component={NotificationViewContainer} title='Notice' icon={TabIcon} display='bell' hideNavBar/>
-              <Scene key='profile' component={ProfileViewContainer} title='Profile' icon={TabIcon} display='emoji-happy' hideNavBar/>
+              <Scene key='profile' title='Profile' icon={TabIcon} display='emoji-happy'>
+                <Scene key='profileIndex' component={ProfileViewContainer} title='Profile' hideNavBar={true} hideTabBar={false}/>
+                <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={false}/>
+                </ Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>
