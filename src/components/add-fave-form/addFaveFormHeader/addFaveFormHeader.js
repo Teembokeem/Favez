@@ -49,19 +49,28 @@ const styles = StyleSheet.create({
     elevation: 4,
     flexDirection: 'row',
     justifyContent: 'flex-start',
+    paddingLeft: 10,
+    paddingRight: 10,
     // paddingTop: STATUSBAR_HEIGHT,
     height: APPBAR_HEIGHT
   },
+  headerLeftButton: {
+    flex: 1
+  },
   headerSearchBar: {
-    width: 240,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 5,
-    paddingRight: 20,
+    // width: 240,
+    // marginLeft: 20,
+    // marginRight: 20,
+    // paddingLeft: 5,
+    // paddingRight: 20,
     alignSelf: 'center',
     justifyContent: 'center',
     borderRadius: 7,
-    height: 35
+    height: 35,
+    flex: 5
+  },
+  headerRightButton: {
+    flex: 1
   },
   headerRightCancel: {
     fontFamily: 'Hind-Medium',
