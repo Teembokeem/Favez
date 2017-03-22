@@ -24,7 +24,7 @@ function Line({fave}) {
         <Image style={styles.FaveInfoIcon} source={{uri: fave.image}}/>
         <View style={styles.FaveInfoTextContainer}>
           <Text style={styles.FaveInfoName}>{fave.name}</Text>
-          <Text style={styles.FaveInfoLink}>{fave.link}</Text>
+          <Text ellipsizeMode={'tail'} numberOfLines={1} style={styles.FaveInfoLink}>{fave.link}</Text>
         </View>
       </View>
     </View>
