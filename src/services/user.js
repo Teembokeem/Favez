@@ -7,7 +7,8 @@ export async function getUser() {
 export async function postUser(authData) {
   let user = {
     email: authData.email,
-    username: authData.email,
+    username: authData.nickname,
+    image: authData.picture,
     // phone: authData.phone,
     auth_id: authData._id
   };
