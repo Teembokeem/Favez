@@ -6,7 +6,8 @@ import {
 
 import {
   getUser,
-  postUser
+  postUser,
+  updateUser
 } from '../../services/user';
 
 // Actions
@@ -15,6 +16,9 @@ export const AUTH_REGISTER_SUCCESS = 'AUTH_REGISTER_SUCCESS';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAILURE = 'REGISTER_FAILURE';
+export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
+export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
+export const USER_UPDATE_FAILURE = 'USER_UPDATE_FAILURE';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -40,6 +44,19 @@ export async function register(data) {
     type: AUTH_REGISTER_REQUEST,
     payload: data
   };
+}
+
+export async function update(vals) {
+  return {
+    type: USER_UPDATE_REQUEST,
+    payload: vals
+  };
+}
+
+export async function requestUserUpdate(data) {
+  return await updateUser(data)
+    .then((res) => ({type: USER_UPDATE_SUCCESS, payload: res}))
+    .catch((err) => ({type: USER_UPDATE_FAILURE, payload: err}));
 }
 
 export async function requestRegister(data) {
