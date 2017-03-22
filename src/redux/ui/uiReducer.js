@@ -189,6 +189,12 @@ const initialState = fromJS({
         ]
       }
     }
+  },
+  listShow: {
+    tabs: {
+      selected: 'favez',
+      set: ['favez', 'info', 'similar']
+    }
   }
 });
 
