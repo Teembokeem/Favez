@@ -5,6 +5,9 @@ import {
   AUTH_REGISTER_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAILURE,
+  USER_UPDATE_REQUEST,
+  USER_UPDATE_SUCCESS,
+  USER_UPDATE_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -12,6 +15,7 @@ import {
   USER_SUCCESS,
   requestLogin,
   requestUserInfo,
+  requestUserUpdate,
   requestRegister,
   createUser
 } from './userActions';
@@ -32,6 +36,16 @@ export default function UserStateReducer(state = initialState, action = {}) {
         state.set('loading', true),
         Effects.promise(() => requestRegister(action.payload))
       );
+    case USER_UPDATE_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestUserUpdate(action.payload))
+      );
+    case USER_UPDATE_SUCCESS:
+      console.log('SUCCESS', action.payload)
+      return state
+        .set('loading', false)
+        .set('user', action.payload.data);
     case AUTH_REGISTER_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -53,6 +67,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
       );
     case LOGIN_FAILURE:
     case USER_FAILURE:
+    case USER_UPDATE_FAILURE:
     case REGISTER_FAILURE:
       console.log('there was an error', action.payload);
       return state.set('error', action.payload);
