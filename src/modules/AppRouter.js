@@ -59,7 +59,7 @@ const NavigationView = React.createClass({
                   key='listShow'
                   hideNavBar={true}
                 >
-                  <Scene key='listShowIndex' component={ListShowViewContainer}/>
+                  <Scene key='listShowIndex' component={ListShowViewContainer} hideTabBar={true}/>
                   {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
                   <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
                   <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}

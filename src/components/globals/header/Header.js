@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 0,
     borderBottomWidth: 1,
+    backgroundColor: 'transparent',
     borderColor: '#efefef'
   },
   headerText: {

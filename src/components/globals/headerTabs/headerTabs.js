@@ -39,6 +39,7 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
 
 const styles = StyleSheet.create({
   HeaderTabs: {
+    backgroundColor: 'white',
     // width: 600,
     padding: 6,
     borderBottomWidth: 1,
