@@ -31,7 +31,7 @@ function ProfileSummary({user}) {
         <TouchableOpacity
             style={styles.ProfileSummaryRow1RightContent}
         >
-          <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 00}</Text>
+          <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 0}</Text>
           <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
         </TouchableOpacity>
       </View>
