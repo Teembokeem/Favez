@@ -1,7 +1,7 @@
 /*eslint-disable react/prop-types*/
 
 import React from 'react';
-import {Scene, Modal, Router} from 'react-native-router-flux';
+import {Scene, Router} from 'react-native-router-flux';
 import {StyleSheet} from 'react-native';
 import TabIcon from '../components/TabIcon';
 
@@ -22,15 +22,15 @@ import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
-    alignItems: 'center',
+  container: {flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
+    alignItems: 'center'
   },
   tabBarStyle: {
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   tabBarSelectedItemStyle: {
-    backgroundColor: 'white',
-  },
+    backgroundColor: 'white'
+  }
 });
 
 const NavigationView = React.createClass({
@@ -38,13 +38,10 @@ const NavigationView = React.createClass({
   render() {
     return (
       <Router>
-        {/*<Scene key='modal' component={Modal} >*/}
           <Scene key='intro' title='Begin' initial={true} >
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
             <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />
-            {/*<Scene key='verify' component={VerifyViewContainer} title='verify' hideNavBar />*/}
-            {/*<Scene key='reset' component={ResetViewContainer} title='Reset' hideNavBar />*/}
           </Scene>
           <Scene key='tabbar' >
             <Scene
@@ -61,9 +58,6 @@ const NavigationView = React.createClass({
                   hideNavBar={true}
                 >
                   <Scene key='listShowIndex' component={ListShowViewContainer} hideTabBar={true}/>
-                  {/*<Scene key='share' component={NotificationViewContainer} title='Share' icon={TabIcon} display='share' hideNavBar/>
-                  <Scene key='bookmark' title='BookMark' initial={true} display='bookmark-plus-outline' icon={TabIcon} hideNavBar/>
-                  <Scene key='message' component={FavoriteViewContainer} title='Message' icon={TabIcon} display='message-text' hideNavBar/>*/}
                 </Scene>
                 <Scene
                   key='createList'
@@ -85,6 +79,7 @@ const NavigationView = React.createClass({
                   hideTabBar={true}
                 >
                   <Scene key='addFaveFormIndex' component={AddFaveFormViewContainer} />
+                  {/*[TD3a]*/}
                 </Scene>
               </Scene>
               <Scene key='search' component={SearchViewContainer} title='Search' icon={TabIcon} display='search' hideNavBar/>
@@ -97,10 +92,6 @@ const NavigationView = React.createClass({
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>
-          {/*<Scene key='subbar'>
-          </Scene>*/}
-          {/*<Scene key='contextMenu' component={ContextMenuContainer} />*/}
-        {/*</Scene>*/}
       </Router>
     );
   }

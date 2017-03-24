@@ -1,5 +1,4 @@
 import React from 'react';
-import {Actions} from 'react-native-router-flux';
 import {
   StyleSheet,
   Text,
@@ -13,7 +12,6 @@ const window = Dimensions.get('window');
 const addFaveFormSubmit = React.createClass({
   text: 'Type a message (optional)',
   render() {
-    console.log(this.props);
     const {submit} = this.props;
     return (
     <View style={styles.addFaveFormSubmitContainer}>
@@ -43,8 +41,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: 100,
-    // position: 'absolute',
-    // bottom: 0,
     flexDirection: 'column',
     width: window.width
   },

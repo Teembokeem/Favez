@@ -1,3 +1,4 @@
+// [TD2]
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
@@ -34,7 +35,6 @@ const ListShowHeader = React.createClass({
   },
 
   pressGoButton(passedUrl, method) {
-    console.log('everythingggg', passedUrl, method);
     var url = this.inputText.toLowerCase();
     if (url === passedUrl) {
       this.reload();
@@ -45,8 +45,8 @@ const ListShowHeader = React.createClass({
     this.refs[TEXT_INPUT_REF].blur();
   },
 
+  // [TD2a]
   renderHeader(isScraped, url) {
-    console.log('your url', url)
     if (isScraped) {
       return (
         <View style={[styles.NavBarContainer]}>
@@ -65,8 +65,7 @@ const ListShowHeader = React.createClass({
               style={styles.HeaderText}
             >Pick Image</Text>
           </View>
-          <View style={styles.flex2}>
-          </View>
+          <View style={styles.flex2} />
         </View>
       );
     } else {
@@ -108,6 +107,7 @@ const ListShowHeader = React.createClass({
     }
   },
 
+  // [TD2b]
   selectImageJS() {
     const JS =
     `
@@ -128,6 +128,8 @@ const ListShowHeader = React.createClass({
     `;
     return JS;
   },
+
+  // [TD2b]
   selectImageHTML(images) {
     let imageList = '';
     function concatImages() {
@@ -182,13 +184,12 @@ const ListShowHeader = React.createClass({
   },
 
   render() {
-    console.log('BROWSER SHIT', this.props);
-    const {browser, setNewFave} = this.props;
+    const {browser, setNewFave, setBrowserInfo} = this.props;
     let {url, scrape, title, viewList} = browser;
-    if (this.props.showViewList) url = viewList.set[viewList.index].link;
     const {scraped, images} = scrape;
-    const sourceDelegate = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
-    console.log('your url in the beginning', url)
+    if (this.props.showViewList) {url = viewList.set[viewList.index].link;}
+    const sourceDelegator = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
+
     return (
     <View style={{flex: 1}}>
       {this.renderHeader(scraped, url)}
@@ -196,16 +197,17 @@ const ListShowHeader = React.createClass({
         {scraped
           ? (
             <WebView
-              source={sourceDelegate}
+              source={sourceDelegator}
               style={styles.FaveBrowser}
               injectedJavaScript={scraped ? this.selectImageJS() : ''}
-              onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data, title: title})}
+              onMessage={(e) => setNewFave({link: scrape.url, image: e.nativeEvent.data, title})}
             />
           )
           : (
             <WebView
-              onNavigationStateChange={(webView) => scraped ? '' : this.props.setBrowserInfo(webView.url, webView.title)}
-              source={sourceDelegate}
+              todo={'[TD2c]'}
+              onNavigationStateChange={(webView) => scraped ? '' : setBrowserInfo(webView.url, webView.title)}
+              source={sourceDelegator}
               style={styles.FaveBrowser}
             />
           )}
@@ -217,13 +219,7 @@ const ListShowHeader = React.createClass({
 
 const styles = StyleSheet.create({
   NavBarContainer: {
-    // alignItems: 'center',
-    // backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
     backgroundColor: 'transparent',
-    // borderBottomColor: 'rgba(0, 0, 0, .15)',
-    // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
-    // elevation: 4,
-    // flex: 1,
     borderBottomWidth: 0.5,
     borderColor: '#e8e8e8',
     width: 375,
@@ -276,13 +272,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   headerRightButtonIcon: {
-    // height: 35,
-    // width: 35,
     fontSize: 28,
     justifyContent: 'center',
     alignItems: 'center',
-    // top: 30,
-    // margin: 10,
     color: '#000000',
     alignSelf: 'flex-end'
   },
@@ -295,6 +287,5 @@ const styles = StyleSheet.create({
     flex: 1
   }
 });
-
 
 export default ListShowHeader;

@@ -5,10 +5,8 @@ import {
   Image,
   Text,
   TouchableOpacity,
-  Dimensions,
   StyleSheet
 } from 'react-native';
-import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {Actions} from 'react-native-router-flux';
 import * as FaveActions from '../../redux/fave/faveActions';
 import * as ListActions from '../../redux/list/listActions';
@@ -17,13 +15,10 @@ import Header from '../../components/globals/header/header';
 import EditProfileHeader from '../../components/edit-profile/editProfileHeader/editProfileHeader';
 import EditProfileForm from '../../components/edit-profile/editProfileForm/editProfileForm';
 
-const window = Dimensions.get('window');
-
 const EditProfileView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    // this.props.dispatch(ListActions.getFullList());
   },
   fieldSerials: [
     {
@@ -80,7 +75,6 @@ const EditProfileView = React.createClass({
   ],
   submit(text) {
     const {fave, selectedRadio} = this.props;
-    console.log('selected radio', selectedRadio, this.setMyList())
     Object.assign(fave, {
       name: fave.title,
       description: text,
@@ -88,20 +82,16 @@ const EditProfileView = React.createClass({
       type: 1
     });
     this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
-      console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
       this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
   },
   editProfile(vals) {
-    console.log('comparing diffs', vals.toJS());
-    console.log('user for reference', this.props.user.favez);
     this.props.dispatch((UserActions.update(vals)))
   },
 
   render() {
     const {user} = this.props;
-    const {favez, auth0} = user;
-    console.log('edit profile props', this.props);
+    const {auth0} = user;
     return (
       <View style={styles.container}>
         <EditProfileHeader />

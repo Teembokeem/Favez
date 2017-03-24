@@ -1,131 +1,66 @@
-![Pepperoni - Empowered by Futurice](/docs/pepperoni.png?v=2)
-Futurice React Native Starter Kit
+Studio Eighteen: Favez Front
 ===
-
-[![Join the chat at https://gitter.im/futurice/pepperoni-app-kit](https://badges.gitter.im/futurice/pepperoni-app-kit.svg)](https://gitter.im/futurice/pepperoni-app-kit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://travis-ci.org/futurice/pepperoni-app-kit.svg?branch=master)](https://travis-ci.org/futurice/pepperoni-app-kit)
-[![React Native](https://img.shields.io/badge/react%20native-0.40.0-brightgreen.svg)](https://github.com/facebook/react-native)
-[![Sponsored](https://img.shields.io/badge/chilicorn-sponsored-brightgreen.svg)](http://spiceprogram.org/oss-sponsorship/)
-[![License](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/futurice/pepperoni-app-kit/blob/master/LICENSE)
-
-We :green_heart: building apps with React Native, because it helps us create high quality products for both major mobile platforms quickly and cost-effectively.
-
-Getting started on a new app just takes too damn long, though. Most apps need the same basic building blocks and developer infrastructure, and we are bored of reinventing the wheel time and time again.
-
-This Starter Kit reflects the best practices of React Native development we have discovered while building real-world applications for our customers. It is opinionated about tooling, patterns and development practices. It might not be a one-size-fits-all solution for everyone, but feel free to customize it for your needs, or just take inspiration from it.
-
-React Native Starter Kit is a part of [Pepperoni](http://getpepperoni.com), a framework for kickstarting digital product development.
+## The Idea
+Favez is a React Native mobile application that helps users find information on topics they're interested in. Favez operates on the premise that search sites like Google and Yahoo compromise the accuracy of its results by incentivizing ad services & analytics, both which increase the viewability of such a participating website, which diverts the effort to provide clear and concise information for the user. Our application believes that that information lies with the users who constantly shape and define its discussion and direction. We give the power of curation to these individuals, in the form of lists with which users can add informational websites, articles, and links that they have scoured for on the internet. Users are given the opportunity to communally decide on which lists herald the most relevant and useful information in a similar fashion to a like or vote. These lists naturally rise to the top of popularity, ensuring that the rankings are unbiased and purely democratic.  
 
 ## tltr;
 
 Sounds good and you just want to see how it works? Here is a quick start guide:
 
 ```
-git clone git@github.com:futurice/pepperoni-app-kit.git
-cd pepperoni-app-kit
-yarn install
+git clone [:named folder] [:this git package]
+cd [:named folder]
+npm install
 react-native run-ios
 ```
 
-For further setup instructions please see our [Getting Started](#getting-started) section.
 
 ## Contents
 
-:warning: **WORK IN PROGRESS** |
-:star: **COMING SOON**
-
 Not all of the below is yet fully implemented
-
-### Application Blueprint
-
-* Always up-to-date [React Native](https://facebook.github.io/react-native/) scaffolding
-* Modular and well-documented structure for application code
-* [Redux](http://redux.js.org/) and [ImmutableJS](https://facebook.github.io/immutable-js/) for safe and **Reasonaboutable**:tm: state management
-* [Redux Loop](https://github.com/raisemarketplace/redux-loop) for Elm-style controlled side effects
-* Redux-managed Navigators for Stack-based and Tabbed navigation with NavigationExperimental
-* Disk-persisted application state caching for offline support and snappy startup performance
-* Clean and testable service layer for interacting with RESTful APIs
-* :warning: Sample app to show how to wire it all together
-* :star: JSON Web Token authentication
-* :star: Multi-environment configuration (dev, staging, production) for iOS and Android
-* :star: Built-in error handling and customizable error screens
-
-### Testing Setup
-
-* [Jest](https://facebook.github.io/jest/) for unit testing application code and providing coverage information.
-* [Enzyme](https://github.com/airbnb/enzyme) and fully mocked React Native for unit testing UI components
-* Utilities for end-to-end integration testing Redux state, including side effects and asynchronous actions
 
 ### Development & Deployment Infrastructure
 
-* [Auth0](https://auth0.com/) for ready-to-use login and signup screens, user authentication and identity management
-* [Bitrise.io](https://www.bitrise.io) configurations for Continuous Integration and beta app distribution
-* :warning: [Google Tag Manager](https://www.google.com/analytics/tag-manager/) analytics
+* [Auth0](https://auth0.com/)
+* React Native
+* Router Flux
+* Redux Forms
+* Redux Loop
+* Immutables
+* Vector Icons
+* Remote Redux DevTools
+* ES6
 
+### Development Life Cycle
 
-### Roadmap
+## FIXES
+Use the bracket code to find the associated files for the todo:
 
-* **TODO** :star: [Microsoft Code Push](http://microsoft.github.io/code-push) for instant JavaScript and images update
-* **TODO** Crash reporting
-* **TODO** Android and iOS UI Testing with Calaba.sh?
-* **TODO** Feature flags?
+* **HEADERS REWORK**: [TD1] Refactor all headers to have the same base styling (some use height, paddingTop, etc etc combinations. Add a justify content to center for all headers, for larger screens.
+* **FAVEZ BROWSER REWORK**: 
+  * [TD2a] Set render header method into separate file and import into favez browser. 
+  * [TD2b] Set injectable javascript and injectable html into separate files in the same directory.
+  * [TD2c] Fix error for flickering browser links: On sites that redirect to a different syntax name as url will cause setState flickers. See onNavigationStateChange
+  * [TD2d] Add clear state method on component life cycle method BEFORE RENDERING: currently introduces flicker if they navigated to any other website and closed the browser.
 
-## Getting started
+* **ADD TOPICS TAGS**:
+  * [TD3a] Add 'More Options' Scene to App Router on the same level as Add Fave Form View;
+  * [TD3b] Create More Options View, and View Container
+  * [TD3c] Add props for topics/tags to attach to the 'current' list:
 
-To build your own app on top of the Starter Kit, fork or mirror this repository. For serious use we recommend [mirroring using these instructions](https://help.github.com/articles/duplicating-a-repository/), since you can't make a fork of a public repository private on GitHub. To contribute to Starter Kit development or just playing around, forking is the way to go.
+       `Actions.moreOptions() => code logic for adding topics and tags in that view => onPress of back button: setProps on state(['list', 'current']) to add topics/tags props. => proceed with create list method: createList first, then on Success POST List Taxonomies.`
+ 
+  * [TD3d] Add List Action method for creating new taxonomies.
+  * [TD3e] Render topics and tags in the List component's listBody
+ 
+  
+* **COMPONENT CREATION**: Change all other component creation methods (function Component, or export default class extends React.Component) to 
+ 
+    ```const Component = React.createClass({})```
 
-First, give your application a name by running `./support/rename.sh YourAppName`.
-
-Once you have the code downloaded, follow the **[Setup guide](docs/SETUP.md)** to get started.
-
-## Development workflow
-
-After you have set up the project using above instructions, you can use your favorite IDE or text editor to write code, and run the application from the command line. Turn on React Native hot module reloading in the app developer menu to update your application as you code.
-
-To learn how to structure your application and use the Redux application architecture, read the **[Architecture guide](docs/ARCHITECTURE.md)** for more details.
-
-##### Start the application in iOS simulator
-```
-$ react-native run-ios
-```
-
-##### Start the application in Android simulator
-(If using the stock emulator, the emulator must be running)
-```
-$ react-native run-android
-```
-
-##### Run unit tests
-```
-$ npm test
-```
-
-##### Run tests every time code changes
-```
-$ npm run test:watch
-```
-
-##### Generate code coverage report
-```
-$ npm run coverage
-```
-
-Read the **[Testing guide](docs/TESTING.md)** for more information about writing tests.
-
-## Deployment
-
-Read the **[Deployment guide](docs/DEPLOYMENT.md)** to learn how to deploy the application to test devices, app stores, and how to use Code Push to push updates to your users immediately.
-
-## Contributing
-
-If you find any problems, please [open an issue](https://github.com/futurice/pepperoni-app-kit/issues/new) or submit a fix as a pull request.
-
-We welcome new features, but for large changes let's discuss first to make sure the changes can be accepted and integrated smoothly.
-
-## License
-
-[MIT License](LICENSE)
-
-## Credits
-
-This project was initially motivated by [Snowflake](https://github.com/bartonhammond/snowflake), a React Native boilerplate by Barton Hammond. It shares some features and design principles for Pepperoni, but it wasn't the right fit for our needs. At this time Snowflake is more mature, so if you like Pepperoni but didn't agree with something we are doing, you should check it out to see if it's a good fit for your app.
+## General TODOS
+* Need allowed values for edit profile props on backend => finish flow for editing profile on submit method: go back to main profile page.
+* Add browse List view footer, specifically the popup menu that contains the list of favez for traversing through the collection.
+* add sub views for the profile
+* add facebook/contacts friends.
+* add flows for collaboration: Notifications, onCreate for Lists (add collaborators)

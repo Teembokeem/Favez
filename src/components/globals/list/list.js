@@ -1,11 +1,7 @@
 import React from 'react';
-// import TabBarButton from '../components/TabBarButton';
-
 import {
   StyleSheet,
-  Text,
   Image,
-  TouchableOpacity,
   View
 } from 'react-native';
 import ListHeader from './listHeader';
@@ -13,23 +9,22 @@ import ListBody from './listBody';
 import ListFooter from './listFooter';
 
 function List({list, user, toggleContextMenu, moving, index}) {
-  console.log('inside List component', index)
-  const {creator, collaborators, name, _favez, topics, tags} = list;
+  const {collaborators, name, _favez, topics, tags} = list;
   return (
     <View
       style={styles.ListContainer}
     >
-      <View
-        style={styles.fadeLayer}
-      ></View>
+      <View style={styles.fadeLayer} />
       <Image
-          source={Array.isArray(_favez) && _favez.length > 0 ? {uri: _favez[0].image} : require('../../../../images/default_list_picture.png')}
+          source={Array.isArray(_favez) && _favez.length > 0
+            ? {uri: _favez[0].image}
+            : require('../../../../images/default_list_picture.png')}
           style={styles.ListBackground}
       />
       <ListHeader
         creator={user}
         toggleContextMenu={toggleContextMenu}
-        /*collaborators={collaborators.length}*/
+        collaborators={collaborators.length || 0}
       />
       <ListBody
         name={name}
@@ -71,7 +66,7 @@ const styles = StyleSheet.create({
     left: 0,
     flex: 1,
     zIndex: -1
-  },
+  }
 });
 
 export default List;

@@ -1,6 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {
-  Text,
   View,
   ScrollView,
   StyleSheet
@@ -14,7 +13,6 @@ import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import List from '../../components/globals/list/list';
 import Card from '../../components/globals/card/card';
 import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
-
 
 const FavoriteView = React.createClass({
   propTypes: {},
@@ -34,7 +32,7 @@ const FavoriteView = React.createClass({
   },
   renderListChildren(listSet, childType) {
     const {user} = this.props;
-    const {favez, auth0} = user;
+    const {auth0} = user;
     switch (childType) {
       case 'list':
         return (
@@ -46,8 +44,7 @@ const FavoriteView = React.createClass({
                 key={'list ' + index}
                 index={index}
                 toggleContextMenu={this.toggleContextMenu}
-              >
-              </List>
+              />
           ))
         );
       case 'card':

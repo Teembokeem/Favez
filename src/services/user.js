@@ -12,7 +12,6 @@ export async function postUser(authData) {
     // phone: authData.phone,
     auth_id: authData._id
   };
-  console.log('current body', user)
   return await post('/user', user);
 }
 

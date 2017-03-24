@@ -42,7 +42,6 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestUserUpdate(action.payload))
       );
     case USER_UPDATE_SUCCESS:
-      console.log('SUCCESS', action.payload)
       return state
         .set('loading', false)
         .set('user', action.payload.data);
@@ -69,10 +68,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case REGISTER_FAILURE:
-      console.log('there was an error', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:
-      console.log('payyyy up', action.payload)
       return state
         .set('loading', false)
         .set('user', action.payload);

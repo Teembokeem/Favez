@@ -5,6 +5,5 @@ export async function getFavezAll() {
 }
 
 export async function favezCreateFave(body) {
-  console.log('===============POSTING=============', body)
   return post('/favez', body);
 }

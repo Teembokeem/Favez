@@ -1,5 +1,4 @@
-import React, {
-} from 'react';
+import React from 'react';
 import {Actions} from 'react-native-router-flux';
 import {
   Modal,
@@ -15,7 +14,6 @@ import MIcon from 'react-native-vector-icons/MaterialIcons';
 import FIcon from 'react-native-vector-icons/Foundation';
 import EIcon from 'react-native-vector-icons/Entypo';
 import OIcon from 'react-native-vector-icons/Octicons';
-
 const window = Dimensions.get('window');
 
 function iconDeserializer(icon) {
@@ -38,60 +36,51 @@ function iconDeserializer(icon) {
   }
 }
 
-function navigate(toggle, navigationPath) {
-  console.log('===============================', arguments)
-  toggle;
-  Actions[navigationPath]();
-}
 
 function ContextMenu({toggleContextMenu, visible, items, source}) {
-  console.log('source', source)
   return (
-      <Modal
-        animationType={'slide'}
-        transparent={true}
-        visible={visible}
-        style={styles.contextMenuModal}
-        >
-          <View style={styles.container}>
-            <View style={styles.menuContainer}>
-              {items.map((item, idx) => {
-                let {buttonAction, uiText} = item;
-                console.log('your item', item)
-                return (
-                  <TouchableOpacity
-                    key={'icon ' + idx}
-                    style={styles.menuRow}
-                    onPress={() => {toggleContextMenu(source); Actions[buttonAction]()}}
-                  >
-                    <View style={styles.IconContainer}>
-                      {iconDeserializer(item.icon)}
-                    </View>
-                    <Text style={styles.IconText}>{uiText}</Text>
-                  </TouchableOpacity>
-                );
-              })}
-              <TouchableOpacity
-                style={styles.menuRow}
-                onPress={() => toggleContextMenu(source)}
-              >
-                <View style={styles.IconContainer}>
-                  <EIcon style={styles.cancelIcon} name='cross'/>
-                </View>
-                <Text style={styles.IconText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
+    <Modal
+      animationType={'slide'}
+      transparent={true}
+      visible={visible}
+      style={styles.contextMenuModal}
+      >
+        <View style={styles.container}>
+          <View style={styles.menuContainer}>
+            {items.map((item, idx) => {
+              let {buttonAction, uiText} = item;
+              return (
+                <TouchableOpacity
+                  key={'icon ' + idx}
+                  style={styles.menuRow}
+                  onPress={() => {toggleContextMenu(source); Actions[buttonAction]();}}
+                >
+                  <View style={styles.IconContainer}>
+                    {iconDeserializer(item.icon)}
+                  </View>
+                  <Text style={styles.IconText}>{uiText}</Text>
+                </TouchableOpacity>
+              );
+            })}
+            <TouchableOpacity
+              style={styles.menuRow}
+              onPress={() => toggleContextMenu(source)}
+            >
+              <View style={styles.IconContainer}>
+                <EIcon style={styles.cancelIcon} name='cross'/>
+              </View>
+              <Text style={styles.IconText}>Cancel</Text>
+            </TouchableOpacity>
           </View>
-      </Modal>
+        </View>
+    </Modal>
   );
 }
 
 const styles = StyleSheet.create({
   overlay: {
     height: window.height,
-    width: window.width,
-    // backgroundColor: 'rgba(40, 40, 40, 0.9)',
-    // backgroundColor: 'rgba(40, 40, 40, 0.5)'
+    width: window.width
   },
   container: {
     backgroundColor: 'rgba(40, 40, 40, 0.9)',
@@ -105,7 +94,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   contextMenuModal: {
-    backgroundColor: 'rgba(40, 40, 40, 0.9)',
+    backgroundColor: 'rgba(40, 40, 40, 0.9)'
   },
   menuContainer: {
     height: 350,
@@ -117,12 +106,7 @@ const styles = StyleSheet.create({
   },
   menuRow: {
     flex: 1,
-    // borderBottomWidth: 1,
-    // borderColor: '#b8b8b8',
     paddingLeft: 30,
-    // paddingRight: 30,
-    // paddingTop: 5,
-    // paddingBottom: 5,
     flexDirection: 'row'
   },
   IconContainer: {

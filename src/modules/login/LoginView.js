@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
 import * as UserActions from '../../redux/user/userActions';
 import {
   View,
@@ -9,21 +9,18 @@ import BackHeader from '../../components/globals/backHeader/backHeader';
 import Header from '../../components/globals/header/header';
 import LoginForm from '../../components/login/loginForm/loginForm';
 
-
 const LoginView = React.createClass({
-
-  login(data) {
-    this.props.dispatch(UserActions.login(data))
-  },
 
   componentDidUpdate() {
     const {user} = this.props;
-    if (user.favez) Actions.tabbar();
+    if (user.favez) {Actions.tabbar();}
+  },
+
+  login(data) {
+    this.props.dispatch(UserActions.login(data));
   },
 
   render() {
-    const {user} = this.props;
-    console.log('new user', user);
     return (
       <View style={styles.container} >
         <BackHeader
@@ -43,12 +40,9 @@ const LoginView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#f9f9f9',
-    // justifyContent: 'center',
     paddingTop: 20,
     paddingBottom: 50,
     alignItems: 'center'
-    // justifyContent: 'center'
   }
 });
 

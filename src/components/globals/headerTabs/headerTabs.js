@@ -1,6 +1,4 @@
 import React from 'react';
-// import TabBarButton from '../components/TabBarButton';
-
 import {
   StyleSheet,
   Text,
@@ -40,7 +38,6 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
 const styles = StyleSheet.create({
   HeaderTabs: {
     backgroundColor: 'white',
-    // width: 600,
     padding: 6,
     borderBottomWidth: 1,
     flexDirection: 'row',
@@ -52,9 +49,7 @@ const styles = StyleSheet.create({
   },
   HeaderTabsTab: {
     fontFamily: 'Hind-Bold',
-    fontSize: 18,
-    // width: 200
-    // paddingBottom: 5
+    fontSize: 18
   },
   HeaderTabsSeparator: {
     textAlign: 'center',

@@ -1,4 +1,3 @@
-import {Actions} from 'react-native-router-flux';
 import {
   favezCreateFave
 } from '../../services/favez';
@@ -38,7 +37,3 @@ export async function requestCreateFave(data) {
     .then((res) => ({type: FAVE_CREATE_SUCCESS, payload: res}))
     .catch((err) => ({type: FAVE_CREATE_FAILURE, payload: err}));
 }
-
-
-//
-

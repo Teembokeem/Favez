@@ -1,6 +1,5 @@
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
@@ -12,11 +11,6 @@ const APPBAR_HEIGHT = Platform.OS === 'ios' ? 50 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
 const ListShowHeader = React.createClass({
-
-  openFavoriteModal() {
-    Actions.FavoriteModal();
-  },
-
   render() {
     return (
     <View style={[styles.feedNavHeader]}>
@@ -27,7 +21,7 @@ const ListShowHeader = React.createClass({
             onPress={Actions.pop}
               style={styles.headerLeftButton}
           >
-            <IoniconIcon style={styles.headerLeftButtonIcon}name="md-arrow-round-back" />
+            <IoniconIcon style={styles.headerLeftButtonIcon}name='md-arrow-round-back'/>
           </TouchableOpacity>
         </View>
         <View
@@ -36,7 +30,7 @@ const ListShowHeader = React.createClass({
           <TouchableOpacity
               style={styles.headerRightButton}
           >
-              <IoniconIcon style={styles.headerRightButtonIcon} name="ios-more"/>
+              <IoniconIcon style={styles.headerRightButtonIcon} name='ios-more'/>
           </TouchableOpacity>
         </View>
     </View>
@@ -46,13 +40,7 @@ const ListShowHeader = React.createClass({
 
 const styles = StyleSheet.create({
   feedNavHeader: {
-    // alignItems: 'center',
-    // backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
     backgroundColor: 'transparent',
-    // borderBottomColor: 'rgba(0, 0, 0, .15)',
-    // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
-    // elevation: 4,
-    // flex: 1,
     width: 375,
     flexDirection: 'row',
     justifyContent: 'flex-start',
@@ -78,13 +66,8 @@ const styles = StyleSheet.create({
     height: 35,
     width: 35,
     fontSize: 35,
-    // top: 30,
-    // margin: 10,
     color: '#000000',
     alignSelf: 'flex-end'
-  },
-  placeHolder: {
-    marginLeft: 20
   }
 
 });

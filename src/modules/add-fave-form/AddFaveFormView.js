@@ -81,15 +81,14 @@ const AddFaveFormView = React.createClass({
 
   submit(text) {
     const {fave, selectedRadio} = this.props;
-    console.log('selected radio', selectedRadio, this.setMyList())
     Object.assign(fave, {
       name: fave.title,
       description: text,
       list_id: this.setMyList()[selectedRadio].id,
       type: 1
     });
-    this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
-      console.log('TODO: fix this once, POST /favez is fixed', something, somethingelse);
+    this.props.dispatch(FaveActions.createFave(fave)).then((something) => {
+      console.log('Response: ', something);
       this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
 
@@ -101,7 +100,6 @@ const AddFaveFormView = React.createClass({
       case 'yours':
         return myLists;
       case 'collabs':
-        console.log('ours');
         return myCollabs;
       default:
         return myLists;
@@ -113,7 +111,6 @@ const AddFaveFormView = React.createClass({
     const {fave, tabs, selectedTab, selectedRadio} = this.props;
     let renderList = this.setMyList();
     const child = this.renderList(selectedRadio, renderList);
-    console.log('INSTANTIATING ADD FAVE VIEW', this.props);
     return (
       <View style={styles.container}>
         <AddFaveFormHeader />
@@ -176,7 +173,6 @@ const styles = StyleSheet.create({
   },
   faveSummaryTextContainer: {
     flex: 5,
-    // alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 10
   },

@@ -1,5 +1,4 @@
 import React from 'react';
-// import TabBarButton from '../components/TabBarButton';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {
   StyleSheet,
@@ -8,8 +7,8 @@ import {
   TouchableOpacity
 } from 'react-native';
 
-function ListBody({picture, name, topics, tags, moving, index}) {
-
+function ListBody({name, index, moving, topics, tags}) {
+  // [TD3e]
   return (
     <View style={styles.ListBody}>
       <TouchableOpacity
@@ -51,14 +50,13 @@ function ListBody({picture, name, topics, tags, moving, index}) {
 
 const styles = StyleSheet.create({
   ListBody: {
-    // paddingTop: 5,
     flex: 1,
     flexDirection: 'column',
     backgroundColor: 'transparent'
   },
   ListBodyTitle: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   ListBodyLock: {
     fontSize: 15,

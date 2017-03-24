@@ -26,11 +26,7 @@ const FavoriteHeader = React.createClass({
       >
           <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
       </TouchableOpacity>
-      <View
-        style={styles.flexMiddle}
-      >
-
-      </View>
+      <View style={styles.flexMiddle} />
       <TouchableOpacity
           style={styles.headerRightButton}
           onPress={() => toggleContextMenu('header')}

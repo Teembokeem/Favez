@@ -1,10 +1,8 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
 import * as UIActions from '../../redux/ui/uiActions';
-// import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
-  Text,
   ScrollView,
   StyleSheet
 } from 'react-native';
@@ -42,7 +40,7 @@ const FeedView = React.createClass({
         return Actions.addFaveBrowse();
       default :
         return Actions.createList();
-      }
+    }
   },
 
   renderModal() {
@@ -62,7 +60,6 @@ const FeedView = React.createClass({
   render() {
     const {lists} = this.props;
     // const ds = this.state.dataSource;
-    console.log(this.props)
     return (
       <View style={{flex: 1}}>
         {this.renderModal()}
@@ -88,15 +85,11 @@ const FeedView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    // flexGrow: 1,
     backgroundColor: '#e9e9e9',
-    // justifyContent: 'center',
-    // height: 1000,
     paddingTop: 20,
     paddingBottom: 50,
     alignItems: 'center'
-    // justifyContent: 'center'
-  },
+  }
 });
 
 export default FeedView;

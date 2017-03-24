@@ -1,4 +1,3 @@
-import {Actions} from 'react-native-router-flux';
 import {
   uiScrapeUrl
 } from '../../services/ui';
@@ -31,6 +30,7 @@ export function setRadioSelect(view, tab) {
   };
 }
 
+// BROWSE LIST OF FAVEZ
 export function browseList(set, index) {
   return {
     type: UI_BROWSER_BROWSE_LIST,

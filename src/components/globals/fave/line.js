@@ -1,6 +1,4 @@
 import React from 'react';
-// import TabBarButton from '../components/TabBarButton';
-
 import {
   StyleSheet,
   Text,
@@ -8,7 +6,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-
 
 function Line({fave, browseFave, index}) {
   return (

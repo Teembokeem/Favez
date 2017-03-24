@@ -5,7 +5,6 @@ import {
 } from '../../services/auth';
 
 import {
-  getUser,
   postUser,
   updateUser
 } from '../../services/user';
@@ -60,7 +59,6 @@ export async function requestUserUpdate(data) {
 }
 
 export async function requestRegister(data) {
-  console.log('here', data);
   return authRegister(data)
     .then((res) => ({type: AUTH_REGISTER_SUCCESS, payload: res}))
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
@@ -77,7 +75,3 @@ export async function requestUserInfo() {
     .then((res) => ({type: USER_SUCCESS, payload: res}))
     .catch((err) => ({type: USER_FAILURE, payload: err}));
 }
-
-
-
-

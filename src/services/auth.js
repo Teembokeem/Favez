@@ -3,16 +3,11 @@ import * as auth from '../utils/authApi';
 import {get} from '../utils/api';
 import {setAuthenticationToken, getAuthenticationToken, setAuth0Token} from '../utils/authentication';
 
-// const clientID = env.AUTH0_CLIENT_ID;
 // const domain = env.AUTH0_DOMAIN;
 const secret = env.AUTH0_SECRET;
 const apiCred = env.AUTH0_API_CREDENTIAL;
 
-
-
-
 export async function authRegister(data) {
-  console.log('data', data.phone);
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -34,10 +29,8 @@ export async function genToken() {
   return await auth.post('/oauth/token', body);
 }
 
-
 // figure out a place to put this...
-if ( getAuthenticationToken()) {
-  console.log('genning token');
+if (getAuthenticationToken()) {
   genToken()
   .then((res) => {
     setAuthenticationToken(res.access_token);
@@ -51,8 +44,6 @@ if ( getAuthenticationToken()) {
   //   console.log('eerrr', err)
   // })
 }
-
-
 
 export async function authLogin(data) {
   let body = {
@@ -77,7 +68,7 @@ export async function authUserInfo() {
     .then((response) => {
       return auth.get('/userinfo')
         .then((auth0response) => {
-          return {auth0: auth0response, favez: response.data}
+          return {auth0: auth0response, favez: response.data};
         })
         .catch((err) => (err));
     })
