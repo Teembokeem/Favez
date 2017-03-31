@@ -1,4 +1,4 @@
-import {get, post, put, delete} from '../utils/api';
+import {get, post, put, do_delete} from '../utils/api';
 
 export async function getUser() {
   return get('/authtest/me');
@@ -22,4 +22,3 @@ export async function updateUser(toField) {
 export async function getSimilarList(id) {
   return await get('/lists/similar/' + id);
 }
-

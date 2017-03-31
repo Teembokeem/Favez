@@ -1,4 +1,4 @@
-import {get, post, put, delete} from '../utils/api';
+import {get, post, put, do_delete} from '../utils/api';
 
 export async function getFavezAll() {
   return get('/favez/all');
@@ -7,7 +7,7 @@ export async function getFavezAll() {
 export async function uiScrapeUrl(data) {
   let body = {url: data};
   return await post('/favez/scrape', body);
-  
+
   // console.log('IN UI SERVICE...SENDING FAKE DATA FOR NOW....');
   // return new Promise((resolve, reject) => {
   //   const sendTempArr = true;

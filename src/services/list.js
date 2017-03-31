@@ -1,4 +1,4 @@
-import {get, post, put, delete} from '../utils/api';
+import {get, post, put, do_delete} from '../utils/api';
 
 // [TD3e]
 
