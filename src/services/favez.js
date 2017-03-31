@@ -1,4 +1,4 @@
-import {get, post, put, do_delete} from '../utils/api';
+import {get, post, put, del} from '../utils/api';
 
 export async function getFavezAll() {
   return get('/favez/all');
