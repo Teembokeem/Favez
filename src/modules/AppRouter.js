@@ -16,7 +16,8 @@ import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
-import CreateListContainer from './create-list/CreateListViewContainer';
+import CreateListViewContainer from './create-list/CreateListViewContainer';
+import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 
@@ -64,7 +65,8 @@ const NavigationView = React.createClass({
                   hideNavBar={true}
                   hideTabBar={true}
                 >
-                  <Scene key='createListIndex' component={CreateListContainer} />
+                  <Scene key='createListIndex' component={CreateListViewContainer} />
+                  <Scene key='moreOptions' component={MoreOptionsViewContainer}/>
                 </Scene>
                 <Scene
                   key='addFaveBrowse'
