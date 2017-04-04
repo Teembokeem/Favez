@@ -5,11 +5,16 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native';
+import EIcon from 'react-native-vector-icons/Entypo';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
 import Header from '../../components/globals/header/header';
+import MoreOptionsHeader from '../../components/more-options/moreOptionsHeader/moreOptionsHeader';
 const window = Dimensions.get('window');
 
 const moreOptionsView = React.createClass({
@@ -35,10 +40,46 @@ const moreOptionsView = React.createClass({
 
     return (
       <View style={styles.container}>
-        <Text>
+        <MoreOptionsHeader />
+        <ScrollView>
+          <Header title={'More Options'}/>
+          <TouchableOpacity
+            style={styles.topicsContainer}
+          >
+            <View style={styles.topicsTextContainer}>
+              <Text style={styles.topicsLabel}>TOPICS</Text>
+              <Text style={styles.topicsList}>topic 1, topic 2</Text>
+            </View>
+            <View style={styles.topicsIconContainer}>
+              <EIcon style={styles.topicsArrow} name={'chevron-right'} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.listDescriptionContainer}
+          >
+            <View style={styles.listDescriptionIconContainer}>
+              <Ionicon style={styles.listDescriptionIcon} name={'ios-list'} />
+            </View>
+            <View style={styles.listDescriptionTextContainer}>
+              <Text style={styles.listDescriptionLabel}>LIST DESCRIPTION</Text>
+              <Text style={styles.listDescriptionList}>This is a description</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.tagsContainer}
+          >
+            <View style={styles.tagsIconContainer}>
+              <MCIcon style={styles.tagsIcon} name={'tag-multiple'} />
+            </View>
+            <View style={styles.tagsTextContainer}>
+              <Text style={styles.tagsLabel}>LIST TAGS</Text>
+              <Text style={styles.tagsList}>Type and enter</Text>
+            </View>
+          </TouchableOpacity>
+          <View style={styles.tagBox}>
 
-        hello this view.
-        </Text>
+          </View>
+        </ScrollView>
       </View>
     );
   }
@@ -58,24 +99,91 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: 'center'
   },
-  ListBackgroundImageContainer: {
-    position: 'absolute',
-    width: window.width,
-    height: 200,
-    overflow: 'hidden'
+  topicsContainer: {
+    flex: 1,
+    padding: 7,
+    paddingLeft: 13,
+    borderBottomWidth: 0.3,
+    borderColor: '#a8a8a8',
+    flexDirection: 'row'
   },
-  ListBackgroundOverlay: {
-    position: 'absolute',
-    height: 200,
-    width: window.width,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    zIndex: 3
+  topicsTextContainer: {
+    flex: 7,
+    flexDirection: 'column'
   },
-  ListBackgroundImage: {
-    width: window.width,
-    height: 300,
-    position: 'absolute',
-    top: 0
+  topicsLabel: {
+    fontFamily: 'Hind-Bold',
+    color: '#a8a8a8'
+  },
+  topicsList: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 16
+  },
+  topicsIconContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  topicsArrow: {
+    fontSize: 30,
+    color: '#c8c8c8'
+  },
+  listDescriptionContainer: {
+    flex: 1,
+    padding: 7,
+    borderBottomWidth: 0.3,
+    borderColor: '#a8a8a8',
+    flexDirection: 'row'
+  },
+  listDescriptionTextContainer: {
+    flex: 7,
+    flexDirection: 'column'
+  },
+  listDescriptionLabel: {
+    fontFamily: 'Hind-Bold',
+    color: '#a8a8a8'
+  },
+  listDescriptionList: {
+    fontFamily: 'Hind-Medium',
+    fontSize: 16
+  },
+  listDescriptionIconContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingLeft: 7,
+    justifyContent: 'center'
+  },
+  listDescriptionIcon: {
+    fontSize: 35,
+    color: '#888888'
+  },
+  tagsContainer: {
+    flex: 1,
+    padding: 7,
+    flexDirection: 'row'
+  },
+  tagsTextContainer: {
+    flex: 7,
+    flexDirection: 'column'
+  },
+  tagsLabel: {
+    fontFamily: 'Hind-Bold',
+    color: '#a8a8a8'
+  },
+  tagsList: {
+    marginTop: -5,
+    fontFamily: 'Hind-Medium',
+    fontSize: 16
+  },
+  tagsIconContainer: {
+    flex: 1,
+    alignItems: 'flex-start',
+    paddingLeft: 7,
+    justifyContent: 'center'
+  },
+  tagsIcon: {
+    fontSize: 30,
+    color: '#a8a8a8'
   }
 });
 
