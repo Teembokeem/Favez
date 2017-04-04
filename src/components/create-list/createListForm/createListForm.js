@@ -1,4 +1,5 @@
 import React from 'react';
+import {Actions} from 'react-native-router-flux';
 import {
   StyleSheet,
   View,
@@ -87,9 +88,12 @@ const CreateListForm = props => {
         </View>
       </View>
       <View style={styles.CreateListFormFieldOptionsContainer}>
-        <View style={styles.CreateListFormOptionsInputContainer}>
+        <TouchableOpacity
+          style={styles.CreateListFormOptionsInputContainer}
+          onPress={Actions.moreOptions}
+        >
           <Text style={styles.CreateListFormOptionsLabel}>{'More Options'}</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.CreateListFormOptionsIconContainer}>
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
