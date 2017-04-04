@@ -45,10 +45,10 @@ export async function register(data) {
   };
 }
 
-export async function update(vals) {
+export async function update(data) {
   return {
     type: USER_UPDATE_REQUEST,
-    payload: vals
+    payload: data
   };
 }
 
