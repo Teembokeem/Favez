@@ -73,22 +73,12 @@ const EditProfileView = React.createClass({
       iconId: 'human-male-female'
     }
   ],
-  submit(text) {
-    const {fave, selectedRadio} = this.props;
-    Object.assign(fave, {
-      name: fave.title,
-      description: text,
-      list_id: this.setMyList()[selectedRadio].id,
-      type: 1
-    });
-    this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
-      this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
-    });
-  },
   editProfile(vals) {
-    this.props.dispatch((UserActions.update(vals)))
+    console.log('hello', vals.toJS());
+    this.props.dispatch(UserActions.update(vals.toJS())).then(() => {
+      Actions.pop();
+    });
   },
-
   render() {
     const {user} = this.props;
     const {auth0} = user;
