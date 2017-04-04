@@ -8,7 +8,7 @@ export default connect(
     return {
       tabs: state.getIn(['ui', 'listShow', 'tabs', 'set']).toJS(),
       selectedTab: state.getIn(['ui', 'listShow', 'tabs', 'selected']),
-      loading: state.getIn(['listShow', 'loading']),
+      loading: state.getIn(['listShow', 'loading'])
     };
   }
 )(MoreOptionsView);
