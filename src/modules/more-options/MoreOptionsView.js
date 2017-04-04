@@ -47,6 +47,7 @@ const moreOptionsView = React.createClass({
           <Header title={'More Options'}/>
           <TouchableOpacity
             style={styles.topicsContainer}
+            onPress={Actions.topicSelector}
           >
             <View style={styles.topicsTextContainer}>
               <Text style={styles.topicsLabel}>TOPICS</Text>
