@@ -38,7 +38,7 @@ const moreOptionsView = React.createClass({
   },
 
   render() {
-    const tags = ['hello', 'goodbye'];
+    const tags = ['hello', 'goodbye', 'up', 'down'];
 
     return (
       <View style={styles.container}>
@@ -89,7 +89,9 @@ const moreOptionsView = React.createClass({
                     {'#' + tag.toUpperCase()}
                   </Text>
                 </View>
-                <FAIcon style={styles.tagIcon} name='close'/>
+                <TouchableOpacity>
+                  <FAIcon style={styles.tagIcon} name='close'/>
+                </TouchableOpacity>
               </View>
             ))}
           </View>
@@ -200,12 +202,16 @@ const styles = StyleSheet.create({
     color: '#a8a8a8'
   },
   tagBox: {
+    width: window.width,
+    flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap',
     padding: 7,
   },
   tagContainer: {
     height: 30,
     paddingLeft: 14,
+    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'
