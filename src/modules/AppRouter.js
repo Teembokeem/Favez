@@ -18,6 +18,7 @@ import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
 import CreateListViewContainer from './create-list/CreateListViewContainer';
 import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
+import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 
@@ -67,6 +68,7 @@ const NavigationView = React.createClass({
                 >
                   <Scene key='createListIndex' component={CreateListViewContainer} />
                   <Scene key='moreOptions' component={MoreOptionsViewContainer}/>
+                  <Scene key='topicSelector' component={TopicsSelectorViewContainer}/>
                 </Scene>
                 <Scene
                   key='addFaveBrowse'
