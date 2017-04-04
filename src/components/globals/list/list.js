@@ -24,7 +24,7 @@ function List({list, user, toggleContextMenu, moving, index}) {
       <ListHeader
         creator={user}
         toggleContextMenu={toggleContextMenu}
-        collaborators={collaborators.length || 0}
+        collaborators={collaborators ? collaborators.length : 0}
       />
       <ListBody
         name={name}
