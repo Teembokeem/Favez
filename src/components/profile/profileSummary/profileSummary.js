@@ -10,8 +10,8 @@ import {
 
 function ProfileSummary({user}) {
   const {auth0, favez} = user;
-  const {nickname, picture, caption} = auth0;
-  const {id, followers, following} = favez;
+  const {picture} = auth0;
+  const {id, displayname, username, profile, followers, following} = favez;
   return (
   <View style={styles.ProfileSummaryContainer}>
       <View
@@ -36,10 +36,10 @@ function ProfileSummary({user}) {
         </TouchableOpacity>
       </View>
       <View style={styles.ProfileSummaryRow2}>
-        <Text style={styles.ProfileSummaryRow2Username}>{'@' + nickname}</Text>
-        {/*<Text style={styles.ProfileSummaryRow2Name}>{name.first + ' ' + name.last + '.'}</Text>*/}
+        <Text style={styles.ProfileSummaryRow2Username}>{'@' + username}</Text>
+        <Text style={styles.ProfileSummaryRow2Name}>{displayname}</Text>
         <View style={styles.ProfileSummaryRow2Bar}></View>
-        <Text style={styles.ProfileSummaryRow2Caption}>{caption}</Text>
+        <Text style={styles.ProfileSummaryRow2Caption}>{profile}</Text>
       </View>
   </View>
   );
