@@ -16,7 +16,8 @@ export async function postUser(authData) {
 }
 
 export async function updateUser(toField) {
-  return await put('', toField);
+  console.log('to field', toField);
+  return await put('/users', toField);
 }
 
 export async function getSimilarList(id) {

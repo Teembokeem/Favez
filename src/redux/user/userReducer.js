@@ -42,9 +42,9 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestUserUpdate(action.payload))
       );
     case USER_UPDATE_SUCCESS:
+      console.log('Success', action.payload);
       return state
-        .set('loading', false)
-        .set('user', action.payload.data);
+        .set('loading', false);
     case AUTH_REGISTER_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -68,6 +68,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case REGISTER_FAILURE:
+      console.log('ERROR', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:
       return state
