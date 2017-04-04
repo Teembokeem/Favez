@@ -11,6 +11,7 @@ import {
 import EIcon from 'react-native-vector-icons/Entypo';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
 import Header from '../../components/globals/header/header';
@@ -37,6 +38,7 @@ const moreOptionsView = React.createClass({
   },
 
   render() {
+    const tags = ['hello', 'goodbye'];
 
     return (
       <View style={styles.container}>
@@ -77,7 +79,19 @@ const moreOptionsView = React.createClass({
             </View>
           </TouchableOpacity>
           <View style={styles.tagBox}>
-
+            {tags.map((tag, idx) => (
+              <View style={styles.tagContainer}>
+                <View style={styles.tagTextContainer}>
+                  <Text
+                    style={styles.tagText}
+                    key={'tag ' + idx}
+                  >
+                    {'#' + tag.toUpperCase()}
+                  </Text>
+                </View>
+                <FAIcon style={styles.tagIcon} name='close'/>
+              </View>
+            ))}
           </View>
         </ScrollView>
       </View>
@@ -184,6 +198,37 @@ const styles = StyleSheet.create({
   tagsIcon: {
     fontSize: 30,
     color: '#a8a8a8'
+  },
+  tagBox: {
+    flexDirection: 'row',
+    padding: 7,
+  },
+  tagContainer: {
+    height: 30,
+    paddingLeft: 14,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  tagTextContainer: {
+    borderWidth: 2.5,
+    borderRadius: 8,
+    padding: 5,
+    paddingTop: 3,
+    paddingBottom: 3,
+    borderColor: '#a8a8a8',
+    justifyContent: 'center'
+  },
+  tagText: {
+    fontFamily: 'Hind-Bold',
+    color: '#a8a8a8',
+    fontSize: 14
+  },
+  tagIcon: {
+    paddingLeft: 5,
+    paddingBottom: 3,
+    fontSize: 25,
+    color: 'red'
   }
 });
 
