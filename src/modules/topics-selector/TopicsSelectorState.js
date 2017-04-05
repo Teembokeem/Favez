@@ -97,12 +97,12 @@ const initialState = fromJS({
         semantic: 'XXX',
         color: 'black'
       },
-      {
-        ref: 'location-specific',
-        semantic: 'Location Specific',
-        color: 'null',
-        image: '../../../../images/testImg.png'
-      }
+      // {
+      //   ref: 'location-specific',
+      //   semantic: 'Location Specific',
+      //   color: 'null',
+      //   image: '../../../../images/testImg.png'
+      // }
     ]
   },
   value: 0,
