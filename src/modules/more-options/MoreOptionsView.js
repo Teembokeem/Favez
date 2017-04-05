@@ -104,17 +104,10 @@ const moreOptionsView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    // flexGrow: 1,
     backgroundColor: 'white',
-    // justifyContent: 'center',
-    // height: 1000,
-    // paddingTop: 20,
-    // marginTop: 20,
     justifyContent: 'flex-start',
-    // paddingBottom: 50,
     alignItems: 'center',
     flex: 1
-    // justifyContent: 'center'
   },
   topicsContainer: {
     flex: 1,
