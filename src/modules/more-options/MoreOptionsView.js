@@ -4,6 +4,7 @@ import {
   View,
   Image,
   ScrollView,
+  TextInput,
   Dimensions,
   TouchableOpacity,
   StyleSheet
@@ -14,12 +15,16 @@ import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
+import * as ListActions from '../../redux/list/listActions';
 import Header from '../../components/globals/header/header';
 import MoreOptionsHeader from '../../components/more-options/moreOptionsHeader/moreOptionsHeader';
 const window = Dimensions.get('window');
 
 const moreOptionsView = React.createClass({
   propTypes: {},
+
+  newTag: '',
+
   componentWillMount() {
     console.log('hello', this.props);
   },
@@ -38,7 +43,9 @@ const moreOptionsView = React.createClass({
   },
 
   render() {
-    const tags = ['hello', 'goodbye', 'up', 'down'];
+    console.log('More Options View: ', this.props);
+    const {options} = this.props;
+    const {tags, topics, description, currTag} = options;
 
     return (
       <View style={styles.container}>
@@ -57,7 +64,7 @@ const moreOptionsView = React.createClass({
               <EIcon style={styles.topicsArrow} name={'chevron-right'} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
+          <View
             style={styles.listDescriptionContainer}
           >
             <View style={styles.listDescriptionIconContainer}>
@@ -65,10 +72,16 @@ const moreOptionsView = React.createClass({
             </View>
             <View style={styles.listDescriptionTextContainer}>
               <Text style={styles.listDescriptionLabel}>LIST DESCRIPTION</Text>
-              <Text style={styles.listDescriptionList}>This is a description</Text>
+              <TextInput
+                autoCapitalize={'sentences'}
+                style={styles.listDescriptionList}
+                onChangeText={(value) => this.props.dispatch(ListActions.setNewListOptions({'description': value}))}
+                placeholder={'This is a Description'}
+                value={description}
+              />
             </View>
-          </TouchableOpacity>
-          <TouchableOpacity
+          </View >
+          <View
             style={styles.tagsContainer}
           >
             <View style={styles.tagsIconContainer}>
@@ -76,9 +89,15 @@ const moreOptionsView = React.createClass({
             </View>
             <View style={styles.tagsTextContainer}>
               <Text style={styles.tagsLabel}>LIST TAGS</Text>
-              <Text style={styles.tagsList}>Type and enter</Text>
+              <TextInput
+                style={styles.tagsList}
+                placeholder={'Type and enter'}
+                onChangeText={(value) => this.props.dispatch(ListActions.setNewListOptions({'currTag': value}))}
+                onSubmitEditing={(event) => this.props.dispatch(ListActions.setNewListOptions({'tags': event.nativeEvent.text}))}
+                value={currTag}
+              />
             </View>
-          </TouchableOpacity>
+          </View>
           <View style={styles.tagBox}>
             {tags.map((tag, idx) => (
               <View style={styles.tagContainer}>
@@ -90,7 +109,9 @@ const moreOptionsView = React.createClass({
                     {'#' + tag.toUpperCase()}
                   </Text>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={this.props.dispatch(ListActions.setNewListOptions({'tags': idx}))}
+                >
                   <FAIcon style={styles.tagIcon} name='close'/>
                 </TouchableOpacity>
               </View>
@@ -154,6 +175,8 @@ const styles = StyleSheet.create({
     color: '#a8a8a8'
   },
   listDescriptionList: {
+    marginTop: 7,
+    height: 20,
     fontFamily: 'Hind-Medium',
     fontSize: 16
   },
@@ -181,7 +204,8 @@ const styles = StyleSheet.create({
     color: '#a8a8a8'
   },
   tagsList: {
-    marginTop: -5,
+    marginTop: 5,
+    height: 20,
     fontFamily: 'Hind-Medium',
     fontSize: 16
   },
