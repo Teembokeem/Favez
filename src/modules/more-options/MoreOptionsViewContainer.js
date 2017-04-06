@@ -5,9 +5,9 @@ import MoreOptionsView from './MoreOptionsView';
 
 export default connect(
   state => {
+  console.log(state.get('list'))
     return {
-      tabs: state.getIn(['ui', 'listShow', 'tabs', 'set']).toJS(),
-      selectedTab: state.getIn(['ui', 'listShow', 'tabs', 'selected']),
+      options: state.getIn(['list', 'options']).toJS(),
       loading: state.getIn(['listShow', 'loading'])
     };
   }

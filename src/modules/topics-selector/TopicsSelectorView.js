@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-
+import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/globals/header/header';
 import TopicsSelectorHeader from '../../components/topics-selector/topicsSelectorHeader/topicsSelectorHeader';
 import Category from '../../components/search/category/category';
@@ -119,14 +119,25 @@ const TopicSelectorView = React.createClass({
             let {semantic, color} = category;
             return (
               <TouchableOpacity
-              key={'category ' + idx}
+                key={'category ' + idx}
                 style={[styles.Category]}
                 onPress={() => moving(category)}
               >
                 <View
                   style={[styles.CategoryColor, {backgroundColor: color}]}
                 />
-                <Text style={[styles.CategoryText, {color: color}]}>{semantic.toUpperCase()}</Text>
+                <Text style={[styles.CategoryText, {color}]}>{semantic.toUpperCase()}</Text>
+                <View style={styles.CategorySelectContainer}>
+                  {(idx === 1)
+                  ? (
+                    <View style={styles.ListSelectSelected}>
+                      <IoniconIcon style={styles.ListSelectSelectorIcon} name='md-checkmark-circle'/>
+                    </View>
+                  )
+                  : (
+                    <View style={styles.ListSelectDeselected}></View>
+                  )}
+                </View>
               </TouchableOpacity>
             );
           })}
@@ -142,8 +153,8 @@ const styles = StyleSheet.create({
   },
   Category: {
     flex: 1,
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'white',
     width: 375,
     padding: 10,
@@ -155,13 +166,36 @@ const styles = StyleSheet.create({
   CategoryColor: {
     borderRadius: 10,
     width: 65,
-    height: 65
+    height: 65,
+    flex: 1.5
   },
   CategoryText: {
     alignSelf: 'center',
     marginLeft: 20,
     fontFamily: 'Hind-Bold',
-    fontSize: 18
+    fontSize: 18,
+    flex: 5
+  },
+  CategorySelectContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  ListSelectDeselected: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    borderColor: '#e6e6e6',
+    borderWidth: 3,
+  },
+  ListSelectSelected: {
+    width: 26,
+    height: 26,
+  },
+  ListSelectSelectorIcon: {
+    fontSize: 31,
+    color: '#4caf4e'
   },
 });
 

@@ -17,6 +17,7 @@ export const SET_LIST = 'SET_LIST';
 export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
+export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
 
 // Action creators
 export function increment(cards, index) {
@@ -69,4 +70,12 @@ export async function requestCreateList(data) {
   return await listCreate(data)
     .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
     .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
+}
+
+export async function setNewListOptions(data) {
+  console.log('hi')
+  return {
+    type: LIST_SET_NEWLIST_OPTIONS,
+    payload: data
+  };
 }
