@@ -10,10 +10,10 @@ import {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 50 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
-const MoreOptionsHeader = React.createClass({
+const TopicsSelectorHeader = React.createClass({
   render() {
     return (
-    <View style={[styles.moreOptionsHeader]}>
+    <View style={[styles.TopicsSelectorHeader]}>
         <View
           style={styles.flex1}
         >
@@ -38,7 +38,7 @@ const MoreOptionsHeader = React.createClass({
 });
 
 const styles = StyleSheet.create({
-  moreOptionsHeader: {
+  TopicsSelectorHeader: {
     backgroundColor: 'transparent',
     width: 375,
     flexDirection: 'row',
@@ -72,4 +72,4 @@ const styles = StyleSheet.create({
 
 });
 
-export default MoreOptionsHeader;
+export default TopicsSelectorHeader;
