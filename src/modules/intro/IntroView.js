@@ -3,7 +3,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  Button,
   Image,
   Dimensions,
   StyleSheet
