@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   },
   LoginFormFieldEmailContainer: {
     flex: 1,
-    maxHeight: 60,
+    maxHeight: 70,
     padding: 5,
     paddingBottom: 0,
     flexDirection: 'row',
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingBottom: 0,
     marginTop: 5,
-    maxHeight: 60,
+    maxHeight: 70,
     flexDirection: 'row'
   },
   LoginFormPasswordIconContainer: {
