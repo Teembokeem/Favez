@@ -121,7 +121,9 @@ const categories = [
 
 function Info({list}) {
   console.log('your list', list)
-  const {description, picture, owner, taxonomy} = list;
+  const {description, picture, taxonomy} = list;
+  const owner = list.owner[0];
+  const {f1, f2, f3, f4, f5} = owner;
   const {topics, tags} = organizeTaxonomies(taxonomy);
   console.log('got it?', topics, tags)
   return (
@@ -143,8 +145,8 @@ function Info({list}) {
           />
         </View>
         <View style={styles.authorInfo}>
-          <Text style={styles.authorUsername}>@{owner}</Text>
-          <Text style={styles.authorName}>{list.ownername ? list.ownername : 'Creator'}</Text>
+          <Text style={styles.authorUsername}>@{f2}</Text>
+          <Text style={styles.authorName}>{f1 ? f1 : 'Creator'}</Text>
         </View>
         <View style={styles.authorFollowContainer}>
           <MIcon style={styles.authorFollowIcon} name='person-add'/>
@@ -155,20 +157,19 @@ function Info({list}) {
         <View style={styles.contentHeaderBar}></View>
       </View>
       <View style={styles.topicsContainer}>
-      {topics.map((topic) => (
-        <View style={styles.topicContainer}>
+      {topics.map((topic, idx) => (
+        <View key={'topic ' + idx} style={styles.topicContainer}>
           <View style={[styles.topicColor, {backgroundColor: topic.color}]} />
           <Text style={[styles.topicText, {color: topic.color}]}>{topic.semantic}</Text>
         </View>
       ))}
       </View>
       <View style={styles.tagBox}>
-            {tags.map((tag, idx) => (
-              <View style={styles.tagContainer}>
+            {tags.map((tag, indice) => (
+              <View key={'tag ' + indice} style={styles.tagContainer}>
                 <View style={styles.tagTextContainer}>
                   <Text
                     style={styles.tagText}
-                    key={'tag ' + idx}
                   >
                     {'#' + tag.toUpperCase()}
                   </Text>
