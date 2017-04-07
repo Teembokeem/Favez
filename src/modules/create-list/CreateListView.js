@@ -31,7 +31,15 @@ const FeedView = React.createClass({
       });
   },
 
+  toggleOption(field, val) {
+    console.log('arguments', field, val)
+    return this.props.dispatch(ListActions.setNewListOptions({field: val})).then(() => {
+      console.log('yay');
+    })
+  },
+
   render() {
+    const {options} = this.props;
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -42,6 +50,8 @@ const FeedView = React.createClass({
           <ImagePicker />
           <CreateListForm
             createList={this.createList}
+            options={options}
+            toggleOption={this.toggleOption}
           />
         </ ScrollView>
       </View>
