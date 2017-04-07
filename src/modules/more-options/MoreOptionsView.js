@@ -58,7 +58,7 @@ const moreOptionsView = React.createClass({
           >
             <View style={styles.topicsTextContainer}>
               <Text style={styles.topicsLabel}>TOPICS</Text>
-              <Text style={styles.topicsList}>topic 1, topic 2</Text>
+              <Text style={styles.topicsList}>{topics ? topics[0].charAt(0).toUpperCase() + topics[0].slice(1) + ', ' + topics[1].charAt(0).toUpperCase(0) + topics[1].slice(1) + '... and ' + (topics.length - 2) + ' more.' : 'Select Topics'}</Text>
             </View>
             <View style={styles.topicsIconContainer}>
               <EIcon style={styles.topicsArrow} name={'chevron-right'} />
