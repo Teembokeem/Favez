@@ -18,7 +18,7 @@ function CardHeader({card, moving, track}) {
           source={{uri: header.picture}}
           style={{width: 360, height: 50, position: 'absolute', top: 0, left: 0}}
         />*/}
-        <Text numberOfLines={1} onPress={() => moving(track)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
+        <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
         <TouchableOpacity
         >
             <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>
