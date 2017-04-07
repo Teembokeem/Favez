@@ -8,10 +8,10 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import * as ListActions from '../../redux/list/listActions';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/globals/header/header';
 import TopicsSelectorHeader from '../../components/topics-selector/topicsSelectorHeader/topicsSelectorHeader';
-import Category from '../../components/search/category/category';
 
 const TopicSelectorView = React.createClass({
   propTypes: {},
@@ -109,6 +109,9 @@ const TopicSelectorView = React.createClass({
   ],
 
   render() {
+    const {options} = this.props;
+    console.log('options', options);
+    const {topics} = this.props;
 
     return (
       <View style={styles.container}>
@@ -121,14 +124,14 @@ const TopicSelectorView = React.createClass({
               <TouchableOpacity
                 key={'category ' + idx}
                 style={[styles.Category]}
-                onPress={() => moving(category)}
+                onPress={() => this.props.dispatch(ListActions.setNew)}
               >
                 <View
                   style={[styles.CategoryColor, {backgroundColor: color}]}
                 />
                 <Text style={[styles.CategoryText, {color}]}>{semantic.toUpperCase()}</Text>
                 <View style={styles.CategorySelectContainer}>
-                  {(idx === 1)
+                  {topics && topics.indexOf(semantic) > -1
                   ? (
                     <View style={styles.ListSelectSelected}>
                       <IoniconIcon style={styles.ListSelectSelectorIcon} name='md-checkmark-circle'/>
