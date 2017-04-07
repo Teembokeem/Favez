@@ -111,7 +111,7 @@ const TopicSelectorView = React.createClass({
   render() {
     const {options} = this.props;
     console.log('options', options);
-    const {topics} = this.props;
+    const {topics} = options;
 
     return (
       <View style={styles.container}>
@@ -119,19 +119,19 @@ const TopicSelectorView = React.createClass({
         <ScrollView>
           <Header title={'Select Topics'}/>
           {this.categories.map((category, idx) => {
-            let {semantic, color} = category;
+            let {semantic, color, ref} = category;
             return (
               <TouchableOpacity
                 key={'category ' + idx}
                 style={[styles.Category]}
-                onPress={() => this.props.dispatch(ListActions.setNew)}
+                onPress={() => this.props.dispatch(ListActions.setNewListOptions({'topics': ref}))}
               >
                 <View
                   style={[styles.CategoryColor, {backgroundColor: color}]}
                 />
                 <Text style={[styles.CategoryText, {color}]}>{semantic.toUpperCase()}</Text>
                 <View style={styles.CategorySelectContainer}>
-                  {topics && topics.indexOf(semantic) > -1
+                  {topics && topics.indexOf(ref) > -1
                   ? (
                     <View style={styles.ListSelectSelected}>
                       <IoniconIcon style={styles.ListSelectSelectorIcon} name='md-checkmark-circle'/>
