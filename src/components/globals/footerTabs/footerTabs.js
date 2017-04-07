@@ -6,7 +6,6 @@ import TabIcon from '../../TabIcon';
 import {
   StyleSheet,
   View,
-  Text,
   Platform,
   TouchableOpacity
 } from 'react-native';
@@ -25,11 +24,11 @@ function delegatePress(action) {
       break;
     case 'bool':
       console.log('GETTING RID OF THIS BOOKMARk');
-      Actions.pop();
+      // Actions.pop();
       break;
     case 'outbound':
       console.log('traveling to message');
-      Actions.favorite();
+      // Actions.favorite();
       break;
     default :
       return null;
@@ -51,7 +50,7 @@ function FooterTabs({TabProps}) {
               style={styles.tabContainer}
           >
             <TabIcon
-            style={styles.tabIcon}
+              style={styles.tabIcon}
               display={tab.icon}
             />
             {/*<Text>{tab.name}</Text>*/}
