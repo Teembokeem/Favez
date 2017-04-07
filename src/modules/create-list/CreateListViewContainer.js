@@ -7,7 +7,7 @@ export default connect(
   state => {
     return {
       lists: state.getIn(['list', 'all']),
-      options: state.getIn(['list', 'options'])
+      options: state.getIn(['list', 'options']).toJS()
     };
   }
 )(CreateListView);

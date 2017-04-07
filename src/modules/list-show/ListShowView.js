@@ -49,7 +49,7 @@ const ListShowView = React.createClass({
       case 'info':
         return (
           <Info
-            fave={this.props.list}
+            list={this.props.list}
           />
         );
       case 'favez':

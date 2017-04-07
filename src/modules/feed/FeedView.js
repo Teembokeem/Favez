@@ -20,7 +20,8 @@ const FeedView = React.createClass({
   },
 
   moving(idx) {
-    this.props.dispatch(ListActions.setList('all', idx)).then(() => Actions.listShow());
+    console.log('id of list: ', idx)
+    this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
 
   toggleContextMenu() {
