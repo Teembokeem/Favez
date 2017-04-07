@@ -32,14 +32,20 @@ function renderIcon(display) {
         <Ionicon style={styles.Icon} name={display} />
       );
     case 'emoji-happy':
-    case 'share':
       return (
         <EIcon style={styles.Icon} name={display}/>
       );
-    case 'bookmark-plus-outline':
-    case 'message-text':
+    case 'share':
       return (
-        <MCIcon style={styles.Icon} name={display}/>
+        <EIcon style={styles.share} name={display}/>
+      );
+    case 'bookmark-plus-outline':
+      return (
+        <MCIcon style={styles.bookmark} name={display}/>
+      );
+    case 'comment-text-outline':
+      return (
+        <MCIcon style={styles.comment} name={display}/>
       );
   }
 
@@ -58,7 +64,19 @@ TabIcon.propTypes = propTypes;
 
 const styles = StyleSheet.create({
   Icon: {
-    fontSize: 22
+    fontSize: 25
+  },
+  bookmark: {
+    fontSize: 30,
+    color: '#a8a8a8'
+  },
+  comment: {
+    fontSize: 25,
+    color: '#a8a8a8'
+  },
+  share: {
+    fontSize: 25,
+    color: '#a8a8a8'
   }
 })
 
