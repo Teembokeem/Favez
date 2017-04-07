@@ -25,7 +25,9 @@ const initialState = fromJS({
     description: '',
     tags: [],
     topics: [],
-    currTag: ''
+    currTag: '',
+    priv: 0,
+    nsfw: 0
   },
   loading: true
 });
@@ -81,11 +83,21 @@ function insertOptionParams(state, obj, prop, values) {
   switch (prop) {
     case 'description':
     case 'currTag':
+    case 'priv':
+    case 'nsfw':
       return state
         .setIn(['options', prop], values);
     case 'topics':
-      return state
-        .setIn(['options', prop], state.getIn(['options', prop]).concat(values))
+      let foundIndex = state.getIn(['options', prop]).indexOf(values);
+      if (foundIndex === -1) {
+        return state
+          .setIn(['options', prop], state.getIn(['options', prop]).concat(values))
+      } else {
+        let newArr = state.getIn(['options', prop]).splice(foundIndex, 1);
+        console.log(state.getIn(['options', prop]))
+        return state
+          .setIn(['options', prop], newArr);
+      }
     case 'tags':
       console.log('tags', state.getIn(['options', prop]), values);
       if (typeof values === 'number') {

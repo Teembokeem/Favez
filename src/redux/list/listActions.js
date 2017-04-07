@@ -73,7 +73,7 @@ export async function requestCreateList(data) {
 }
 
 export async function setNewListOptions(data) {
-  console.log('hi')
+  console.log('hi', data)
   return {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
