@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     paddingLeft: 7,
     paddingRight: 14,
     justifyContent: 'center',
-    backgroundColor: '#e8e8e8',
+    backgroundColor: 'white',
     width: 360,
     flex: 1,
     flexDirection: 'row',
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   cardHeaderText: {
     // backgroundColor: 'rgba(255, 255, 255, 0.4)',
     backgroundColor: 'transparent',
-    color: 'white',
+    color: 'black',
     flex: 1,
     maxWidth: 300,
     marginRight: 20,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   cardheaderMore: {
     backgroundColor: 'transparent',
-    color: 'white',
+    color: 'black',
     marginLeft: 30,
     paddingTop: 10,
     fontSize: 30,

@@ -16,10 +16,8 @@ const AddFaveBrowseView = React.createClass({
     const {title, url} = this.props.browser;
     if (this.props.viewList) {
       return;
-    } else if (url !== 'https://www.google.com' && title !== '') {
-      this.props.dispatch(UIActions.setBrowserInitialState());
     } else {
-      return;
+      this.props.dispatch(UIActions.setBrowserInitialState());
     }
   },
 
