@@ -18,7 +18,17 @@ const FeedView = React.createClass({
   },
 
   createList(values) {
-    this.props.dispatch(ListActions.createList(values.toJS()))
+    console.log('values', values.toJS());
+    const {options} = this.props;
+    const {description, tags, topics, priv, nsfw} = options;
+    let listObj = Object.assign(values.toJS(), {
+      description,
+      tags: tags.join(','),
+      topics: topics.join(','),
+      private: priv ? 1 : 0,
+      nsfw: nsfw ? 1 : 0
+    });
+    this.props.dispatch(ListActions.createList(listObj))
       .then(() => {
         // [TD3c] should proceed to create all list taxonomies.
         this.props.dispatch(ListActions.getMyLists()).then(() => {
@@ -32,14 +42,18 @@ const FeedView = React.createClass({
   },
 
   toggleOption(field, val) {
-    console.log('arguments', field, val)
-    return this.props.dispatch(ListActions.setNewListOptions({field: val})).then(() => {
+    console.log('arguments', field, val);
+    let toObj = {};
+    toObj[field] = val;
+    console.log('yo your object', toObj);
+    return this.props.dispatch(ListActions.setNewListOptions(toObj)).then(() => {
       console.log('yay');
     })
   },
 
   render() {
     const {options} = this.props;
+    console.log('options', options);
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
