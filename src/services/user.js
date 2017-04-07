@@ -5,12 +5,14 @@ export async function getUser() {
 }
 
 export async function postUser(authData) {
+  console.log('getting here', authData)
   let user = {
     email: authData.email,
-    username: authData.nickname,
-    image: authData.picture,
+    username: authData.email,
+    phone: authData.phone ? authData.phone : ''
+    // image: authData.picture,
     // phone: authData.phone,
-    auth_id: authData._id
+    // auth_id: authData._id
   };
   return await post('/user', user);
 }
