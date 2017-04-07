@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 20,
     paddingTop: 0,
-    borderBottomWidth: 1,
     backgroundColor: 'transparent',
-    borderColor: '#efefef'
+    // borderBottomWidth: 1,
+    // borderColor: '#efefef'
   },
   headerText: {
     fontFamily: 'Hind-Bold',
