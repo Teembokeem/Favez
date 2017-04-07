@@ -28,8 +28,8 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList} = props;
-
+  const {handleSubmit, submitting, createList, toggleOption, options} = props;
+  const {priv, nsfw} = options;
   const submit = values => {
     createList(values);
   };
@@ -69,9 +69,9 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(isPressed) => {value = isPressed;}}
+            onValueChange={() => toggleOption('private', !priv)}
             style={{marginBottom: 10}}
-            value={value}
+            value={priv}
           />
         </View>
       </View>
@@ -81,9 +81,9 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(isPressed) => {value = isPressed;}}
+            onValueChange={() => toggleOption('nsfw', !nsfw)}
             style={{marginBottom: 10}}
-            value={value}
+            value={nsfw}
           />
         </View>
       </View>
