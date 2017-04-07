@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   Text,
+  TouchableOpacity,
   TextInput
 } from 'react-native';
 import {
@@ -47,14 +48,13 @@ const LoginForm = props => {
           <Field name='password' component={renderInput} type='password' placeholder='PASSWORD' style={styles.LoginFormPasswordInput} secureTextEntry={true}/>
         </View>
       </View>
-      <View style={styles.LoginButtonContainer}>
-        <Button
+      <View style={styles.LoginFormButtonContainer}>
+        <TouchableOpacity
           onPress={handleSubmit(submit)}
-          iconPlacement='left'
           submitting={submitting}
           style={styles.LoginFormButton}>
-          {'Authenticate'}
-        </Button>
+          <Text style={styles.LoginFormButtonText}>ENTER FAVEZ</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -74,8 +74,6 @@ const styles = StyleSheet.create({
     padding: 5,
     paddingBottom: 0,
     flexDirection: 'row',
-    borderBottomWidth: 0.5,
-    borderBottomColor: '#d8d8d8',
     alignItems: 'center'
   },
   LoginFormEmailIconContainer: {
@@ -129,17 +127,25 @@ const styles = StyleSheet.create({
   },
   LoginFormPasswordInput: {
     flex: 1,
-    paddingTop: -10,
     fontFamily: 'Hind-Regular'
   },
   LoginFormButtonContainer: {
-    flex: 1
+    flex: 1,
+    marginTop: 15
   },
   LoginFormButton: {
     width: 320,
-    flex: 1,
-    borderRadius: 20,
-    alignSelf: 'center'
+    backgroundColor: '#4caf4e',
+    borderRadius: 15,
+    height: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  LoginFormButtonText: {
+    fontSize: 20,
+    fontFamily: 'Hind-Bold',
+    color: 'white'
   }
 
 });
