@@ -8,8 +8,6 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import * as FaveActions from '../../redux/fave/faveActions';
-import * as ListActions from '../../redux/list/listActions';
 import * as UserActions from '../../redux/user/userActions';
 import Header from '../../components/globals/header/header';
 import EditProfileHeader from '../../components/edit-profile/editProfileHeader/editProfileHeader';
@@ -76,7 +74,7 @@ const EditProfileView = React.createClass({
   editProfile(vals) {
     console.log('hello', vals.toJS());
     this.props.dispatch(UserActions.update(vals.toJS())).then(() => {
-      Actions.pop();
+      this.props.dispatch(UserActions.requestUserInfo()).then(Actions.pop);
     });
   },
   render() {
