@@ -2,7 +2,8 @@ import {Actions} from 'react-native-router-flux';
 import {
   getListAll,
   listCreate,
-  listGetMyLists
+  listGetMyLists,
+  listGetSingleDetailed
 } from '../../services/list';
 
 // Actions
@@ -10,6 +11,9 @@ export const INCREMENT = 'INCREMENT';
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
 export const LIST_MYLIST_REQUEST = 'LIST_MYLIST_REQUEST';
+export const LIST_GET_DETAILS_REQUEST = 'LIST_GET_DETAILS_REQUEST';
+export const LIST_GET_DETAILS_SUCCESS = 'LIST_GET_DETAILS_SUCCESS';
+export const LIST_GET_DETAILS_FAILURE = 'LIST_GET_DETAILS_FAILURE';
 export const LIST_MYLIST_SUCCESS = 'LIST_MYLIST_SUCCESS';
 export const LIST_MYLIST_FAILURE = 'LIST_MYLIST_FAILURE';
 export const LIST_LIST = 'LIST_LIST';
@@ -30,6 +34,19 @@ export async function getFullList() {
     type: LIST_REQUEST,
     payload: requestFullList
   };
+}
+
+export async function getDetailedList(id) {
+  return {
+    type: LIST_GET_DETAILS_REQUEST,
+    payload: id
+  };
+}
+
+export async function requestSingleList(data) {
+  return await listGetSingleDetailed(data)
+    .then((res) => ({type: LIST_GET_DETAILS_SUCCESS, payload: res}))
+    .catch((err) => ({type: LIST_GET_DETAILS_FAILURE, payload: err}))
 }
 
 export async function requestFullList() {

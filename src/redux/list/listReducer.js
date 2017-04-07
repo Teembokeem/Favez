@@ -4,6 +4,9 @@ import {
   LIST_REQUEST,
   LIST_RESPONSE,
   SET_LIST,
+  LIST_GET_DETAILS_REQUEST,
+  LIST_GET_DETAILS_SUCCESS,
+  LIST_GET_DETAILS_FAILURE,
   LIST_MYLIST_REQUEST,
   LIST_MYLIST_SUCCESS,
   LIST_MYLIST_FAILURE,
@@ -12,7 +15,8 @@ import {
   LIST_CREATE_FAILURE,
   LIST_SET_NEWLIST_OPTIONS,
   requestCreateList,
-  requestGetMyLists
+  requestGetMyLists,
+  requestSingleList
 } from './listActions';
 
 // Initial state
@@ -26,8 +30,8 @@ const initialState = fromJS({
     tags: [],
     topics: [],
     currTag: '',
-    priv: 0,
-    nsfw: 0
+    priv: false,
+    nsfw: false
   },
   loading: true
 });
@@ -47,6 +51,16 @@ export default function ListReducer(state = initialState, action = {}) {
     case SET_LIST:
       return state
         .set('current', state.get(action.payload.list)[action.payload.index]);
+    case LIST_GET_DETAILS_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestSingleList(action.payload))
+      );
+    case LIST_GET_DETAILS_SUCCESS:
+      console.log('SUCCESS', state, action);
+      return state
+        .set('loading', false)
+        .set('current', action.payload.data[0]);
     case LIST_MYLIST_REQUEST:
       return loop(
         state.set('loading', true),
@@ -72,6 +86,7 @@ export default function ListReducer(state = initialState, action = {}) {
       return insertOptionParams(state, state.get('options'), key, action.payload[key]);
     case LIST_MYLIST_FAILURE:
     case LIST_CREATE_FAILURE:
+    case LIST_GET_DETAILS_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
     default:
@@ -80,11 +95,13 @@ export default function ListReducer(state = initialState, action = {}) {
 }
 
 function insertOptionParams(state, obj, prop, values) {
+  console.log('helllooooo propssss', prop, values)
   switch (prop) {
     case 'description':
     case 'currTag':
     case 'priv':
     case 'nsfw':
+      console.log('priavte, nsfw????: ',prop, values)
       return state
         .setIn(['options', prop], values);
     case 'topics':

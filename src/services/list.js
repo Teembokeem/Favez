@@ -13,12 +13,13 @@ export async function listGetMyLists() {
   return get('/lists/self');
 }
 
+export async function listGetSingleDetailed(id) {
+  return get('/lists/id/' + id);
+}
+
 export async function listCreate(data) {
-  return post('/lists',{
-    name: data.listName,
-    description: 'lorem ipsum',
-    private: 0,
-    nsfw: 0,
-    location: data.location
-  });
+  console.log('my list', data);
+  // delete data['topics'];
+  // delete data['tags'];
+  return post('/lists', data);
 }
