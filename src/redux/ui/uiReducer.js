@@ -15,6 +15,7 @@ import {
 
 // Initial state
 const initialState = fromJS({
+  splash: false,
   browser: {
     url: 'https://www.google.com',
     title: '',
