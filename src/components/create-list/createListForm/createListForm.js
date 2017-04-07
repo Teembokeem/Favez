@@ -30,6 +30,7 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 const CreateListForm = props => {
   const {handleSubmit, submitting, createList, toggleOption, options} = props;
   const {priv, nsfw} = options;
+  // console.log('your settings: ', priv, nsfw)
   const submit = values => {
     createList(values);
   };
@@ -43,7 +44,7 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormEmailInputContainer}>
           <Text style={styles.CreateListFormEmailLabel}>{'LIST TITLE'}</Text>
-          <Field name='listName' component={renderInput} type='text' placeholder='List Title' style={styles.CreateListFormEmailInput}/>
+          <Field name='name' component={renderInput} type='text' placeholder='List Title' style={styles.CreateListFormEmailInput}/>
         </View>
       </View>
       <View style={styles.CreateListFormFieldCollaboratorContainer}>
@@ -69,7 +70,7 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={() => toggleOption('private', !priv)}
+            onValueChange={() => toggleOption('priv', !priv)}
             style={{marginBottom: 10}}
             value={priv}
           />
