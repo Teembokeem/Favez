@@ -5,6 +5,7 @@ import {Scene, Router} from 'react-native-router-flux';
 import {StyleSheet} from 'react-native';
 import TabIcon from '../components/TabIcon';
 
+import SplashViewContainer from './splash/SplashViewContainer';
 import IntroViewContainer from './intro/IntroViewContainer';
 import FeedViewContainer from './feed/FeedViewContainer';
 import ListShowViewContainer from './list-show/ListShowViewContainer';
@@ -40,7 +41,9 @@ const NavigationView = React.createClass({
   render() {
     return (
       <Router>
-          <Scene key='intro' title='Begin' initial={true} >
+
+          <Scene key='splash' initial={true} component={SplashViewContainer} hideNavBar />
+          <Scene key='intro' title='Begin' >
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
             <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />
