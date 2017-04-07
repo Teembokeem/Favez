@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(40, 40, 40, 0.9)'
   },
   menuContainer: {
-    height: 350,
+    // height: 350,
     width: 320,
     alignSelf: 'center',
     backgroundColor: 'white',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   menuRow: {
-    flex: 1,
+    height: 45,
     paddingLeft: 30,
     flexDirection: 'row'
   },
