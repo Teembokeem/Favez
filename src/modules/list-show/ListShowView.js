@@ -99,7 +99,7 @@ const ListShowView = React.createClass({
       },
       {
         name: 'message',
-        icon: 'message-text',
+        icon: 'comment-text-outline',
         action: 'outbound'
       }
     ];
