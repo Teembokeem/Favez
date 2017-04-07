@@ -110,7 +110,7 @@ const moreOptionsView = React.createClass({
                   </Text>
                 </View>
                 <TouchableOpacity
-                  onPress={this.props.dispatch(ListActions.setNewListOptions({'tags': idx}))}
+                  onPress={() => this.props.dispatch(ListActions.setNewListOptions({'tags': idx}))}
                 >
                   <FAIcon style={styles.tagIcon} name='close'/>
                 </TouchableOpacity>
