@@ -59,8 +59,11 @@ function FooterTabs({TabProps}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'transparent',
+    backgroundColor: 'white',
+    // borderTopWidth: 0.3,
+    borderColor: '#a8a8a8',
     width: 375,
+    paddingTop: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     position: 'absolute',

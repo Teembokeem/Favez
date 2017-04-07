@@ -83,7 +83,7 @@ const AddFaveFormView = React.createClass({
     const {fave, selectedRadio} = this.props;
     Object.assign(fave, {
       name: fave.title,
-      description: text,
+      description: text ? text : '',
       list_id: this.setMyList()[selectedRadio].id,
       type: 1
     });

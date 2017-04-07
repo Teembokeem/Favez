@@ -22,7 +22,7 @@ function organizeTaxonomies(taxonomy) {
 }
 
 function colorFinder(ref) {
-  console.log('ref', ref, categories.filter((category) => category.ref === ref)[0]);
+  // console.log('ref', ref, categories.filter((category) => category.ref === ref)[0]);
   return categories.filter((category) => category.ref === ref)[0];
 }
 
