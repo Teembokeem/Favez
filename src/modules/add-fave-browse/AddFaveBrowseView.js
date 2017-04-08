@@ -34,7 +34,9 @@ const AddFaveBrowseView = React.createClass({
   },
 
   setNewFave(fave) {
-    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.addFaveForm());
+    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => {
+      this.props.dispatch(UIActions.setBrowserInitialState()).then(Actions.addFaveForm());
+    });
   },
 
   render() {
