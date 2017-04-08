@@ -121,9 +121,7 @@ const categories = [
 
 function Info({list}) {
   console.log('your list', list)
-  const {description, picture, taxonomy} = list;
-  const owner = list.owner[0];
-  const {f1, f2, f3, f4, f5} = owner;
+  const {description, picture, owner, taxonomy} = list;
   const {topics, tags} = organizeTaxonomies(taxonomy);
   console.log('got it?', topics, tags)
   return (
@@ -144,10 +142,19 @@ function Info({list}) {
             style={styles.authorAvatar}
           />
         </View>
-        <View style={styles.authorInfo}>
-          <Text style={styles.authorUsername}>@{f2}</Text>
-          <Text style={styles.authorName}>{f1 ? f1 : 'Creator'}</Text>
-        </View>
+          {typeof owner === 'object'
+          ? (
+            <View style={styles.authorInfo}>
+              <Text style={styles.authorUsername}>@{owner[0].f2}</Text>
+              <Text style={styles.authorName}>{owner[0].f1}</Text>
+            </View>
+          )
+          : (
+            <View style={styles.authorInfo}>
+              <Text style={styles.authorUsername}>@{owner}</Text>
+              <Text style={styles.authorName}>{'Creator'}</Text>
+            </View>
+          )}
         <View style={styles.authorFollowContainer}>
           <MIcon style={styles.authorFollowIcon} name='person-add'/>
         </View>

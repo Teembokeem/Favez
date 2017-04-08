@@ -14,7 +14,7 @@ export async function postUser(authData) {
     // phone: authData.phone,
     // auth_id: authData._id
   };
-  return await post('/user', user);
+  return await post('/users', user);
 }
 
 export async function updateUser(toField) {

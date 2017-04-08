@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'flex-start',
     backgroundColor: 'white',
-    // borderRadius: 10,
+    borderRadius: 10,
     overflow: 'hidden',
     width: 360,
     marginBottom: 30
