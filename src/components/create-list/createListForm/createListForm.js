@@ -47,14 +47,17 @@ const CreateListForm = props => {
           <Field name='name' component={renderInput} type='text' placeholder='List Title' style={styles.CreateListFormEmailInput}/>
         </View>
       </View>
-      <View style={styles.CreateListFormFieldCollaboratorContainer}>
+      <TouchableOpacity
+        style={styles.CreateListFormFieldCollaboratorContainer}
+        onPress={Actions.addCollaborators}
+      >
         <View style={styles.CreateListFormCollaboratorInputContainer}>
           <Text style={styles.CreateListFormCollaboratorLabel}>{'Collaborators'}</Text>
         </View>
         <View style={styles.CreateListFormCollaboratorIconContainer}>
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
