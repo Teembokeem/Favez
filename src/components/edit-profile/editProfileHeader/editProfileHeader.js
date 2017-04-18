@@ -8,8 +8,8 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 50 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
+const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
+const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 14 : 0;
 
 const ListShowHeader = React.createClass({
 
@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
     width: 375,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    // paddingTop: STATUSBAR_HEIGHT,
-    // height: APPBAR_HEIGHT + 10
+    paddingTop: STATUSBAR_HEIGHT,
+    height: APPBAR_HEIGHT + STATUSBAR_HEIGHT
   },
   flex1: {
     height: 35,
