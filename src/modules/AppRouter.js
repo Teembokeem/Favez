@@ -19,6 +19,7 @@ import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
 import CreateListViewContainer from './create-list/CreateListViewContainer';
 import AddCollaboratorsViewContainer from './add-collaborators/AddCollaboratorsViewContainer';
+import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
 import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
