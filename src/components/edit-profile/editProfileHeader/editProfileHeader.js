@@ -27,7 +27,7 @@ const ListShowHeader = React.createClass({
             onPress={Actions.pop}
               style={styles.headerLeftButton}
           >
-            <IoniconIcon style={styles.headerLeftButtonIcon} name="md-arrow-round-back" />
+            <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back' />
           </TouchableOpacity>
         </View>
         <View

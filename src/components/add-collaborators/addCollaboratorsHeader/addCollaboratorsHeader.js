@@ -2,7 +2,6 @@ import React from 'react';
 import {Actions} from 'react-native-router-flux';
 import {
   StyleSheet,
-  Text,
   View,
   Platform,
   Dimensions,
@@ -28,10 +27,7 @@ const AddCollaboratorsHeader = React.createClass({
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.headerCenter}
-        >
-            {/*<FontAwesomeIcon style={styles.searchBarIcon} name="search"/>*/}
-
-        </TouchableOpacity>
+        />
         <TouchableOpacity
             style={styles.headerRightButton}
         >
