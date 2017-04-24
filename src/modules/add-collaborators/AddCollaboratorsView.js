@@ -1,13 +1,9 @@
 import React from 'react';
 import {
   View,
-  Text,
   ScrollView,
-  Image,
-  Dimensions,
   StyleSheet
 } from 'react-native';
-import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
 import * as FaveActions from '../../redux/fave/faveActions';
@@ -15,7 +11,6 @@ import AddCollaboratorsHeader from '../../components/add-collaborators/addCollab
 import Header from '../../components/globals/header/header';
 import Thumbnail from '../../components/globals/thumbnail/thumbnail';
 
-const window = Dimensions.get('window');
 const AddFaveBrowseView = React.createClass({
   propTypes: {},
 
@@ -23,7 +18,7 @@ const AddFaveBrowseView = React.createClass({
   },
 
   render() {
-    const {lists} = this.props;
+    const {} = this.props;
     return (
       <View style={styles.container}>
         <AddCollaboratorsHeader/>
@@ -38,8 +33,7 @@ const AddFaveBrowseView = React.createClass({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    // height: window.height
+    flex: 1
   },
   CollaboratorsContainer: {
     flex: 1,
