@@ -15,13 +15,14 @@ import SearchCollaboratorsSearchBar from '../../components/search-collaborators/
 import Header from '../../components/globals/header/header';
 import Thumbnail from '../../components/globals/thumbnail/thumbnail';
 
-const AddFaveBrowseView = React.createClass({
+const SearchCollaboratorsView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
   },
 
   render() {
+    console.log('GOT PROPS', this.props);
     const {lists} = this.props;
     return (
       <View style={styles.container}>
@@ -47,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddFaveBrowseView;
+export default SearchCollaboratorsView;
