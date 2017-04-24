@@ -19,6 +19,7 @@ import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
 import CreateListViewContainer from './create-list/CreateListViewContainer';
 import AddCollaboratorsViewContainer from './add-collaborators/AddCollaboratorsViewContainer';
+import SearchCollaboratorsViewContainer from './search-collaborators/SearchCollaboratorsViewContainer';
 import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
 import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
@@ -73,6 +74,7 @@ const NavigationView = React.createClass({
                   <Scene key='createListIndex' component={CreateListViewContainer} />
                   <Scene key='moreOptions' component={MoreOptionsViewContainer}/>
                   <Scene key='addCollaborators' component={AddCollaboratorsViewContainer}/>
+                  <Scene key='searchCollaborators' component={SearchCollaboratorsViewContainer}/>
                   <Scene key='topicSelector' component={TopicsSelectorViewContainer}/>
                 </Scene>
                 <Scene
