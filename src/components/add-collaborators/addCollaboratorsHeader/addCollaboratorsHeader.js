@@ -35,6 +35,7 @@ const AddCollaboratorsHeader = React.createClass({
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.headerRightButton}
+            onPress={Actions.searchCollaborators}
         >
           <FAIcon style={styles.headerRightIcon} name='search'/>
         </TouchableOpacity>
