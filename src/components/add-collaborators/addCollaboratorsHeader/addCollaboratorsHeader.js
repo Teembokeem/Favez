@@ -17,6 +17,7 @@ const AddCollaboratorsHeader = React.createClass({
 
   render() {
     console.log(this.props);
+    const {search} = this.props;
     return (
     <View style={styles.headerContainer}>
         <TouchableOpacity
@@ -35,7 +36,7 @@ const AddCollaboratorsHeader = React.createClass({
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.headerRightButton}
-            onPress={Actions.searchCollaborators}
+            onPress={search}
         >
           <FAIcon style={styles.headerRightIcon} name='search'/>
         </TouchableOpacity>
