@@ -3,12 +3,13 @@ import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
   Text,
+  Image,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as FaveActions from '../../redux/fave/faveActions';
 import AddCollaboratorsHeader from '../../components/add-collaborators/addCollaboratorsHeader/addCollaboratorsHeader';
-
+import Header from '../../components/globals/header/header';
 const AddFaveBrowseView = React.createClass({
   propTypes: {},
 
@@ -20,8 +21,15 @@ const AddFaveBrowseView = React.createClass({
     return (
       <View style={styles.container}>
         <AddCollaboratorsHeader/>
-        <View>
-          <Text style={styles.Header}>Hello World</Text>
+        <Header title='Collaborators'/>
+        <View style={styles.CollaboratorsContainer}>
+          <View style={styles.CollaboratorContainer}>
+            <View style={styles.CollaboratorImageContainer}>
+              <Image />
+            </View>
+            <View></View>
+            <View></View>
+          </View>
         </View>
       </View>
     );
