@@ -23,13 +23,19 @@ const SearchCollaboratorsView = React.createClass({
 
   render() {
     console.log('GOT PROPS', this.props);
-    const {lists} = this.props;
+    const {lists, collaborators} = this.props;
     return (
       <View style={styles.container}>
         <SearchCollaboratorsHeader />
         <SearchCollaboratorsSearchBar />
         <ScrollView contentContainerStyle={styles.CollaboratorsContainer}>
-          <Thumbnail />
+          {collaborators.map((collaborator) => {
+            return (
+              <Thumbnail
+                collaborator={collaborator}
+              />
+            );
+          })}
         </ScrollView>
       </View>
     );
