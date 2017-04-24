@@ -23,7 +23,7 @@ const SearchCollaboratorsView = React.createClass({
 
   render() {
     console.log('GOT PROPS', this.props);
-    const {lists, collaborators} = this.props;
+    const {collaborators} = this.props;
     return (
       <View style={styles.container}>
         <SearchCollaboratorsHeader />

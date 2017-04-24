@@ -47,7 +47,6 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestUserUpdate(action.payload))
       );
     case USER_UPDATE_SUCCESS:
-    console.log('success!');
       console.log('Success', action.payload);
       return state
         .set('loading', false);
