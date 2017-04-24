@@ -8,6 +8,9 @@ import {
   USER_UPDATE_REQUEST,
   USER_UPDATE_SUCCESS,
   USER_UPDATE_FAILURE,
+  USER_GET_COLLABORATORS_REQUEST,
+  USER_GET_COLLABORATORS_SUCCESS,
+  USER_GET_COLLABORATORS_FAILURE,
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -17,12 +20,14 @@ import {
   requestUserInfo,
   requestUserUpdate,
   requestRegister,
-  createUser
+  createUser,
+  requestCollaborators
 } from './userActions';
 
 // Initial state
 const initialState = fromJS({
   user: {},
+  collaborators_all: [],
   value: 0,
   loading: false,
   error: {}
@@ -42,9 +47,21 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestUserUpdate(action.payload))
       );
     case USER_UPDATE_SUCCESS:
+    console.log('success!');
       console.log('Success', action.payload);
       return state
         .set('loading', false);
+    case USER_GET_COLLABORATORS_REQUEST:
+      console.log('caught reducer action to grab collaborators')
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestCollaborators())
+      );
+    case USER_GET_COLLABORATORS_SUCCESS:
+      console.log('Success', action.payload);
+      return state
+        .set('loading', false)
+        .set('collaborators_all', state.get('collaborators_all').concat(action.payload));
     case AUTH_REGISTER_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -67,6 +84,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
+    case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
       console.log('ERROR', action.payload);
       return state.set('error', action.payload);
