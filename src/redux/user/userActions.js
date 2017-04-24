@@ -6,7 +6,8 @@ import {
 
 import {
   postUser,
-  updateUser
+  updateUser,
+  getCollaborators
 } from '../../services/user';
 
 // Actions
@@ -18,6 +19,9 @@ export const REGISTER_FAILURE = 'REGISTER_FAILURE';
 export const USER_UPDATE_REQUEST = 'USER_UPDATE_REQUEST';
 export const USER_UPDATE_SUCCESS = 'USER_UPDATE_SUCCESS';
 export const USER_UPDATE_FAILURE = 'USER_UPDATE_FAILURE';
+export const USER_GET_COLLABORATORS_REQUEST = 'USER_GET_COLLABORATORS_REQUEST';
+export const USER_GET_COLLABORATORS_SUCCESS = 'USER_GET_COLLABORATORS_SUCCESS';
+export const USER_GET_COLLABORATORS_FAILURE = 'USER_GET_COLLABORATORS_FAILURE';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
@@ -74,4 +78,17 @@ export async function requestUserInfo() {
   return await authUserInfo()
     .then((res) => ({type: USER_SUCCESS, payload: res}))
     .catch((err) => ({type: USER_FAILURE, payload: err}));
+}
+
+export async function findCollaborators() {
+  return {
+    type: USER_GET_COLLABORATORS_REQUEST
+  }
+}
+
+export async function requestCollaborators() {
+  console.log('requesting collaborators in actions')
+  return await getCollaborators()
+    .then((res) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: res.data}))
+    .catch((err) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: err}));
 }
