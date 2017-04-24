@@ -9,8 +9,8 @@ export async function postUser(authData) {
   let user = {
     email: authData.email,
     username: authData.email,
-    phone: authData.phone ? authData.phone : ''
-    // image: authData.picture,
+    phone: authData.phone ? authData.phone : '',
+    image: authData.picture
     // phone: authData.phone,
     // auth_id: authData._id
   };
@@ -24,5 +24,10 @@ export async function updateUser(toField) {
 
 export async function getSimilarList(id) {
   return await get('/lists/similar/' + id);
+}
+
+export async function getCollaborators() {
+  console.log('api fetching data')
+  return await get('/users/all');
 }
 
