@@ -52,8 +52,8 @@ const FeedView = React.createClass({
   },
 
   render() {
-    const {options} = this.props;
-    console.log('options', options);
+    const {options, inviteList} = this.props;
+    console.log('options', options, inviteList);
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -65,6 +65,7 @@ const FeedView = React.createClass({
           <CreateListForm
             createList={this.createList}
             options={options}
+            collaborators={inviteList}
             toggleOption={this.toggleOption}
           />
         </ ScrollView>

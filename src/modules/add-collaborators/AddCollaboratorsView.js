@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
   CollaboratorsContainer: {
     flex: 1,
     backgroundColor: '#f6f6f6',
-    borderTopWidth: 0.3,
-    borderColor: '#a6a6a6'
+    // borderTopWidth: 0.3,
+    // borderColor: '#a6a6a6'
   }
 });
 
