@@ -3,37 +3,53 @@ import {
   View,
   Text,
   Image,
+  TouchableOpacity,
   StyleSheet
 } from 'react-native';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FAIcon from 'react-native-vector-icons/FontAwesome';
 const AddFaveBrowseView = React.createClass({
 
   componentWillMount() {
   },
 
+  renderIconSpecs(specs) {
+    const {pack, name} = specs;
+    switch (pack) {
+      case 'FAIcon':
+        return (<FAIcon style={styles[name]} name={name}/>);
+      case 'MCIcon':
+      default:
+        return (<MCIcon style={styles[name]} name={name}/>);
+    }
+  },
+
   render() {
-    const {} = this.props;
+    const {collaborator, method, iconSpecs} = this.props;
+    const {id, image, username, profile} = collaborator;
     return (
         <View style={styles.CollaboratorContainer}>
           <View
             style={styles.CollaboratorImageContainer}
           >
-            <Image style={styles.CollaboratorImage}/>
+            <Image source={image ? {uri: image} : require('../../../../images/default_avatar.png')} style={styles.CollaboratorImage}/>
           </View>
           <View
             style={styles.CollaboratorInfoContainer}
           >
             <View style={styles.CollaboratorInfoNameContainer}>
-              <Text style={styles.CollaboratorInfoName}>@{'Pewdiepie'}</Text>
-              {/*<Text style={styles.CollaboratorInfoNameIcon}>Star</Text>*/}
+              <Text style={styles.CollaboratorInfoName}>@{username}</Text>
             </View>
             <View style={styles.CollaboratorInfoTagContainer}>
-              <Text style={styles.CollaboratorInfoTag}>PewdiePie Official</Text>
+              <Text style={styles.CollaboratorInfoTag}>{profile ? profile : ''}</Text>
             </View>
           </View>
-          <View style={styles.CollaboratorDeleteContainer}>
-            <MCIcon style={styles.CollaboratorDeleteIcon} name='delete'/>
-          </View>
+          <TouchableOpacity
+            style={styles.CollaboratorDeleteContainer}
+            onPress={method}
+          >
+            {this.renderIconSpecs(iconSpecs)}
+          </TouchableOpacity>
         </View>
     );
   }
@@ -71,7 +87,7 @@ const styles = StyleSheet.create({
     paddingTop: 15
   },
   CollaboratorInfoName: {
-    color: '#0076ff',
+    color: '#333333',
     maxHeight: 20,
     fontFamily: 'Hind-Bold',
     fontSize: 15
@@ -93,6 +109,14 @@ const styles = StyleSheet.create({
   CollaboratorDeleteIcon: {
     fontSize: 27,
     color: 'red'
+  },
+  'delete': {
+    fontSize: 30,
+    color: 'red'
+  },
+  'inbox': {
+    fontSize: 25,
+    color: 'dodgerblue'
   }
 });
 
