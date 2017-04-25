@@ -15,10 +15,14 @@ import {
   LIST_CREATE_REQUEST,
   LIST_CREATE_SUCCESS,
   LIST_CREATE_FAILURE,
+  LIST_SEND_LIST_INVITATIONS_REQUEST,
+  LIST_SEND_LIST_INVITATIONS_SUCCESS,
+  LIST_SEND_LIST_INVITATIONS_FAILURE,
   LIST_SET_NEWLIST_OPTIONS,
   requestCreateList,
   requestGetMyLists,
-  requestSingleList
+  requestSingleList,
+  requestSendInvites
 } from './listActions';
 
 // Initial state
@@ -58,10 +62,6 @@ export default function ListReducer(state = initialState, action = {}) {
       return state
         .set('inviteList', state.get('inviteList').concat(action.payload));
     case LIST_REMOVE_INVITEE:
-      // let arr = state.get('inviteList').toJS();
-      // console.log('arr before', arr);
-      // arr.splice(arr.indexOf(action.payload),1);
-      // console.log('arr after', arr);
       return state
         .set('inviteList', state.get('inviteList').filter((item) => item !== action.payload));
     case LIST_GET_DETAILS_REQUEST:
@@ -80,6 +80,16 @@ export default function ListReducer(state = initialState, action = {}) {
         Effects.promise(() => requestGetMyLists())
       );
     case LIST_MYLIST_SUCCESS:
+      console.log('SUCCESS', state, action);
+      return state
+        .set('loading', false)
+        .set('myLists', action.payload.data);
+    case LIST_SEND_LIST_INVITATIONS_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestSendInvites(action.payload))
+      );
+    case LIST_SEND_LIST_INVITATIONS_SUCCESS:
       console.log('SUCCESS', state, action);
       return state
         .set('loading', false)
