@@ -29,10 +29,13 @@ const SearchCollaboratorsView = React.createClass({
         <SearchCollaboratorsHeader />
         <SearchCollaboratorsSearchBar />
         <ScrollView contentContainerStyle={styles.CollaboratorsContainer}>
-          {collaborators.map((collaborator) => {
+          {collaborators.map((collaborator, idx) => {
             return (
               <Thumbnail
+                key={'collaborator ' + idx}
                 collaborator={collaborator}
+                method={Actions.pop}
+                iconSpecs={{pack: 'FAIcon', name: 'inbox'}}
               />
             );
           })}
