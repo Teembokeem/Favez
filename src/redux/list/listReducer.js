@@ -4,6 +4,8 @@ import {
   LIST_REQUEST,
   LIST_RESPONSE,
   SET_LIST,
+  LIST_ADD_INVITEE,
+  LIST_REMOVE_INVITEE,
   LIST_GET_DETAILS_REQUEST,
   LIST_GET_DETAILS_SUCCESS,
   LIST_GET_DETAILS_FAILURE,
@@ -52,6 +54,16 @@ export default function ListReducer(state = initialState, action = {}) {
     case SET_LIST:
       return state
         .set('current', state.get(action.payload.list)[action.payload.index]);
+    case LIST_ADD_INVITEE:
+      return state
+        .set('inviteList', state.get('inviteList').concat(action.payload));
+    case LIST_REMOVE_INVITEE:
+      // let arr = state.get('inviteList').toJS();
+      // console.log('arr before', arr);
+      // arr.splice(arr.indexOf(action.payload),1);
+      // console.log('arr after', arr);
+      return state
+        .set('inviteList', state.get('inviteList').filter((item) => item !== action.payload));
     case LIST_GET_DETAILS_REQUEST:
       return loop(
         state.set('loading', true),
