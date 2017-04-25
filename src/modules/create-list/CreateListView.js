@@ -6,6 +6,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import UserActions from '../../redux/user/userActions';
 import ImagePicker from '../../components/create-list/imagePicker/imagePicker';
 import Header from '../../components/globals/header/header';
 import CreateListHeader from '../../components/create-list/createListHeader/createListHeader';
@@ -30,11 +31,16 @@ const FeedView = React.createClass({
     });
     this.props.dispatch(ListActions.createList(listObj))
       .then(() => {
-        // [TD3c] should proceed to create all list taxonomies.
-        this.props.dispatch(ListActions.getMyLists()).then(() => {
-          console.log('refreshing lists');
-          Actions.pop();
-        });
+        console.log('Created the list, sending invitations!!');
+        return this.props.dispatch(ListActions.sendInvitations());
+      })
+      .then(() => {
+        console.log('Invitations sent!, refreshing lists..');
+        return this.props.dispatch(ListActions.getMyLists());
+      })
+      .then(() => {
+        console.log('Porting back..');
+        Actions.pop();
       })
       .catch((err) => {
         console.log('ERROR: ', err);

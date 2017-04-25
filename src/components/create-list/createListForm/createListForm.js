@@ -30,7 +30,6 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 const CreateListForm = props => {
   const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
   const {priv, nsfw} = options;
-  // console.log('your settings: ', priv, nsfw)
   const submit = values => {
     createList(values);
   };
