@@ -33,6 +33,7 @@ const initialState = fromJS({
     priv: false,
     nsfw: false
   },
+  inviteList: [],
   loading: true
 });
 
