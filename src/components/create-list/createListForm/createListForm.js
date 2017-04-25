@@ -28,7 +28,7 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options} = props;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
   const {priv, nsfw} = options;
   // console.log('your settings: ', priv, nsfw)
   const submit = values => {
@@ -55,6 +55,7 @@ const CreateListForm = props => {
           <Text style={styles.CreateListFormCollaboratorLabel}>{'Collaborators'}</Text>
         </View>
         <View style={styles.CreateListFormCollaboratorIconContainer}>
+          <Text style={styles.CreateListFormCollaboratorNumber}>{collaborators.length > 0 ? ' ' + collaborators.length : ''}</Text>
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
       </TouchableOpacity>
@@ -172,13 +173,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   CreateListFormCollaboratorIconContainer: {
-    width: 50,
+    width: 80,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
   CreateListFormCollaboratorIcon: {
     fontSize: 23,
-    color: '#7f7f7f'
+    color: '#cccccc'
   },
   CreateListFormCollaboratorInputContainer: {
     flex: 1,
@@ -197,6 +199,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: -10,
     fontFamily: 'Hind-Regular'
+  },
+  CreateListFormCollaboratorNumber: {
+    paddingRight: 15,
+    fontSize: 18,
+    color: '#cccccc',
+    fontFamily: 'Hind-Bold'
   },
   CreateListFormFieldLocationContainer: {
     flex: 1,
