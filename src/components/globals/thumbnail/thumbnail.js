@@ -46,7 +46,7 @@ const AddFaveBrowseView = React.createClass({
           </View>
           <TouchableOpacity
             style={styles.CollaboratorDeleteContainer}
-            onPress={method}
+            onPress={() => method(collaborator)}
           >
             {this.renderIconSpecs(iconSpecs)}
           </TouchableOpacity>
@@ -117,6 +117,10 @@ const styles = StyleSheet.create({
   'inbox': {
     fontSize: 25,
     color: 'dodgerblue'
+  },
+  'check-circle': {
+    fontSize: 25,
+    color: '#4caf4e'
   }
 });
 
