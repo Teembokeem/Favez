@@ -6,6 +6,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as UserActions from '../../redux/user/userActions';
+import * as ListActions from '../../redux/list/listActions';
 import AddCollaboratorsHeader from '../../components/add-collaborators/addCollaboratorsHeader/addCollaboratorsHeader';
 import Header from '../../components/globals/header/header';
 import Thumbnail from '../../components/globals/thumbnail/thumbnail';
@@ -26,6 +27,11 @@ const AddFaveBrowseView = React.createClass({
         Actions.searchCollaborators();
       });
   },
+
+  removeInvitee(invitee) {
+    return this.props.dispatch(ListActions.modifyInviteList(invitee, false));
+  },
+
   render() {
     const {inviteList} = this.props;
     return (
@@ -39,7 +45,7 @@ const AddFaveBrowseView = React.createClass({
           <Thumbnail
             key={'collaborator ' + idx}
             collaborator={invitee}
-            method={Actions.pop}
+            method={this.removeInvitee}
             iconSpecs={{pack: 'MCIcon', name: 'delete'}}
           />
         ))}
