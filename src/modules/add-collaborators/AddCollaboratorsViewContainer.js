@@ -6,7 +6,8 @@ import AddCollaboratorsView from './AddCollaboratorsView';
 export default connect(
   state => {
     return {
-      lists: state.getIn(['list', 'all'])
+      collaborators: state.getIn(['user', 'collaborators_all']),
+      inviteList: state.getIn(['list', 'inviteList'])
     };
   }
 )(AddCollaboratorsView);
