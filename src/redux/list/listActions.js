@@ -3,7 +3,8 @@ import {
   getListAll,
   listCreate,
   listGetMyLists,
-  listGetSingleDetailed
+  listGetSingleDetailed,
+  sendInvites
 } from '../../services/list';
 
 // Actions
@@ -20,6 +21,9 @@ export const LIST_MYLIST_SUCCESS = 'LIST_MYLIST_SUCCESS';
 export const LIST_MYLIST_FAILURE = 'LIST_MYLIST_FAILURE';
 export const LIST_LIST = 'LIST_LIST';
 export const SET_LIST = 'SET_LIST';
+export const LIST_SEND_LIST_INVITATIONS_REQUEST = 'LIST_SEND_LIST_INVITATIONS_REQUEST';
+export const LIST_SEND_LIST_INVITATIONS_SUCCESS = 'LIST_SEND_LIST_INVITATIONS_SUCCESS';
+export const LIST_SEND_LIST_INVITATIONS_FAILURE = 'LIST_SEND_LIST_INVITATIONS_FAILURE';
 export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
@@ -103,4 +107,17 @@ export async function modifyInviteList(invitee, concat) {
   return concat
     ? {type: LIST_ADD_INVITEE, payload: invitee}
     : {type: LIST_REMOVE_INVITEE, payload: invitee}
+}
+
+export async function sendInvitations(data) {
+  return {
+    type: LIST_SEND_LIST_INVITATIONS_REQUEST,
+    payload: data
+  };
+}
+
+export async function requestSendInvites(data) {
+  return await sendInvites(data)
+    .then((res) => ({type: LIST_SEND_LIST_INVITATIONS_SUCCESS, payload: res}))
+    .catch((err) => ({type: LIST_SEND_LIST_INVITATIONS_FAILURE, payload: err}));
 }
