@@ -18,15 +18,16 @@ const AddFaveBrowseView = React.createClass({
 
   search() {
     console.log('search method');
-    this.props.dispatch(UserActions.findCollaborators())
+    return this.props.collaborators.length > 1
+      ? Actions.searchCollaborators()
+      : this.props.dispatch(UserActions.findCollaborators())
       .then((res) => {
         console.log('post user action find collaborators', res);
         Actions.searchCollaborators();
-      })
-      .catch((err) => console.log('Error', err));
+      });
   },
   render() {
-    const {} = this.props;
+    const {inviteList} = this.props;
     return (
       <View style={styles.container}>
         <AddCollaboratorsHeader
@@ -34,8 +35,14 @@ const AddFaveBrowseView = React.createClass({
         />
         <Header title='Collaborators'/>
         <ScrollView contentContainerStyle={styles.CollaboratorsContainer}>
-          <Thumbnail />
-          {/*TODO: send private method, and icon for different actions.*/}
+         {inviteList.map((invitee, idx) => (
+          <Thumbnail
+            key={'collaborator ' + idx}
+            collaborator={invitee}
+            method={Actions.pop}
+            iconSpecs={{pack: 'MCIcon', name: 'delete'}}
+          />
+        ))}
         </ScrollView>
       </View>
     );
