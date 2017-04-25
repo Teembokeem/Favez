@@ -10,6 +10,8 @@ import {
 export const INCREMENT = 'INCREMENT';
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
+export const LIST_ADD_INVITEE = 'LIST_ADD_INVITEE';
+export const LIST_REMOVE_INVITEE = 'LIST_REMOVE_INVITEE';
 export const LIST_MYLIST_REQUEST = 'LIST_MYLIST_REQUEST';
 export const LIST_GET_DETAILS_REQUEST = 'LIST_GET_DETAILS_REQUEST';
 export const LIST_GET_DETAILS_SUCCESS = 'LIST_GET_DETAILS_SUCCESS';
@@ -95,4 +97,10 @@ export async function setNewListOptions(data) {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
   };
+}
+
+export async function modifyInviteList(invitee, concat) {
+  return concat
+    ? {type: LIST_ADD_INVITEE, payload: invitee}
+    : {type: LIST_REMOVE_INVITEE, payload: invitee}
 }
