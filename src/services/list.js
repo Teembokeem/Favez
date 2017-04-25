@@ -23,3 +23,29 @@ export async function listCreate(data) {
   // delete data['tags'];
   return post('/lists', data);
 }
+
+export async function sendInvites(data) {
+  const {list, users} = data;
+  let counter = 0;
+  console.log('hello moto');
+  users.map((user, idx) => {
+    if (idx !== users.length - 1) {
+      post('lists/collaborate/invite', {list_id: list, user_id: user})
+        .then((res) => {
+          counter++;
+          console.log('sent invite!: ', res);
+        })
+        .catch((err) => {
+          console.log('error in sending for user id: ', user);
+        });
+    } else {
+      return post('lists/collaborate/invite', {list_id: list, user_id: user})
+        .then((res) => {
+          return {data: res.data, counter};
+        })
+        .catch((err) => {
+          return err;
+        });
+    }
+  });
+}
