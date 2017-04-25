@@ -58,6 +58,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
       );
     case USER_GET_COLLABORATORS_SUCCESS:
       console.log('Success', action.payload);
+      // console.log('user', state.get('user'));
+      action.payload = action.payload.filter((collaborator) => collaborator.id !== state.get('user').favez.id);
       return state
         .set('loading', false)
         .set('collaborators_all', action.payload);
