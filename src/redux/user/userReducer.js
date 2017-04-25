@@ -60,7 +60,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
       console.log('Success', action.payload);
       return state
         .set('loading', false)
-        .set('collaborators_all', state.get('collaborators_all').concat(action.payload));
+        .set('collaborators_all', action.payload);
     case AUTH_REGISTER_SUCCESS:
       return loop(
         state.set('user', {}),
