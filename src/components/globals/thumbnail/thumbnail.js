@@ -63,7 +63,9 @@ const styles = StyleSheet.create({
     paddingRight: 18,
     backgroundColor: 'white',
     flexDirection: 'row',
-    maxHeight: 70
+    maxHeight: 70,
+    borderTopWidth: 1,
+    borderColor: '#f6f6f6'
   },
   CollaboratorImageContainer: {
     flex: 1
