@@ -14,9 +14,14 @@ import {
 import {Actions} from 'react-native-router-flux';
 
 const RegisterView = React.createClass({
-
+  
+  componentDidUpdate() {
+    console.log('props', this.props)
+    const {user} = this.props;
+    if (user && user.hasOwnProperty('favez')) {Actions.tabbar();}
+  },
   register(data) {
-    this.props.dispatch(UserActions.register(data))
+    this.props.dispatch(UserActions.register(data));
   },
 
   render() {
