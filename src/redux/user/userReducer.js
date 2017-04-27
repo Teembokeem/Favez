@@ -36,11 +36,6 @@ const initialState = fromJS({
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
   switch (action.type) {
-    case AUTH_REGISTER_REQUEST:
-      return loop(
-        state.set('loading', true),
-        Effects.promise(() => requestRegister(action.payload))
-      );
     case USER_UPDATE_REQUEST:
       return loop(
         state.set('loading', true),
@@ -63,24 +58,34 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return state
         .set('loading', false)
         .set('collaborators_all', action.payload);
+    case AUTH_REGISTER_REQUEST:
+      return loop(
+        state.set('loading', true),
+        Effects.promise(() => requestRegister(action.payload))
+      );
     case AUTH_REGISTER_SUCCESS:
+      console.log('auth register success')
       return loop(
         state.set('user', {}),
         Effects.promise(() => createUser(action.payload))
       );
     case REGISTER_SUCCESS:
-      return state
-        .set('loading', false)
-        .set('user', action.payload.data);
+    console.log('register success')
+      return loop(
+        state.set('loading', false)
+        .set('user', action.payload.data),
+        Effects.promise(() => requestLogin(action.payload))
+      );
     case LOGIN_REQUEST:
       return loop(
         state.set('loading', true),
         Effects.promise(() => requestLogin(action.payload))
       );
     case LOGIN_SUCCESS:
+    console.log('login success with auth0 sendign to request authorize')
       return loop(
         state.set('user', {}),
-        Effects.promise(requestUserInfo)
+        Effects.promise(() => requestUserInfo())
       );
     case LOGIN_FAILURE:
     case USER_FAILURE:
@@ -90,6 +95,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
       console.log('ERROR', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:
+      console.log('SUCCESS!', action.payload)
       return state
         .set('loading', false)
         .set('user', action.payload);

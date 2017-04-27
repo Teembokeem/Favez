@@ -37,16 +37,42 @@ export async function login(data) {
 }
 
 export async function requestLogin(data) {
+  console.log('now requesting login')
   return await authLogin(data)
-    .then((res) => ({type: LOGIN_SUCCESS, payload: res}))
+    .then((res) => ({type: LOGIN_SUCCESS, payload: data}))
     .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
 }
 
+export async function requestUserInfo() {
+  console.log('grabbing auth user info')
+  return await authUserInfo()
+    .then((res) => ({type: USER_SUCCESS, payload: res}))
+    .catch((err) => ({type: USER_FAILURE, payload: err}));
+}
+
 export async function register(data) {
+  console.log('auth register request');
   return {
     type: AUTH_REGISTER_REQUEST,
     payload: data
   };
+}
+
+export async function requestRegister(data) {
+  console.log('request auth register')
+  return authRegister(data)
+    .then((res) => {
+      console.log('our res and original data', res, data)
+      return {type: AUTH_REGISTER_SUCCESS, payload: data}
+    })
+    .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
+}
+
+export async function createUser(data) {
+  console.log('create user actions')
+  return postUser(data)
+    .then((res) => ({type: REGISTER_SUCCESS, payload: data}))
+    .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
 }
 
 export async function update(data) {
@@ -62,23 +88,6 @@ export async function requestUserUpdate(data) {
     .catch((err) => ({type: USER_UPDATE_FAILURE, payload: err}));
 }
 
-export async function requestRegister(data) {
-  return authRegister(data)
-    .then((res) => ({type: AUTH_REGISTER_SUCCESS, payload: res}))
-    .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
-}
-
-export async function createUser(data) {
-  return postUser(data)
-    .then((res) => ({type: REGISTER_SUCCESS, payload: res}))
-    .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
-}
-
-export async function requestUserInfo() {
-  return await authUserInfo()
-    .then((res) => ({type: USER_SUCCESS, payload: res}))
-    .catch((err) => ({type: USER_FAILURE, payload: err}));
-}
 
 export async function findCollaborators() {
   return {

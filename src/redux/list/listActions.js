@@ -83,6 +83,7 @@ export async function setList(list, index) {
 }
 
 export async function createList(obj) {
+  console.log('received action, heading to reducer', obj)
   return {
     type: LIST_CREATE_REQUEST,
     payload: obj
@@ -90,6 +91,7 @@ export async function createList(obj) {
 }
 
 export async function requestCreateList(data) {
+  console.log('back from reducer heading to list service')
   return await listCreate(data)
     .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
     .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));

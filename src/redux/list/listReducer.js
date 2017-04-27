@@ -95,6 +95,7 @@ export default function ListReducer(state = initialState, action = {}) {
         .set('loading', false)
         .set('myLists', action.payload.data);
     case LIST_CREATE_REQUEST:
+      console.log('hello create request in reducer');
       return loop(
         state.set('loading', true),
         Effects.promise(() => requestCreateList(action.payload))
@@ -110,6 +111,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_MYLIST_FAILURE:
     case LIST_CREATE_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
+    case LIST_SEND_LIST_INVITATIONS_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
     default:
