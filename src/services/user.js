@@ -5,7 +5,7 @@ export async function getUser() {
 }
 
 export async function postUser(authData) {
-  console.log('getting here', authData)
+  console.log(' and then finally post user service', authData)
   let user = {
     email: authData.email,
     username: authData.email,

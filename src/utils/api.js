@@ -96,6 +96,8 @@ async function sendRequest(method, path, body) {
     const endpoint = url(path);
     const token = await getAuthenticationToken();
     const headers = getRequestHeaders(body, token);
+    console.log('HEADERS', headers);
+    console.log('PATH: ', endpoint)
     const options = body
       ? {method, headers, body: JSON.stringify(body)}
       : {method, headers};

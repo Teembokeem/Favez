@@ -19,33 +19,35 @@ export async function listGetSingleDetailed(id) {
 
 export async function listCreate(data) {
   console.log('my list', data);
+  const {listData, inviteData} = data;
   // delete data['topics'];
   // delete data['tags'];
-  return post('/lists', data);
-}
-
-export async function sendInvites(data) {
-  const {list, users} = data;
-  let counter = 0;
-  console.log('hello moto');
-  users.map((user, idx) => {
-    if (idx !== users.length - 1) {
-      post('lists/collaborate/invite', {list_id: list, user_id: user})
-        .then((res) => {
-          counter++;
-          console.log('sent invite!: ', res);
-        })
-        .catch((err) => {
-          console.log('error in sending for user id: ', user);
-        });
-    } else {
-      return post('lists/collaborate/invite', {list_id: list, user_id: user})
-        .then((res) => {
-          return {data: res.data, counter};
-        })
-        .catch((err) => {
-          return err;
-        });
-    }
-  });
+  post('/lists', listData).then((res) => {
+    console.log('hello moto', res);
+    let users = inviteData;
+    let counter = 0;
+    users.map((user, idx) => {
+      let {id} = user;
+      if (idx !== users.length - 1) {
+        console.log('hi doing these');
+        post('lists/collaborate/invite', {list_id: res.data.id, id: res.data.id, user_id: id, role: 1})
+          .then((res) => {
+            counter++;
+            console.log('sent invite!: ', res);
+          })
+          .catch((err) => {
+            console.log('error in sending for user id: ', user);
+          });
+      } else {
+        console.log('doing this last');
+        return post('lists/collaborate/invite', {list_id: res.data.id, id: res.data.id, user_id: id, role: 1})
+          .then((res) => {
+            return {data: res.data, counter};
+          })
+          .catch((err) => {
+            return err;
+          });
+      }
+    });
+  }) ;
 }
