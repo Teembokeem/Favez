@@ -20,7 +20,9 @@ export default connect(
     return {
       notifications: filteredNotifications,
       selected: state.getIn(['notification', 'selected']),
-      loading: state.getIn(['search', 'loading'])
+      loading: state.getIn(['search', 'loading']),
+      tabs: state.getIn(['ui', 'notifications', 'tabs', 'set']).toJS(),
+      selectedTab: state.getIn(['ui', 'notifications', 'tabs', 'selected'])
     };
   }
 )(NotificationView);
