@@ -20,7 +20,7 @@ const FeedView = React.createClass({
 
   createList(values) {
     console.log('values', values.toJS());
-    const {options} = this.props;
+    const {options, inviteList} = this.props;
     const {description, tags, topics, priv, nsfw} = options;
     let listObj = Object.assign(values.toJS(), {
       description,
@@ -29,19 +29,9 @@ const FeedView = React.createClass({
       private: priv ? 1 : 0,
       nsfw: nsfw ? 1 : 0
     });
-    this.props.dispatch(ListActions.createList(listObj))
-      .then(() => {
-        console.log('Created the list, sending invitations!!');
-        return this.props.dispatch(ListActions.sendInvitations());
-      })
-      .then(() => {
-        console.log('Invitations sent!, refreshing lists..');
-        return this.props.dispatch(ListActions.getMyLists());
-      })
-      .then(() => {
-        console.log('Porting back..');
-        Actions.pop();
-      })
+    console.log('going into create list');
+    this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList}))
+      .then(Actions.pop)
       .catch((err) => {
         console.log('ERROR: ', err);
       });
