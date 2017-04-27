@@ -11,13 +11,36 @@ import NotificationHeader from '../../components/notification/notificationHeader
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Notification from '../../components/notification/notification/notification';
+import Invitation from '../../components/notification/invitation/invitation';
 
 const NotificationView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
     // console.log('hello', this.props);
-    this.props.dispatch(NotificationActions.getNotifs());
+    this.props.dispatch(NotificationActions.getNotifs()).then(
+      this.props.dispatch(NotificationActions.getInvites())
+    );
+  },
+
+  showNotifications() {
+    switch (this.props.selectedTab) {
+      case 'alerts':
+        return this.props.notifications.map((notification, index) => (
+          <Notification
+            key={'notification ' + index}
+            notification={notification}
+          />
+        ));
+      case 'invitiations':
+      default:
+        return this.props.invites.map((invite, idx) => (
+         <Invitation
+          key={'invitation ' + idx}
+          invitation={invite}
+         />
+       ));
+    }
   },
   moveIntro() {
     Actions.intro();
@@ -29,7 +52,7 @@ const NotificationView = React.createClass({
 
   render() {
     console.log('HI props', this.props);
-    const {notifications, selectedTab, tabs} = this.props;
+    const {notifications, invites, selectedTab, tabs} = this.props;
     return (
       <View style={styles.container}>
         <NotificationHeader />
@@ -41,12 +64,7 @@ const NotificationView = React.createClass({
         <ScrollView
           contentContainerStyle={styles.contentContainer}
         >
-          {notifications.map((notification, index) => (
-            <Notification
-              key={'notification ' + index}
-              notification={notification}
-            />
-          ))}
+          {this.showNotifications()}
         </ScrollView>
       </View>
     );
