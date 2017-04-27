@@ -1,6 +1,6 @@
 import {
   notificationGetMyNotifs
-} from '../../services/notifications';
+} from '../../services/notification';
 
 // Actions
 export const NOTIFICATION_GET_MY_NOTIFS_REQUEST = 'NOTIFICATION_GET_MY_NOTIFS_REQUEST';
