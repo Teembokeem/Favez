@@ -19,6 +19,7 @@ export default connect(
     // });
     return {
       notifications: state.getIn(['notification', 'myNotifs']),
+      invites: state.getIn(['notification', 'myInvites']),
       loading: state.getIn(['search', 'loading']),
       tabs: state.getIn(['ui', 'notifications', 'tabs', 'set']).toJS(),
       selectedTab: state.getIn(['ui', 'notifications', 'tabs', 'selected'])
