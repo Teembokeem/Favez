@@ -57,13 +57,13 @@ const AddFaveBrowseView = React.createClass({
 
 const styles = StyleSheet.create({
   CollaboratorContainer: {
-    flex: 1,
+    // flex: 1,
     paddingLeft: 18,
     alignItems: 'center',
     paddingRight: 18,
     backgroundColor: 'white',
     flexDirection: 'row',
-    maxHeight: 70,
+    minHeight: 70,
     borderTopWidth: 1,
     borderColor: '#f6f6f6'
   },

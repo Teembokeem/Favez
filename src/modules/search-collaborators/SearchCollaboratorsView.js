@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   CollaboratorsContainer: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#f6f6f6',
     borderTopWidth: 0.3,
     borderColor: '#a6a6a6'

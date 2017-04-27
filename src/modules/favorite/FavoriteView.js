@@ -17,6 +17,11 @@ import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 const FavoriteView = React.createClass({
   propTypes: {},
 
+  componentWillMount() {
+    // this.props.dispatch(ListActions.getFullList());
+    this.props.dispatch(ListActions.getMyLists());
+  },
+
   renderList(ref) {
     const {myLists, myCollabs, selectedTab} = this.props;
     switch (selectedTab) {

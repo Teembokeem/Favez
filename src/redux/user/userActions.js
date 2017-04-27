@@ -60,7 +60,7 @@ export async function register(data) {
 
 export async function requestRegister(data) {
   console.log('request auth register')
-  return authRegister(data)
+  return await authRegister(data)
     .then((res) => {
       console.log('our res and original data', res, data)
       return {type: AUTH_REGISTER_SUCCESS, payload: data}
