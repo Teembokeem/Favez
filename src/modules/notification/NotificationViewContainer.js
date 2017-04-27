@@ -14,12 +14,11 @@ function findSubset(subSetType) {
 
 export default connect(
   state => {
-    const filteredNotifications = state.getIn(['notification', 'notifications']).get('data').toJS().filter((notification) => {
-      return findSubset(state.getIn(['notification', 'selected'])).indexOf(notification.type) !== -1;
-    });
+    // const filteredNotifications = state.getIn(['notification', 'notifications']).get('data').toJS().filter((notification) => {
+    //   return findSubset(state.getIn(['notification', 'selected'])).indexOf(notification.type) !== -1;
+    // });
     return {
-      notifications: filteredNotifications,
-      selected: state.getIn(['notification', 'selected']),
+      notifications: state.getIn(['notification', 'myNotifs']),
       loading: state.getIn(['search', 'loading']),
       tabs: state.getIn(['ui', 'notifications', 'tabs', 'set']).toJS(),
       selectedTab: state.getIn(['ui', 'notifications', 'tabs', 'selected'])
