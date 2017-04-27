@@ -237,7 +237,7 @@ function Notification({notification}) {
       style={styles.NotificationContainer}
     >
       <View>
-        <Image style={styles.NotificationFromUser} source={{uri: notification.fromUser.avatar}}/>
+        <Image style={styles.NotificationFromUser} source={notification.fromUser && notification.fromUser.avatar ? {uri: notification.fromUser.avatar} : require('../../../../images/default_avatar.png')}/>
       </View>
       {notificationBody}
       {notificationSymbol}
