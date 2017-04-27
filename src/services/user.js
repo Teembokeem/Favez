@@ -10,7 +10,7 @@ export async function postUser(authData) {
     email: authData.email,
     username: authData.email,
     phone: authData.phone ? authData.phone : '',
-    image: authData.picture
+    image: authData.picture ? authData.picture : ''
     // phone: authData.phone,
     // auth_id: authData._id
   };
