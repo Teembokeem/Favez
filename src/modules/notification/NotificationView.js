@@ -7,6 +7,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as NotificationActions from '../../redux/notification/notificationActions';
+import * as UIActions from '../../redux/ui/uiActions';
 import NotificationHeader from '../../components/notification/notificationHeader/notificationHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
@@ -46,8 +47,9 @@ const NotificationView = React.createClass({
     Actions.intro();
   },
 
-  setFilter(val) {
-    this.props.dispatch(NotificationState.setFilter(val));
+  setFilter(view, tab) {
+    console.log('view tab', view, tab)
+    this.props.dispatch(UIActions.setViewTab('notification', tab));
   },
 
   render() {
@@ -58,6 +60,7 @@ const NotificationView = React.createClass({
         <NotificationHeader />
         <Header title={'Notifications'}/>
         <HeaderTabs
+          view={'notification'}
           setFilter={this.setFilter}
           selected={selectedTab}
           tabs={tabs}/>
