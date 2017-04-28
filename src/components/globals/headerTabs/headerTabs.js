@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 
 function HeaderTabs({view, selected, tabs, setFilter}) {
+  console.log('view and tab', view, tabs, selected);
   return (
     <ScrollView
       contentContainerStyle={[styles.HeaderTabs]}
