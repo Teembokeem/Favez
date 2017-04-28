@@ -21,8 +21,8 @@ export default connect(
       notifications: state.getIn(['notification', 'myNotifs']),
       invites: state.getIn(['notification', 'myInvites']),
       loading: state.getIn(['search', 'loading']),
-      tabs: state.getIn(['ui', 'notifications', 'tabs', 'set']).toJS(),
-      selectedTab: state.getIn(['ui', 'notifications', 'tabs', 'selected'])
+      tabs: state.getIn(['ui', 'notification', 'tabs', 'set']).toJS(),
+      selectedTab: state.getIn(['ui', 'notification', 'tabs', 'selected'])
     };
   }
 )(NotificationView);
