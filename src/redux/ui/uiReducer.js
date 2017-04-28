@@ -201,7 +201,7 @@ const initialState = fromJS({
       set: ['favez', 'info', 'similar']
     }
   },
-  notifications: {
+  notification: {
     tabs: {
       selected: 'alerts',
       set: ['alerts', 'invitations']
