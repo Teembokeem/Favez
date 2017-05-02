@@ -1,4 +1,5 @@
 import React from 'react';
+import {Actions} from 'react-native-router-flux';
 import {
   StyleSheet,
   View,
@@ -27,8 +28,8 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList} = props;
-
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
+  const {priv, nsfw} = options;
   const submit = values => {
     createList(values);
   };
@@ -42,17 +43,21 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormEmailInputContainer}>
           <Text style={styles.CreateListFormEmailLabel}>{'LIST TITLE'}</Text>
-          <Field name='listName' component={renderInput} type='text' placeholder='List Title' style={styles.CreateListFormEmailInput}/>
+          <Field name='name' component={renderInput} type='text' placeholder='List Title' style={styles.CreateListFormEmailInput}/>
         </View>
       </View>
-      <View style={styles.CreateListFormFieldCollaboratorContainer}>
+      <TouchableOpacity
+        style={styles.CreateListFormFieldCollaboratorContainer}
+        onPress={Actions.addCollaborators}
+      >
         <View style={styles.CreateListFormCollaboratorInputContainer}>
           <Text style={styles.CreateListFormCollaboratorLabel}>{'Collaborators'}</Text>
         </View>
         <View style={styles.CreateListFormCollaboratorIconContainer}>
+          <Text style={styles.CreateListFormCollaboratorNumber}>{collaborators.length > 0 ? ' ' + collaborators.length : ''}</Text>
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
-      </View>
+      </TouchableOpacity>
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
@@ -68,9 +73,9 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(isPressed) => {value = isPressed;}}
+            onValueChange={() => toggleOption('priv', !priv)}
             style={{marginBottom: 10}}
-            value={value}
+            value={priv}
           />
         </View>
       </View>
@@ -80,16 +85,19 @@ const CreateListForm = props => {
         </View>
         <View style={styles.CreateListFormPrivateIconContainer}>
           <Switch
-            onValueChange={(isPressed) => {value = isPressed;}}
+            onValueChange={() => toggleOption('nsfw', !nsfw)}
             style={{marginBottom: 10}}
-            value={value}
+            value={nsfw}
           />
         </View>
       </View>
       <View style={styles.CreateListFormFieldOptionsContainer}>
-        <View style={styles.CreateListFormOptionsInputContainer}>
+        <TouchableOpacity
+          style={styles.CreateListFormOptionsInputContainer}
+          onPress={Actions.moreOptions}
+        >
           <Text style={styles.CreateListFormOptionsLabel}>{'More Options'}</Text>
-        </View>
+        </TouchableOpacity>
         <View style={styles.CreateListFormOptionsIconContainer}>
           <Ionicon style={styles.CreateListFormCollaboratorIcon} name='md-arrow-round-forward'/>
         </View>
@@ -164,13 +172,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   CreateListFormCollaboratorIconContainer: {
-    width: 50,
+    width: 80,
+    flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'
   },
   CreateListFormCollaboratorIcon: {
     fontSize: 23,
-    color: '#7f7f7f'
+    color: '#cccccc'
   },
   CreateListFormCollaboratorInputContainer: {
     flex: 1,
@@ -189,6 +198,12 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: -10,
     fontFamily: 'Hind-Regular'
+  },
+  CreateListFormCollaboratorNumber: {
+    paddingRight: 15,
+    fontSize: 18,
+    color: '#cccccc',
+    fontFamily: 'Hind-Bold'
   },
   CreateListFormFieldLocationContainer: {
     flex: 1,

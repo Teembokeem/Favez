@@ -12,9 +12,6 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import MIcon from 'react-native-vector-icons/MaterialIcons';
-// import {
-//   Button
-// } from 'react-native-clean-form';
 
 const window = Dimensions.get('window');
 
@@ -59,6 +56,7 @@ const EditProfileForm = props => {
   const {handleSubmit, submitting, editProfile, user, fieldSerials} = props;
   const fields = renderFields(user, fieldSerials);
   const submit = values => {
+    console.log('hello values', values);
     editProfile(values);
   };
 

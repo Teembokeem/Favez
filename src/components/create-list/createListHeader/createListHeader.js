@@ -17,7 +17,6 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 const SearchHeader = React.createClass({
   render() {
-    console.log(this.props)
     return (
     <View style={[styles.createListNavHeader]}>
         <TouchableOpacity
@@ -36,7 +35,8 @@ const SearchHeader = React.createClass({
 const styles = StyleSheet.create({
   createListNavHeader: {
     alignItems: 'center',
-    backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',    paddingLeft: 10,
+    backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
+    paddingLeft: 10,
     paddingRight: 10,
     flexDirection: 'row',
     justifyContent: 'flex-end',

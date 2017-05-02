@@ -5,6 +5,7 @@ import {Scene, Router} from 'react-native-router-flux';
 import {StyleSheet} from 'react-native';
 import TabIcon from '../components/TabIcon';
 
+import SplashViewContainer from './splash/SplashViewContainer';
 import IntroViewContainer from './intro/IntroViewContainer';
 import FeedViewContainer from './feed/FeedViewContainer';
 import ListShowViewContainer from './list-show/ListShowViewContainer';
@@ -16,7 +17,11 @@ import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
-import CreateListContainer from './create-list/CreateListViewContainer';
+import CreateListViewContainer from './create-list/CreateListViewContainer';
+import AddCollaboratorsViewContainer from './add-collaborators/AddCollaboratorsViewContainer';
+import SearchCollaboratorsViewContainer from './search-collaborators/SearchCollaboratorsViewContainer';
+import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
+import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 
@@ -38,7 +43,9 @@ const NavigationView = React.createClass({
   render() {
     return (
       <Router>
-          <Scene key='intro' title='Begin' initial={true} >
+
+          <Scene key='splash' initial={true} component={SplashViewContainer} hideNavBar />
+          <Scene key='intro' title='Begin' >
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
             <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />
@@ -64,7 +71,11 @@ const NavigationView = React.createClass({
                   hideNavBar={true}
                   hideTabBar={true}
                 >
-                  <Scene key='createListIndex' component={CreateListContainer} />
+                  <Scene key='createListIndex' component={CreateListViewContainer} />
+                  <Scene key='moreOptions' component={MoreOptionsViewContainer}/>
+                  <Scene key='addCollaborators' component={AddCollaboratorsViewContainer}/>
+                  <Scene key='searchCollaborators' component={SearchCollaboratorsViewContainer}/>
+                  <Scene key='topicSelector' component={TopicsSelectorViewContainer}/>
                 </Scene>
                 <Scene
                   key='addFaveBrowse'

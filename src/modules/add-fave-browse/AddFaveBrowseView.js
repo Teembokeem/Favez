@@ -16,10 +16,8 @@ const AddFaveBrowseView = React.createClass({
     const {title, url} = this.props.browser;
     if (this.props.viewList) {
       return;
-    } else if (url !== 'https://www.google.com' && title !== '') {
-      this.props.dispatch(UIActions.setBrowserInitialState());
     } else {
-      return;
+      this.props.dispatch(UIActions.setBrowserInitialState());
     }
   },
 
@@ -36,7 +34,9 @@ const AddFaveBrowseView = React.createClass({
   },
 
   setNewFave(fave) {
-    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => Actions.addFaveForm());
+    return this.props.dispatch(FaveActions.setNewFave(fave)).then(() => {
+      this.props.dispatch(UIActions.setBrowserInitialState()).then(Actions.addFaveForm());
+    });
   },
 
   render() {

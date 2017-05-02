@@ -8,6 +8,7 @@ const secret = env.AUTH0_SECRET;
 const apiCred = env.AUTH0_API_CREDENTIAL;
 
 export async function authRegister(data) {
+  console.log('auth service register', data)
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -46,6 +47,7 @@ if (getAuthenticationToken()) {
 }
 
 export async function authLogin(data) {
+  console.log('accessing auth login!', data)
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -56,6 +58,7 @@ export async function authLogin(data) {
   };
   return await auth.post('/oauth/ro', body)
     .then((res) => {
+      console.log('success oauth ro res', res);
       setAuth0Token(res.access_token);
       setAuthenticationToken(res.id_token);
       return res;
@@ -64,13 +67,7 @@ export async function authLogin(data) {
 }
 
 export async function authUserInfo() {
-  return get('/authorize')
-    .then((response) => {
-      return auth.get('/userinfo')
-        .then((auth0response) => {
-          return {auth0: auth0response, favez: response.data};
-        })
-        .catch((err) => (err));
-    })
-    .catch((err) => (err));
+  const favezInfo = await get('/authorize');
+  const auth0Info = await auth.get('/userinfo');
+  return {auth0: auth0Info, favez: favezInfo.data};
 }

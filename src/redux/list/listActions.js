@@ -2,21 +2,32 @@ import {Actions} from 'react-native-router-flux';
 import {
   getListAll,
   listCreate,
-  listGetMyLists
+  listGetMyLists,
+  listGetSingleDetailed,
+  sendInvites
 } from '../../services/list';
 
 // Actions
 export const INCREMENT = 'INCREMENT';
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
+export const LIST_ADD_INVITEE = 'LIST_ADD_INVITEE';
+export const LIST_REMOVE_INVITEE = 'LIST_REMOVE_INVITEE';
 export const LIST_MYLIST_REQUEST = 'LIST_MYLIST_REQUEST';
+export const LIST_GET_DETAILS_REQUEST = 'LIST_GET_DETAILS_REQUEST';
+export const LIST_GET_DETAILS_SUCCESS = 'LIST_GET_DETAILS_SUCCESS';
+export const LIST_GET_DETAILS_FAILURE = 'LIST_GET_DETAILS_FAILURE';
 export const LIST_MYLIST_SUCCESS = 'LIST_MYLIST_SUCCESS';
 export const LIST_MYLIST_FAILURE = 'LIST_MYLIST_FAILURE';
 export const LIST_LIST = 'LIST_LIST';
 export const SET_LIST = 'SET_LIST';
+export const LIST_SEND_LIST_INVITATIONS_REQUEST = 'LIST_SEND_LIST_INVITATIONS_REQUEST';
+export const LIST_SEND_LIST_INVITATIONS_SUCCESS = 'LIST_SEND_LIST_INVITATIONS_SUCCESS';
+export const LIST_SEND_LIST_INVITATIONS_FAILURE = 'LIST_SEND_LIST_INVITATIONS_FAILURE';
 export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
+export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
 
 // Action creators
 export function increment(cards, index) {
@@ -29,6 +40,19 @@ export async function getFullList() {
     type: LIST_REQUEST,
     payload: requestFullList
   };
+}
+
+export async function getDetailedList(id) {
+  return {
+    type: LIST_GET_DETAILS_REQUEST,
+    payload: id
+  };
+}
+
+export async function requestSingleList(data) {
+  return await listGetSingleDetailed(data)
+    .then((res) => ({type: LIST_GET_DETAILS_SUCCESS, payload: res}))
+    .catch((err) => ({type: LIST_GET_DETAILS_FAILURE, payload: err}))
 }
 
 export async function requestFullList() {
@@ -59,6 +83,7 @@ export async function setList(list, index) {
 }
 
 export async function createList(obj) {
+  console.log('received action, heading to reducer', obj)
   return {
     type: LIST_CREATE_REQUEST,
     payload: obj
@@ -66,7 +91,35 @@ export async function createList(obj) {
 }
 
 export async function requestCreateList(data) {
+  console.log('back from reducer heading to list service')
   return await listCreate(data)
     .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
     .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
+}
+
+export async function setNewListOptions(data) {
+  console.log('hi', data)
+  return {
+    type: LIST_SET_NEWLIST_OPTIONS,
+    payload: data
+  };
+}
+
+export async function modifyInviteList(invitee, concat) {
+  return concat
+    ? {type: LIST_ADD_INVITEE, payload: invitee}
+    : {type: LIST_REMOVE_INVITEE, payload: invitee}
+}
+
+export async function sendInvitations(data) {
+  return {
+    type: LIST_SEND_LIST_INVITATIONS_REQUEST,
+    payload: data
+  };
+}
+
+export async function requestSendInvites(data) {
+  return await sendInvites(data)
+    .then((res) => ({type: LIST_SEND_LIST_INVITATIONS_SUCCESS, payload: res}))
+    .catch((err) => ({type: LIST_SEND_LIST_INVITATIONS_FAILURE, payload: err}));
 }

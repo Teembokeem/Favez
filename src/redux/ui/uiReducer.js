@@ -15,6 +15,7 @@ import {
 
 // Initial state
 const initialState = fromJS({
+  splash: false,
   browser: {
     url: 'https://www.google.com',
     title: '',
@@ -199,6 +200,12 @@ const initialState = fromJS({
       selected: 'favez',
       set: ['favez', 'info', 'similar']
     }
+  },
+  notification: {
+    tabs: {
+      selected: 'alerts',
+      set: ['alerts', 'invitations']
+    }
   }
 });
 
@@ -240,6 +247,7 @@ export default function UIReducer(state = initialState, action = {}) {
         Effects.promise(() => requestScrape(action.payload))
       );
     case UI_BROWSER_SCRAPE_SUCCESS:
+    console.log('success', action)
       return state
         .set('loading', false)
         .setIn(
@@ -251,6 +259,7 @@ export default function UIReducer(state = initialState, action = {}) {
           }
         );
     case UI_BROWSER_SCRAPE_FAILURE:
+    console.log('error', action)
       return state.set('error', action.payload);
     default :
       return state;

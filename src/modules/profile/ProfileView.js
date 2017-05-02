@@ -8,7 +8,7 @@ import {
   ScrollView,
   StyleSheet
 } from 'react-native';
-
+import * as UserActions from '../../redux/user/userActions';
 import ProfileHeader from '../../components/profile/profileHeader/profileHeader';
 import ProfileSummary from '../../components/profile/profileSummary/profileSummary';
 import ProfileActions from '../../components/profile/profileActions/profileActions';
@@ -19,13 +19,17 @@ import List from '../../components/globals/list/list';
 
 const ProfileView = React.createClass({
   propTypes: {},
+  componentWillMount() {
+    console.log('happens after please');
+    return this.props.dispatch(UserActions.requestUserInfo());
+  },
 
   renderChildren() {
     switch (this.props.selected) {
       case 'lists':
       case 'collabs':
       case 'subscriptions':
-      console.log('your list', this.props.lists, 'and users :', this.props.user)
+        console.log('your list', this.props.lists, 'and users :', this.props.user);
         return (
           this.props.lists.map((list, index) => (
             <List

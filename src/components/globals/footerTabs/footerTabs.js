@@ -1,17 +1,11 @@
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
-// import EntypoIcon from 'react-native-vector-icons/Entypo';
-// import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import TabIcon from '../../TabIcon';
 import {
   StyleSheet,
   View,
-  Text,
-  Platform,
   TouchableOpacity
 } from 'react-native';
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 50 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
 
 function openFavoriteModal() {
   Actions.FavoriteModal();
@@ -25,11 +19,11 @@ function delegatePress(action) {
       break;
     case 'bool':
       console.log('GETTING RID OF THIS BOOKMARk');
-      Actions.pop();
+      // Actions.pop();
       break;
     case 'outbound':
       console.log('traveling to message');
-      Actions.favorite();
+      // Actions.favorite();
       break;
     default :
       return null;
@@ -51,10 +45,9 @@ function FooterTabs({TabProps}) {
               style={styles.tabContainer}
           >
             <TabIcon
-            style={styles.tabIcon}
+              style={styles.tabIcon}
               display={tab.icon}
             />
-            {/*<Text>{tab.name}</Text>*/}
           </TouchableOpacity>
         </View>
       );
@@ -66,18 +59,13 @@ function FooterTabs({TabProps}) {
 
 const styles = StyleSheet.create({
   container: {
-    // alignItems: 'center',
-    // backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
-    backgroundColor: 'transparent',
-    // borderBottomColor: 'rgba(0, 0, 0, .15)',
-    // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
-    // elevation: 4,
-    // flex: 1,
+    backgroundColor: 'white',
+    // borderTopWidth: 0.3,
+    borderColor: '#a8a8a8',
     width: 375,
+    paddingTop: 10,
     flexDirection: 'row',
     justifyContent: 'flex-start',
-    // paddingTop: STATUSBAR_HEIGHT,
-    // height: APPBAR_HEIGHT + 10,
     position: 'absolute',
     bottom: 0
   },
@@ -88,10 +76,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingBottom: 20
   },
-  // tabIcon: {
-  //   width: 50,
-  //   fontSize: 22
-  // },
   flex2: {
     flex: 1,
     paddingRight: 20
@@ -100,8 +84,6 @@ const styles = StyleSheet.create({
     height: 35,
     width: 35,
     fontSize: 35,
-    // top: 30,
-    // margin: 10,
     color: '#000000',
     alignSelf: 'flex-end'
   },

@@ -8,8 +8,6 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import * as FaveActions from '../../redux/fave/faveActions';
-import * as ListActions from '../../redux/list/listActions';
 import * as UserActions from '../../redux/user/userActions';
 import Header from '../../components/globals/header/header';
 import EditProfileHeader from '../../components/edit-profile/editProfileHeader/editProfileHeader';
@@ -73,22 +71,12 @@ const EditProfileView = React.createClass({
       iconId: 'human-male-female'
     }
   ],
-  submit(text) {
-    const {fave, selectedRadio} = this.props;
-    Object.assign(fave, {
-      name: fave.title,
-      description: text,
-      list_id: this.setMyList()[selectedRadio].id,
-      type: 1
-    });
-    this.props.dispatch(FaveActions.createFave(fave)).then((something, somethingelse) => {
-      this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
-    });
-  },
   editProfile(vals) {
-    this.props.dispatch((UserActions.update(vals)))
+    console.log('hello', vals.toJS());
+    this.props.dispatch(UserActions.update(vals.toJS())).then(() => {
+      this.props.dispatch(UserActions.requestUserInfo()).then(Actions.pop);
+    });
   },
-
   render() {
     const {user} = this.props;
     const {auth0} = user;
