@@ -1,4 +1,4 @@
-import {get, post, put, delete} from '../utils/api';
+import {get, post, put, del} from '../utils/api';
 
 // [TD3e]
 
@@ -15,6 +15,10 @@ export async function listGetMyLists() {
 
 export async function listGetSingleDetailed(id) {
   return get('/lists/id/' + id);
+}
+
+export async function getListByTopic(topic) {
+  return get('lists/taxonomy/'+topic.ref+'/'+topic.semantic);
 }
 
 export async function listCreate(data) {
