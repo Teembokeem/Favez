@@ -18,7 +18,7 @@ export async function listGetSingleDetailed(id) {
 }
 
 export async function getListByTopic(topic) {
-  return get('lists/taxonomy/'+topic.ref+'/'+topic.semantic);
+  return get(`lists/taxonomy/topic/${topic.ref}`);
 }
 
 export async function listCreate(data) {
