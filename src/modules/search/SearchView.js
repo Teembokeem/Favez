@@ -72,7 +72,7 @@ const SearchView = React.createClass({
       case 'sites':
       case 'filter':
         return (
-          this.props.lists.map((card, idx) => (
+          this.props.listByTopics.map((card, idx) => (
             <Card
               key={'feed ' + idx}
               card={card}

@@ -17,6 +17,10 @@ export async function listGetSingleDetailed(id) {
   return get('/lists/id/' + id);
 }
 
+export async function getListByTopic(topic) {
+  return get('lists/taxonomy/'+topic.ref+'/'+topic.semantic);
+}
+
 export async function listCreate(data) {
   console.log('my list', data);
   const {listData, inviteData} = data;
