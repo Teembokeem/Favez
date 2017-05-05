@@ -19,6 +19,8 @@ import {
   LIST_SEND_LIST_INVITATIONS_SUCCESS,
   LIST_SEND_LIST_INVITATIONS_FAILURE,
   LIST_SET_NEWLIST_OPTIONS,
+  LIST_BY_TOPIC_SUCCESS,
+  LIST_BY_TOPIC_FAILURE,
   requestCreateList,
   requestGetMyLists,
   requestSingleList,
@@ -40,7 +42,8 @@ const initialState = fromJS({
     nsfw: false
   },
   inviteList: [],
-  loading: true
+  loading: true,
+  listByTopics: []
 });
 
 // Reducer
@@ -80,7 +83,7 @@ export default function ListReducer(state = initialState, action = {}) {
         Effects.promise(() => requestGetMyLists())
       );
     case LIST_MYLIST_SUCCESS:
-      console.log('SUCCESS', state, action);
+      console.log('SUCCESS My List', state.toJS(), action);
       return state
         .set('loading', false)
         .set('myLists', action.payload.data);
@@ -108,10 +111,16 @@ export default function ListReducer(state = initialState, action = {}) {
       console.log('setting new list options: ', state.get('options'), action.payload);
       let key = Object.keys(action.payload)[0];
       return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+    case LIST_BY_TOPIC_SUCCESS:
+        console.log('SUCCESS List By Topic', state.toJS(), action);
+        return state
+          .set('loading', false)
+          .set('listByTopics', action.payload.data);
     case LIST_MYLIST_FAILURE:
     case LIST_CREATE_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
+    case LIST_BY_TOPIC_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
     default:

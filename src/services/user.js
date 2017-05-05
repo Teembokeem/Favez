@@ -1,4 +1,4 @@
-import {get, post, put} from '../utils/api';
+import {get, post, put, del} from '../utils/api';
 
 export async function getUser() {
   return get('/authtest/me');
@@ -26,8 +26,8 @@ export async function getSimilarList(id) {
   return await get('/lists/similar/' + id);
 }
 
+
 export async function getCollaborators() {
   console.log('api fetching data')
   return await get('/users/all');
 }
-

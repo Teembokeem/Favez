@@ -2,6 +2,8 @@ import {Map, fromJS} from 'immutable';
 import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
 
+import * as ListActions from '../../redux/list/listActions';
+
 // Initial state
 const initialState = fromJS({
   categories: {
@@ -131,8 +133,12 @@ export default function FeedStateReducer(state = initialState, action = {}) {
       return state
         .set('selected', action.payload);
     case SET_TOPIC:
-      return state
-        .set('topic', action.payload);
+      //return state.set('topic', action.payload);
+      //state.set('topic', action.payload);
+      return loop(
+        state.set('topic', action.payload),
+        Effects.promise(() => ListActions.requestListByTopic(action.payload))
+      );
     default:
       return state;
   }
