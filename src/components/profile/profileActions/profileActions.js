@@ -26,7 +26,9 @@ const ProfileActions = React.createClass({
           <EvilIcon style={styles.ProfileActionsButton1Icon} name='pencil' />
           <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : 'FOLLOW'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.ProfileActionsButton2}>
+        <TouchableOpacity 
+          onPress={Actions.invitePeople}
+          style={styles.ProfileActionsButton2}>
           <FAIcon style={styles.ProfileActionsButton2Icon} name='address-book-o' />
           <Text style={styles.ProfileActionsButton2Text}>{self ? ' INVITE FRIENDS' : 'INVITE TO COLLAB'}</Text>
         </TouchableOpacity>

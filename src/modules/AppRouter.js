@@ -13,6 +13,7 @@ import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
 import ProfileViewContainer from './profile/ProfileViewContainer';
+import InvitePeople from './profile/containers/InvitePeople'
 import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
@@ -99,7 +100,8 @@ const NavigationView = React.createClass({
               <Scene key='profile' title='Profile' icon={TabIcon} display='emoji-happy'>
                 <Scene key='profileIndex' component={ProfileViewContainer} title='Profile' hideNavBar={true} hideTabBar={false}/>
                 <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={true}/>
-                </ Scene>
+                <Scene key='invitePeople' component={InvitePeople} title="Invite People" hideNavBar={true} hideTabBar={true}/>
+              </Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>

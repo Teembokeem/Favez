@@ -4,7 +4,12 @@ import {composeWithDevTools} from 'remote-redux-devtools';
 import middleware from './middleware';
 import reducer from './reducer';
 
-const enhancer = composeWithDevTools(
+const composeEnhancers = composeWithDevTools({
+    hostname: getPackagerHostName(),
+    port: 8000
+});
+
+const enhancer = composeEnhancers(
   applyMiddleware(...middleware),
   reduxLoop.install()
 );
@@ -17,3 +22,18 @@ const store = createStore(
 );
 
 export default store;
+
+function getPackagerHostName(){
+    if (__DEV__){
+        try{
+            const scriptURL = NativeModules.SourceCode.scriptURL
+            const address = scriptURL.split('://')[1].split('/')[0]
+            const hostname = address.split(':')[0]
+            console.log('hostname: ', hostname)
+            return hostname
+        }catch(err){
+            return 'localhost'
+        }
+    }
+    return ''
+}
