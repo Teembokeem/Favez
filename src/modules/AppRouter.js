@@ -25,7 +25,7 @@ import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
 import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
-
+import ContactList from './profile/containers/ContactList.js'
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -101,6 +101,7 @@ const NavigationView = React.createClass({
                 <Scene key='profileIndex' component={ProfileViewContainer} title='Profile' hideNavBar={true} hideTabBar={false}/>
                 <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={true}/>
                 <Scene key='invitePeople' component={InvitePeople} title="Invite People" hideNavBar={true} hideTabBar={true}/>
+                <Scene key='contactList' component={ContactList} title="Contact list" hideNavBar={true} hideTabBar={true}/>
               </Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>

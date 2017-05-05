@@ -5,7 +5,8 @@ import {
   Platform,
   TouchableOpacity,
   Image,
-  ListView
+  ListView,
+  ActivityIndicator
 } from 'react-native'
 import {connect} from 'react-redux'
 import {Actions} from 'react-native-router-flux'
@@ -27,13 +28,9 @@ class ProfileView extends React.Component {
       ])
     }
 
-    this.inviteFromContacts = this.inviteFromContacts.bind(this)
     this.inviteFromFacebook = this.inviteFromFacebook.bind(this)
     this.follow = this.follow.bind(this)
     this.removeFollowee = this.removeFollowee.bind(this)
-  }
-  inviteFromContacts() {
-
   }
   inviteFromFacebook() {
 
@@ -44,11 +41,11 @@ class ProfileView extends React.Component {
   removeFollowee() {
 
   }
+  renderIf = condition => element => condition ? element : null;
   render() {
     const {followees} = this.state
 
-    return (
-      <View style={styles.base}>
+    return <View style={styles.base}>
         <View style={styles.header}>
           <TouchableOpacity
             onPress={Actions.pop}
@@ -63,7 +60,7 @@ class ProfileView extends React.Component {
 
           <Divider/>
           <InviteAction
-            onPress={this.inviteFromContacts}
+            onPress={Actions.contactList}
             title='Invite from Contacts'
             icon={require('../../../../images/contact.png')}
           />
@@ -87,7 +84,10 @@ class ProfileView extends React.Component {
         </View>
 
         <View style={styles.followList}>
-          <ListView
+
+          {this.renderIf(false)(<ActivityIndicator style={styles.loading}/>)}
+
+          {this.renderIf(true)(<ListView
             dataSource={followees}
             renderRow={() => {
               return <View>
@@ -98,10 +98,9 @@ class ProfileView extends React.Component {
                 <Divider/>
               </View>
             }}
-          />
+          />)}
         </View>
-      </View>
-    )
+    </View>
   }
 }
 export default connect(() => ({
@@ -125,7 +124,8 @@ const styles = StyleSheet.create({
   },
   backBtn: {
     marginTop: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    width: 40
   },
   headerLeftButtonIcon: {
     width: 35,
@@ -139,7 +139,8 @@ const styles = StyleSheet.create({
   followList: {
     marginTop: 20,
     backgroundColor: 'white',
-    flex: 1
+    flex: 1,
+    justifyContent: 'center'
   },
   alreadyWrapper: {
     flexDirection: 'row',
@@ -163,5 +164,8 @@ const styles = StyleSheet.create({
     height: 15,
     resizeMode: 'contain',
     marginRight: 20
+  },
+  loading: {
+    marginTop: 20
   }
 })
