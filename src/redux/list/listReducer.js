@@ -24,7 +24,10 @@ import {
   requestCreateList,
   requestGetMyLists,
   requestSingleList,
-  requestSendInvites
+  requestSendInvites,
+  LIKE_UNLIKE_LIST_ITEM,
+  LIKE_UNLIKE_LIST_ITEM_SUCCESS,
+  LIKE_UNLIKE_LIST_ITEM_FAILURE
 } from './listActions';
 
 // Initial state
@@ -123,6 +126,13 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_BY_TOPIC_FAILURE:
       console.log('ERROR', state, action);
       return state.set('ERROR', action);
+      case LIKE_UNLIKE_LIST_ITEM:
+      console.log("List Item like action called... ");
+      case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
+      console.log("Success response",action);
+      case LIKE_UNLIKE_LIST_ITEM_FAILURE:
+      console.log("failure like recieved",action);
+
     default:
       return state;
   }

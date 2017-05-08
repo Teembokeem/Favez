@@ -3,14 +3,39 @@ import CardHeader from './cardHeader';
 import CardUser from './cardUser';
 import CardBody from './cardBody';
 import CardActions from './cardActions';
+import {sendListLikeDislike} from './../../../redux/list/listActions';
+
 // import TabBarButton from '../components/TabBarButton';
 
 import {
   StyleSheet,
-  View
+  View,
+  Alert
 } from 'react-native';
 
-function Card({card, track, moving}) {
+//const card=this.state.card;
+
+// function userAction(actionType){
+//   console.log(actionType);
+//   Alert.alert(actionType);
+//   switch (actionType) {
+//     case "like":
+//     Alert.alert("Like is called...");
+//     console.log("props value at distpatch..",this.props);
+//   //  this.props.dispatch(sendListLikeDislike("like"));
+//     // this.props.dispatch(ListReducer.fetchSimilarList(this.props.card.id));
+//
+//       break;
+//     default:
+//
+//   }
+//
+// };
+
+
+function Card({card, track, moving, userAction}) {
+
+
   return (
     <View style={styles.card}>
         <CardHeader
@@ -24,7 +49,7 @@ function Card({card, track, moving}) {
         <CardBody
           card={card}
         />
-        <CardActions />
+      <CardActions actions={(action)=> userAction(action,card.id)}  />
     </View>
   );
 };

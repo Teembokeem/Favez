@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   Dimensions,
+  Alert,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -35,6 +36,8 @@ const ListShowView = React.createClass({
   moving() {
     Actions.subbar();
   },
+
+
 
   setFilter(view, tab) {
     this.props.dispatch(UIActions.setViewTab(view, tab));
@@ -73,6 +76,7 @@ const ListShowView = React.createClass({
                 card={fave}
                 track={index}
                 moving={this.moving}
+
             />
           ))
         );
