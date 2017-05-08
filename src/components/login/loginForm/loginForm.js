@@ -151,5 +151,9 @@ const styles = StyleSheet.create({
 });
 
 export default reduxForm({
-  form: 'login'
+  form: 'login',
+  initialValues: __DEV__ ? {
+    email: 'ajchan11@gmail.com',
+    password: 'password'
+  } : {}
 })(LoginForm);
