@@ -41,16 +41,25 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: '#f8f8f6',
     alignSelf: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     borderRadius: 7,
-    height: 35
+    height: 35,
+    flexDirection: 'row'
   },
   searchBarIcon: {
-    height: 24,
+    height: 30,
     fontSize: 20,
     color: '#a9a9a9',
     alignSelf: 'flex-start',
-    margin: 5
+    margin: 7
+  },
+  textInput: {
+    fontSize:16,
+    height: 38,
+    borderWidth:0,
+    width: deviceWidth - 140,
+    color: '#666'
+
   },
   listContainer: {
     width: deviceWidth,

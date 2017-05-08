@@ -1,12 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView} from 'react-native';
+import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import DefaultAvatar from '../../../../images/default_avatar.png'
+import * as UserActions from '../../../redux/user/userActions';
 
 import Header from '../../../components/globals/header/header';
 import styles from './styles';
+
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import DefaultAvatar from '../../../../images/default_avatar.png';
 
 let {
   height: deviceHeight,
@@ -27,6 +29,7 @@ export default class extends React.Component {
       duration: 150,
       toValue: 0
     }).start();
+    this.props.dispatch(UserActions.searchUsers('Trending'));
   }
 
   closeModal() {
@@ -36,8 +39,8 @@ export default class extends React.Component {
     }).start(Actions.pop);
   }
 
-  handleSearchInput() {
-
+  handleSearchInput(text) {
+    console.log(text);
   }
 
   toggleContextMenu() {
@@ -64,9 +67,13 @@ export default class extends React.Component {
     return (
       <View style={[styles.feedNavHeader]}>
           <TouchableOpacity
-            style={styles.headerSearchBar}
-            onPress={() => this.handleSearchInput()}>
+            style={styles.headerSearchBar}>
             <FontAwesomeIcon style={styles.searchBarIcon} name='search'/>
+            <TextInput
+              style={styles.textInput}
+              onChangeText={(text) => this.handleSearchInput(text)}
+              underlineColorAndroid ={'transparent'}
+            />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => this.toggleContextMenu()}

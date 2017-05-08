@@ -31,3 +31,7 @@ export async function getCollaborators() {
   console.log('api fetching data')
   return await get('/users/all');
 }
+
+export async function getUsersByQuery(query) {
+  return get('/user/search?query='+query);
+}

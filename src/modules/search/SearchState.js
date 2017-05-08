@@ -3,6 +3,7 @@ import {loop, Effects} from 'redux-loop';
 import { Actions } from 'react-native-router-flux';
 
 import * as ListActions from '../../redux/list/listActions';
+import * as UserActions from '../../redux/user/userActions';
 
 // Initial state
 const initialState = fromJS({
