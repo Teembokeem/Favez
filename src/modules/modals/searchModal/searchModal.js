@@ -1,24 +1,17 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Animated, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 
-var {
-  height: deviceHeight
-} = Dimensions.get('window');
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import DefaultAvatar from '../../../../images/default_avatar.png'
 
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+import Header from '../../../components/globals/header/header';
+import styles from './styles';
+
+let {
+  height: deviceHeight,
+  width: deviceWidth
+} = Dimensions.get('window');
 
 export default class extends React.Component {
   constructor(props) {
@@ -43,19 +36,86 @@ export default class extends React.Component {
     }).start(Actions.pop);
   }
 
+  handleSearchInput() {
+
+  }
+
+  toggleContextMenu() {
+
+  }
+
   render() {
     console.log(this);
     return (
             <Animated.View style={styles.container}>
-                <View style={{flex: 1,
-                  alignSelf: 'stretch',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  backgroundColor: 'white'}}>
-                    <Text>{this.props.data}</Text>
-                    <Button onPress={this.closeModal.bind(this)} title='close'>Close</Button>
+                <View style={{flex: 1}}>
+                    {this.renderSearchBar()}
+                    {this.renderTrendingUsers()}
+                    {this.renderTrendingList()}
+                    {this.renderTrendingFaves()}
                 </View>
             </Animated.View>
+    );
+  }
+
+  renderSearchBar() {
+    return (
+      <View style={[styles.feedNavHeader]}>
+          <TouchableOpacity
+            style={styles.headerSearchBar}
+            onPress={() => this.handleSearchInput()}>
+            <FontAwesomeIcon style={styles.searchBarIcon} name='search'/>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => this.toggleContextMenu()}
+          >
+            <Text style={styles.headerRightButtonText}>Cancel</Text>
+          </TouchableOpacity>
+      </View>
+    );
+  }
+
+  renderTrendingUsers() {
+    return (
+      <View style={styles.listContainer}>
+        <Header title={'Trending Users'} />
+        <View style={styles.horizontalList}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={styles.userLayout}>
+              <Image style={styles.userThumb} source={DefaultAvatar} />
+              <Text style={styles.userTitle}>@greenmario</Text>
+            </View>
+            <View style={styles.userLayout}>
+              <Image style={styles.userThumb} source={DefaultAvatar} />
+              <Text style={styles.userTitle}>@greenmario</Text>
+            </View>
+            <View style={styles.userLayout}>
+              <Image style={styles.userThumb} source={DefaultAvatar} />
+              <Text style={styles.userTitle}>@greenmario</Text>
+            </View>
+            <View style={styles.userLayout}>
+              <Image style={styles.userThumb} source={DefaultAvatar} />
+              <Text style={styles.userTitle}>@greenmario</Text>
+            </View>
+          </ScrollView>
+        </View>
+      </View>
+    );
+  }
+
+  renderTrendingList() {
+    return (
+      <View style={styles.listContainer}>
+        <Header title={'Trending List'} />
+      </View>
+    );
+  }
+
+  renderTrendingFaves() {
+    return(
+      <View style={styles.listContainer}>
+        <Header title={'Trending in Romania'} />
+      </View>
     );
   }
 }
