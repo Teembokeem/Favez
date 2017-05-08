@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     width: deviceWidth - 100,
     marginLeft: 20,
     marginRight: 20,
+    marginTop:5,
     paddingLeft: 5,
     paddingRight: 20,
     backgroundColor: '#f8f8f6',
@@ -59,14 +60,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft:15,
     paddingRight:15,
-    height:120,
     marginBottom:10,
     marginLeft:6,
     marginRight:6
   },
   userLayout: {
     width: 86,
-    height: 86,
     marginRight: 25,
     flexDirection:'column',
     alignItems:'center'
@@ -78,6 +77,28 @@ const styles = StyleSheet.create({
   },
   userTitle: {
     fontSize:14,
+    color: '#444',
+    marginTop:6
+  },
+  listItemLayout: {
+    width: 120,
+    height: 150,
+    marginRight: 15,
+    flexDirection:'column'
+  },
+  trendingListLayout: {
+    height: 170
+  },
+  favezLayout: {
+    height: 190
+  },
+  listItemThumb: {
+    height:120,
+    width:120,
+    borderRadius:5,
+  },
+  listItemTitle: {
+    fontSize:16,
     color: '#444',
     marginTop:6
   }

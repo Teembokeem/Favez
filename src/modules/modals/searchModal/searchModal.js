@@ -49,10 +49,12 @@ export default class extends React.Component {
     return (
             <Animated.View style={styles.container}>
                 <View style={{flex: 1}}>
+                  <ScrollView>
                     {this.renderSearchBar()}
                     {this.renderTrendingUsers()}
                     {this.renderTrendingList()}
                     {this.renderTrendingFaves()}
+                  </ScrollView>
                 </View>
             </Animated.View>
     );
@@ -106,7 +108,27 @@ export default class extends React.Component {
   renderTrendingList() {
     return (
       <View style={styles.listContainer}>
-        <Header title={'Trending List'} />
+        <Header title={'Trending Lists'} />
+        <View style={styles.horizontalList}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+            <View style={[styles.listItemLayout, styles.trendingListLayout]}>
+              <Image style={styles.listItemThumb} source={DefaultAvatar} />
+              <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={2}>{'Winter EssentialS for Men'.toUpperCase()}</Text>
+            </View>
+            <View style={[styles.listItemLayout, styles.trendingListLayout]}>
+              <Image style={styles.listItemThumb} source={DefaultAvatar} />
+              <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={2}>{'Winter EssentialS for Men'.toUpperCase()}</Text>
+            </View>
+            <View style={[styles.listItemLayout, styles.trendingListLayout]}>
+              <Image style={styles.listItemThumb} source={DefaultAvatar} />
+              <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={2}>{'Winter EssentialS for Men'.toUpperCase()}</Text>
+            </View>
+            <View style={[styles.listItemLayout, styles.trendingListLayout]}>
+              <Image style={styles.listItemThumb} source={DefaultAvatar} />
+              <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={2}>{'Winter EssentialS for Men'.toUpperCase()}</Text>
+            </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }
@@ -115,6 +137,26 @@ export default class extends React.Component {
     return(
       <View style={styles.listContainer}>
         <Header title={'Trending in Romania'} />
+        <View style={styles.horizontalList}>
+          <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          <View style={[styles.listItemLayout, styles.favezLayout]}>
+            <Image style={styles.listItemThumb} source={DefaultAvatar} />
+            <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={3}>{'Fashion Inspiration Albums for People'.toUpperCase()}</Text>
+          </View>
+          <View style={[styles.listItemLayout, styles.favezLayout]}>
+            <Image style={styles.listItemThumb} source={DefaultAvatar} />
+            <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={3}>{'Fashion Inspiration Albums for People'.toUpperCase()}</Text>
+          </View>
+          <View style={[styles.listItemLayout, styles.favezLayout]}>
+            <Image style={styles.listItemThumb} source={DefaultAvatar} />
+            <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={3}>{'Fashion Inspiration Albums for People'.toUpperCase()}</Text>
+          </View>
+          <View style={[styles.listItemLayout, styles.favezLayout]}>
+            <Image style={styles.listItemThumb} source={DefaultAvatar} />
+            <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={3}>{'Fashion Inspiration Albums for People'.toUpperCase()}</Text>
+          </View>
+          </ScrollView>
+        </View>
       </View>
     );
   }
