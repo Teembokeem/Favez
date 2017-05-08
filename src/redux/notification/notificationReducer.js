@@ -11,9 +11,47 @@ import {
   requestGetInvites
 } from './notificationActions';
 
+const sampleNotifs = [
+  {
+    type: 1,
+    fromUserAvatar: 'testimg.png',
+    rightImage: 'rightImgSample.png',
+    userName: 'h3h3',
+    listRef: 'MY FAVORITE GAMES',
+    timeAgo: '2m'
+  },
+  {
+    type: 2,
+    fromUserAvatar: 'testimg.png',
+    userName: 'indy',
+    timeAgo: '11m'
+  },
+  {
+    type: 3,
+    fromUserAvatar: 'testimg.png',
+    rightImage: 'rightImgSample.png',
+    userName: 'h3h3',
+    message: 'Lorem ipsum',
+    timeAgo: '1d'
+  },
+  {
+    type: 4,
+    fromUserAvatar: 'testimg.png',
+    userName: 'petra',
+    timeAgo: '3d'
+  },
+  {
+    type: 5,
+    fromUserAvatar: 'pewdiepie.png',
+    rightImage: 'rightImgSample.png',
+    userName: 'pewdiepie',
+    timeAgo: '3d'
+  }
+]
+
 // Initial state
 const initialState = fromJS({
-  myNotifs: [],
+  myNotifs: sampleNotifs,
   myInvites: [],
   // current: {},
   loading: true,

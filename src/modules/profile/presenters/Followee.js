@@ -19,7 +19,7 @@ export default function Followee({onPressFollow, onPressRemove}) {
         <View style={styles.followBtnView}>
           <Image
             style={styles.followImg}
-            source={require('../../../../images/follow.png')}/>
+            source={{uri: 'follow.png'}}/>
         </View>
       </TouchableOpacity>
     </View>
