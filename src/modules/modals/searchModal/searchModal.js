@@ -43,8 +43,8 @@ export default class extends React.Component {
     console.log(text);
   }
 
-  toggleContextMenu() {
-
+  cancelSearch() {
+    Actions.pop();
   }
 
   render() {
@@ -76,7 +76,7 @@ export default class extends React.Component {
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => this.toggleContextMenu()}
+            onPress={() => this.cancelSearch()}
           >
             <Text style={styles.headerRightButtonText}>Cancel</Text>
           </TouchableOpacity>
