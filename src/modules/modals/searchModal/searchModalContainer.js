@@ -5,7 +5,7 @@ export default connect(
   state => {
     console.log('SEARCH RESULT DATA', state.toJS());
     return {
-      users: state.getIn(['search', 'categories']).get('data').toJS()
+      trendingUsers: state.getIn(['user', 'trendingUsers'])
     };
   }
 )(SearchModal);

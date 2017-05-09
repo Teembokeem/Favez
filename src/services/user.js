@@ -33,5 +33,5 @@ export async function getCollaborators() {
 }
 
 export async function getUsersByQuery(query) {
-  return get('/user/search?query='+query);
+  return get('/search/users/'+query);
 }

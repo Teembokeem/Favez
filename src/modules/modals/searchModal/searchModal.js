@@ -29,7 +29,7 @@ export default class extends React.Component {
       duration: 150,
       toValue: 0
     }).start();
-    this.props.dispatch(UserActions.searchUsers('Trending'));
+    this.props.dispatch(UserActions.searchUsers('j'));
   }
 
   closeModal() {
@@ -48,7 +48,7 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log(this);
+    console.log('SEARCH_MODAL_PROPS',this.props);
     return (
             <Animated.View style={styles.container}>
                 <View style={{flex: 1}}>
@@ -90,24 +90,19 @@ export default class extends React.Component {
         <Header title={'Trending Users'} />
         <View style={styles.horizontalList}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            <View style={styles.userLayout}>
-              <Image style={styles.userThumb} source={DefaultAvatar} />
-              <Text style={styles.userTitle}>@greenmario</Text>
-            </View>
-            <View style={styles.userLayout}>
-              <Image style={styles.userThumb} source={DefaultAvatar} />
-              <Text style={styles.userTitle}>@greenmario</Text>
-            </View>
-            <View style={styles.userLayout}>
-              <Image style={styles.userThumb} source={DefaultAvatar} />
-              <Text style={styles.userTitle}>@greenmario</Text>
-            </View>
-            <View style={styles.userLayout}>
-              <Image style={styles.userThumb} source={DefaultAvatar} />
-              <Text style={styles.userTitle}>@greenmario</Text>
-            </View>
+            {this.props.trendingUsers.map(this.renderUser)}
           </ScrollView>
         </View>
+      </View>
+    );
+  }
+
+  renderUser(user) {
+    let image = user.image?{uri:user.image}:DefaultAvatar;
+    return (
+      <View style={styles.userLayout}>
+        <Image style={styles.userThumb} source={image} />
+        <Text style={styles.userTitle}>{'@'+user.username}</Text>
       </View>
     );
   }
