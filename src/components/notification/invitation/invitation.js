@@ -3,21 +3,24 @@ import {
   StyleSheet,
   Text,
   Image,
-  TouchableOpacity,
   View
 } from 'react-native';
 import Button from './Button.js'
 import {toDuration} from '../../../utils/timeUtils.js'
 
-export default function Invitation({invitation}) {
+const renderIf = cond => elm => cond ? elm : null
+export default function Invitation({invitation, onAccept, onReject}) {
   const {
-    created, 
+    created,
     fromUserAvatar,
-    id, name, 
+    name,
     owner,
     message,
-    image
+    image,
+
+    status
   } = invitation;
+
   return <View style={styles.base}>
 
     <View style={styles.invite}>
@@ -47,21 +50,28 @@ export default function Invitation({invitation}) {
       </View>
     </View>
 
-    <View style={styles.actions}>
+    {renderIf(status === 'accepted' || status === 'rejected')(<View style={styles.actions}>
+      {renderIf(status === 'accepted')(<Text style={styles.accepted}>Accepted!</Text>)}
+      {renderIf(status === 'rejected')(<Text style={styles.rejected}>Rejected!</Text>)}
+    </View>)}
+
+    {renderIf(status !== 'accepted' && status !== 'rejected')(<View style={styles.actions}>
       <Button
-        onPress={f => f}
+        disabled={status === 'accepting' || status === 'rejecting'}
+        onPress={onReject}
         icon='whitecross.png'
         title='REJECT'
         bgColor = '#ff3824'
       />
       <View style={{width: 30}}/>
       <Button
-        onPress={f => f}
+        disabled={status === 'accepting' || status === 'rejecting'}
+        onPress={onAccept}
         icon='tick.png'
         title='ACCEPT'
         bgColor = '#4caf4e'
       />
-    </View>
+    </View>)}
   </View>
 }
 
@@ -131,6 +141,16 @@ const styles = StyleSheet.create({
   },
   grey: {
     color: '#a4a4a4'
+  },
+  accepted: {
+    fontFamily: 'OpenSans',
+    textAlign: 'center',
+    color: '#4caf4e'
+  },
+  rejected: {
+    fontFamily: 'OpenSans',
+    textAlign: 'center',
+    color: '#ff3824'
   }
 });
 

@@ -1,28 +1,18 @@
 import {connect} from 'react-redux';
 import NotificationView from './NotificationView';
+import {
+  acceptInvitation,
+  rejectInvitation
+} from '../../redux/notification/notificationActions'
 
-function findSubset(subSetType) {
-  switch (subSetType) {
-    case 'alerts':
-      return ['follow', 'unfollow', 'invitation_accept', 'invitation_decline', 'comment', 'favez_like', 'new_user'];
-    case 'invitations':
-      return ['invitation_request'];
-    default:
-      return null;
-  }
-}
-
-export default connect(
-  state => {
-    // const filteredNotifications = state.getIn(['notification', 'notifications']).get('data').toJS().filter((notification) => {
-    //   return findSubset(state.getIn(['notification', 'selected'])).indexOf(notification.type) !== -1;
-    // });
-    return {
-      notifications: state.getIn(['notification', 'myNotifs']),
-      invites: state.getIn(['notification', 'myInvites']),
-      loading: state.getIn(['search', 'loading']),
-      tabs: state.getIn(['ui', 'notification', 'tabs', 'set']).toJS(),
-      selectedTab: state.getIn(['ui', 'notification', 'tabs', 'selected'])
-    };
-  }
-)(NotificationView);
+export default connect(state => ({
+  notifications: state.getIn(['notification', 'myNotifs']).toJS(),
+  invites: state.getIn(['notification', 'myInvites']).toJS(),
+  loading: state.getIn(['search', 'loading']),
+  tabs: state.getIn(['ui', 'notification', 'tabs', 'set']).toJS(),
+  selectedTab: state.getIn(['ui', 'notification', 'tabs', 'selected'])
+}), dispatch => ({
+  dispatch,
+  onAcceptInvitation: (id) => dispatch(acceptInvitation(id)),
+  onRejectInvitation: (id) => dispatch(rejectInvitation(id))
+}))(NotificationView)

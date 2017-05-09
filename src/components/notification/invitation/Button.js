@@ -8,10 +8,12 @@ export default function Button({
   onPress,
   icon = '',
   title = '',
-  bgColor = ''
+  bgColor = '',
+  disabled = false
 }) {
   return <TouchableOpacity
     onPress={onPress}
+    disabled={disabled}
   >
     <View style={[styles.base, {backgroundColor: bgColor}]}>
       <Image style={styles.icon} source={{uri: icon}}/>
