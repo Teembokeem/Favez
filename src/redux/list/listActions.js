@@ -6,11 +6,15 @@ import {
   listGetSingleDetailed,
   sendInvites,
   getListByTopic,
+<<<<<<< HEAD
   sendLikeList,
   createlistRelation,
   deleteListRelation,
   getListbyRelation
 
+=======
+  searchListsByQuery
+>>>>>>> prem_dev
 } from '../../services/list';
 
 // Actions
@@ -45,6 +49,8 @@ export const LIST_DELETE_RELATION_SUCCESS ='LIST_DELETE_RELATION_SUCCESS';
 export const LIST_DELETE_RELATION_FAILURE ='LIST_DELETE_RELATION_FAILURE';
 export const GET_LIST_BY_RELATION_SUCCESS ='GET_LIST_BY_RELATION_SUCCESS';
 export const GET_LIST_BY_RELATION_FAILURE = 'GET_LIST_BY_RELATION_FAILURE';
+export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
+export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
 
 // Action creators
 export function increment(cards, index) {
@@ -189,4 +195,14 @@ export async function requestListByTopic(data) {
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
     .catch((err) => ({type: LIST_BY_TOPIC_FAILURE, payload: err}));
+}
+
+export async function searchLists(data) {
+  console.log('searching list by query, query=',data);
+  return await searchListsByQuery(data)
+    .then((res) => {
+      console.log('SEARCH_LIST_RESULT', res);
+      return {type: LIST_SEARCH_RESULT_SUCCESS, payload: res.data}
+    })
+    .catch((err) => ({type: LIST_SEARCH_RESULT_FAILURE, payload: err}));
 }

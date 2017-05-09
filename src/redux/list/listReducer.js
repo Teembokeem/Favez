@@ -21,17 +21,19 @@ import {
     LIST_SET_NEWLIST_OPTIONS,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
-    requestCreateList,
-    requestGetMyLists,
-    requestSingleList,
-    requestSendInvites,
     LIKE_UNLIKE_LIST_ITEM,
     LIKE_UNLIKE_LIST_ITEM_SUCCESS,
     LIKE_UNLIKE_LIST_ITEM_FAILURE,
     LIST_DELETE_RELATION_SUCCESS,
     LIST_DELETE_RELATION_FAILURE,
     GET_LIST_BY_RELATION_SUCCESS,
-    GET_LIST_BY_RELATION_FAILURE
+    GET_LIST_BY_RELATION_FAILURE,
+    LIST_SEARCH_RESULT_SUCCESS,
+    LIST_SEARCH_RESULT_FAILURE,
+    requestCreateList,
+    requestGetMyLists,
+    requestSingleList,
+    requestSendInvites
 } from './listActions';
 // Initial state
 const initialState = fromJS({
@@ -50,7 +52,8 @@ const initialState = fromJS({
     },
     inviteList: [],
     loading: true,
-    listByTopics: []
+    listByTopics: [],
+  searchedLists:[]
 });
 // Reducer
 export default function ListReducer(state = initialState, action = {}) {
@@ -87,12 +90,17 @@ export default function ListReducer(state = initialState, action = {}) {
         console.log('SUCCESS', state, action);
         return state.set('loading', false);
     case LIST_SET_NEWLIST_OPTIONS:
-        console.log('setting new list options: ', state.get('options'), action.payload);
-        let key = Object.keys(action.payload)[0];
-        return insertOptionParams(state, state.get('options'), key, action.payload[key]);
-    case LIST_BY_TOPIC_SUCCESS:
-        console.log('SUCCESS List By Topic', state.toJS(), action);
-        return state.set('loading', false).set('listByTopics', action.payload.data);
+      console.log('setting new list options: ', state.get('options'), action.payload);
+      let key = Object.keys(action.payload)[0];
+      return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+    case LIST_BY_TOPIC_SUCCESS:        
+        return state
+          .set('loading', false)
+          .set('listByTopics', action.payload.data);
+    case LIST_SEARCH_RESULT_SUCCESS:
+        return state
+          .set('loading', false)
+          .set('searchedLists', action.payload);
     case LIST_MYLIST_FAILURE:
     case LIST_CREATE_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
@@ -115,6 +123,9 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:
         console.log("failed subscribe list", action);
+    case LIST_SEARCH_RESULT_FAILURE:
+      console.log('ERROR', state, action);
+      return state.set('ERROR', action);
     default:
         return state;
     }

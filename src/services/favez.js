@@ -7,3 +7,7 @@ export async function getFavezAll() {
 export async function favezCreateFave(body) {
   return post('/favez', body);
 }
+
+export async function favezSearchByQuery(query) {
+  return get(`/search/favez/${query}`);
+}

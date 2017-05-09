@@ -7,7 +7,8 @@ import {
 import {
   postUser,
   updateUser,
-  getCollaborators
+  getCollaborators,
+  getUsersByQuery
 } from '../../services/user';
 
 // Actions
@@ -27,6 +28,8 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
+export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
+export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
 
 // Action creators
 export async function login(data) {
@@ -96,8 +99,18 @@ export async function findCollaborators() {
 }
 
 export async function requestCollaborators() {
-  console.log('requesting collaborators in actions')
+  console.log('requesting collaborators in actions');
   return await getCollaborators()
     .then((res) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: res.data}))
     .catch((err) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: err}));
+}
+
+export async function searchUsers(query) {
+  console.log('searching users, query='+query)
+  return await getUsersByQuery(query)
+    .then((res) => {
+      console.log('USER_SEARCH_RESULT', res);
+      return {type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}
+    })
+    .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
