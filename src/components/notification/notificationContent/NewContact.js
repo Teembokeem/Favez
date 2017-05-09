@@ -6,12 +6,13 @@ import LeftAvatar from './layout/LeftAvatar.js'
 import Center from './layout/Center.js'
 import Right from './layout/Right.js'
 import Wrapper from './layout/Wrapper.js'
+import {toDuration} from '../../../utils/timeUtils.js'
 
 export default function AcceptInvitation({notification}) {
   const {
     fromUserAvatar,
     userName = 'user name',
-    timeAgo = ''
+    created = ''
   } = notification
   return <Wrapper>
     <LeftAvatar uri={fromUserAvatar}/>
@@ -21,7 +22,7 @@ export default function AcceptInvitation({notification}) {
           {' Your contact Petra is now on favez as: '}
         </Text>
         <Text style={styles.bold}>{'@' + userName + ' '}</Text>
-        <Text style={styles.grey}>{timeAgo}</Text>
+        <Text style={styles.grey}>{toDuration(created)}</Text>
       </Text>
     </Center>
     <Right>

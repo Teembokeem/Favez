@@ -20,13 +20,13 @@ sampleNotifs = [
     rightImage: 'rightImgSample.png',
     userName: 'h3h3',
     listRef: 'MY FAVORITE GAMES',
-    timeAgo: '2m'
+    created: '2017-04-27T18:42:05.256Z'
   },
   {
     type: 2,
     fromUserAvatar: 'testimg.png',
     userName: 'indy',
-    timeAgo: '11m'
+    created: '2017-04-27T18:42:05.256Z'
   },
   {
     type: 3,
@@ -34,24 +34,23 @@ sampleNotifs = [
     rightImage: 'rightImgSample.png',
     userName: 'h3h3',
     message: 'Lorem ipsum',
-    timeAgo: '1d'
+    created: '2017-04-27T18:42:05.256Z'
   },
   {
     type: 4,
     fromUserAvatar: 'testimg.png',
     userName: 'petra',
-    timeAgo: '3d'
+    created: '2017-04-27T18:42:05.256Z'
   },
   {
     type: 5,
     fromUserAvatar: 'pewdiepie.png',
     rightImage: 'rightImgSample.png',
     userName: 'pewdiepie',
-    timeAgo: '3d'
+    created: '2017-04-27T18:42:05.256Z'
   }
 ]
 */
-
 // Initial state
 const initialState = fromJS({
   myNotifs: sampleNotifs,
