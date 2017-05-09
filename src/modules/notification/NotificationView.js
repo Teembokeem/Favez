@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import * as NotificationState from './NotificationState';
 import {
   View,
-  ScrollView,
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -11,9 +10,8 @@ import * as UIActions from '../../redux/ui/uiActions';
 import NotificationHeader from '../../components/notification/notificationHeader/notificationHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
-import Notification from '../../components/notification/notification/notification';
 import Invitation from '../../components/notification/invitation/invitation';
-
+import Alerts from './Alerts.js'
 const NotificationView = React.createClass({
   propTypes: {},
 
@@ -27,12 +25,7 @@ const NotificationView = React.createClass({
   showNotifications() {
     switch (this.props.selectedTab) {
       case 'alerts':
-        return this.props.notifications.map((notification, index) => (
-          <Notification
-            key={'notification ' + index}
-            notification={notification}
-          />
-        ));
+        return <Alerts alerts={this.props.notifications}/>
       case 'invitiations':
       default:
         return this.props.invites.map((invite, idx) => (
@@ -59,16 +52,16 @@ const NotificationView = React.createClass({
       <View style={styles.container}>
         <NotificationHeader />
         <Header title={'Notifications'}/>
-        <HeaderTabs
-          view={'notification'}
-          setFilter={this.setFilter}
-          selected={selectedTab}
-          tabs={tabs}/>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-        >
+        <View>
+          <HeaderTabs
+            view={'notification'}
+            setFilter={this.setFilter}
+            selected={selectedTab}
+            tabs={tabs}/>
+        </View>
+        <View style={{flex: 1}}>
           {this.showNotifications()}
-        </ScrollView>
+        </View>
       </View>
     );
   }
@@ -79,6 +72,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-start',
     // alignItems: 'flex-end'
+  },
+  contentContainer: {
+    flex: 1
   }
 });
 

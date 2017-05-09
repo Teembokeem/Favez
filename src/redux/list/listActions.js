@@ -170,8 +170,8 @@ export async function deleteListRelationAction(id,relationid){
   export async function getListbyRelationAction(data){
     console.log("create list by relation");
     return await getListbyRelation(data)
-.then((res)=>(type:GET_LIST_BY_RELATION_SUCCESS, payload: res))
-.catch((err)=>(type:GET_LIST_BY_RELATION_FAILURE, payload: err));
+.then((res)=>({type:GET_LIST_BY_RELATION_SUCCESS, payload: res}))
+.catch((err)=>({type:GET_LIST_BY_RELATION_FAILURE, payload: err}));
   }
 
 

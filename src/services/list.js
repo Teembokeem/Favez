@@ -3,12 +3,16 @@ import { get, post, put, del } from '../utils/api';
 export async function getListAll() {
     return get('/lists/all');
 }
+
 export async function sendLikeList(data) {
     console.log("data sendign id", data);
     return post('/favez/like', { fave_id: data });
+//return get('/lists/relationship/subscribed')
     // return post('lists/relationship',{list_id:11,relationship: 1});
 }
+
 export async function getListbyRelation(data) {
+  console.log("data list relation", data);
     return get('lists/relationship/' + data);
 }
 export async function sendUnLikeList(data) {
@@ -16,7 +20,7 @@ export async function sendUnLikeList(data) {
     return post('/favez/unlike', { fave_id: data });
 }
 
-c
+
 export async function deleteListRelation(id, relationid) {
     console.log("Delete Relation Id", id);
     console.log("relation code", relationid);
@@ -24,6 +28,8 @@ export async function deleteListRelation(id, relationid) {
 }
 export async function createlistRelation(id, relationid) {
     console.log("Create List Relation Function Called....");
+    console.log("Create  Relation Id", id);
+    console.log("create relation code", relationid);
     return post('lists/relationship/', { list_id: id, relationship: relationid });
 }
 export async function getSimilarList(id) {

@@ -33,7 +33,7 @@ import {
 // };
 
 
-function Card({card, track, moving, userAction}) {
+function Card({card, track, moving, userAction,userSubscribeAction}) {
 
 
   return (
@@ -42,6 +42,7 @@ function Card({card, track, moving, userAction}) {
           card={card}
           moving={moving}
           track={track}
+          subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,card.id)}
         />
         <CardUser
           card={card}

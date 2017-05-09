@@ -32,6 +32,19 @@ const FeedView = React.createClass({
         // Alert.alert(action);
         // Alert.alert(id);
     },
+    userSubscribe(id,action){
+      console.log("user subscribe called...");
+      console.log("Action (subscribe)", action);
+      console.log("Feed ID", id);
+      if(id=="subsrciptions"){
+        console.log("do a subscribition request..");
+        this.props.dispatch(ListActions.createlistRelationAction(action,2));
+
+      }else{
+
+      }
+
+    },
 
     toggleContextMenu() {
         this.props.dispatch(UIActions.toggleContextMenu('feed', 'header'));
@@ -71,8 +84,8 @@ const FeedView = React.createClass({
                 {this.renderModal()}
                 <FeedHeader toggleContextMenu={this.toggleContextMenu}/>
                 <ScrollView contentContainerStyle={styles.container}>
-                    {lists.map((card, idx) => (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} userAction={this.userLikeDislike}/>))}
-                </ ScrollView>
+                    {lists.map((card, idx) => (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} userSubscribeAction={this.userSubscribe} userAction={this.userLikeDislike}/>))}
+                </ScrollView>
             </View>
         );
     }

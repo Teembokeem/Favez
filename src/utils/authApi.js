@@ -5,7 +5,7 @@ import {getAuth0Token} from '../utils/authentication';
 
 const EventEmitter = require('event-emitter');
 
-const TIMEOUT = 6000;
+const TIMEOUT = 12000;
 
 /**
  * All HTTP errors are emitted on this channel for interested listeners

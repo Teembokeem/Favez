@@ -27,9 +27,9 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
                 style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
               >
               {tab.toUpperCase()}
-              </ Text>
+              </Text>
             </TouchableOpacity>
-          </ View>
+          </View>
         );
       })}
     </ScrollView>
