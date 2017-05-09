@@ -8,68 +8,113 @@ import {
   View
 } from 'react-native';
 
-function Invitation({invitation}) {
+export default function Invitation({invitation}) {
   console.log('my invitation!', invitation);
   const {created, description, id, name, owner, user} = invitation;
-  return (
-    <View
-      style={styles.InvitationContainer}
-    >
-      <View style={styles.InviteeContainer}>
-        <View style={styles.InviteeAvatarContainer}>
-          <Image style={styles.InviteeAvatar} source={user[0].f3 ? {uri: user[0].f3} : require('../../../../images/default_avatar.png')}/>
-        </View>
-        <View style={styles.InviteeTextContainer}>
-          <Text>@{owner}</Text>
-          <Text>has invited you to collaborate</Text>
-          <Text>{created}</Text>
-        </View>
-      </View>
-      <View style={styles.CommentContainer}>
-        {/*TODO WHERE IS A SPOT FOR SENDING A MESSAGE*/}
-      </View>
-      <View style={styles.ListInfoContainer}>
-        <View style={styles.ListInfoImageContainer}>
-          <Image style={styles.ListImage} source={invitation._favez ? {uri: invitation._favez[0].image} : require('../../../../images/default_list_picture.png')}/>
-        </View>
-        <View style={styles.ListInfoTextContainer}>
-          <Text>Lock Icon</Text>
-          <Text>{name}</Text>
-        </View>
-      </View>
-      <View style={styles.ActionContainer}>
-        <View style={styles.rejectButtonContainer}>
-          <TouchableOpacity>
-            <Text>X</Text>
-            <Text>Reject</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.acceptButtonContainer}>
-            <TouchableOpacity>
-              <Text>check</Text>
-              <Text>Accept</Text>
-            </TouchableOpacity>
-        </View>
+  return <View style={styles.base}>
+    
+    <View style={styles.invite}>
+        <Image style={styles.avatar} 
+          source={user[0].f3 ? {uri: user[0].f3} : require('../../../../images/default_avatar.png')}
+        />
+        
+        <Text style={styles.InviteeTextContainer}>
+          <Text style={styles.bold}>@{owner}</Text>{' '}
+          <Text style={styles.normal}>has invited you to collaborate</Text>{' '}
+          <Text style={styles.grey}>{created}</Text>
+        </Text>
+    </View>
+    
+    <View style={styles.msg}>
+        <Text style={styles.normal}>
+          Hey man, let's make a greate list together.
+        </Text>
+    </View>
+
+    <View style={styles.info}>
+      <Image style={styles.infoImg} source={invitation._favez ? {uri: invitation._favez[0].image} : require('../../../../images/default_list_picture.png')}/>
+
+      <View style={styles.infoTextWrapper}>
+        <Image style={styles.lock} source={{uri: 'lock.png'}}/>
+        <Text style={styles.bold}>{name}</Text>
       </View>
     </View>
-  );
+
+    <View style={styles.ActionContainer}>
+      <View style={styles.rejectButtonContainer}>
+        <TouchableOpacity>
+          <Text>X</Text>
+          <Text>Reject</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.acceptButtonContainer}>
+          <TouchableOpacity>
+            <Text>check</Text>
+            <Text>Accept</Text>
+          </TouchableOpacity>
+      </View>
+    </View>
+  </View>
 }
 
+const avatarSize = 55
 const styles = StyleSheet.create({
-  InvitationContainer: {
-    backgroundColor: 'transparent',
-    flex: 1,
-    flexDirection: 'row',
-    // width: 375,
-    paddingLeft: 15,
-    paddingRight: 15,
-    // height: 75,
-    overflow: 'hidden',
-    alignItems: 'center',
-    marginBottom: 5,
-    borderBottomWidth: 0.5,
+  base: {
+    //height: 200,
+    borderBottomWidth: 1,
     borderColor: '#d8d8d8'
+  },
+  invite: {
+    paddingTop: 10,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#efefef'
+  },
+  avatar: {
+    width: avatarSize,
+    height: avatarSize,
+    borderRadius: avatarSize / 2,
+    marginLeft: 10,
+    marginRight: 10
+  },
+  msg: {
+    borderBottomWidth: 1,
+    borderBottomColor: '#efefef',
+    paddingTop: 10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  info: {
+    flexDirection: 'row',
+    borderBottomWidth: 1,
+    borderBottomColor: '#efefef',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  infoTextWrapper: {
+    flexDirection: 'row'
+  },
+  infoImg: {
+    marginLeft: 10,
+    width: 60,
+    height: 60,
+    resizeMode: 'contain'
+  },
+  lock: {
+    width: 15,
+    height: 15,
+    resizeMode: 'contain'
+  },
+  normal: {
+    fontFamily: 'OpenSans'
+  },
+  bold: {
+    fontFamily: 'OpenSans-Extrabold'
+  },
+  grey: {
+    color: '#a4a4a4'
   }
 });
 
-export default Invitation;

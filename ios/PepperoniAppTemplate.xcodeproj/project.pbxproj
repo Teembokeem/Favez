@@ -49,6 +49,7 @@
 		CB3269451EC0C70700857395 /* pewdiepie.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269441EC0C70700857395 /* pewdiepie.png */; };
 		CB3269471EC0C8AD00857395 /* follow.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269461EC0C8AD00857395 /* follow.png */; };
 		CB3269491EC0CBB500857395 /* following2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269481EC0CBB500857395 /* following2.png */; };
+		CB3269631EC0E0ED00857395 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269621EC0E0ED00857395 /* lock.png */; };
 		CB9B3A371EC07A150068A440 /* testImg.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9B3A361EC07A150068A440 /* testImg.png */; };
 		DE1B3E808D534E7491C40551 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EDC7FFB304A4B26BA90D73C /* SimpleLineIcons.ttf */; };
 		F10B14A302754791AC4887C2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6448131701643E2ABD08175 /* Zocial.ttf */; };
@@ -306,6 +307,7 @@
 		CB3269441EC0C70700857395 /* pewdiepie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pewdiepie.png; path = ../images/pewdiepie.png; sourceTree = "<group>"; };
 		CB3269461EC0C8AD00857395 /* follow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = follow.png; path = ../images/follow.png; sourceTree = "<group>"; };
 		CB3269481EC0CBB500857395 /* following2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following2.png; path = ../images/following2.png; sourceTree = "<group>"; };
+		CB3269621EC0E0ED00857395 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = ../images/lock.png; sourceTree = "<group>"; };
 		CB9B3A361EC07A150068A440 /* testImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = testImg.png; path = ../images/testImg.png; sourceTree = "<group>"; };
 		D7ADCE30FFFF445FB3253808 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		EBEAA7935A254EE3BF323568 /* Hind-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Hind-Bold.ttf"; path = "../fonts/Hind-Bold.ttf"; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 		011B91B34E444EB99E8A42F9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CB3269621EC0E0ED00857395 /* lock.png */,
 				CB3269481EC0CBB500857395 /* following2.png */,
 				CB3269461EC0C8AD00857395 /* follow.png */,
 				CB3269441EC0C70700857395 /* pewdiepie.png */,
@@ -900,6 +903,7 @@
 				8CF9215C7601418A9196E9B5 /* Entypo.ttf in Resources */,
 				071590C08883478D974063E7 /* EvilIcons.ttf in Resources */,
 				CB3269491EC0CBB500857395 /* following2.png in Resources */,
+				CB3269631EC0E0ED00857395 /* lock.png in Resources */,
 				327FF4C28B304A55B8D62433 /* FontAwesome.ttf in Resources */,
 				F350D25EAB6C4B228A3A3553 /* Foundation.ttf in Resources */,
 				0B849D3D84904E6C87D62FBE /* Ionicons.ttf in Resources */,

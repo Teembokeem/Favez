@@ -15,7 +15,7 @@ import Alerts from './Alerts.js'
 const NotificationView = React.createClass({
   propTypes: {},
 
-  _componentWillMount() {
+  componentWillMount() {
     // console.log('hello', this.props);
     this.props.dispatch(NotificationActions.getNotifs()).then(
       this.props.dispatch(NotificationActions.getInvites())
