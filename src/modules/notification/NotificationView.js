@@ -1,9 +1,8 @@
-import React, {PropTypes} from 'react';
-import * as NotificationState from './NotificationState';
+import React from 'react';
 import {
   View,
-  ScrollView,
-  StyleSheet
+  StyleSheet,
+  ListView
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as NotificationActions from '../../redux/notification/notificationActions';
@@ -11,8 +10,10 @@ import * as UIActions from '../../redux/ui/uiActions';
 import NotificationHeader from '../../components/notification/notificationHeader/notificationHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
-import Notification from '../../components/notification/notification/notification';
 import Invitation from '../../components/notification/invitation/invitation';
+import Notification from '../../components/notification/notification/notification'
+
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 const NotificationView = React.createClass({
   propTypes: {},
@@ -27,20 +28,24 @@ const NotificationView = React.createClass({
   showNotifications() {
     switch (this.props.selectedTab) {
       case 'alerts':
-        return this.props.notifications.map((notification, index) => (
-          <Notification
-            key={'notification ' + index}
-            notification={notification}
-          />
-        ));
+        return <ListView
+          dataSource={ds.cloneWithRows(this.props.notifications)}
+          renderRow={(rowData) => {
+            return <Notification notification={rowData}/>
+          }}
+        />
       case 'invitiations':
       default:
-        return this.props.invites.map((invite, idx) => (
-         <Invitation
-          key={'invitation ' + idx}
-          invitation={invite}
-         />
-       ));
+        return <ListView
+          dataSource={ds.cloneWithRows(this.props.invites)}
+          renderRow={(invite) => {
+            return <Invitation
+              invitation={invite}
+              onAccept={() => this.props.onAcceptInvitation(invite.id)}
+              onReject={() => this.props.onRejectInvitation(invite.id)}
+             />
+          }}
+        />
     }
   },
   moveIntro() {
@@ -54,21 +59,22 @@ const NotificationView = React.createClass({
 
   render() {
     console.log('HI props', this.props);
-    const {notifications, invites, selectedTab, tabs} = this.props;
+    const {selectedTab, tabs} = this.props;
     return (
       <View style={styles.container}>
         <NotificationHeader />
         <Header title={'Notifications'}/>
-        <HeaderTabs
-          view={'notification'}
-          setFilter={this.setFilter}
-          selected={selectedTab}
-          tabs={tabs}/>
-        <ScrollView
-          contentContainerStyle={styles.contentContainer}
-        >
+        <View>
+          <HeaderTabs
+            view={'notification'}
+            setFilter={this.setFilter}
+            selected={selectedTab}
+            tabs={tabs}/>
+        </View>
+        <View style={{flex: 1}}>
           {this.showNotifications()}
-        </ScrollView>
+        </View>
+        <View style={{height: 40}}></View>
       </View>
     );
   }
@@ -77,8 +83,10 @@ const NotificationView = React.createClass({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    // alignItems: 'flex-end'
+    justifyContent: 'flex-start'
+  },
+  contentContainer: {
+    flex: 1
   }
 });
 
