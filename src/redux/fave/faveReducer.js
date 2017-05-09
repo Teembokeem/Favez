@@ -5,6 +5,8 @@ import {
   FAVE_CREATE_REQUEST,
   FAVE_CREATE_SUCCESS,
   FAVE_CREATE_FAILURE,
+  FAVE_SEARCH_RESULT_SUCCESS,
+  FAVE_SEARCH_RESULT_FALIURE,
   requestCreateFave
 } from './faveActions';
 
@@ -13,7 +15,8 @@ const initialState = fromJS({
   all: [],
   current: {},
   loading: true,
-  error: {}
+  error: {},
+  trendingFavez:[]
 });
 
 // Reducer
@@ -33,7 +36,12 @@ export default function FaveReducer(state = initialState, action = {}) {
       return state
         .set('loading', false)
         .set('current', {});
+    case FAVE_SEARCH_RESULT_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('trendingFavez', action.payload);
     case FAVE_CREATE_FAILURE:
+    case FAVE_SEARCH_RESULT_FALIURE:
       console.log('ERROR', action);
       return state.set('ERROR', action);
     default:

@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     paddingRight:15,
     marginBottom:10,
     marginLeft:6,
-    marginRight:6
+    marginRight:6,
+    minHeight:100
   },
   userLayout: {
     width: 86,
@@ -105,6 +106,8 @@ const styles = StyleSheet.create({
     height:120,
     width:120,
     borderRadius:5,
+    borderWidth:0.4,
+    borderColor:'#DDD'
   },
   listItemTitle: {
     fontSize:16,

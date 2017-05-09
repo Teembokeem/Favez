@@ -5,7 +5,8 @@ import {
   listGetMyLists,
   listGetSingleDetailed,
   sendInvites,
-  getListByTopic
+  getListByTopic,
+  searchListsByQuery
 } from '../../services/list';
 
 // Actions
@@ -31,6 +32,8 @@ export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
 export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
 export const LIST_BY_TOPIC_FAILURE = 'LIST_BY_TOPIC_FAILURE';
+export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
+export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
 
 // Action creators
 export function increment(cards, index) {
@@ -135,4 +138,14 @@ export async function requestListByTopic(data) {
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
     .catch((err) => ({type: LIST_BY_TOPIC_FAILURE, payload: err}));
+}
+
+export async function searchLists(data) {
+  console.log('searching list by query, query=',data);
+  return await searchListsByQuery(data)
+    .then((res) => {
+      console.log('SEARCH_LIST_RESULT', res);
+      return {type: LIST_SEARCH_RESULT_SUCCESS, payload: res.data}
+    })
+    .catch((err) => ({type: LIST_SEARCH_RESULT_FAILURE, payload: err}));
 }

@@ -33,7 +33,7 @@ const initialState = fromJS({
   value: 0,
   loading: false,
   error: {},
-  trendingUsers:[]
+  searchedUsers:[]
 });
 
 // Reducer
@@ -93,7 +93,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_SEARCH_RESULT_SUCCESS:
       return state
         .set('loading', false)
-        .set('trendingUsers', action.payload);
+        .set('searchedUsers', action.payload);
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:

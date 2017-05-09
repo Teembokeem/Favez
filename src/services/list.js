@@ -21,6 +21,10 @@ export async function getListByTopic(topic) {
   return get(`lists/taxonomy/topic/${topic.ref}`);
 }
 
+export async function searchListsByQuery(query) {
+  return get(`/search/lists/${query}`);
+}
+
 export async function listCreate(data) {
   console.log('my list', data);
   const {listData, inviteData} = data;
