@@ -51,6 +51,8 @@
 		CB3269491EC0CBB500857395 /* following2.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269481EC0CBB500857395 /* following2.png */; };
 		CB3269631EC0E0ED00857395 /* lock.png in Resources */ = {isa = PBXBuildFile; fileRef = CB3269621EC0E0ED00857395 /* lock.png */; };
 		CB9B3A371EC07A150068A440 /* testImg.png in Resources */ = {isa = PBXBuildFile; fileRef = CB9B3A361EC07A150068A440 /* testImg.png */; };
+		CBA0A7A01EC18CC50050D7D7 /* tick.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA0A79E1EC18CC50050D7D7 /* tick.png */; };
+		CBA0A7A11EC18CC50050D7D7 /* whitecross.png in Resources */ = {isa = PBXBuildFile; fileRef = CBA0A79F1EC18CC50050D7D7 /* whitecross.png */; };
 		DE1B3E808D534E7491C40551 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0EDC7FFB304A4B26BA90D73C /* SimpleLineIcons.ttf */; };
 		F10B14A302754791AC4887C2 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6448131701643E2ABD08175 /* Zocial.ttf */; };
 		F350D25EAB6C4B228A3A3553 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 909915B6F6B0438AAF741A24 /* Foundation.ttf */; };
@@ -192,13 +194,6 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
-		CB5DA2E71EBC6C400013B17A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 95436488DB024F0EA5930748 /* RNVectorIcons.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A39873CE1EA65EE60051E01A;
-			remoteInfo = "RNVectorIcons-tvOS";
-		};
 		EE2BEE5B1E2EDFEA008A6295 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 00C302BB1ABCB91800DB3ED1 /* RCTImage.xcodeproj */;
@@ -309,6 +304,8 @@
 		CB3269481EC0CBB500857395 /* following2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = following2.png; path = ../images/following2.png; sourceTree = "<group>"; };
 		CB3269621EC0E0ED00857395 /* lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = lock.png; path = ../images/lock.png; sourceTree = "<group>"; };
 		CB9B3A361EC07A150068A440 /* testImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = testImg.png; path = ../images/testImg.png; sourceTree = "<group>"; };
+		CBA0A79E1EC18CC50050D7D7 /* tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = tick.png; path = ../images/tick.png; sourceTree = "<group>"; };
+		CBA0A79F1EC18CC50050D7D7 /* whitecross.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whitecross.png; path = ../images/whitecross.png; sourceTree = "<group>"; };
 		D7ADCE30FFFF445FB3253808 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		EBEAA7935A254EE3BF323568 /* Hind-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Hind-Bold.ttf"; path = "../fonts/Hind-Bold.ttf"; sourceTree = "<group>"; };
 		ED092326CDA049839F548044 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -408,6 +405,8 @@
 		011B91B34E444EB99E8A42F9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CBA0A79E1EC18CC50050D7D7 /* tick.png */,
+				CBA0A79F1EC18CC50050D7D7 /* whitecross.png */,
 				CB3269621EC0E0ED00857395 /* lock.png */,
 				CB3269481EC0CBB500857395 /* following2.png */,
 				CB3269461EC0C8AD00857395 /* follow.png */,
@@ -562,7 +561,6 @@
 			isa = PBXGroup;
 			children = (
 				EE2BEE781E2EDFEA008A6295 /* libRNVectorIcons.a */,
-				CB5DA2E81EBC6C400013B17A /* libRNVectorIcons-tvOS.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -821,13 +819,6 @@
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		CB5DA2E81EBC6C400013B17A /* libRNVectorIcons-tvOS.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = "libRNVectorIcons-tvOS.a";
-			remoteRef = CB5DA2E71EBC6C400013B17A /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		EE2BEE5C1E2EDFEA008A6295 /* libRCTImage-tvOS.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -910,6 +901,7 @@
 				CB3269471EC0C8AD00857395 /* follow.png in Resources */,
 				76C27BBF52494A01BF642ECD /* MaterialIcons.ttf in Resources */,
 				9AD68C9FE0C44BE1812488DC /* Octicons.ttf in Resources */,
+				CBA0A7A01EC18CC50050D7D7 /* tick.png in Resources */,
 				DE1B3E808D534E7491C40551 /* SimpleLineIcons.ttf in Resources */,
 				CB3269451EC0C70700857395 /* pewdiepie.png in Resources */,
 				F10B14A302754791AC4887C2 /* Zocial.ttf in Resources */,
@@ -921,6 +913,7 @@
 				C5B3FD65E6C449D39B31626B /* MaterialCommunityIcons.ttf in Resources */,
 				7ACCD5F4E32B4E54BA843859 /* OpenSans-Bold.ttf in Resources */,
 				CAAC3D72FEAD4640B9F46D09 /* OpenSans-BoldItalic.ttf in Resources */,
+				CBA0A7A11EC18CC50050D7D7 /* whitecross.png in Resources */,
 				965EDA66A96742289ADF115E /* OpenSans-ExtraBold.ttf in Resources */,
 				3DCA0A55B44C4A2EA4E3AEB8 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				087298F1FAD0407D8AA0BF25 /* OpenSans-Italic.ttf in Resources */,

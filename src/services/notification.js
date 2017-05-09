@@ -7,3 +7,11 @@ export async function notificationGetMyNotifs() {
 export async function notificationGetInvites() {
   return get('/users/collaborate/invited');
 }
+
+export async function notificationAcceptInvitation(id) {
+  return put('users/collaborate/accept', {list_id: id})
+}
+
+export async function notificationRejectInvitation() {
+  return await Promise.resolve()
+}
