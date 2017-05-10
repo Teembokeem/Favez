@@ -20,7 +20,6 @@ const CardActions = React.createClass({
     },
 
     render() {
-        console.log("props", this.props);
         return (
             <View style={styles.cardActionContainer}>
                 <EntypoIcon style={styles.cardActionLeft} name='share'/>

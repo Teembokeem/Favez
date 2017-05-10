@@ -113,6 +113,15 @@ const styles = StyleSheet.create({
     fontSize:16,
     color: '#444',
     marginTop:6
+  },
+  noResultContainer: {
+    flex:1,
+    flexDirection:'row',
+    alignItems:'center'
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic'
   }
 });
 
