@@ -4,21 +4,36 @@ import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {StyleSheet, TouchableOpacity, Text, Image, View} from 'react-native';
 import card from './card';
 
-
-function CardHeader({card, moving, track,subscribe}) {
-  function SubscribeMe() {
-    console.log("Subscribe Me Called... ",subscribe);
-              subscribe("subsrciptions");
-  };
+function CardHeader({card, moving, track, subscribe,subscribed}) {
+  console.log("recd subs sssss", subscribed);
+    function SubscribeMe() {
+        console.log("Subscribe Me Called... ", subscribe);
+        subscribe("subsrciptions");
+    };
+    function UnsubscribeMe(){
+      console.log("UnsubscribeMe");
+      subscribe("unsubscribe");
+    }
     return (
         <View style={styles.cardHeader}>
             {/*<Image
           source={{uri: header.picture}}
           style={{width: 360, height: 50, position: 'absolute', top: 0, left: 0}}
         />*/}
+
             <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
+              { subscribed ? (
+                <TouchableOpacity  onPress={() => UnsubscribeMe()}>
+                    <IoniconIcon style={styles.cardUserUnSubscribe} name='md-person-add'/>
+                </TouchableOpacity>
+       ) : (
+         <TouchableOpacity  onPress={() => SubscribeMe()}>
+             <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
+         </TouchableOpacity>
+
+       )}
+
             <TouchableOpacity >
-                <Text onPress={() => SubscribeMe()}>Subscribe Me...</Text>
                 <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>
             </TouchableOpacity>
         </View>
@@ -58,6 +73,24 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'center'
 
+    },
+    cardUserSubscribe: {
+        backgroundColor: 'transparent',
+        color: 'black',
+        marginLeft: 30,
+        paddingTop: 10,
+        fontSize: 30,
+        flex: 1,
+        alignSelf: 'center'
+    },
+    cardUserUnSubscribe: {
+      backgroundColor: 'red',
+      color: 'black',
+      marginLeft: 30,
+      paddingTop: 10,
+      fontSize: 30,
+      flex: 1,
+      alignSelf: 'center'
     }
 });
 

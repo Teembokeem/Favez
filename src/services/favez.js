@@ -11,3 +11,7 @@ export async function favezCreateFave(body) {
 export async function favezSearchByQuery(query) {
   return get(`/search/favez/${query}`);
 }
+
+export async function getFavezSelf(){
+  return get('/favez/self');
+}

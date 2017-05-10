@@ -3,7 +3,7 @@ import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import card from './card';
-import {NavigationExperimental, StyleSheet, View, Alert} from 'react-native';
+import {NavigationExperimental,TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
 
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
@@ -25,7 +25,9 @@ const CardActions = React.createClass({
             <View style={styles.cardActionContainer}>
                 <EntypoIcon style={styles.cardActionLeft} name='share'/>
                 <FontAwesomeIcon style={styles.cardActionMiddle} name='heart'/>
-                <FontAwesomeIcon style={styles.cardActionRight} onPress={() => this.likeus()} name='thumbs-up'/>
+                <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
+                <FontAwesomeIcon style={styles.cardActionRight}  name='thumbs-up'/>
+                </TouchableOpacity>
             </View>
         );
     }
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         marginLeft: 47.5,
         marginRight: 20,
+        marginTop: 0,
         backgroundColor: 'transparent',
         color: '#b8b8b8'
     },

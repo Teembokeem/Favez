@@ -162,10 +162,11 @@ export async function createlistRelationAction(id,relationid){
 
 //Action for Delete list relationship
 export async function deleteListRelationAction(id,relationid){
-  console.log("Delete List Relaiton Called");
+  console.log("Delete List Relaiton Called",id);
+  console.log("relationid", relationid);
   return await deleteListRelation(id,relationid)
   .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res}))
-  .catch((res)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
+  .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
 }
 
 //Action for getting list by relaitonship
