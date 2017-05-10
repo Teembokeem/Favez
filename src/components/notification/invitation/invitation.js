@@ -17,7 +17,6 @@ export default function Invitation({invitation, onAccept, onReject}) {
     owner,
     message,
     image,
-
     status
   } = invitation;
 
@@ -42,7 +41,7 @@ export default function Invitation({invitation, onAccept, onReject}) {
     </View>
 
     <View style={styles.info}>
-      <Image style={styles.infoImg} source={image ? {uri: image} : require('../../../../images/default_list_picture.png')}/>
+      <Image style={styles.infoImg} source={invitation._favez ? {uri: invitation._favez[0].image} : require('../../../../images/default_list_picture.png')}/>
 
       <View style={styles.infoTextWrapper}>
         <Image style={styles.lock} source={{uri: 'lock.png'}}/>
@@ -79,13 +78,12 @@ const avatarSize = 55
 const styles = StyleSheet.create({
   base: {
     //height: 200,
-    borderBottomWidth: 5,
-    borderColor: '#f6f6f6'
+    borderBottomWidth: 1,
+    borderColor: '#d8d8d8'
   },
   invite: {
-    paddingTop: 15,
-    paddingBottom: 15,
-    paddingLeft: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     flexDirection: 'row',
     borderBottomWidth: 1,
     borderBottomColor: '#efefef'
@@ -94,6 +92,7 @@ const styles = StyleSheet.create({
     width: avatarSize,
     height: avatarSize,
     borderRadius: avatarSize / 2,
+    marginLeft: 10,
     marginRight: 10
   },
   msg: {
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#efefef',
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 15,
+    paddingLeft: 10,
     paddingRight: 10
   },
   info: {
@@ -117,10 +116,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   infoImg: {
+    marginLeft: 10,
+    marginRight: 10,
     width: 60,
     height: 60,
-    resizeMode: 'contain',
-    marginRight: 10
+    resizeMode: 'contain'
   },
   lock: {
     width: 15,
