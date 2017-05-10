@@ -31,7 +31,10 @@ const NotificationView = React.createClass({
         return <ListView
           dataSource={ds.cloneWithRows(this.props.notifications)}
           renderRow={(rowData) => {
-            return <Notification notification={rowData}/>
+            return <Notification
+              notification={rowData}
+              onPressRedirectToList={() => this.props.onPressRedirectToList(rowData.listId)}
+            />
           }}
         />
       case 'invitiations':
