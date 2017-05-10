@@ -8,7 +8,7 @@ import ListHeader from './listHeader';
 import ListBody from './listBody';
 import ListFooter from './listFooter';
 
-function List({list, user, toggleContextMenu, moving, index}) {
+function List({list, user, toggleContextMenu, moving, index, showUserProfile}) {
   const {collaborators, name, _favez, topics, tags} = list;
   return (
     <View
@@ -25,6 +25,7 @@ function List({list, user, toggleContextMenu, moving, index}) {
         creator={user}
         toggleContextMenu={toggleContextMenu}
         collaborators={collaborators ? collaborators.length : 0}
+        showUserProfile={showUserProfile}
       />
       <ListBody
         name={name}

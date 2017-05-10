@@ -31,6 +31,7 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
+export const USER_SHOW_PROFILE = 'USER_SHOW_PROFILE';
 export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS';
 export const USER_BY_ID_FALIURE = 'USER_BY_ID_FALIURE';
 
@@ -115,6 +116,13 @@ export async function searchUsers(query) {
       return {type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
+}
+
+export async function showUserProfile(userId) {
+  return {
+    type: USER_SHOW_PROFILE,
+    payload: userId
+  };
 }
 
 export async function requestOtherUserInfo(userId) {

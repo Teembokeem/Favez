@@ -28,15 +28,18 @@ const ProfileView = React.createClass({
 
     componentWillMount() {
 
-        console.log('happens after please');
-         this.props.dispatch(UserActions.requestUserInfo());
-         console.log("happens two");
-          this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        if(!this.props.userId)
+          this.props.dispatch(UserActions.requestUserInfo());
+        else
+          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
 
+        this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
     renderChildren() {
-        console.log("selectec", this.props.selected);
+        let userData = (this.props.userId)? this.props.otherUser : this.props.user;
+        console.log('PROFILE_VIEW_PROPS', this.props);
+        console.log('PROFILE_VIEW_USER_DATA', userData);
         switch (this.state.selected) {
             case 'lists':
             break;
@@ -44,11 +47,10 @@ const ProfileView = React.createClass({
             break;
             case 'subscriptions':
                 Alert.alert("Subscriptions tab Called....   ");
-                console.log('your list', this.props.user);
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
-                    <List list={list} creator={this.props.user} key={'list ' + index}></List>
+                    <List list={list} creator={userData} key={'list ' + index}></List>
                 )));
                 break;
             case 'likes':
@@ -90,7 +92,7 @@ const ProfileView = React.createClass({
 
     render() {
         const authIsSelf = true;
-        const {user} = this.props;
+        const user = (this.props.userId)? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
         return (

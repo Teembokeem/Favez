@@ -14,7 +14,7 @@ function returnText(number) {
   return number > 1 ? 's' : '';
 }
 
-function ListHeader({creator, collaborators, toggleContextMenu}) {
+function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile}) {
   const {picture, nickname} = creator;
   const semantics = returnText(collaborators);
   return (
@@ -25,7 +25,7 @@ function ListHeader({creator, collaborators, toggleContextMenu}) {
           style={styles.ListHeaderAvatar}
         />
         <Text
-          style={styles.ListHeaderUsername}
+          style={styles.ListHeaderUsername} onPress={() => showUserProfile()}
         >
           {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>

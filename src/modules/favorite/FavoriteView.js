@@ -38,6 +38,7 @@ const FavoriteView = React.createClass({
   renderListChildren(listSet, childType) {
     const {user} = this.props;
     const {auth0} = user;
+    console.log('LIST_DATA', listSet);
     switch (childType) {
       case 'list':
         return (
@@ -48,6 +49,7 @@ const FavoriteView = React.createClass({
                 moving={this.moving}
                 key={'list ' + index}
                 index={index}
+                showUserProfile={() => this.showUserProfile(auth0)}
                 toggleContextMenu={this.toggleContextMenu}
               />
           ))
@@ -69,6 +71,10 @@ const FavoriteView = React.createClass({
   },
   setFilter(view, tab) {
     this.props.dispatch(UIActions.setViewTab(view, tab));
+  },
+
+  showUserProfile(user) {
+    Actions.profile({userId:user.user_id});
   },
 
   toggleContextMenu(source) {

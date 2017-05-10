@@ -26,6 +26,7 @@ export default connect(state => {
     console.log(state.getIn(['user', 'user']))
     return {
         user: state.getIn(['user', 'user']),
+        otherUser: state.getIn(['user', 'otherUser']),
         lists: state.getIn(['list', 'myLists']),
         comments: grabComments(state.getIn(['profile', 'lists']).get('data').toJS()),
         // favez: state.getIn(['profile', 'favez']).get('data').toJS(),
