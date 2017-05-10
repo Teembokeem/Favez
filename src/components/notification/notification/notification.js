@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  StyleSheet,
   View,
   TouchableOpacity
 } from 'react-native';
@@ -25,7 +24,7 @@ export default class Notification extends React.Component {
       case 5:
         return <Liked notification={notification}/>
       default:
-        //console.warn('Unsupport notification type '+type)
+        console.warn('Unsupport notification type ' + type)
         return <View></View>
     }
   }

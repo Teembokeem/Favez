@@ -12,6 +12,6 @@ export async function notificationAcceptInvitation(id) {
   return put('users/collaborate/accept', {list_id: id})
 }
 
-export async function notificationRejectInvitation() {
-  return await Promise.resolve()
+export async function notificationRejectInvitation(id) {
+  return put('user/collaborate/reject', {list_id: id})
 }
