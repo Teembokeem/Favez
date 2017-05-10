@@ -6,15 +6,11 @@ import {
   listGetSingleDetailed,
   sendInvites,
   getListByTopic,
-<<<<<<< HEAD
   sendLikeList,
   createlistRelation,
   deleteListRelation,
-  getListbyRelation
-
-=======
+  getListbyRelation,
   searchListsByQuery
->>>>>>> prem_dev
 } from '../../services/list';
 
 // Actions
