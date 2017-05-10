@@ -9,6 +9,7 @@ import ListBody from './listBody';
 import ListFooter from './listFooter';
 
 function List({list, user, toggleContextMenu, moving, index}) {
+  console.log("user 123", user);
   const {collaborators, name, _favez, topics, tags} = list;
   return (
     <View

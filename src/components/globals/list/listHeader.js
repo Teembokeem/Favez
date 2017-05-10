@@ -15,9 +15,14 @@ function returnText(number) {
 }
 
 function ListHeader({creator, collaborators, toggleContextMenu}) {
-  const {picture, nickname} = creator;
+        console.log("Creator nickname b4 ", creator.nickname);
+  let {picture, nickname} = creator;
   const semantics = returnText(collaborators);
+      console.log("creator object: -", creator);
+      console.log("Creator nickname", nickname);
+            console.log("Creator picture", picture);
   return (
+
     <View style={styles.ListHeader}>
       <View style={styles.leftContent}>
         <Image
@@ -27,7 +32,7 @@ function ListHeader({creator, collaborators, toggleContextMenu}) {
         <Text
           style={styles.ListHeaderUsername}
         >
-          {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
+          {'@' + nickname} {collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <TouchableOpacity

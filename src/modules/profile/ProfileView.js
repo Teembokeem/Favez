@@ -43,16 +43,16 @@ const ProfileView = React.createClass({
             case 'collabs':
             break;
             case 'subscriptions':
-                Alert.alert("Subscriptions tab Called....   ");
+
                 console.log('your list', this.props.user);
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
-                    <List list={list} creator={this.props.user} key={'list ' + index}></List>
+                    <List list={list} user={this.props.user} key={'list ' + index}></List>
                 )));
                 break;
             case 'likes':
-            Alert.alert("Hello Likes.. ");
+
                 return (this.props.favez.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
                 break;
             case 'comments':
@@ -83,7 +83,7 @@ const ProfileView = React.createClass({
 
     setFilter(val,tab) {
 
-      Alert.alert(this.props.selected);
+
       this.setState({selected: tab})
         this.props.dispatch(ProfileState.setFilter(val));
     },
