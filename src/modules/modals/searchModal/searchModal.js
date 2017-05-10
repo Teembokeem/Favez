@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {debounce} from '../../../utils/timeUtils';
+import * as SearchModalState from './searchModalState';
 
 import * as UserActions from '../../../redux/user/userActions';
 import * as FavezActions from '../../../redux/fave/faveActions';
@@ -22,9 +23,9 @@ let {
 export default class extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      offset: new Animated.Value(-deviceHeight)
+      offset: new Animated.Value(-deviceHeight),
+      query:''
     };
   }
 
@@ -43,12 +44,8 @@ export default class extends React.Component {
   }
 
   handleSearchInput(text) {
-    console.log(text);
-    if(!!text) {
-      this.props.dispatch(UserActions.searchUsers(text));
-      this.props.dispatch(FavezActions.searchFavez(text));
-      this.props.dispatch(ListActions.searchLists(text));
-    }
+    this.setState({query: text})
+    if(!!text) this.props.dispatch(SearchModalState.doSearch(text));
   }
 
   cancelSearch() {
@@ -62,9 +59,7 @@ export default class extends React.Component {
                 <View style={{flex: 1}}>
                   <ScrollView>
                     {this.renderSearchBar()}
-                    {this.renderTrendingUsers()}
-                    {this.renderTrendingList()}
-                    {this.renderTrendingFaves()}
+                    {this.renderSearchResult()}
                   </ScrollView>
                 </View>
             </Animated.View>
@@ -90,6 +85,27 @@ export default class extends React.Component {
           </TouchableOpacity>
       </View>
     );
+  }
+
+  renderSearchResult() {
+    if(this.state.query && !this.props.loading) {
+      return (
+        <View style={{flex:1}}>
+        {this.renderTrendingUsers()}
+        {this.renderTrendingList()}
+        {this.renderTrendingFaves()}
+        </View>
+      );
+    } else if(this.props.loading){
+      return (
+        <View style={{flex:1}}>
+          <ActivityIndicator
+              animating={this.state.animating}
+              style={[{alignItems: 'center', justifyContent: 'center', padding: 8}]}
+              size="small" />
+        </View>
+      );
+    }
   }
 
   renderTrendingUsers() {

@@ -111,10 +111,7 @@ export async function requestCollaborators() {
 
 export async function searchUsers(query) {
   return await getUsersByQuery(query)
-    .then((res) => {
-      console.log('USER_SEARCH_RESULT', res);
-      return {type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}
-    })
+    .then((res) => ({type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}))
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
