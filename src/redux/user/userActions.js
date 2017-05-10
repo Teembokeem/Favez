@@ -8,7 +8,8 @@ import {
   postUser,
   updateUser,
   getCollaborators,
-  getUsersByQuery
+  getUsersByQuery,
+  getUserById
 } from '../../services/user';
 
 // Actions
@@ -30,6 +31,8 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
+export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS';
+export const USER_BY_ID_FALIURE = 'USER_BY_ID_FALIURE';
 
 // Action creators
 export async function login(data) {
@@ -106,11 +109,19 @@ export async function requestCollaborators() {
 }
 
 export async function searchUsers(query) {
-  console.log('searching users, query='+query)
   return await getUsersByQuery(query)
     .then((res) => {
       console.log('USER_SEARCH_RESULT', res);
       return {type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
+}
+
+export async function requestOtherUserInfo(userId) {
+  return await getUserById(userId)
+    .then((res) => {
+      console.log('USER_DATA', res);
+      return {type: USER_BY_ID_SUCCESS, payload: res.data}
+    })
+    .catch((err) => ({type: USER_BY_ID_FALIURE, payload: err}));
 }
