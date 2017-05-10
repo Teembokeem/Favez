@@ -1,6 +1,7 @@
 import React from 'react'
 import {
-  View, Text, StyleSheet, Image
+  Text, StyleSheet, Image,
+  TouchableOpacity
 } from 'react-native'
 import LeftAvatar from './layout/LeftAvatar.js'
 import Center from './layout/Center.js'
@@ -8,7 +9,10 @@ import Right from './layout/Right.js'
 import Wrapper from './layout/Wrapper.js'
 import {toDuration} from '../../../utils/timeUtils.js'
 
-export default function AcceptInvitation({notification}) {
+export default function AcceptInvitation({
+  notification,
+  onPressRedirectToList
+}) {
   const {
     fromUserAvatar,
     rightImage,
@@ -31,7 +35,9 @@ export default function AcceptInvitation({notification}) {
       </Text>
     </Center>
     <Right>
-      <Image style={styles.img} source={{uri: rightImage}}/>
+      <TouchableOpacity onPress={onPressRedirectToList}>
+        <Image style={styles.img} source={{uri: rightImage}}/>
+      </TouchableOpacity>
     </Right>
   </Wrapper>
 }
