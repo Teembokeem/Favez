@@ -2,17 +2,18 @@ import React from 'react';
 // import TabBarButton from '../components/TabBarButton';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {StyleSheet, TouchableOpacity, Text, Image, View} from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import card from './card';
 
-function CardHeader({card, moving, track, subscribe,subscribed}) {
-  console.log("recd subs sssss", subscribed);
+function CardHeader({card, moving, track, subscribe, subscribed}) {
+    console.log("recd subs sssss", subscribed);
     function SubscribeMe() {
         console.log("Subscribe Me Called... ", subscribe);
         subscribe("subsrciptions");
     };
-    function UnsubscribeMe(){
-      console.log("UnsubscribeMe");
-      subscribe("unsubscribe");
+    function UnsubscribeMe() {
+        console.log("UnsubscribeMe");
+        subscribe("unsubscribe");
     }
     return (
         <View style={styles.cardHeader}>
@@ -22,16 +23,21 @@ function CardHeader({card, moving, track, subscribe,subscribed}) {
         />*/}
 
             <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
-              { subscribed ? (
-                <TouchableOpacity  onPress={() => UnsubscribeMe()}>
-                    <IoniconIcon style={styles.cardUserUnSubscribe} name='md-person-add'/>
-                </TouchableOpacity>
-       ) : (
-         <TouchableOpacity  onPress={() => SubscribeMe()}>
-             <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
-         </TouchableOpacity>
+            {subscribed
+                ? (
+                    <TouchableOpacity onPress={() => UnsubscribeMe()}>
+                        <FontAwesome style={styles.cardUserUnSubscribe} name="bookmark" size={10} color="#fff"/>
 
-       )}
+                    </TouchableOpacity>
+                )
+                : (
+                    <TouchableOpacity onPress={() => SubscribeMe()}>
+
+                        <FontAwesome style={styles.cardUserSubscribe} name="bookmark-o" size={10} color="#fff"/>
+
+                    </TouchableOpacity>
+
+                )}
 
             <TouchableOpacity >
                 <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>
@@ -79,18 +85,18 @@ const styles = StyleSheet.create({
         color: 'black',
         marginLeft: 30,
         paddingTop: 10,
-        fontSize: 30,
+        fontSize: 20,
         flex: 1,
         alignSelf: 'center'
     },
     cardUserUnSubscribe: {
-      backgroundColor: 'red',
-      color: 'black',
-      marginLeft: 30,
-      paddingTop: 10,
-      fontSize: 30,
-      flex: 1,
-      alignSelf: 'center'
+
+        color: 'black',
+        marginLeft: 30,
+        paddingTop: 10,
+        fontSize: 20,
+        flex: 1,
+        alignSelf: 'center'
     }
 });
 

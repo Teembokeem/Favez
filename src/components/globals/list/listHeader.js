@@ -1,6 +1,7 @@
 import React from 'react';
 // import TabBarButton from '../components/TabBarButton';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
+import FontAwesome  from 'react-native-vector-icons/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {StyleSheet, Text, TouchableOpacity, Image, View} from 'react-native';
 

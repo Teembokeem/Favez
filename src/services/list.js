@@ -24,7 +24,9 @@ export async function sendUnLikeList(data) {
 export async function deleteListRelation(id, relationid) {
     console.log("Delete Relation Id", id);
     console.log("relation code", relationid);
-    return del('lists/relationship', { list_id: id, relationship: relationid });
+    // return del('lists/relationship', { list_id: id, relationship: relationid });
+      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
+
 }
 export async function createlistRelation(id, relationid) {
     console.log("Create List Relation Function Called....");
