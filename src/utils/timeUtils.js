@@ -27,3 +27,11 @@ export function showSubscribedlists(lists, subscribedlists) {
     }
     return new_arr;
 }
+
+export function showFollowedlists(lists,followedlists){
+  var new_arr =[];
+  for (var i = 0; i < followedlists.length; i++) {
+      new_arr.push(followedlists[i].id);
+  }
+  return new_arr;
+}

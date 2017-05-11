@@ -12,5 +12,8 @@ export default connect(state => {
         // headerContextMenu: state.getIn(['feed', 'header'])
         // cards: state.getIn(['feed', 'cards']).get('data').toJS(),
         // loading: state.getIn(['feed', 'loading'])
+        followedusers: state.getIn(['user', 'followedusers']),
+        user: state.getIn(['user', 'user']),
+        recentFollowedUser: state.getIn(['user','recentFollowedUser']).toJS()
     };
 })(FeedView);

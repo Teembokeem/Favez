@@ -23,7 +23,12 @@ import {
     requestUserUpdate,
     requestRegister,
     createUser,
+
+    followuserAction,
+    unfollowuserAction,
     requestCollaborators,
+    FOLLOW_USER,
+UNFOLLOW_USER,
     FOLLOW_USER_SUCCESS,
     FOLLOW_USER_FAILURE,
     UNFOLLOW_USER_SUCCESS,
@@ -39,7 +44,11 @@ const initialState = fromJS({
     loading: false,
     error: {},
     searchedUsers: [],
-    followedusers: []
+    followedusers: [],
+    recentFollowedUser:{
+      id:-1,
+      status: false
+    }
 });
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
@@ -83,14 +92,23 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_SUCCESS:
         console.log('SUCCESS!', action.payload)
         return state.set('loading', false).set('user', action.payload);
+        case FOLLOW_USER:
+        console.log("Follow user called 11");
+            return loop(state.setIn(['recentFollowedUser','id'], action.payload),
+            Effects.promise(() => followuserAction(action.payload)));
+            case UNFOLLOW_USER:
+                return loop(state.setIn(['recentFollowedUser','id'], action.payload),
+                Effects.promise(() => unfollowuserAction(action.payload)));
     case FOLLOW_USER_SUCCESS:
-        return state.set('followedusers', action.payload);
+    console.log("User follow success", action.payload);
+        return state.setIn(['recentFollowedUser','status'],true);
     case FOLLOW_USER_FAILURE:
     case UNFOLLOW_USER_SUCCESS:
-        return state.set('followedusers', action.payload);
+        return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:
     case GET_FOLLOWING_LIST_SUCCESS:
-        return state.set('followedusers', action.payload);
+    console.log("following users list followedusers", action.payload);
+        return state.set('followedusers', action.payload.data);
     case GET_FOLLOWING_LIST_FAILURE:
     default:
         return state;

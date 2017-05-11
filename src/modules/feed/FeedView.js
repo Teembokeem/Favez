@@ -1,6 +1,8 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
+import * as userActions from '../../redux/user/userActions';
 import * as UIActions from '../../redux/ui/uiActions';
+import * as FeedState from './FeedState';
 
 import {View, ScrollView, StyleSheet, Alert} from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -9,16 +11,19 @@ import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 import * as FavezActions from '../../redux/fave/faveActions';
 import {showSubscribedlists} from '../../utils//timeUtils';
+import {showFollowedlists} from '../../utils/timeUtils';
 
-const subscribedListsIds=[];
-
+const subscribedListsIds = [];
+const followedListsIds= [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
+      console.log("prrr", this.props.user.favez.id);
         this.props.dispatch(ListActions.getFullList());
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
 
     },
     componentDidMount() {},
@@ -45,6 +50,22 @@ const FeedView = React.createClass({
         }
         if (id == "unsubscribe") {
             this.props.dispatch(ListActions.deleteListRelationAction(action, 2));
+        }
+
+    },
+    userFollow(id, action) {
+        if (id == "follow") {
+            console.log("do a follow request..", id);
+            console.log("action value", action);
+            this.props.dispatch(FeedState.followUser(action));
+
+
+        }
+        if (id == "unfollow") {
+            console.log("do a UNfollow request..", id);
+            console.log("action vAlue", action);
+
+            this.props.dispatch(FeedState.unFollowUser(action));
         }
 
     },
@@ -78,13 +99,19 @@ const FeedView = React.createClass({
     },
 
     render() {
-        const {lists, subscribedlists} = this.props;
+        const {lists, subscribedlists, followedusers} = this.props;
+                  console.log("followed lists ini", followedusers);
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
 
             console.log("listsvhuhv hvfuh ", lists);
             console.log("Unsubscribed list...", subscribedlists);
-            subscribedListsIds=showSubscribedlists(lists, subscribedlists);
+            subscribedListsIds = showSubscribedlists(lists, subscribedlists);
+        }
+        if( followedusers.length > 0){
+          console.log("all lists", lists);
+          console.log("followed lists", followedusers);
+          followedListsIds = showFollowedlists(lists,followedusers);
         }
         return (
 
@@ -100,24 +127,24 @@ const FeedView = React.createClass({
             </View>
         );
     },
-    renderCard(card, idx){
+    renderCard(card, idx) {
 
-console.log("index of eleme",subscribedListsIds.indexOf(card.id));
-if(subscribedListsIds.indexOf(card.id) >-1)
-subscribed=true;
-else subscribed= false;
-console.log("card id ", card.id);
-console.log("subsc d", subscribedListsIds);
-console.log("subsctibe status", subscribed);
-      return(
-        <Card key={'feed ' + idx}
-          card={card}
-          track={idx}
-          moving={this.moving}
-          subscribed={subscribed}
-          userSubscribeAction={this.userSubscribe}
-          userAction={this.userLikeDislike}/>
-      );
+        console.log("index of eleme", subscribedListsIds.indexOf(card.id));
+        console.log("pross det123",this.props.recentFollowedUser);
+        if (subscribedListsIds.indexOf(card.id) > -1)
+            subscribed = true;
+        else
+            subscribed = false;
+            if(followedListsIds.indexOf(card.owner)> -1 || (this.props.recentFollowedUser.status==true && this.props.recentFollowedUser.id==card.owner)) 
+            followed = true;
+            else
+            followed = false;
+
+
+        console.log("card id ", card.id);
+        console.log("subsc d", subscribedListsIds);
+        console.log("subsctibe status", subscribed);
+        return (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} subscribed={subscribed} followed={followed} userSubscribeAction={this.userSubscribe} userFollowAction={this.userFollow} userAction={this.userLikeDislike}/>);
     }
 });
 

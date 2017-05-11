@@ -34,6 +34,8 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
 export const FOLLOW_USER_FAILURE = 'FOLLOW_USER_FAILURE';
 export const UNFOLLOW_USER_SUCCESS =  'UNFOLLOW_USER_SUCCESS';
@@ -127,25 +129,25 @@ export async function searchUsers(query) {
 
 
 
-export async function followuserAction() {
+export async function followuserAction(data) {
   console.log('follow a user in actions');
-  return await followuser()
+  return await followuser(data)
     .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res }))
     .catch((err) => ({type: FOLLOW_USER_FAILURE, payload: err }));
 }
 
 // Unfollow a User
-export async function unfollowuserAction() {
+export async function unfollowuserAction(data) {
     console.log('unfollow a user in actions');
-  return await unfollowuser()
+  return await unfollowuser(data)
     .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
     .catch((err) => ({type: UNFOLLOW_USER_FAILURE, payload: err}));
 }
 
 //Get List of users you are Following
-export async function getlistofuserfolowingAction() {
+export async function getlistofuserfolowingAction(data) {
   console.log('Get List of followers in action in actions');
-  return await getlistuserfollowing()
+  return await getlistuserfollowing(data)
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
 }
