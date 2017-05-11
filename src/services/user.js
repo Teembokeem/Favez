@@ -26,7 +26,6 @@ export async function getSimilarList(id) {
   return await get('/lists/similar/' + id);
 }
 
-
 export async function getCollaborators() {
   console.log('api fetching data')
   return await get('/users/all');
@@ -37,5 +36,5 @@ export async function getUsersByQuery(query) {
 }
 
 export async function getUserById(userId) {
-  return get(`/user/id/${userId}`);
+  return get(`/users/id/${userId}`);
 }

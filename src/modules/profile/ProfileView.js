@@ -31,7 +31,7 @@ const ProfileView = React.createClass({
         if(!this.props.userId)
           this.props.dispatch(UserActions.requestUserInfo());
         else
-          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
+          this.props.dispatch(UserActions.showUserProfile(27));
 
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
@@ -91,8 +91,8 @@ const ProfileView = React.createClass({
     },
 
     render() {
-        const authIsSelf = true;
-        const user = (this.props.userId)? this.props.otherUser : this.props.user;
+        const authIsSelf = (this.props.userId)? false : true;
+        const user = (this.props.userId)? this.props.otherUser : this.props.user.favez;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
         return (

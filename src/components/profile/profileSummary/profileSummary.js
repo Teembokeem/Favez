@@ -8,10 +8,13 @@ import {
   TouchableOpacity
 } from 'react-native';
 
+import DefaultUserImage from '../../../../images/default-user-image.png';
+
 function ProfileSummary({user}) {
-  const {auth0, favez} = user;
-  const {picture} = auth0;
-  const {id, displayname, username, profile, followers, following} = favez;
+  //const {auth0, favez} = user;
+  //const {picture} = auth0;
+  const {id, displayname, username, profile, followers, following, image} = user;
+  const userImage = image ? { uri: image } : DefaultUserImage;
   return (
   <View style={styles.ProfileSummaryContainer}>
       <View
@@ -26,7 +29,7 @@ function ProfileSummary({user}) {
         <TouchableOpacity
             style={styles.ProfileSummaryRow1CenterContent}
         >
-          <Image style={styles.ProfileSummaryRow1Avatar} source={{uri: picture}}/>
+          <Image style={styles.ProfileSummaryRow1Avatar} source={userImage}/>
         </TouchableOpacity>
         <TouchableOpacity
             style={styles.ProfileSummaryRow1RightContent}
