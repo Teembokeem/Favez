@@ -23,7 +23,11 @@ import {
   requestUserUpdate,
   requestRegister,
   createUser,
-  requestCollaborators
+  requestCollaborators,
+  UPLOAD_USER_IMAGE_START,
+  UPLOAD_USER_IMAGE_SUCCESS,
+  UPLOAD_USER_IMAGE_FAIL,
+  UPLOAD_USER_IMAGE_PREFETCHED
 } from './userActions';
 
 // Initial state
@@ -39,6 +43,50 @@ const initialState = fromJS({
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case UPLOAD_USER_IMAGE_START: {
+      const user = state.get('user')
+      return state.set('user', {
+        ...user,
+        favez: {
+          ...user.favez,
+          backupImage: user.favez.image ? user.favez.image : user.auth0.picture,
+          //image: action.image,
+          imageStatus: 'uploading'
+        }
+      })
+    }
+    case UPLOAD_USER_IMAGE_SUCCESS: {
+      const user = state.get('user')
+      return state.set('user', {
+        ...user,
+        favez: {
+          ...user.favez,
+          imageStatus: 'prefetching',
+          image: action.image
+        }
+      })
+    }
+    case UPLOAD_USER_IMAGE_FAIL: {
+      const user = state.get('user')
+      return state.set('user', {
+        ...user,
+        favez: {
+          ...user.favez,
+          image: user.favez.backupImage,
+          imageStatus: 'uploadFailed'
+        }
+      })
+    }
+    case UPLOAD_USER_IMAGE_PREFETCHED: {
+      const user = state.get('user')
+      return state.set('user', {
+        ...user,
+        favez: {
+          ...user.favez,
+          imageStatus: 'prefetched'
+        }
+      })
+    }
     case USER_UPDATE_REQUEST:
       return loop(
         state.set('loading', true),

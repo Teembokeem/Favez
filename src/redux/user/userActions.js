@@ -10,6 +10,9 @@ import {
   getCollaborators,
   getUsersByQuery
 } from '../../services/user';
+var ImagePicker = require('react-native-image-picker');
+import * as cloudinary from '../../services/cloudinary'
+import {Alert, Image} from 'react-native'
 
 // Actions
 export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
@@ -113,4 +116,78 @@ export async function searchUsers(query) {
       return {type: USER_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
+}
+
+export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
+export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"
+export const UPLOAD_USER_IMAGE_FAIL = "UPLOAD_USER_IMAGE_FAIL"
+export const UPLOAD_USER_IMAGE_PREFETCHED = "UPLOAD_USER_IMAGE_PREFETCHED"
+/**
+ *  onUploading: function (base64ImageUri){} : pass this callback to handle
+ */
+export function pickProfileImage(onUploading, onUploaded) {
+  return dispatch => {
+    var options = {
+      title: 'Select Profile Image',
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    //step 1: show options to take or select photos
+    ImagePicker.showImagePicker(options, (response) => {
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+
+        const imageUri = 'data:image/jpeg;base64,' + response.data
+
+        dispatch({
+          type: UPLOAD_USER_IMAGE_START
+        })
+        //step 2: Show token/selected image
+        if (onUploading) {
+          onUploading(imageUri)
+        }
+        //step 3: upload to cloudinary
+        cloudinary.uploadImage(imageUri).then((data) => {
+          const {url} = data
+
+          //step 4: save image url returned from cloudinary to favez server
+          updateUser({image: url})
+          .then(() => {
+
+            dispatch({
+              type: UPLOAD_USER_IMAGE_SUCCESS,
+              image: url
+            })
+
+            //step 5: prefetch image from cloudinary's url
+            Image.prefetch(url).then(() => {
+              dispatch({
+                type: UPLOAD_USER_IMAGE_PREFETCHED
+              })
+              if (onUploaded) onUploaded(true)
+            })
+          }, () => {
+            dispatch({type: UPLOAD_USER_IMAGE_FAIL})
+            if (onUploaded) onUploaded(false)
+            Alert.alert('Fail to upload profile image. Please try again later!')
+          })
+        }, () => {
+          dispatch({type: UPLOAD_USER_IMAGE_FAIL})
+        })
+      }
+    });
+  }
 }

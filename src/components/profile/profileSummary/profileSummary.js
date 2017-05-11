@@ -12,59 +12,76 @@ import {
 const renderIf = cond => elm => cond ? elm : null
 function ProfileSummary({
   user,
-  avatarSource,
-  selectProfileImage,
-  onPickImageForProfile,
-  uploadImageStatus
+  onPickProfileImage,
+  uploadingProfileImage
 }) {
   const {auth0, favez} = user;
   const {picture} = auth0;
-  const {id, displayname, username, profile, followers, following} = favez;
+  const {
+    //id,
+    displayname,
+    username,
+    profile,
+    followers,
+    following,
+    image,
+    imageStatus
+  } = favez;
   return (
   <View style={styles.ProfileSummaryContainer}>
-      <View
-        style={styles.ProfileSummaryRow1}
+    <View
+      style={styles.ProfileSummaryRow1}
+    >
+      <TouchableOpacity
+          style={styles.ProfileSummaryRow1LeftContent}
       >
-        <TouchableOpacity
-            style={styles.ProfileSummaryRow1LeftContent}
-        >
-          <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers.length.toString() : 0}</Text>
-          <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPickImageForProfile}
-          style={styles.ProfileSummaryRow1CenterContent}
-        >
-          <View style={styles.avatarView}>
-            <Image
-              style={styles.ProfileSummaryRow1Avatar}
-              source={selectProfileImage ? avatarSource : {uri: picture}}
+        <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers.length.toString() : 0}</Text>
+        <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={onPickProfileImage}
+        style={styles.ProfileSummaryRow1CenterContent}
+      >
+        <View style={styles.avatarView}>
+          <Image
+            style={styles.ProfileSummaryRow1Avatar}
+            source={{uri: getImageUri(imageStatus, image, picture, uploadingProfileImage)}}
+          />
+          {renderIf(imageStatus === 'uploading' || imageStatus === 'prefetching')(<View style={styles.indicatorWrapper}>
+            <ActivityIndicator
+              animating={true}
+              style={[styles.indicator, {height: 90}]}
+              size={'large'}
             />
-            {renderIf(uploadImageStatus === 'uploading')(<View style={styles.indicatorWrapper}>
-              <ActivityIndicator
-                animating={ true }
-                style={[styles.indicator, {height: 90}]}
-                size={'large'}
-              />
-            </View>)}
-          </View>
-        </TouchableOpacity>
+          </View>)}
+        </View>
+      </TouchableOpacity>
 
-        <TouchableOpacity
-            style={styles.ProfileSummaryRow1RightContent}
-        >
-          <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 0}</Text>
-          <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
-        </TouchableOpacity>
-      </View>
-      <View style={styles.ProfileSummaryRow2}>
-        <Text style={styles.ProfileSummaryRow2Username}>{'@' + username}</Text>
-        <Text style={styles.ProfileSummaryRow2Name}>{displayname}</Text>
-        <View style={styles.ProfileSummaryRow2Bar}></View>
-        <Text style={styles.ProfileSummaryRow2Caption}>{profile}</Text>
-      </View>
+      <TouchableOpacity
+          style={styles.ProfileSummaryRow1RightContent}
+      >
+        <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 0}</Text>
+        <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
+      </TouchableOpacity>
+    </View>
+    <View style={styles.ProfileSummaryRow2}>
+      <Text style={styles.ProfileSummaryRow2Username}>{'@' + username}</Text>
+      <Text style={styles.ProfileSummaryRow2Name}>{displayname}</Text>
+      <View style={styles.ProfileSummaryRow2Bar}></View>
+      <Text style={styles.ProfileSummaryRow2Caption}>{profile}</Text>
+    </View>
   </View>
   );
+}
+
+function getImageUri(imageStatus, favezImage, auth0Picture, uploadingProfileImage) {
+  if (imageStatus === 'uploading' || imageStatus === 'prefetching') {
+    return uploadingProfileImage
+  }
+  if (favezImage) {
+    return favezImage
+  }
+  return auth0Picture
 }
 
 const styles = StyleSheet.create({

@@ -5,7 +5,7 @@ import middleware from './middleware';
 import reducer from './reducer';
 
 const composeEnhancers = composeWithDevTools({
-    hostname: '192.168.1.74',//getPackagerHostName(),
+    hostname: getPackagerHostName(),
     port: 8000
 });
 

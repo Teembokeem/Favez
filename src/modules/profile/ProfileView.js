@@ -17,8 +17,6 @@ import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list';
 import * as ListActions from '../../redux/list/listActions';
-var ImagePicker = require('react-native-image-picker');
-import * as cloudinary from '../../services/cloudinary'
 
 const ProfileView = React.createClass({
     propTypes: {},
@@ -83,56 +81,28 @@ const ProfileView = React.createClass({
     },
 
     setFilter(val,tab) {
-
       Alert.alert(this.props.selected);
       this.setState({selected: tab})
         this.props.dispatch(ProfileState.setFilter(val));
     },
 
-    pickImageForProfile(){
-        var options = {
-          title: 'Select Avatar',
-          customButtons: [],
-          storageOptions: {
-            skipBackup: true,
-            path: 'images'
-          }
-        };
-        ImagePicker.showImagePicker(options, (response) => {
-          console.log('Response = ', response);
+    onPickProfileImage(){
+        this.props.onPickProfileImage(
+          this.onUploadingImage,
+          this.onUploadedImage
+        )
+    },
 
-          if (response.didCancel) {
-            console.log('User cancelled image picker');
-          }
-          else if (response.error) {
-            console.log('ImagePicker Error: ', response.error);
-          }
-          else if (response.customButton) {
-            console.log('User tapped custom button: ', response.customButton);
-          }
-          else {
-            let source = { uri: 'data:image/jpeg;base64,' + response.data }//{ uri: response.uri };
+    onUploadingImage(imageUri) {
+        this.setState({
+            uploadingProfileImage: imageUri
+        })
+    },
 
-            cloudinary.uploadImage(source.uri).then((data) => {
-              const {url} = data
-
-              //TODO handle url
-
-              this.setState({
-                uploadImageStatus: 'done'
-              })
-            })
-
-            // You can also display the image using data:
-            // let source = { uri: 'data:image/jpeg;base64,' + response.data };
-
-            this.setState({
-              uploadImageStatus: 'uploading',
-              selectProfileImage: true,
-              avatarSource: source
-            });
-          }
-        });
+    onUploadedImage() {
+        this.setState({
+            uploadingProfileImage: null
+        })
     },
 
     render() {
@@ -140,21 +110,16 @@ const ProfileView = React.createClass({
         const {user} = this.props;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
-        const {
-          avatarSource, 
-          selectProfileImage,
-          uploadImageStatus
-        } = this.state
+        const {uploadingProfileImage} = this.state
+
         return (
             <View style={styles.container}>
                 <ScrollView>
                     <ProfileHeader/>
                     <ProfileSummary
                       user={user}
-                      avatarSource={avatarSource}
-                      uploadImageStatus={uploadImageStatus}
-                      selectProfileImage={selectProfileImage}
-                      onPickImageForProfile={this.pickImageForProfile}
+                      onPickProfileImage={this.onPickProfileImage}
+                      uploadingProfileImage={uploadingProfileImage}
                     />
                     <ProfileActions self={authIsSelf}/>
                     <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>

@@ -23,5 +23,6 @@ export async function uploadImage(image) {
     }
 
     alert(response.status + ' error on upload image profile:' + err)
+    return Promise.reject()
   }
 }
