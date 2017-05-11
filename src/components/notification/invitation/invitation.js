@@ -41,7 +41,7 @@ export default function Invitation({invitation, onAccept, onReject}) {
     </View>
 
     <View style={styles.info}>
-      <Image style={styles.infoImg} source={invitation._favez ? {uri: invitation._favez[0].image} : require('../../../../images/default_list_picture.png')}/>
+      <Image style={styles.infoImg} source={image ? {uri: image} : require('../../../../images/default_list_picture.png')}/>
 
       <View style={styles.infoTextWrapper}>
         <Image style={styles.lock} source={{uri: 'lock.png'}}/>
