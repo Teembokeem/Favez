@@ -1,6 +1,7 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
 import * as UIActions from '../../redux/ui/uiActions';
+<<<<<<< HEAD
 import {View, ScrollView, StyleSheet, Alert} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import Card from '../../components/globals/card/card';

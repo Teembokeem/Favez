@@ -4,6 +4,8 @@ import {
   acceptInvitation,
   rejectInvitation
 } from '../../redux/notification/notificationActions'
+import * as ListActions from '../../redux/list/listActions';
+import {Actions} from 'react-native-router-flux';
 
 export default connect(state => ({
   notifications: state.getIn(['notification', 'myNotifs']).toJS(),
@@ -14,5 +16,13 @@ export default connect(state => ({
 }), dispatch => ({
   dispatch,
   onAcceptInvitation: (id) => dispatch(acceptInvitation(id)),
-  onRejectInvitation: (id) => dispatch(rejectInvitation(id))
+  onRejectInvitation: (id) => dispatch(rejectInvitation(id)),
+  onPressRedirectToList: (listId) => {
+    if (!listId) {
+      console.warn('No list id found.')
+      return
+    }
+    dispatch(ListActions.getDetailedList(listId))
+    .then(() => Actions.listShow())
+  }
 }))(NotificationView)
