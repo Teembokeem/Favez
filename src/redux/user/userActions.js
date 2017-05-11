@@ -127,7 +127,7 @@ export async function searchUsers(query) {
 
 
 
-export async function followuser() {
+export async function followuserAction() {
   console.log('follow a user in actions');
   return await followuser()
     .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res }))
@@ -135,7 +135,7 @@ export async function followuser() {
 }
 
 // Unfollow a User
-export async function unfollowuser() {
+export async function unfollowuserAction() {
     console.log('unfollow a user in actions');
   return await unfollowuser()
     .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
@@ -143,7 +143,7 @@ export async function unfollowuser() {
 }
 
 //Get List of users you are Following
-export async function getlistofuserfolowing() {
+export async function getlistofuserfolowingAction() {
   console.log('Get List of followers in action in actions');
   return await getlistuserfollowing()
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
