@@ -5,10 +5,18 @@ import {
   View,
   Text,
   Image,
-  TouchableOpacity
+  TouchableOpacity,
+  ActivityIndicator
 } from 'react-native';
 
-function ProfileSummary({user}) {
+const renderIf = cond => elm => cond ? elm : null
+function ProfileSummary({
+  user,
+  avatarSource,
+  selectProfileImage,
+  onPickImageForProfile,
+  uploadImageStatus
+}) {
   const {auth0, favez} = user;
   const {picture} = auth0;
   const {id, displayname, username, profile, followers, following} = favez;
@@ -24,10 +32,24 @@ function ProfileSummary({user}) {
           <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
-            style={styles.ProfileSummaryRow1CenterContent}
+          onPress={onPickImageForProfile}
+          style={styles.ProfileSummaryRow1CenterContent}
         >
-          <Image style={styles.ProfileSummaryRow1Avatar} source={{uri: picture}}/>
+          <View style={styles.avatarView}>
+            <Image
+              style={styles.ProfileSummaryRow1Avatar}
+              source={selectProfileImage ? avatarSource : {uri: picture}}
+            />
+            {renderIf(uploadImageStatus === 'uploading')(<View style={styles.indicatorWrapper}>
+              <ActivityIndicator
+                animating={ true }
+                style={[styles.indicator, {height: 90}]}
+                size={'large'}
+              />
+            </View>)}
+          </View>
         </TouchableOpacity>
+
         <TouchableOpacity
             style={styles.ProfileSummaryRow1RightContent}
         >
@@ -127,8 +149,20 @@ const styles = StyleSheet.create({
     fontFamily: 'Hind-Regular',
     fontSize: 14,
     color: '#b8b8b8'
+  },
+  avatarView: {
+    width: 90,
+    height: 90
+  },
+  indicatorWrapper: {
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0
+  },
+  indicator: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8
   }
-
 });
 
 export default ProfileSummary;
