@@ -72,14 +72,15 @@ const FavoriteView = React.createClass({
   },
 
   showUserProfile(user) {
-    switch (this.props.selectedTab) {
-      case 'your lists':
-      case 'liked':
-        Actions.profile();
-        break;
-      case 'collabs':
-        Actions.profile({userId:user.id});
-    }
+    // switch (this.props.selectedTab) {
+    //   case 'your lists':
+    //   case 'liked':
+    //     Actions.profile();
+    //     break;
+    //   case 'collabs':
+    //     Actions.profile({userId:user.id});
+    // }
+    Actions.profile({userId:29});
   },
 
   toggleContextMenu(source) {

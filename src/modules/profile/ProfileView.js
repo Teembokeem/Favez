@@ -31,7 +31,7 @@ const ProfileView = React.createClass({
         if(!this.props.userId)
           this.props.dispatch(UserActions.requestUserInfo());
         else
-          this.props.dispatch(UserActions.showUserProfile(27));
+          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
 
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
