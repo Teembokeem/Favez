@@ -10,15 +10,7 @@ const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'transparent',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flex: 1
   },
   feedNavHeader: {
     alignItems: 'center',
@@ -27,6 +19,11 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     paddingTop: STATUSBAR_HEIGHT,
     height: APPBAR_HEIGHT + STATUSBAR_HEIGHT * 2
+  },
+  contentContainer: {
+    flex:1,
+    height: deviceHeight - (APPBAR_HEIGHT + STATUSBAR_HEIGHT * 2),
+    alignItems:'center'
   },
   headerRightButtonText: {
     fontSize: 16,
@@ -122,6 +119,22 @@ const styles = StyleSheet.create({
   noResultText: {
     fontSize:16,
     fontStyle:'italic'
+  },
+  loader: {
+    flex:1,
+    alignSelf: 'center'
+  },
+  defaultTextContainer: {
+    flex: 1,
+    height: 120,
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  defaultText: {
+    fontSize:18,
+    paddingLeft:50,
+    paddingRight: 50,
+    textAlign:'center'
   }
 });
 

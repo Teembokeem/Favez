@@ -90,7 +90,7 @@ export default class extends React.Component {
   renderSearchResult() {
     if(this.state.query && !this.props.loading) {
       return (
-        <View style={{flex:1}}>
+        <View style={styles.contentContainer}>
         {this.renderTrendingUsers()}
         {this.renderTrendingList()}
         {this.renderTrendingFaves()}
@@ -98,11 +98,17 @@ export default class extends React.Component {
       );
     } else if(this.props.loading){
       return (
-        <View style={{flex:1}}>
+        <View style={styles.contentContainer}>
           <ActivityIndicator
               animating={this.state.animating}
-              style={[{alignItems: 'center', justifyContent: 'center', padding: 8}]}
+              style={styles.loader}
               size="small" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.defaultTextContainer}>
+          <Text style={styles.defaultText}>Search Trending Users, Trending Lists, Trending Faves</Text>
         </View>
       );
     }
