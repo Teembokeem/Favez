@@ -223,7 +223,7 @@ export function pickProfileImage(onUploading, onUploaded) {
 
 
 export async function followuserAction(data) {
-  console.log('follow a user in actions');
+  console.log('follow a user in actions',data);
   return await followuser(data)
     .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res }))
     .catch((err) => ({type: FOLLOW_USER_FAILURE, payload: err }));

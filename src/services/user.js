@@ -40,6 +40,7 @@ export async function getUserById(userId) {
 }
 
 export async function followuser(data){
+  console.log("following users id ", data);
   return post('/users/follow',{ following_id: data });
 }
 

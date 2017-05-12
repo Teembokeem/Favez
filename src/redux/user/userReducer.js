@@ -169,6 +169,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     console.log("User follow success", action.payload);
         return state.setIn(['recentFollowedUser','status'],true);
     case FOLLOW_USER_FAILURE:
+    console.log("user follow success failed", action.payload);
     case UNFOLLOW_USER_SUCCESS:
         return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:

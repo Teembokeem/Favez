@@ -24,7 +24,7 @@ function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile}
         <Text
           style={styles.ListHeaderUsername} onPress={() => showUserProfile()}
         >
-          {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
+          {'@' + "AJ" }{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <TouchableOpacity

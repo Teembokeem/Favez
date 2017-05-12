@@ -10,11 +10,11 @@ import Card from '../../components/globals/card/card';
 import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 import * as FavezActions from '../../redux/fave/faveActions';
-import {showSubscribedlists} from '../../utils//timeUtils';
-import {showFollowedlists} from '../../utils/timeUtils';
+import { showSubscribedlists, showFollowedlists, addrecentClickedFollow, checkOwnerIdinFollowList } from '../../utils/userFollow';
+
 
 const subscribedListsIds = [];
-const followedListsIds= [];
+let followedListsIds= [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
@@ -23,7 +23,7 @@ const FeedView = React.createClass({
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-        // this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
+         this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
 
     },
     componentDidMount() {},
@@ -111,7 +111,14 @@ const FeedView = React.createClass({
         if( followedusers.length > 0){
           console.log("all lists", lists);
           console.log("followed lists", followedusers);
-          followedListsIds = showFollowedlists(lists,followedusers);
+          followedListsIds = showFollowedlists(followedusers);
+          console.log("results new arr of obj21", followedListsIds);
+        }
+        if(this.props.recentFollowedUser.id > -1){
+          console.log("new pushed latest array old", followedListsIds);
+        followedListsIds=   addrecentClickedFollow(followedListsIds,this.props.recentFollowedUser);
+
+          console.log("new pushed latest array: ", followedListsIds);
         }
         return (
 
@@ -131,14 +138,14 @@ const FeedView = React.createClass({
 
         console.log("index of eleme", subscribedListsIds.indexOf(card.id));
         console.log("pross det123",this.props.recentFollowedUser);
+        followed = checkOwnerIdinFollowList(followedListsIds,card.owner);
+        console.log("569op in view result", followed);
         if (subscribedListsIds.indexOf(card.id) > -1)
             subscribed = true;
         else
             subscribed = false;
-            if(followedListsIds.indexOf(card.owner)> -1 || (this.props.recentFollowedUser.status==true && this.props.recentFollowedUser.id==card.owner)) 
-            followed = true;
-            else
-            followed = false;
+
+
 
 
         console.log("card id ", card.id);

@@ -18,6 +18,7 @@ function CardUser({card, time,follow,followed}) {
       console.log("UnFollow  Me Called... ", follow);
       follow("unfollow");
   };
+  console.log("followed 569op",followed,card.owner);
   return (
       <View style={[styles.cardUserContainer]}>
           {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
@@ -27,18 +28,9 @@ function CardUser({card, time,follow,followed}) {
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
 
-          {followed
-              ? (
-                <TouchableOpacity onPress={() => UnFollowMe()}>
-                  <IoniconIcon style={styles.cardUserSubscribe} name='md-person'/>
-                </TouchableOpacity>
-              )
-              : (
-                <TouchableOpacity onPress={() => FollowMe()}>
-                  <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
-                </TouchableOpacity>
-
-              )}
+              <TouchableOpacity onPress={() => followed ? UnFollowMe() : FollowMe()}>
+                <IoniconIcon style={styles.cardUserSubscribe} name={followed ? 'md-person' : 'md-person-add'}/>
+              </TouchableOpacity>
 
       </View>
   );
