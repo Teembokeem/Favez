@@ -40,7 +40,12 @@ export default class extends React.Component {
 
   handleSearchInput(text) {
     this.setState({query: text})
-    if(!!text) this.props.dispatch(SearchModalState.doSearch(text));
+  }
+
+  handleKeyDown(e) {
+    if (e.nativeEvent.key == "Enter"){
+      if(!!this.state.query) this.props.dispatch(SearchModalState.doSearch(this.state.query));
+    }
   }
 
   cancelSearch() {
@@ -69,6 +74,10 @@ export default class extends React.Component {
             <FontAwesomeIcon style={styles.searchBarIcon} name='search'/>
             <TextInput
               style={styles.textInput}
+              keyboardType='default'
+              returnKeyType='search'
+              placeholder='Search'
+              onKeyPress={(e) => this.handleKeyDown(e)}
               onChangeText={(text) => this.handleSearchInput(text)}
               underlineColorAndroid ={'transparent'}
             />
