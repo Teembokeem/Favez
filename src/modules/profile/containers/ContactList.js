@@ -3,7 +3,9 @@ import {
   View, StyleSheet, ListView,
   TouchableOpacity, Platform,
   ActivityIndicator,
-  Linking
+  Linking,
+  InteractionManager,
+  Alert
 } from 'react-native'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
 import {Actions} from 'react-native-router-flux'
@@ -12,38 +14,84 @@ import Divider from '../presenters/Divider'
 import Contact from '../presenters/Contact'
 import SearchTextInput from '../presenters/SearchTextInput'
 import {connect} from 'react-redux'
+var Contacts = require('react-native-contacts')
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
+function toStr(str){
+  return str ? str : ''
+}
 class ContactList extends React.Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      contacts: ds.cloneWithRows([{}, {}]),
-      searchText: ''
+      contacts: [],
+      searchText: '',
+      loading: true
     }
 
     this.onPressInvite = this.onPressInvite.bind(this)
   }
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      Contacts.getAll((err, contacts) => {
+        if(err == 'denied') {
+          Alert.alert('No permission to access phone contacts')
+          Actions.pop()
+        }
+
+        const phoneNumberContacts = contacts.map(contact => ({
+          ...contact,
+          mobilePhoneNumber: this.getMobilePhoneNumber(contact.phoneNumbers)
+        })).filter(contact => contact.mobilePhoneNumber)
+
+        this.setState({
+          contacts: phoneNumberContacts,
+          loading: false
+        })
+      })
+    })
+  }
+  getMobilePhoneNumber(phoneNumbers) {
+    const mobilePhoneNumberItem = phoneNumbers.find(pn => pn.label === 'mobile')
+    if (mobilePhoneNumberItem) {
+      return mobilePhoneNumberItem.number
+    }
+    return null
+  }
   onPressInvite(contact) {
-    const number = '000000000'
+    const number = contact.mobilePhoneNumber
     const body = 'Hey, join me on favez! http://favez.co/download'
     const url = `sms:${number}?body=${encodeURIComponent(body)}`
     Linking.canOpenURL(url).then(supported => {
       if (!supported) {
-        console.log('Can\'t handle url: ' + url);
+        console.warn('Can\'t handle url: ' + url);
       } else {
         return Linking.openURL(url)
       }
     }).catch(err => console.warn('An unexpected error happened', err));
   }
+  filter(contacts, searchText) {
+    if (!searchText) return contacts
+    return contacts.filter(({givenName, middleName, familyName, phoneNumberContacts}) => {
+      const namePhone = toStr(givenName) + ' ' +
+        toStr(middleName) + ' ' +
+        toStr(familyName) + ' ' +
+        toStr(phoneNumberContacts)
+      return namePhone.toUpperCase().indexOf(searchText.toUpperCase()) > -1
+    })
+  }
+
   renderIf = condition => element => condition ? element : null;
   render() {
     const {
       contacts,
-      searchText
+      searchText,
+      loading
     } = this.state
+
+    const filteredContacts = ds.cloneWithRows(this.filter(contacts, searchText))
 
     return <View style={styles.base}>
         <View style={styles.header}>
@@ -62,14 +110,17 @@ class ContactList extends React.Component {
         />
 
         <View style={styles.listViewWrapper}>
-          {this.renderIf(false)(<ActivityIndicator style={styles.loading}/>)}
+          {this.renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
 
-          {this.renderIf(true)(<Divider/>)}
-          {this.renderIf(true)(<ListView
-            dataSource={contacts}
+          {this.renderIf(!loading)(<Divider/>)}
+          {this.renderIf(!loading)(<ListView
+            dataSource={filteredContacts}
             renderRow={contact => {
               return <View>
-                <Contact onPressInvite={() => this.onPressInvite(contact)}/>
+                <Contact
+                  contact={contact}
+                  onPressInvite={() => this.onPressInvite(contact)}
+                />
                 <Divider/>
               </View>
             }}
@@ -82,7 +133,7 @@ class ContactList extends React.Component {
 export default connect(state => ({
 
 }), dispatch => ({
-
+  dispatch
 }))(ContactList)
 
 const styles = StyleSheet.create({
