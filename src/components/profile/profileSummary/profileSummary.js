@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 const renderIf = cond => elm => cond ? elm : null
-import DefaultUserImage from '../../../../images/default-user-image.png';
+const defaultImageUri = '../../../../images/default-user-image.png';
 
 function ProfileSummary({
   user,
@@ -18,8 +18,8 @@ function ProfileSummary({
   uploadingProfileImage
 }) {
 
-  const {favez} = user;
-  const picture = user.auth0 ? user.auth0.picture : DefaultUserImage;
+  const userData = user.auth0 ? user.favez : user;
+  const picture = user.auth0 ? user.auth0.picture : defaultImageUri;
   const {
     //id,
     displayname,
@@ -29,7 +29,8 @@ function ProfileSummary({
     following,
     image,
     imageStatus
-  } = favez;
+  } = userData;
+
   return (
   <View style={styles.ProfileSummaryContainer}>
     <View
@@ -81,10 +82,9 @@ function getImageUri(imageStatus, favezImage, auth0Picture, uploadingProfileImag
   if (imageStatus === 'uploading' || imageStatus === 'prefetching') {
     return uploadingProfileImage
   }
-  if (favezImage) {
-    return favezImage
-  }
-  return auth0Picture
+  if (favezImage) return favezImage;
+  else if(auth0Picture) return auth0Picture;
+  else defaultImageUri;
 }
 
 const styles = StyleSheet.create({

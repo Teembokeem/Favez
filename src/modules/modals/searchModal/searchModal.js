@@ -1,12 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator} from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import {debounce} from '../../../utils/timeUtils';
 import * as SearchModalState from './searchModalState';
-
-import * as UserActions from '../../../redux/user/userActions';
-import * as FavezActions from '../../../redux/fave/faveActions';
-import * as ListActions from '../../../redux/list/listActions';
 
 import Header from '../../../components/globals/header/header';
 import styles from './styles';
@@ -55,14 +50,14 @@ export default class extends React.Component {
   render() {
     console.log('SEARCH_MODAL_PROPS',this.props);
     return (
-            <Animated.View style={styles.container}>
-                <View style={{flex: 1}}>
-                  <ScrollView>
+        <Animated.View style={styles.container}>
+            <View style={{flex: 1}}>
+               <ScrollView>
                     {this.renderSearchBar()}
                     {this.renderSearchResult()}
-                  </ScrollView>
-                </View>
-            </Animated.View>
+                </ScrollView>
+            </View>
+        </Animated.View>
     );
   }
 
@@ -120,7 +115,7 @@ export default class extends React.Component {
         <Header title={'Trending Users'} />
         <View style={styles.horizontalList}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {(this.props.trendingUsers.length>0)?this.props.trendingUsers.map(this.renderUser):this.renderNoResult()}
+            {(this.props.trendingUsers.length>0)?this.props.trendingUsers.map(this.renderUser.bind(this)):this.renderNoResult()}
           </ScrollView>
         </View>
       </View>
@@ -156,10 +151,10 @@ export default class extends React.Component {
   renderUser(user) {
     let image = user.image?{uri:user.image}:DefaultAvatar;
     return (
-      <View style={styles.userLayout} key={user.id}>
+      <TouchableOpacity style={styles.userLayout} onPress={() => this.showUserProfile(user.id)} key={user.id}>
         <Image style={styles.userThumb} source={image} />
         <Text style={styles.userTitle}>{'@'+user.username}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 
@@ -189,5 +184,9 @@ export default class extends React.Component {
         <Text style={styles.noResultText}>No Result Found</Text>
       </View>
     );
+  }
+
+  showUserProfile(userId) {
+    Actions.profile({userId:userId});
   }
 }
