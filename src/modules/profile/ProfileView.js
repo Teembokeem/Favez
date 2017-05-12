@@ -119,6 +119,15 @@ const ProfileView = React.createClass({
       return this.props.userId && (this.props.userId != this.props.user.favez.id);
     },
 
+    isFollowedUser() {
+      let isFollowed = false;
+      let userId = this.props.userId;
+      this.props.followedUsers.forEach(function(user){
+        if(user.id == userId) isFollowed = true;
+      });
+      return isFollowed;
+    },
+
     render() {
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
@@ -135,7 +144,9 @@ const ProfileView = React.createClass({
                       onPickProfileImage={this.onPickProfileImage}
                       uploadingProfileImage={uploadingProfileImage}
                     />
-                    <ProfileActions self={authIsSelf}/>
+                    <ProfileActions
+                      self={authIsSelf}
+                      followedUser={this.isFollowedUser()}/>
                     <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
                     <View style={styles.contentContainer}>
                         {child}

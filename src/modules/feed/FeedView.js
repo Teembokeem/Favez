@@ -23,7 +23,7 @@ const FeedView = React.createClass({
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-        // this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
 
     },
     componentDidMount() {},
