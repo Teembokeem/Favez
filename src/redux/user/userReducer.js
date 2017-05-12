@@ -43,7 +43,8 @@ import {
     GET_FOLLOWING_LIST_SUCCESS,
     GET_FOLLOWING_LIST_FAILURE,
     REQUEST_USER_TO_FOLLOW,
-    REMOVE_USER_FROM_FOLLOW_LIST
+    REMOVE_USER_FROM_FOLLOW_LIST,
+    UPLOAD_USER_IMAGE_PREFETCHED_FAIL
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -120,6 +121,16 @@ export default function UserStateReducer(state = initialState, action = {}) {
         favez: {
           ...user.favez,
           imageStatus: 'prefetched'
+        }
+      })
+    }
+    case UPLOAD_USER_IMAGE_PREFETCHED_FAIL: {
+      const user = state.get('user')
+      return state.set('user', {
+        ...user,
+        favez: {
+          ...user.favez,
+          imageStatus: 'prefetchedFail'
         }
       })
     }

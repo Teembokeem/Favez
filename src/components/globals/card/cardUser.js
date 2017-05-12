@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 
-function CardUser({card, time,follow,followed}) {
+function CardUser({card, time,follow,followed, showProfile}) {
   function FollowMe() {
       console.log("Follow  Me Called... ", follow);
       follow("follow");
@@ -23,7 +23,7 @@ function CardUser({card, time,follow,followed}) {
           {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
           <View
             style={styles.cardUserInfoColumn}>
-            <Text style={[styles.cardUserName]}>{'@' + card.owner}</Text>
+            <Text style={[styles.cardUserName]} onPress={showProfile}>{'@' + card.owner}</Text>
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
 
