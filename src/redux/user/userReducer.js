@@ -42,6 +42,8 @@ import {
     UNFOLLOW_USER_FAILURE,
     GET_FOLLOWING_LIST_SUCCESS,
     GET_FOLLOWING_LIST_FAILURE,
+    REQUEST_USER_TO_FOLLOW,
+    REMOVE_USER_FROM_FOLLOW_LIST,
     UPLOAD_USER_IMAGE_PREFETCHED_FAIL
 } from './userActions';
 // Initial state
@@ -62,6 +64,22 @@ const initialState = fromJS({
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case REMOVE_USER_FROM_FOLLOW_LIST: {
+      const collaborators = state.get('collaborators_all')
+      const currentIndex = collaborators.findIndex(item => item.id === action.removedUserId)
+      return state.setIn(['recentFollowedUser','status'],true)
+        .set('collaborators_all', [
+          ...collaborators.slice(0, currentIndex),
+          {
+            ...collaborators[currentIndex],
+            removedFromFollowingList: true
+          },
+          ...collaborators.slice(currentIndex + 1, collaborators.length)
+        ])
+    }
+    case REQUEST_USER_TO_FOLLOW: {
+      return state.set('loading', true)
+    }
     case UPLOAD_USER_IMAGE_START: {
       const user = state.get('user')
       return state.set('user', {
@@ -167,27 +185,66 @@ export default function UserStateReducer(state = initialState, action = {}) {
       console.log('ERROR', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:
-        console.log('SUCCESS!', action.payload)
-        return state.set('loading', false).set('user', action.payload);
-        case FOLLOW_USER:
-        console.log("Follow user called 11");
-            return loop(state.setIn(['recentFollowedUser','id'], action.payload),
-            Effects.promise(() => followuserAction(action.payload)));
-            case UNFOLLOW_USER:
-                return loop(state.setIn(['recentFollowedUser','id'], action.payload),
-                Effects.promise(() => unfollowuserAction(action.payload)));
-    case FOLLOW_USER_SUCCESS:
-    console.log("User follow success", action.payload);
-        return state.setIn(['recentFollowedUser','status'],true);
-    case FOLLOW_USER_FAILURE:
+      console.log('SUCCESS!', action.payload)
+      return state.set('loading', false).set('user', action.payload);
+    case FOLLOW_USER: {
+      const collaborators = state.get('collaborators_all')
+      const currentIndex = collaborators.findIndex(item => item.id === action.payload)
+      console.log("Follow user called 11");
+      return loop(
+        state.setIn(['recentFollowedUser','id'], action.payload)
+        .set('collaborators_all', [
+          /**
+            This code cannot leverage immutable API because nested object of the state is not immutable object
+            and also being used in many components. May need to refactor in future.
+          */
+          ...collaborators.slice(0, currentIndex),
+          {
+            ...collaborators[currentIndex],
+            uiStatus: 'followRequesting'
+          },
+          ...collaborators.slice(currentIndex + 1, collaborators.length)
+        ]),
+        Effects.promise(() => followuserAction(action.payload))
+      );
+    }
+    case UNFOLLOW_USER:
+      return loop(state.setIn(['recentFollowedUser','id'], action.payload),
+        Effects.promise(() => unfollowuserAction(action.payload)));
+    case FOLLOW_USER_SUCCESS: {
+      const collaborators = state.get('collaborators_all')
+      const currentIndex = collaborators.findIndex(item => item.id === action.userId)
+      return state.setIn(['recentFollowedUser','status'],true)
+        .set('collaborators_all', [
+          ...collaborators.slice(0, currentIndex),
+          {
+            ...collaborators[currentIndex],
+            uiStatus: 'followSuccess'
+          },
+          ...collaborators.slice(currentIndex + 1, collaborators.length)
+        ])
+    }
+    case FOLLOW_USER_FAILURE: {
+      const collaborators = state.get('collaborators_all')
+      const currentIndex = collaborators.findIndex(item => item.id === action.userId)
+      return state.setIn(['recentFollowedUser','status'],false)
+        .set('collaborators_all', [
+          ...collaborators.slice(0, currentIndex),
+          {
+            ...collaborators[currentIndex],
+            uiStatus: 'followFail'
+          },
+          ...collaborators.slice(currentIndex + 1, collaborators.length)
+        ])
+    }
     case UNFOLLOW_USER_SUCCESS:
-        return state.setIn(['recentFollowedUser','status'],false);
+      return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:
     case GET_FOLLOWING_LIST_SUCCESS:
     console.log("following users list followedusers", action.payload);
-        return state.set('followedusers', action.payload.data);
+      return state.set('followedusers', action.payload.data);
     case GET_FOLLOWING_LIST_FAILURE:
     default:
-        return state;
+      return state;
     }
 }
