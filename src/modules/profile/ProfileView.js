@@ -109,7 +109,7 @@ const ProfileView = React.createClass({
 
     render() {
         const authIsSelf = (this.props.userId)? false : true;
-        const user = (this.props.userId)? this.props.otherUser : this.props.user.favez;
+        const user = (this.props.userId)? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
