@@ -6,7 +6,8 @@ import {
   TouchableOpacity,
   Image,
   ListView,
-  ActivityIndicator
+  ActivityIndicator,
+  InteractionManager
 } from 'react-native'
 import {connect} from 'react-redux'
 import {Actions} from 'react-native-router-flux'
@@ -15,35 +16,35 @@ import Header from '../../../components/globals/header/header'
 import InviteAction from '../presenters/InviteAction'
 import Followee from '../presenters/Followee'
 import Divider from '../presenters/Divider'
+import * as userActions from '../../../redux/user/userActions.js'
+import {followUser} from '../../feed/FeedState.js'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 class ProfileView extends React.Component {
   constructor(props) {
     super(props)
 
-    this.state = {
-      followees: ds.cloneWithRows([
-        {title: '1'},
-        {title: '2'}
-      ])
-    }
-
     this.inviteFromFacebook = this.inviteFromFacebook.bind(this)
     this.follow = this.follow.bind(this)
     this.removeFollowee = this.removeFollowee.bind(this)
   }
+  componentDidMount() {
+    InteractionManager.runAfterInteractions(() => {
+      this.props.onGetUserToFollow()
+    })
+  }
   inviteFromFacebook() {
 
   }
-  follow() {
-
+  follow(id) {
+    this.props.onFollow(id)
   }
-  removeFollowee() {
-
+  removeFollowee(id) {
+    this.props.onRemoveFromFollowingList(id)
   }
   renderIf = condition => element => condition ? element : null;
   render() {
-    const {followees} = this.state
+    const {collaborators, loading} = this.props
 
     return <View style={styles.base}>
         <View style={styles.header}>
@@ -85,15 +86,18 @@ class ProfileView extends React.Component {
 
         <View style={styles.followList}>
 
-          {this.renderIf(false)(<ActivityIndicator style={styles.loading}/>)}
+          {this.renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
 
-          {this.renderIf(true)(<ListView
-            dataSource={followees}
-            renderRow={() => {
+          {this.renderIf(!loading)(<ListView
+            dataSource={collaborators}
+            enableEmptySections={true}
+            renderRow={(followee) => {
+              const {id} = followee
               return <View>
                 <Followee
-                  onPressFollow={this.follow}
-                  onPressRemove={this.removeFollowee}
+                  followee={followee}
+                  onPressFollow={() => this.follow(id)}
+                  onPressRemove={() => this.removeFollowee(id)}
                 />
                 <Divider/>
               </View>
@@ -103,11 +107,30 @@ class ProfileView extends React.Component {
     </View>
   }
 }
-export default connect(() => ({
+export default connect(state => ({
+  loading: state.getIn(['user', 'loading']),
+  collaborators: ds.cloneWithRows(
+    followable(
+      toJS(state.getIn(['user', 'collaborators_all']))
+    )
+  )
+}), dispatch => ({
+  onGetUserToFollow: () => dispatch(userActions.requestUserToFollow()),
+  onFollow: (id) => dispatch(followUser(id)),
+  onRemoveFromFollowingList: (id) => dispatch(userActions.removeFromFollowList(id))
+}))(ProfileView)
 
-}), () => ({
+function followable(users) {
+  //TODO waiting for back end
+  return users.filter(user => !user.following && !user.removedFromFollowingList)
+}
 
-}))(ProfileView);
+function toJS(immu) {
+  if (immu.toJS) {
+    return immu.toJS()
+  }
+  return immu
+}
 
 const styles = StyleSheet.create({
   base: {

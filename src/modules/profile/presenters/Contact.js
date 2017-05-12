@@ -1,11 +1,16 @@
 import React from 'react'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 
-export default function Contact({onPressInvite}) {
+export default function Contact({onPressInvite, contact}) {
+  const {
+    familyName,
+    givenName,
+    mobilePhoneNumber
+  } = contact
   return <View style={styles.base}>
     <View style={styles.details}>
-      <Text style={styles.t1}>Contact</Text>
-      <Text style={styles.t2}>000-000-000</Text>
+      <Text style={styles.t1}>{givenName + ' ' + familyName}</Text>
+      <Text style={styles.t2}>{mobilePhoneNumber}</Text>
     </View>
     <TouchableOpacity
       style={styles.inviteBtn}
