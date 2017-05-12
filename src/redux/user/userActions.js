@@ -149,6 +149,7 @@ export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"
 export const UPLOAD_USER_IMAGE_FAIL = "UPLOAD_USER_IMAGE_FAIL"
 export const UPLOAD_USER_IMAGE_PREFETCHED = "UPLOAD_USER_IMAGE_PREFETCHED"
+export const UPLOAD_USER_IMAGE_PREFETCHED_FAIL = "UPLOAD_USER_IMAGE_PREFETCHED_FAIL"
 /**
  *  onUploading: function (base64ImageUri){} : pass this callback to handle
  */
@@ -188,23 +189,28 @@ export function pickProfileImage(onUploading, onUploaded) {
         }
         //step 3: upload to cloudinary
         cloudinary.uploadImage(imageUri).then((data) => {
-          const {url} = data
+          const {secure_url} = data
 
           //step 4: save image url returned from cloudinary to favez server
-          updateUser({image: url})
+          updateUser({image: secure_url})
           .then(() => {
 
             dispatch({
               type: UPLOAD_USER_IMAGE_SUCCESS,
-              image: url
+              image: secure_url
             })
 
             //step 5: prefetch image from cloudinary's url
-            Image.prefetch(url).then(() => {
+            Image.prefetch(secure_url).then(() => {
               dispatch({
                 type: UPLOAD_USER_IMAGE_PREFETCHED
               })
               if (onUploaded) onUploaded(true)
+            }, () => {
+              console.warn(`Prefetch image profile from "${secure_url}" fail. Use binary instead.`)
+              dispatch({
+                type: UPLOAD_USER_IMAGE_PREFETCHED_FAIL
+              })
             })
           }, () => {
             dispatch({type: UPLOAD_USER_IMAGE_FAIL})
