@@ -31,7 +31,7 @@ function ProfileSummary({
     imageStatus
   } = userData;
 
-  return (
+return (
   <View style={styles.ProfileSummaryContainer}>
     <View
       style={styles.ProfileSummaryRow1}

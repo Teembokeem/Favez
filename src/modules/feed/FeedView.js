@@ -126,7 +126,22 @@ const FeedView = React.createClass({
             else
             followed = false;
 
-        return (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} subscribed={subscribed} followed={followed} userSubscribeAction={this.userSubscribe} userFollowAction={this.userFollow} userAction={this.userLikeDislike}/>);
+        return (
+          <Card key={'feed ' + idx}
+            card={card}
+            track={idx}
+            moving={this.moving}
+            subscribed={subscribed}
+            followed={followed}
+            userSubscribeAction={this.userSubscribe}
+            userFollowAction={this.userFollow}
+            userAction={this.userLikeDislike}
+            showProfile={() => this.showProfile(card.owner)}/>
+          );
+    },
+
+    showProfile(owner) {
+      Actions.profile({userId: owner});
     }
 });
 
