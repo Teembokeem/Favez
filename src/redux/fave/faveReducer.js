@@ -7,6 +7,8 @@ import {
   FAVE_CREATE_FAILURE,
   FAVE_SEARCH_RESULT_SUCCESS,
   FAVE_SEARCH_RESULT_FALIURE,
+  SELF_FAVEZ_SUCCESS,
+  SELF_FAVEZ_FAILURE,
   requestCreateFave
 } from './faveActions';
 
@@ -16,7 +18,8 @@ const initialState = fromJS({
   current: {},
   loading: true,
   error: {},
-  trendingFavez:[]
+  trendingFavez:[],
+  slefFavez: []
 });
 
 // Reducer
@@ -44,6 +47,13 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_SEARCH_RESULT_FALIURE:
       console.log('ERROR', action);
       return state.set('ERROR', action);
+      case SELF_FAVEZ_SUCCESS:
+      console.log("success self favez success",action);
+      return state
+      .set('loading', false)
+      .set('slefFavez',action.payload)
+      case SELF_FAVEZ_FAILURE:
+      console.log("Failed....");
     default:
       return state;
   }

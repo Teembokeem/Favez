@@ -17,7 +17,6 @@ import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list';
 import * as ListActions from '../../redux/list/listActions';
-// import List from '../../components/globals/list/list';
 
 const ProfileView = React.createClass({
     propTypes: {},
@@ -54,7 +53,7 @@ const ProfileView = React.createClass({
                 )));
                 break;
             case 'likes':
-            Alert.alert("Hello Likes.. ");
+
                 return (this.props.favez.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
                 break;
             case 'comments':
@@ -84,22 +83,46 @@ const ProfileView = React.createClass({
     },
 
     setFilter(val,tab) {
-
       Alert.alert(this.props.selected);
       this.setState({selected: tab})
         this.props.dispatch(ProfileState.setFilter(val));
     },
 
+    onPickProfileImage(){
+        this.props.onPickProfileImage(
+          this.onUploadingImage,
+          this.onUploadedImage
+        )
+    },
+
+    onUploadingImage(imageUri) {
+        this.setState({
+            uploadingProfileImage: imageUri
+        })
+    },
+
+    onUploadedImage() {
+        this.setState({
+            uploadingProfileImage: null
+        })
+    },
+
     render() {
         const authIsSelf = (this.props.userId)? false : true;
-        const user = (this.props.userId)? this.props.otherUser : this.props.user.favez;
+        const user = (this.props.userId)? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
+        const {uploadingProfileImage} = this.state
+
         return (
             <View style={styles.container}>
                 <ScrollView>
                     <ProfileHeader/>
-                    <ProfileSummary user={user}/>
+                    <ProfileSummary
+                      user={user}
+                      onPickProfileImage={this.onPickProfileImage}
+                      uploadingProfileImage={uploadingProfileImage}
+                    />
                     <ProfileActions self={authIsSelf}/>
                     <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
                     <View style={styles.contentContainer}>

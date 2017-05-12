@@ -9,8 +9,15 @@ import {
   updateUser,
   getCollaborators,
   getUsersByQuery,
-  getUserById
+  getUserById,
+  followuser,
+  unfollowuser,
+  getlistuserfollowing
+
 } from '../../services/user';
+var ImagePicker = require('react-native-image-picker');
+import * as cloudinary from '../../services/cloudinary'
+import {Alert, Image} from 'react-native'
 
 // Actions
 export const AUTH_REGISTER_REQUEST = 'AUTH_REGISTER_REQUEST';
@@ -34,7 +41,14 @@ export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
 export const USER_SHOW_PROFILE = 'USER_SHOW_PROFILE';
 export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS';
 export const USER_BY_ID_FALIURE = 'USER_BY_ID_FALIURE';
-
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
+export const FOLLOW_USER_FAILURE = 'FOLLOW_USER_FAILURE';
+export const UNFOLLOW_USER_SUCCESS =  'UNFOLLOW_USER_SUCCESS';
+export const UNFOLLOW_USER_FAILURE = 'UNFOLLOW_USER_FAILURE';
+export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
+export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 // Action creators
 export async function login(data) {
   return {
@@ -129,4 +143,104 @@ export async function requestOtherUserInfo(userId) {
       return {type: USER_BY_ID_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: USER_BY_ID_FALIURE, payload: err}));
+}
+
+export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
+export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"
+export const UPLOAD_USER_IMAGE_FAIL = "UPLOAD_USER_IMAGE_FAIL"
+export const UPLOAD_USER_IMAGE_PREFETCHED = "UPLOAD_USER_IMAGE_PREFETCHED"
+/**
+ *  onUploading: function (base64ImageUri){} : pass this callback to handle
+ */
+export function pickProfileImage(onUploading, onUploaded) {
+  return dispatch => {
+    var options = {
+      title: 'Select Profile Image',
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    //step 1: show options to take or select photos
+    ImagePicker.showImagePicker(options, (response) => {
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+
+        const imageUri = 'data:image/jpeg;base64,' + response.data
+
+        dispatch({
+          type: UPLOAD_USER_IMAGE_START
+        })
+        //step 2: Show token/selected image
+        if (onUploading) {
+          onUploading(imageUri)
+        }
+        //step 3: upload to cloudinary
+        cloudinary.uploadImage(imageUri).then((data) => {
+          const {url} = data
+
+          //step 4: save image url returned from cloudinary to favez server
+          updateUser({image: url})
+          .then(() => {
+
+            dispatch({
+              type: UPLOAD_USER_IMAGE_SUCCESS,
+              image: url
+            })
+
+            //step 5: prefetch image from cloudinary's url
+            Image.prefetch(url).then(() => {
+              dispatch({
+                type: UPLOAD_USER_IMAGE_PREFETCHED
+              })
+              if (onUploaded) onUploaded(true)
+            })
+          }, () => {
+            dispatch({type: UPLOAD_USER_IMAGE_FAIL})
+            if (onUploaded) onUploaded(false)
+            Alert.alert('Fail to upload profile image. Please try again later!')
+          })
+        }, () => {
+          dispatch({type: UPLOAD_USER_IMAGE_FAIL})
+        })
+      }
+    });
+  }
+}
+// follow a usere
+
+
+
+export async function followuserAction(data) {
+  console.log('follow a user in actions');
+  return await followuser(data)
+    .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res }))
+    .catch((err) => ({type: FOLLOW_USER_FAILURE, payload: err }));
+}
+
+// Unfollow a User
+export async function unfollowuserAction(data) {
+    console.log('unfollow a user in actions');
+  return await unfollowuser(data)
+    .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
+    .catch((err) => ({type: UNFOLLOW_USER_FAILURE, payload: err}));
+}
+
+//Get List of users you are Following
+export async function getlistofuserfolowingAction(data) {
+  console.log('Get List of followers in action in actions');
+  return await getlistuserfollowing(data)
+    .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
+    .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
 }

@@ -1,6 +1,7 @@
 import {
   favezCreateFave,
-  favezSearchByQuery
+  favezSearchByQuery,
+  getFavezSelf
 } from '../../services/favez';
 
 // Actions
@@ -10,6 +11,8 @@ export const FAVE_CREATE_SUCCESS = 'FAVE_CREATE_SUCCESS';
 export const FAVE_CREATE_FAILURE = 'FAVE_CREATE_FAILURE';
 export const FAVE_SEARCH_RESULT_SUCCESS = 'FAVE_SEARCH_RESULT_SUCCESS';
 export const FAVE_SEARCH_RESULT_FALIURE = 'FAVE_SEARCH_RESULT_FALIURE';
+export const SELF_FAVEZ_SUCCESS = 'SELF_FAVEZ_SUCCESS';
+export const SELF_FAVEZ_FAILURE = 'SELF_FAVEZ_FAILURE';
 
 // Action creators
 export async function setFave(fave) {
@@ -48,4 +51,10 @@ export async function searchFavez(data) {
       return {type: FAVE_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: FAVE_SEARCH_RESULT_FALIURE, payload: err}));
+}
+
+export async function getSelffavez(){
+  return await getFavezSelf()
+  .then((res)=>({type: SELF_FAVEZ_SUCCESS, payload: res}))
+  .catch((err)=>({type: SELF_FAVEZ_FAILURE, payload: res}));
 }

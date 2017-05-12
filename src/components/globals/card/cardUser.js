@@ -9,7 +9,15 @@ import {
   View
 } from 'react-native';
 
-function CardUser({card, time}) {
+function CardUser({card, time,follow,followed}) {
+  function FollowMe() {
+      console.log("Follow  Me Called... ", follow);
+      follow("follow");
+  };
+  function UnFollowMe() {
+      console.log("UnFollow  Me Called... ", follow);
+      follow("unfollow");
+  };
   return (
       <View style={[styles.cardUserContainer]}>
           {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
@@ -18,9 +26,20 @@ function CardUser({card, time}) {
             <Text style={[styles.cardUserName]}>{'@' + card.owner}</Text>
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
-          <TouchableOpacity>
-            <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
-          </TouchableOpacity>
+
+          {followed
+              ? (
+                <TouchableOpacity onPress={() => UnFollowMe()}>
+                  <IoniconIcon style={styles.cardUserSubscribe} name='md-person'/>
+                </TouchableOpacity>
+              )
+              : (
+                <TouchableOpacity onPress={() => FollowMe()}>
+                  <IoniconIcon style={styles.cardUserSubscribe} name='md-person-add'/>
+                </TouchableOpacity>
+
+              )}
+
       </View>
   );
 };

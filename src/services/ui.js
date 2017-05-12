@@ -4,6 +4,7 @@ export async function getFavezAll() {
   return get('/favez/all');
 }
 
+
 export async function uiScrapeUrl(data) {
   let body = {url: data};
   return await post('/favez/scrape', body);
