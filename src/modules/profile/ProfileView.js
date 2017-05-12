@@ -22,16 +22,11 @@ const ProfileView = React.createClass({
     propTypes: {},
     getInitialState() {
         return { selected: 'lists' };
-      },
-
+    },
 
     componentWillMount() {
 
-        if(!this.props.userId)
-          this.props.dispatch(UserActions.requestUserInfo());
-        else
-          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
-
+        this.loadUserProfile();
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
@@ -107,9 +102,26 @@ const ProfileView = React.createClass({
         })
     },
 
+    loadUserProfile() {
+
+      if(!this.props.userId)
+        this.props.dispatch(UserActions.requestUserInfo());
+      else {
+        if(this.props.user.favez.id == this.props.userId)
+          this.props.dispatch(UserActions.requestUserInfo());
+        else
+          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
+      }
+
+    },
+
+    isOtherUser(userId) {
+      return this.props.userId && (this.props.userId != this.props.user.favez.id);
+    },
+
     render() {
-        const authIsSelf = (this.props.userId)? false : true;
-        const user = (this.props.userId)? this.props.otherUser : this.props.user;
+        const authIsSelf = this.isOtherUser() ? false : true;
+        const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
