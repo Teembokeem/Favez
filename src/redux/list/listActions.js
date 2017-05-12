@@ -7,9 +7,11 @@ import {
   sendInvites,
   getListByTopic,
   sendLikeList,
+
   createlistRelation,
   deleteListRelation,
   getListbyRelation,
+
   searchListsByQuery
 } from '../../services/list';
 
@@ -47,6 +49,9 @@ export const GET_LIST_BY_RELATION_SUCCESS ='GET_LIST_BY_RELATION_SUCCESS';
 export const GET_LIST_BY_RELATION_FAILURE = 'GET_LIST_BY_RELATION_FAILURE';
 export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
 export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
+export const SUBSCRIBE_LIST = 'SUBSCRIBE_LIST';
+export const UNSUBSCRIBE_LIST = 'UNSUBSCRIBE_LIST';
+
 
 // Action creators
 export function increment(cards, index) {
@@ -161,10 +166,10 @@ export async function createlistRelationAction(id,relationid){
 }
 
 //Action for Delete list relationship
-export async function deleteListRelationAction(id,relationid){
+export async function deleteListRelationAction(id){
   console.log("Delete List Relaiton Called",id);
-  console.log("relationid", relationid);
-  return await deleteListRelation(id,relationid)
+
+  return await deleteListRelation(id)
   .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res}))
   .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
 }

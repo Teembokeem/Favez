@@ -23,22 +23,17 @@ function CardHeader({card, moving, track, subscribe, subscribed}) {
         />*/}
 
             <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
-            {subscribed
-                ? (
-                    <TouchableOpacity onPress={() => UnsubscribeMe()}>
-                        <FontAwesome style={styles.cardUserUnSubscribe} name="bookmark" size={10} color="#fff"/>
 
-                    </TouchableOpacity>
-                )
-                : (
-                    <TouchableOpacity onPress={() => SubscribeMe()}>
+            <TouchableOpacity onPress={() => subscribed
+                ? UnsubscribeMe()
+                : SubscribeMe()}>
+                <FontAwesome style={subscribed
+                    ? styles.cardUserUnSubscribe
+                    : styles.cardUserSubscribe} name={subscribed
+                    ? "bookmark"
+                    : "bookmark-o"} size={10} color="#fff"/>
 
-                        <FontAwesome style={styles.cardUserSubscribe} name="bookmark-o" size={10} color="#fff"/>
-
-                    </TouchableOpacity>
-
-                )}
-
+            </TouchableOpacity>
             <TouchableOpacity >
                 <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>
             </TouchableOpacity>

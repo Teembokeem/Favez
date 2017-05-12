@@ -12,7 +12,7 @@ function returnText(number) {
 }
 
 function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile}) {
-  const {picture, nickname} = creator;
+  let {picture, nickname} = creator;
   const semantics = returnText(collaborators);
   return (
     <View style={styles.ListHeader}>
@@ -24,7 +24,7 @@ function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile}
         <Text
           style={styles.ListHeaderUsername} onPress={() => showUserProfile()}
         >
-          {'@' + "AJ" }{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
+          {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <TouchableOpacity

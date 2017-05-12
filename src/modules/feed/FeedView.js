@@ -10,11 +10,10 @@ import Card from '../../components/globals/card/card';
 import FeedHeader from '../../components/feed/feedHeader/feedHeader';
 import ContextMenu from '../../modules/modals/contextMenu/contextMenu';
 import * as FavezActions from '../../redux/fave/faveActions';
-import { showSubscribedlists, showFollowedlists, addrecentClickedFollow, checkOwnerIdinFollowList } from '../../utils/userFollow';
+import {showSubscribedlists, showFollowedlists, addrecentClickedFollow, checkOwnerIdinFollowList} from '../../utils/userFollow';
 
-
-const subscribedListsIds = [];
-let followedListsIds= [];
+let subscribedListsIds = [];
+let followedListsIds = [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
@@ -23,7 +22,7 @@ const FeedView = React.createClass({
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-         this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
 
     },
     componentDidMount() {},
@@ -45,11 +44,12 @@ const FeedView = React.createClass({
     userSubscribe(id, action) {
         if (id == "subsrciptions") {
             console.log("do a subscribition request..");
-            this.props.dispatch(ListActions.createlistRelationAction(action, 2));
+
+            this.props.dispatch(FeedState.subscribeList(action, 2));
 
         }
         if (id == "unsubscribe") {
-            this.props.dispatch(ListActions.deleteListRelationAction(action, 2));
+            this.props.dispatch(FeedState.unsubscribelist(action, 2));
         }
 
     },
@@ -58,8 +58,6 @@ const FeedView = React.createClass({
             console.log("do a follow request..", id);
             console.log("action value", action);
             this.props.dispatch(FeedState.followUser(action));
-
-
         }
         if (id == "unfollow") {
             console.log("do a UNfollow request..", id);
@@ -100,7 +98,7 @@ const FeedView = React.createClass({
 
     render() {
         const {lists, subscribedlists, followedusers} = this.props;
-                  console.log("followed lists ini", followedusers);
+        console.log("followed lists ini", followedusers);
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
 
@@ -108,17 +106,17 @@ const FeedView = React.createClass({
             console.log("Unsubscribed list...", subscribedlists);
             subscribedListsIds = showSubscribedlists(lists, subscribedlists);
         }
-        if( followedusers.length > 0){
-          console.log("all lists", lists);
-          console.log("followed lists", followedusers);
-          followedListsIds = showFollowedlists(followedusers);
-          console.log("results new arr of obj21", followedListsIds);
+        if (followedusers.length > 0) {
+            console.log("all lists", lists);
+            console.log("followed lists", followedusers);
+            followedListsIds = showFollowedlists(followedusers);
+            console.log("results new arr of obj21", followedListsIds);
         }
-        if(this.props.recentFollowedUser.id > -1){
-          console.log("new pushed latest array old", followedListsIds);
-        followedListsIds=   addrecentClickedFollow(followedListsIds,this.props.recentFollowedUser);
+        if (this.props.recentFollowedUser.id > -1) {
+            console.log("new pushed latest array old", followedListsIds);
+            followedListsIds = addrecentClickedFollow(followedListsIds, this.props.recentFollowedUser);
 
-          console.log("new pushed latest array: ", followedListsIds);
+            console.log("new pushed latest array: ", followedListsIds);
         }
         return (
 
@@ -137,16 +135,13 @@ const FeedView = React.createClass({
     renderCard(card, idx) {
 
         console.log("index of eleme", subscribedListsIds.indexOf(card.id));
-        console.log("pross det123",this.props.recentFollowedUser);
-        followed = checkOwnerIdinFollowList(followedListsIds,card.owner);
+        console.log("pross det123", this.props.recentFollowedUser);
+        followed = checkOwnerIdinFollowList(followedListsIds, card.owner);
         console.log("569op in view result", followed);
         if (subscribedListsIds.indexOf(card.id) > -1)
             subscribed = true;
         else
             subscribed = false;
-
-
-
 
         console.log("card id ", card.id);
         console.log("subsc d", subscribedListsIds);
