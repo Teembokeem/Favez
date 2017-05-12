@@ -53,7 +53,7 @@ const ProfileView = React.createClass({
                 )));
                 break;
             case 'likes':
-            Alert.alert("Hello Likes.. ");
+
                 return (this.props.favez.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
                 break;
             case 'comments':

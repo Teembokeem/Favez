@@ -33,7 +33,8 @@ import {
     requestCreateList,
     requestGetMyLists,
     requestSingleList,
-    requestSendInvites
+    requestSendInvites,
+    LIST_CREATE_RELATION_SUCCESS
 } from './listActions';
 // Initial state
 const initialState = fromJS({
@@ -53,7 +54,7 @@ const initialState = fromJS({
     inviteList: [],
     loading: true,
     listByTopics: [],
-  searchedLists:[]
+    searchedLists: []
 });
 // Reducer
 export default function ListReducer(state = initialState, action = {}) {
@@ -61,6 +62,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_REQUEST:
         return loop(state.set('loading', true), Effects.promise(action.payload));
     case LIST_RESPONSE:
+        console.log("success list all", action.payload.data);
         return state.set('loading', false).set('all', action.payload.data);
     case SET_LIST:
         return state.set('current', state.get(action.payload.list)[action.payload.index]);
@@ -90,21 +92,21 @@ export default function ListReducer(state = initialState, action = {}) {
         console.log('SUCCESS', state, action);
         return state.set('loading', false);
     case LIST_SET_NEWLIST_OPTIONS:
-      console.log('setting new list options: ', state.get('options'), action.payload);
-      let key = Object.keys(action.payload)[0];
-      return insertOptionParams(state, state.get('options'), key, action.payload[key]);
-    case LIST_BY_TOPIC_SUCCESS:        
-        return state
-          .set('loading', false)
-          .set('listByTopics', action.payload.data);
+        console.log('setting new list options: ', state.get('options'), action.payload);
+        let key = Object.keys(action.payload)[0];
+        return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+    case LIST_BY_TOPIC_SUCCESS:
+        return state.set('loading', false).set('listByTopics', action.payload.data);
     case LIST_SEARCH_RESULT_SUCCESS:
-        return state
-          .set('loading', false)
-          .set('searchedLists', action.payload);
+        return state.set('loading', false).set('searchedLists', action.payload);
     case LIST_MYLIST_FAILURE:
     case LIST_CREATE_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
+    case LIST_CREATE_RELATION_SUCCESS:
+
+        return state.set('loading', false).set('subscribedLists', action.payload.data);
+        break;
     case LIST_BY_TOPIC_FAILURE:
         console.log('ERROR', state, action);
         return state.set('ERROR', action);
@@ -115,17 +117,20 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIKE_UNLIKE_LIST_ITEM_FAILURE:
         console.log("failure like recieved", action);
     case LIST_DELETE_RELATION_SUCCESS:
+      console.log("Delete Relation Success", action);
+        return state.set('loading', false).set('subscribedLists', action.payload.data);
+        break;
         console.log("Success Recieved");
     case LIST_DELETE_RELATION_FAILURE:
-        console.log("Fail list recd...");
+        console.log("Fail list recd...",action);
     case GET_LIST_BY_RELATION_SUCCESS:
         console.log("success list", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:
         console.log("failed subscribe list", action);
     case LIST_SEARCH_RESULT_FAILURE:
-      console.log('ERROR', state, action);
-      return state.set('ERROR', action);
+        console.log('ERROR', state, action);
+        return state.set('ERROR', action);
     default:
         return state;
     }

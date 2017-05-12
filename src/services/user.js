@@ -38,3 +38,15 @@ export async function getUsersByQuery(query) {
 export async function getUserById(userId) {
   return get(`/users/id/${userId}`);
 }
+
+export async function followuser(data){
+  return post('/users/follow',{ following_id: data });
+}
+
+export async function unfollowuser(data) {
+    return post('/users/unfollow',{ following_id: data });
+}
+
+export async function getlistuserfollowing(data){
+  return get(`users/following/${data}`);
+}

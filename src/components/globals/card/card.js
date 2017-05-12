@@ -33,7 +33,7 @@ import {
 // };
 
 
-function Card({card, track, moving, userAction,userSubscribeAction}) {
+function Card({card, track, moving, userAction,userSubscribeAction,subscribed, userFollowAction, followed}) {
 
 
   return (
@@ -42,10 +42,14 @@ function Card({card, track, moving, userAction,userSubscribeAction}) {
           card={card}
           moving={moving}
           track={track}
+          subscribed={subscribed}
           subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,card.id)}
-        />
+          />
         <CardUser
           card={card}
+          follow={(userFollow)=>userFollowAction(userFollow,card.owner)}
+          followed={followed}
+
         />
         <CardBody
           card={card}
