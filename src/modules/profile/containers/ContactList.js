@@ -3,7 +3,6 @@ import {
   View, StyleSheet, ListView,
   TouchableOpacity, Platform,
   ActivityIndicator,
-  Alert,
   Linking
 } from 'react-native'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
@@ -12,6 +11,7 @@ import Header from '../../../components/globals/header/header'
 import Divider from '../presenters/Divider'
 import Contact from '../presenters/Contact'
 import SearchTextInput from '../presenters/SearchTextInput'
+import {connect} from 'react-redux'
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
@@ -79,7 +79,11 @@ class ContactList extends React.Component {
     </View>
   }
 }
-export default ContactList
+export default connect(state => ({
+
+}), dispatch => ({
+
+}))(ContactList)
 
 const styles = StyleSheet.create({
   base: {

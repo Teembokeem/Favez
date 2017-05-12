@@ -1,27 +1,46 @@
 import React from 'react'
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native'
+import {
+  View, Text, Image, StyleSheet, TouchableOpacity,
+  ActivityIndicator
+} from 'react-native'
 
-export default function Followee({onPressFollow, onPressRemove}) {
+const renderIf = condition => element => condition ? element : null
+export default function Followee({followee, onPressFollow, onPressRemove}) {
+  const {username, image, uiStatus} = followee
+
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>
-      <Image source={require('../../../../images/default_avatar.png')}
+      <Image source={image ? {uri: image} : require('../../../../images/default_avatar.png')}
         style={styles.avatar}
       />
     </View>
     <View style={styles.info}>
-      <Text style={styles.t1}>@idy</Text>
-      <Text style={styles.t2}>Indiana Jones</Text>
+      <Text style={styles.t1}>@{username}</Text>
+      <Text style={styles.t2}></Text>
       <Text style={styles.t3}>Based on your favez</Text>
     </View>
 
-    <View style={styles.wrapper}>
-      <TouchableOpacity onPress={onPressFollow}>
+    <View style={styles.wrapper1}>
+      {renderIf(!uiStatus || uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
         <View style={styles.followBtnView}>
           <Image
             style={styles.followImg}
-            source={{uri: 'follow.png'}}/>
+            source={{uri: 'follow.png'}}
+          />
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity>)}
+
+      {renderIf(uiStatus === 'followRequesting')(<View style={styles.indicatorWrapper}>
+        <ActivityIndicator
+          animating={true}
+          style={[styles.indicator, {height: 90}]}
+          size={'small'}
+        />
+      </View>)}
+
+      {renderIf(uiStatus === 'followSuccess')(<Text 
+        style={styles.followingText}
+      >Following</Text>)}
     </View>
 
     <View style={styles.wrapper}>
@@ -46,6 +65,10 @@ const styles = StyleSheet.create({
   avatarWrapper: {
     paddingTop: 8
   },
+  wrapper1: {
+    justifyContent: 'center',
+    width: 65
+  },
   wrapper: {
     justifyContent: 'center'
   },
@@ -69,6 +92,8 @@ const styles = StyleSheet.create({
     fontFamily: 'OpenSans-Semibold'
   },
   t3: {
+    position: 'absolute',
+    bottom: 10,
     color: '#bbbbbb',
     marginTop: 8,
     fontFamily: 'OpenSans-Semibold',
@@ -92,5 +117,18 @@ const styles = StyleSheet.create({
   closeImg: {
     width: 18, height: 18,
     marginLeft: 20
+  },
+  indicatorWrapper: {
+    position: 'absolute',
+    top: 0, left: 0, right: 0, bottom: 0
+  },
+  indicator: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 8
+  },
+  followingText: {
+    color: 'green',
+    fontSize: 13
   }
 })
