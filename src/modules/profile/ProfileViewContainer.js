@@ -16,6 +16,7 @@ function grabComments(lists) {
 }
 export default connect(state => ({
   user: state.getIn(['user', 'user']),
+  otherUser: state.getIn(['user', 'otherUser']),
   lists: state.getIn(['list', 'myLists']),
   comments: grabComments(state.getIn(['profile', 'lists']).get('data').toJS()),
   subscribedlists: state.getIn(['list', 'subscribedLists'])

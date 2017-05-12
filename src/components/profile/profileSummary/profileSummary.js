@@ -10,13 +10,16 @@ import {
 } from 'react-native';
 
 const renderIf = cond => elm => cond ? elm : null
+import DefaultUserImage from '../../../../images/default-user-image.png';
+
 function ProfileSummary({
   user,
   onPickProfileImage,
   uploadingProfileImage
 }) {
-  const {auth0, favez} = user;
-  const {picture} = auth0;
+
+  const {favez} = user;
+  const picture = user.auth0 ? user.auth0.picture : DefaultUserImage;
   const {
     //id,
     displayname,

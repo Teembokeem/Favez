@@ -18,8 +18,12 @@ import {
   USER_SUCCESS,
   USER_SEARCH_RESULT_SUCCESS,
   USER_SEARCH_RESULT_FAILURE,
+  USER_SHOW_PROFILE,
+  USER_BY_ID_SUCCESS,
+  USER_BY_ID_FALIURE,
   requestLogin,
   requestUserInfo,
+  requestOtherUserInfo,
   requestUserUpdate,
   requestRegister,
   createUser,
@@ -37,7 +41,8 @@ const initialState = fromJS({
   value: 0,
   loading: false,
   error: {},
-  searchedUsers:[]
+  searchedUsers:[],
+  otherUser: {}
 });
 
 // Reducer
@@ -138,16 +143,26 @@ export default function UserStateReducer(state = initialState, action = {}) {
         state.set('user', {}),
         Effects.promise(() => requestUserInfo())
       );
+    case USER_SHOW_PROFILE:
+      return loop(
+        state.set('otherUser', {}),
+        Effects.promise(() => requestOtherUserInfo(action.payload))
+      );
     case USER_SEARCH_RESULT_SUCCESS:
       return state
         .set('loading', false)
         .set('searchedUsers', action.payload);
+    case USER_BY_ID_SUCCESS:
+      return state
+        .set('loading', false)
+        .set('otherUser', action.payload);
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
     case USER_SEARCH_RESULT_FAILURE:
+    case USER_BY_ID_FALIURE:
       console.log('ERROR', action.payload);
       return state.set('error', action.payload);
     case USER_SUCCESS:

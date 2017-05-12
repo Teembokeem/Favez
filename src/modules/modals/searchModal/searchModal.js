@@ -1,6 +1,8 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput} from 'react-native';
+import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator} from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {debounce} from '../../../utils/timeUtils';
+import * as SearchModalState from './searchModalState';
 
 import * as UserActions from '../../../redux/user/userActions';
 import * as FavezActions from '../../../redux/fave/faveActions';
@@ -21,9 +23,9 @@ let {
 export default class extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-      offset: new Animated.Value(-deviceHeight)
+      offset: new Animated.Value(-deviceHeight),
+      query:''
     };
   }
 
@@ -32,9 +34,6 @@ export default class extends React.Component {
       duration: 150,
       toValue: 0
     }).start();
-    this.props.dispatch(UserActions.searchUsers('j'));
-    this.props.dispatch(FavezActions.searchFavez('art'));
-    this.props.dispatch(ListActions.searchLists('popular'));
   }
 
   closeModal() {
@@ -45,7 +44,8 @@ export default class extends React.Component {
   }
 
   handleSearchInput(text) {
-    console.log(text);
+    this.setState({query: text})
+    if(!!text) this.props.dispatch(SearchModalState.doSearch(text));
   }
 
   cancelSearch() {
@@ -59,9 +59,7 @@ export default class extends React.Component {
                 <View style={{flex: 1}}>
                   <ScrollView>
                     {this.renderSearchBar()}
-                    {this.renderTrendingUsers()}
-                    {this.renderTrendingList()}
-                    {this.renderTrendingFaves()}
+                    {this.renderSearchResult()}
                   </ScrollView>
                 </View>
             </Animated.View>
@@ -89,13 +87,40 @@ export default class extends React.Component {
     );
   }
 
+  renderSearchResult() {
+    if(this.state.query && !this.props.loading) {
+      return (
+        <View style={styles.contentContainer}>
+        {this.renderTrendingUsers()}
+        {this.renderTrendingList()}
+        {this.renderTrendingFaves()}
+        </View>
+      );
+    } else if(this.props.loading){
+      return (
+        <View style={styles.contentContainer}>
+          <ActivityIndicator
+              animating={this.state.animating}
+              style={styles.loader}
+              size="small" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.defaultTextContainer}>
+          <Text style={styles.defaultText}>Search Trending Users, Trending Lists, Trending Faves</Text>
+        </View>
+      );
+    }
+  }
+
   renderTrendingUsers() {
     return (
       <View style={styles.listContainer}>
         <Header title={'Trending Users'} />
         <View style={styles.horizontalList}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {this.props.trendingUsers.map(this.renderUser)}
+            {(this.props.trendingUsers.length>0)?this.props.trendingUsers.map(this.renderUser):this.renderNoResult()}
           </ScrollView>
         </View>
       </View>
@@ -108,7 +133,7 @@ export default class extends React.Component {
         <Header title={'Trending in Romania'} />
         <View style={styles.horizontalList}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {this.props.trendingFavez.map(this.renderFave)}
+          {(this.props.trendingFavez.length>0)?this.props.trendingFavez.map(this.renderFave):this.renderNoResult()}
           </ScrollView>
         </View>
       </View>
@@ -121,7 +146,7 @@ export default class extends React.Component {
         <Header title={'Trending Lists'} />
         <View style={styles.horizontalList}>
           <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-            {this.props.trendingLists.map(this.renderList)}
+            {(this.props.trendingLists.length>0)?this.props.trendingLists.map(this.renderList) : this.renderNoResult()}
           </ScrollView>
         </View>
       </View>
@@ -154,6 +179,14 @@ export default class extends React.Component {
       <View style={[styles.listItemLayout, styles.favezLayout]} key={fave.id}>
         <Image style={styles.listItemThumb} source={DefaultFaveImage} />
         <Text style={styles.listItemTitle} ellipsizeMode='tail' numberOfLines={3}>{fave.name.toUpperCase()}</Text>
+      </View>
+    );
+  }
+
+  renderNoResult() {
+    return (
+      <View style={styles.noResultContainer}>
+        <Text style={styles.noResultText}>No Result Found</Text>
       </View>
     );
   }

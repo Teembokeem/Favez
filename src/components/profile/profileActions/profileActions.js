@@ -2,6 +2,7 @@ import React from 'react';
 import {Actions} from 'react-native-router-flux';
 import EvilIcon from 'react-native-vector-icons/EvilIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 import {
   StyleSheet,
   View,
@@ -21,15 +22,15 @@ const ProfileActions = React.createClass({
     <View style={styles.ProfileActionsContainer}>
         <TouchableOpacity
           style={styles.ProfileActionsButton1}
-          onPress={Actions.editProfile}
+          onPress={self?Actions.editProfile: null}
         >
-          <EvilIcon style={styles.ProfileActionsButton1Icon} name='pencil' />
+          <SimpleLineIcon style={styles.ProfileActionsButton1Icon} name={self ? 'pencil' : 'user-follow'} />
           <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : 'FOLLOW'}</Text>
         </TouchableOpacity>
-        <TouchableOpacity 
-          onPress={Actions.invitePeople}
+        <TouchableOpacity
+          onPress={self?Actions.invitePeople: null}
           style={styles.ProfileActionsButton2}>
-          <FAIcon style={styles.ProfileActionsButton2Icon} name='address-book-o' />
+          <SimpleLineIcon style={styles.ProfileActionsButton2Icon} name={self?'notebook':'envelope-letter'} />
           <Text style={styles.ProfileActionsButton2Text}>{self ? ' INVITE FRIENDS' : 'INVITE TO COLLAB'}</Text>
         </TouchableOpacity>
     </View>
@@ -61,12 +62,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#0076ff'
   },
   ProfileActionsButton1Icon: {
-    fontSize: 30,
+    fontSize: 15,
+    margin:5,
     color: 'white'
   },
   ProfileActionsButton1Text: {
     fontFamily: 'Hind-Bold',
     fontSize: 14,
+    marginLeft:5,
     color: 'white'
   },
   ProfileActionsButton2: {
@@ -81,12 +84,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'black'
   },
   ProfileActionsButton2Icon: {
-    fontSize: 20,
+    fontSize: 15,
+    margin:5,
     color: 'white'
   },
   ProfileActionsButton2Text: {
     fontFamily: 'Hind-Bold',
     fontSize: 14,
+    marginLeft:5,
     color: 'white'
   }
 

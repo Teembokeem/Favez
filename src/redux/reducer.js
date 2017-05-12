@@ -5,6 +5,7 @@ import { reducer as formReducer } from 'redux-form/immutable';
 import FeedStateReducer from '../modules/feed/FeedState';
 import ListShowStateReducer from '../modules/list-show/ListShowState';
 import SearchStateReducer from '../modules/search/SearchState';
+import SearchModalStateReducer from '../modules/modals/searchModal/searchModalState';
 import ProfileStateReducer from '../modules/profile/ProfileState';
 import SessionStateReducer, {RESET_STATE} from '../modules/session/SessionState';
 
@@ -20,6 +21,7 @@ const reducers = {
   feed: FeedStateReducer,
   listShow: ListShowStateReducer,
   search: SearchStateReducer,
+  searchModal: SearchModalStateReducer,
   form: formReducer,
   // notification: NotificationStateReducer,
   profile: ProfileStateReducer,
