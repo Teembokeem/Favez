@@ -247,7 +247,7 @@ export async function unfollowuserAction(data) {
 }
 
 //Get List of users you are Following
-export async function getlistofuserfolowingAction(data) {
+export async function requestFollowingUsersList(data) {
   console.log('Get List of followers in action in actions');
   return await getlistuserfollowing(data)
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))

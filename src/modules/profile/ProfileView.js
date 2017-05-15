@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import * as ProfileState from './ProfileState';
+import {Actions} from 'react-native-router-flux';
 import {
     Text,
     View,
@@ -18,6 +18,7 @@ import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list';
 
+import * as ProfileState from './ProfileState';
 import * as UserActions from '../../redux/user/userActions';
 import * as ListActions from '../../redux/list/listActions';
 import * as ViewUtil from '../../utils/viewUtil';
@@ -126,10 +127,15 @@ const ProfileView = React.createClass({
     isFollowedUser() {
       let isFollowed = false;
       let userId = this.props.userId;
-      this.props.followedUsers.forEach(function(user){
+      this.props.followingUsers.forEach(function(user){
         if(user.id == userId) isFollowed = true;
       });
       return isFollowed;
+    },
+
+    exploreFriends(user) {
+      let userId = user.auth0 ? user.favez.id : user.id;
+      Actions.userFriends({userId});
     },
 
     render() {
@@ -154,6 +160,7 @@ const ProfileView = React.createClass({
                           user={user}
                           onPickProfileImage={this.onPickProfileImage}
                           uploadingProfileImage={uploadingProfileImage}
+                          exploreFriends={() => this.exploreFriends(user)}
                         />
                         <ProfileActions
                           self={authIsSelf}

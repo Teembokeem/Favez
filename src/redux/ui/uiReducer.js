@@ -206,6 +206,12 @@ const initialState = fromJS({
       selected: 'alerts',
       set: ['alerts', 'invitations']
     }
+  },
+  userFriends: {
+    tabs: {
+      selected: 'following',
+      set: ['following', 'followers']
+    }
   }
 });
 

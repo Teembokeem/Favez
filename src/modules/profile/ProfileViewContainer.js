@@ -21,7 +21,7 @@ export default connect(state => ({
   lists: state.getIn(['list', 'myLists']),
   comments: grabComments(state.getIn(['profile', 'lists']).get('data').toJS()),
   subscribedlists: state.getIn(['list', 'subscribedLists']),
-  followedUsers: state.getIn(['user', 'followedusers'])
+  followingUsers: state.getIn(['user', 'followingUsers'])
 }), dispatch => ({
   dispatch,
   onPickProfileImage: (onUploadingImage, onUploadedImage) => {

@@ -15,7 +15,8 @@ const renderIf = cond => elm => cond ? elm : null;
 function ProfileSummary({
   user,
   onPickProfileImage,
-  uploadingProfileImage
+  uploadingProfileImage,
+  exploreFriends
 }) {
 
   const userData = user.auth0 ? user.favez : user;
@@ -38,6 +39,7 @@ return (
     >
       <TouchableOpacity
           style={styles.ProfileSummaryRow1LeftContent}
+          onPress={exploreFriends}
       >
         <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers.length.toString() : 0}</Text>
         <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
@@ -63,6 +65,7 @@ return (
 
       <TouchableOpacity
           style={styles.ProfileSummaryRow1RightContent}
+          onPress={exploreFriends}
       >
         <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 0}</Text>
         <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>

@@ -13,7 +13,8 @@ import FavoriteViewContainer from './favorite/FavoriteViewContainer';
 import SearchViewContainer from './search/SearchViewContainer';
 import NotificationViewContainer from './notification/NotificationViewContainer';
 import ProfileViewContainer from './profile/ProfileViewContainer';
-import InvitePeople from './profile/containers/InvitePeople'
+import InvitePeople from './profile/containers/InvitePeople';
+import UserFriendsView from './profile/containers/UserFriends';
 import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
@@ -102,6 +103,7 @@ const NavigationView = React.createClass({
                 <Scene key='editProfile' component={EditProfileViewContainer} title='Edit Profile' hideNavBar={true} hideTabBar={true}/>
                 <Scene key='invitePeople' component={InvitePeople} title="Invite People" hideNavBar={true} hideTabBar={true}/>
                 <Scene key='contactList' component={ContactList} title="Contact list" hideNavBar={true} hideTabBar={true}/>
+                <Scene key='userFriends' component={UserFriendsView} title="Your Friends" hideNavBar={true} hideTabBar={true}/>
               </Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>

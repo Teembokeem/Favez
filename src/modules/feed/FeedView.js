@@ -23,7 +23,7 @@ const FeedView = React.createClass({
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
+        this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
 
     },
     componentDidMount() {},
@@ -92,14 +92,14 @@ const FeedView = React.createClass({
     },
 
     render() {
-        const {lists, subscribedlists, followedusers} = this.props;
+        const {lists, subscribedlists, followingUsers} = this.props;
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
 
             subscribedListsIds = showSubscribedlists(lists, subscribedlists);
         }
-        if( followedusers.length > 0){
-          followedListsIds = showFollowedlists(lists,followedusers);
+        if( followingUsers.length > 0){
+          followedListsIds = showFollowedlists(lists,followingUsers);
         }
         return (
 

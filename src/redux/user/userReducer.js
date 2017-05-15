@@ -54,7 +54,8 @@ const initialState = fromJS({
     loading: false,
     error: {},
     searchedUsers: [],
-    followedusers: [],
+    followingUsers: [],
+    followerUsers:[],
     recentFollowedUser:{
       id:-1,
       status: false
@@ -241,8 +242,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:
     case GET_FOLLOWING_LIST_SUCCESS:
-    console.log("following users list followedusers", action.payload);
-      return state.set('followedusers', action.payload.data);
+    console.log("following users list followingUsers", action.payload);
+      return state.set('followingUsers', action.payload.data);
     case GET_FOLLOWING_LIST_FAILURE:
     default:
       return state;
