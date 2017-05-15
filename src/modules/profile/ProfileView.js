@@ -22,16 +22,11 @@ const ProfileView = React.createClass({
     propTypes: {},
     getInitialState() {
         return { selected: 'lists' };
-      },
-
+    },
 
     componentWillMount() {
 
-        if(!this.props.userId)
-          this.props.dispatch(UserActions.requestUserInfo());
-        else
-          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
-
+        this.loadUserProfile();
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
@@ -107,9 +102,35 @@ const ProfileView = React.createClass({
         })
     },
 
+    loadUserProfile() {
+
+      if(!this.props.userId)
+        this.props.dispatch(UserActions.requestUserInfo());
+      else {
+        if(this.props.user.favez.id == this.props.userId)
+          this.props.dispatch(UserActions.requestUserInfo());
+        else
+          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
+      }
+
+    },
+
+    isOtherUser(userId) {
+      return this.props.userId && (this.props.userId != this.props.user.favez.id);
+    },
+
+    isFollowedUser() {
+      let isFollowed = false;
+      let userId = this.props.userId;
+      this.props.followedUsers.forEach(function(user){
+        if(user.id == userId) isFollowed = true;
+      });
+      return isFollowed;
+    },
+
     render() {
-        const authIsSelf = (this.props.userId)? false : true;
-        const user = (this.props.userId)? this.props.otherUser : this.props.user;
+        const authIsSelf = this.isOtherUser() ? false : true;
+        const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
@@ -123,7 +144,9 @@ const ProfileView = React.createClass({
                       onPickProfileImage={this.onPickProfileImage}
                       uploadingProfileImage={uploadingProfileImage}
                     />
-                    <ProfileActions self={authIsSelf}/>
+                    <ProfileActions
+                      self={authIsSelf}
+                      followedUser={this.isFollowedUser()}/>
                     <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
                     <View style={styles.contentContainer}>
                         {child}

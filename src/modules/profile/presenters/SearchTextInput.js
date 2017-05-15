@@ -38,6 +38,7 @@ class SearchTextInput extends React.Component {
         {this.renderIf(showPlaceholderText)(<Text style={styles.t1}>SEARCH</Text>)}
       </View>
       <TextInput
+        underlineColorAndroid="transparent"
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         style={styles.searchTextInput}

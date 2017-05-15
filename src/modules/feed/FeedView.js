@@ -17,35 +17,37 @@ let followedListsIds = [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
-        // console.log("prrr", this.props.user.favez.id);
         this.props.dispatch(ListActions.getFullList());
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
+
+
+        // this line is throwing an error when not logged in....
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez ? this.props.user.favez.id : ''));
+
 
     },
     componentDidMount() {},
 
     moving(idx) {
-        console.log('id of list: ', idx)
         this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
     },
     userLikeDislike(action, id) {
         if (action == "like") {
 
             this.props.dispatch(ListActions.sendListLikeDislike(id));
-        } else {
-            //          console.log("not like action..");
         }
-        // Alert.alert(action);
-        // Alert.alert(id);
     },
     userSubscribe(id, action) {
         if (id == "subsrciptions") {
+
             console.log("do a subscribition request..");
 
             this.props.dispatch(FeedState.subscribeList(action, 2));
+
+          //  this.props.dispatch(ListActions.createlistRelationAction(action, 2));
+
 
         }
         if (id == "unsubscribe") {
@@ -55,14 +57,9 @@ const FeedView = React.createClass({
     },
     userFollow(id, action) {
         if (id == "follow") {
-            console.log("do a follow request..", id);
-            console.log("action value", action);
             this.props.dispatch(FeedState.followUser(action));
         }
         if (id == "unfollow") {
-            console.log("do a UNfollow request..", id);
-            console.log("action vAlue", action);
-
             this.props.dispatch(FeedState.unFollowUser(action));
         }
 
@@ -98,14 +95,16 @@ const FeedView = React.createClass({
 
     render() {
         const {lists, subscribedlists, followedusers} = this.props;
+
         console.log("followed lists ini", followedusers);
+
+
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
 
-            console.log("listsvhuhv hvfuh ", lists);
-            console.log("Unsubscribed list...", subscribedlists);
             subscribedListsIds = showSubscribedlists(lists, subscribedlists);
         }
+
         if (followedusers.length > 0) {
             console.log("all lists", lists);
             console.log("followed lists", followedusers);
@@ -117,7 +116,6 @@ const FeedView = React.createClass({
             followedListsIds = addrecentClickedFollow(followedListsIds, this.props.recentFollowedUser);
 
             console.log("new pushed latest array: ", followedListsIds);
-        }
         return (
 
             <View style={{
@@ -134,19 +132,35 @@ const FeedView = React.createClass({
     },
     renderCard(card, idx) {
 
+
         console.log("index of eleme", subscribedListsIds.indexOf(card.id));
         console.log("pross det123", this.props.recentFollowedUser);
         followed = checkOwnerIdinFollowList(followedListsIds, card.owner);
         console.log("569op in view result", followed);
+
         if (subscribedListsIds.indexOf(card.id) > -1)
             subscribed = true;
         else
             subscribed = false;
 
-        console.log("card id ", card.id);
-        console.log("subsc d", subscribedListsIds);
-        console.log("subsctibe status", subscribed);
-        return (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} subscribed={subscribed} followed={followed} userSubscribeAction={this.userSubscribe} userFollowAction={this.userFollow} userAction={this.userLikeDislike}/>);
+
+        return (
+          <Card key={'feed ' + idx}
+            card={card}
+            track={idx}
+            moving={this.moving}
+            subscribed={subscribed}
+            followed={followed}
+            userSubscribeAction={this.userSubscribe}
+            userFollowAction={this.userFollow}
+            userAction={this.userLikeDislike}
+            showProfile={() => this.showProfile(card.owner)}/>
+          );
+    },
+
+
+    showProfile(owner) {
+      Actions.profile({userId: owner});
     }
 });
 

@@ -17,15 +17,16 @@ const ProfileActions = React.createClass({
   },
 
   render() {
-    const self = this.props.self;
+    const {self, followedUser} = this.props;
+    let followUnfollowStyle = followedUser ? styles.redButton: styles.blueButton;
     return (
     <View style={styles.ProfileActionsContainer}>
         <TouchableOpacity
-          style={styles.ProfileActionsButton1}
+          style={[styles.ProfileActionsButton1, followUnfollowStyle]}
           onPress={self?Actions.editProfile: null}
         >
           <SimpleLineIcon style={styles.ProfileActionsButton1Icon} name={self ? 'pencil' : 'user-follow'} />
-          <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : 'FOLLOW'}</Text>
+          <Text style={styles.ProfileActionsButton1Text}>{self ? 'EDIT PROFILE' : followedUser ? 'UNFOLLOW':'FOLLOW'}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={self?Actions.invitePeople: null}
@@ -93,8 +94,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginLeft:5,
     color: 'white'
+  },
+  redButton: {
+    backgroundColor: '#CC0000'
+  },
+  blueButton: {
+    backgroundColor: '#0076ff'
   }
-
 });
 
 export default ProfileActions;

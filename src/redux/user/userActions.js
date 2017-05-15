@@ -13,8 +13,8 @@ import {
   followuser,
   unfollowuser,
   getlistuserfollowing
-
 } from '../../services/user';
+import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
 import * as cloudinary from '../../services/cloudinary'
 import {Alert, Image} from 'react-native'
@@ -149,6 +149,7 @@ export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"
 export const UPLOAD_USER_IMAGE_FAIL = "UPLOAD_USER_IMAGE_FAIL"
 export const UPLOAD_USER_IMAGE_PREFETCHED = "UPLOAD_USER_IMAGE_PREFETCHED"
+export const UPLOAD_USER_IMAGE_PREFETCHED_FAIL = "UPLOAD_USER_IMAGE_PREFETCHED_FAIL"
 /**
  *  onUploading: function (base64ImageUri){} : pass this callback to handle
  */
@@ -188,23 +189,28 @@ export function pickProfileImage(onUploading, onUploaded) {
         }
         //step 3: upload to cloudinary
         cloudinary.uploadImage(imageUri).then((data) => {
-          const {url} = data
+          const {secure_url} = data
 
           //step 4: save image url returned from cloudinary to favez server
-          updateUser({image: url})
+          updateUser({image: secure_url})
           .then(() => {
 
             dispatch({
               type: UPLOAD_USER_IMAGE_SUCCESS,
-              image: url
+              image: secure_url
             })
 
             //step 5: prefetch image from cloudinary's url
-            Image.prefetch(url).then(() => {
+            Image.prefetch(secure_url).then(() => {
               dispatch({
                 type: UPLOAD_USER_IMAGE_PREFETCHED
               })
               if (onUploaded) onUploaded(true)
+            }, () => {
+              console.warn(`Prefetch image profile from "${secure_url}" fail. Use binary instead.`)
+              dispatch({
+                type: UPLOAD_USER_IMAGE_PREFETCHED_FAIL
+              })
             })
           }, () => {
             dispatch({type: UPLOAD_USER_IMAGE_FAIL})
@@ -225,8 +231,11 @@ export function pickProfileImage(onUploading, onUploaded) {
 export async function followuserAction(data) {
   console.log('follow a user in actions',data);
   return await followuser(data)
-    .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res }))
-    .catch((err) => ({type: FOLLOW_USER_FAILURE, payload: err }));
+    .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res, userId: data }))
+    .catch((err) => {
+      Alert.alert('Error when follow a user, please try again later!')
+      return {type: FOLLOW_USER_FAILURE, payload: err, userId: data }
+    });
 }
 
 // Unfollow a User
@@ -244,3 +253,52 @@ export async function getlistofuserfolowingAction(data) {
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
 }
+
+export const REQUEST_USER_TO_FOLLOW = "REQUEST_USER_TO_FOLLOW"
+export const REQUEST_USER_TO_FOLLOW_SUCCESS = "REQUEST_USER_TO_FOLLOW_SUCCESS"
+export const REQUEST_USER_TO_FOLLOW_FAIL = "REQUEST_USER_TO_FOLLOW_FAIL"
+export function requestUserToFollow() {
+  return (dispatch, getState) => {
+    const collaborators = getState().getIn(['user', 'collaborators_all'])
+    const currentUserId = getState().getIn(['user', 'user']).favez.id
+    dispatch({
+      type: REQUEST_USER_TO_FOLLOW,
+      collaboratorsSize: collaborators.size,
+      collaboratorsLength: collaborators.length
+    })
+
+    return Promise.all([
+      collaborators.size || collaborators.length
+        ? Promise.resolve({data: collaborators}) : getCollaborators(),
+      getlistuserfollowing(currentUserId)
+    ]).then(([allUsersResp, followingUsersResp]) => {
+      const allUsers = allUsersResp.data
+      const followingUsers = followingUsersResp.data
+
+      dispatch({
+        type: USER_GET_COLLABORATORS_SUCCESS,
+        payload: allUsers.map(user => {
+          const following = typeof followingUsers
+            .find(followingUser => user.id === followingUser.id) !== 'undefined'
+          return {...user, following}
+        })
+      })
+    }, () => {
+      dispatch({
+        type: REQUEST_USER_TO_FOLLOW_FAIL
+      })
+    }).catch(e => console.error(e))
+  }
+}
+
+export const REMOVE_USER_FROM_FOLLOW_LIST = "REMOVE_USER_FROM_FOLLOW_LIST"
+export function removeFromFollowList(removedUserId){
+  return (dispatch) => {
+    dispatch({
+      type: REMOVE_USER_FROM_FOLLOW_LIST,
+      removedUserId
+    })
+    userService.removeFromFollowList(removedUserId).done()
+  }
+}
+
