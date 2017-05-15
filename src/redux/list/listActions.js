@@ -7,11 +7,9 @@ import {
   sendInvites,
   getListByTopic,
   sendLikeList,
-
   createlistRelation,
   deleteListRelation,
   getListbyRelation,
-
   searchListsByQuery
 } from '../../services/list';
 

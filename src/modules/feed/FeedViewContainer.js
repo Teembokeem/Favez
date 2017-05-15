@@ -5,7 +5,7 @@ import FeedView from './FeedView';
 export default connect(state => {
     // console.log(state);
     return {
-        lists: state.getIn(['list', 'all']),
+        lists: state.getIn(['fave', 'all']),
         headerContextMenu: state.getIn(['ui', 'feed', 'header', 'contextMenu']).toJS(),
         selfFavezlist: state.getIn(['fave', 'selfFavezlist']),
         subscribedlists: state.getIn(['list', 'subscribedLists']),

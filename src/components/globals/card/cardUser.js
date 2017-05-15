@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 function CardUser({card, time,follow,followed, showProfile}) {
+  console.log('thi is the card', card)
   function FollowMe() {
       console.log("Follow  Me Called... ", follow);
       follow("follow");
@@ -19,12 +20,13 @@ function CardUser({card, time,follow,followed, showProfile}) {
       follow("unfollow");
   };
   console.log("followed 569op",followed,card.owner);
+  const user = (card.user && card.user.length) ? card.user[0] : {f1: 'Unknown'}
   return (
       <View style={[styles.cardUserContainer]}>
           {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
           <View
             style={styles.cardUserInfoColumn}>
-            <Text style={[styles.cardUserName]} onPress={showProfile}>{'@' + card.owner}</Text>
+            <Text style={[styles.cardUserName]} onPress={showProfile}>{'@' + user.f1}</Text>
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
 

@@ -48,6 +48,7 @@ const ListShowView = React.createClass({
   },
 
   renderChildren() {
+    console.log('this list hereeeeee', this.props.list)
     switch (this.props.selectedTab) {
       case 'info':
         return (

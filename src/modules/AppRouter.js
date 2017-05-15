@@ -1,7 +1,7 @@
 /*eslint-disable react/prop-types*/
 
 import React from 'react';
-import {Scene, Router} from 'react-native-router-flux';
+import {Scene, Router, ActionConst} from 'react-native-router-flux';
 import {StyleSheet} from 'react-native';
 import TabIcon from '../components/TabIcon';
 
@@ -47,7 +47,7 @@ const NavigationView = React.createClass({
       <Router>
 
           <Scene key='splash' initial={true} component={SplashViewContainer} hideNavBar />
-          <Scene key='intro' title='Begin' >
+          <Scene key='intro' title='Begin' type={ActionConst.RESET}>
             <Scene key='begin' component={IntroViewContainer} title='Intro' hideNavBar />
             <Scene key='login' component={LoginViewContainer} title='Login' hideNavBar />
             <Scene key='register' component={RegisterViewContainer} title='Register' hideNavBar />

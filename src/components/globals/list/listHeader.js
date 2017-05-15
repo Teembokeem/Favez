@@ -11,7 +11,7 @@ function returnText(number) {
         : '';
 }
 
-function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile,moving}) {
+function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile, moving}) {
   let {picture, nickname} = creator;
   const semantics = returnText(collaborators);
   return (

@@ -20,14 +20,12 @@ const SearchHeaderIcons = React.createClass({
     <View style={[styles.feedNavHeader]}>
       <TouchableOpacity
           style={styles.headerLeftButton}
-
       >
           <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
       </TouchableOpacity>
       <View style={styles.flexMiddle} />
       <TouchableOpacity
           style={styles.headerRightButton}
-
       >
           <IoniconIcon style={styles.headerRightButtonIcon} name='ios-more'/>
       </TouchableOpacity>
@@ -60,13 +58,11 @@ const styles = StyleSheet.create({
   headerRightButton: {
     flex: 1,
     padding: 10,
-    marginRight: 30,
     alignItems: 'center'
   },
   headerRightButtonIcon: {
     fontSize: 25,
     color: '#fff',
-
   }
 });
 

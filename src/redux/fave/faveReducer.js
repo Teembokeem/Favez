@@ -9,6 +9,7 @@ import {
   FAVE_SEARCH_RESULT_FALIURE,
   SELF_FAVEZ_SUCCESS,
   SELF_FAVEZ_FAILURE,
+  FAVE_RESPONSE,
   requestCreateFave
 } from './faveActions';
 
@@ -25,6 +26,10 @@ const initialState = fromJS({
 // Reducer
 export default function FaveReducer(state = initialState, action = {}) {
   switch (action.type) {
+    case FAVE_RESPONSE:
+      return state
+        .set('loading', false)
+        .set('all', action.payload.data);
     case FAVE_SET_NEWFAVE:
       return state
         .set('current', action.payload);

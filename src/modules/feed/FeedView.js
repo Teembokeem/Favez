@@ -17,7 +17,7 @@ let followedListsIds = [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
-        this.props.dispatch(ListActions.getFullList());
+        this.props.dispatch(FavezActions.requestFullFave());
         // this line needs work..... break shit
         // this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
@@ -84,7 +84,7 @@ const FeedView = React.createClass({
     render() {
         const {lists, subscribedlists, followedusers} = this.props;
 
-        console.log("followed lists ini", followedusers);
+        console.log("followed lists ini", lists);
 
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
