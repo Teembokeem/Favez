@@ -19,7 +19,11 @@ const FavoriteView = React.createClass({
 
   componentWillMount() {
     // this.props.dispatch(ListActions.getFullList());
-    this.props.dispatch(ListActions.getMyLists());
+    if (!this.props.user.favez) {
+      Actions.intro()
+    } else {
+      this.props.dispatch(ListActions.getMyLists());
+    }
   },
 
   renderList(ref) {

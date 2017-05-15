@@ -20,9 +20,12 @@ const NotificationView = React.createClass({
 
   componentWillMount() {
     // console.log('hello', this.props);
-    this.props.dispatch(NotificationActions.getNotifs()).then(
-      this.props.dispatch(NotificationActions.getInvites())
-    );
+    if (!this.props.user.favez) {
+      Actions.intro()
+    } else {
+      this.props.dispatch(NotificationActions.getNotifs())
+      .then(this.props.dispatch(NotificationActions.getInvites()));
+    }
   },
 
   showNotifications() {

@@ -8,6 +8,7 @@ import * as ListActions from '../../redux/list/listActions';
 import {Actions} from 'react-native-router-flux';
 
 export default connect(state => ({
+  user: state.getIn(['user', 'user']),
   notifications: state.getIn(['notification', 'myNotifs']).toJS(),
   invites: state.getIn(['notification', 'myInvites']).toJS(),
   loading: state.getIn(['search', 'loading']),

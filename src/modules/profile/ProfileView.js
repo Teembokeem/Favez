@@ -29,16 +29,19 @@ const ProfileView = React.createClass({
         return { selected: 'lists' };
     },
 
-    componentDidMount() {
-
-        console.log('PROFILE_VIEW, componentDidMount....');
-        this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+    componentWillMount() {
+        // this.props.dispatch(ListActions.getFullList());
+        if (!this.props.user.favez || !this.props.otherUser) {
+            Actions.intro()
+        } else {
+            this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        }
     },
 
-    componentDidUpdate() {
+    componentDidMount() {},
 
+    componentDidUpdate() {
       this.loadUserProfile();
-      console.log('PROFILE_VIEW, componentDidUpdate....');
     },
 
     renderChildren() {
