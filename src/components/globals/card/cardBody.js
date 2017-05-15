@@ -3,13 +3,17 @@ import {
   StyleSheet,
   Text,
   Image,
+  TouchableOpacity,
   View
 } from 'react-native';
 
-function CardBody({card}) {
+function CardBody({card, browseFave}) {
   const {_favez} = card;
+  console.log("WHAT THE FUCK", card)
+  const idx = 0
   return (
     <View style={[styles.cardBody]}>
+      <TouchableOpacity onPress={() => browseFave(idx, card.list)}>
         <Text style={[styles.cardBodyMessage]}>{card.description}</Text>
         <Image
           style={styles.cardBodyImage}
@@ -23,6 +27,7 @@ function CardBody({card}) {
           style={styles.cardBodyScrapedTitle}>{card.name}</Text>
           <Text style={styles.cardBodySiteSemantic}>{card.location}</Text>
         </View>
+      </TouchableOpacity>
     </View>
   );
   };

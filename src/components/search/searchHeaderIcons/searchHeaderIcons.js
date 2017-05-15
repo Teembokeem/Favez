@@ -11,15 +11,14 @@ import {
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 15 : 20;
 
 const SearchHeaderIcons = React.createClass({
-
-
-
+  
   render() {
-
+    const {setTopic} = this.props
     return (
     <View style={[styles.feedNavHeader]}>
       <TouchableOpacity
           style={styles.headerLeftButton}
+          onPress={() => setTopic(null)}
       >
           <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
       </TouchableOpacity>

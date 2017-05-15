@@ -24,7 +24,6 @@ const ListShowView = React.createClass({
   propTypes: {},
   componentWillMount() {
     // this.setState({ready: false})\
-    console.log('hello', this.props)
     return this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
@@ -32,23 +31,20 @@ const ListShowView = React.createClass({
     // this.setState({ready: !nextProps.loading});
   },
 
-
   moving() {
     Actions.subbar();
   },
-
-
 
   setFilter(view, tab) {
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },
 
   browseFave(idx) {
-    this.props.dispatch(UIActions.browseList(this.props.list._favez, idx)).then(() => Actions.addFaveBrowse({viewList: true}));
+    this.props.dispatch(UIActions.browseList(this.props.list._favez, idx))
+    .then(() => Actions.addFaveBrowse({viewList: true}));
   },
 
   renderChildren() {
-    console.log('this list hereeeeee', this.props.list)
     switch (this.props.selectedTab) {
       case 'info':
         return (

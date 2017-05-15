@@ -43,11 +43,12 @@ const SearchView = React.createClass({
   renderSearchTopic() {
     const {topic, selected} = this.props;
     var {height, width} = Dimensions.get('window');
-    console.log('this is selected', topic)
     return (
       <View>
         <View style={{height: 150, backgroundColor: topic.color}}>
-          <SearchHeaderIcons />
+          <SearchHeaderIcons
+            setTopic={this.setTopic}
+          />
           <Text style={styles.topicTitle}>{topic.semantic}</Text>
         </View>
         <ScrollView contentContainerStyle={styles.contentContainer}>

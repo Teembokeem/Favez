@@ -6,13 +6,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import card from './card';
 
 function CardHeader({card, moving, track, subscribe, subscribed}) {
-    console.log("recd subs sssss", subscribed);
     function SubscribeMe() {
-        console.log("Subscribe Me Called... ", subscribe);
         subscribe("subsrciptions");
     };
     function UnsubscribeMe() {
-        console.log("UnsubscribeMe");
         subscribe("unsubscribe");
     }
     return (

@@ -18,8 +18,6 @@ export function showFollowedlists(followedlists) {
     return new_arr;
 }
 export function addrecentClickedFollow(followlist, recentadded) {
-  console.log("follow list 569op", followlist);
-  console.log("recent add list 569op", recentadded);
     var flag = false;
     for (var i = 0; i < followlist.length; i++) {
         if (followlist[i].id == recentadded.id) {
@@ -30,7 +28,6 @@ export function addrecentClickedFollow(followlist, recentadded) {
     if (!flag) {
         followlist.push(recentadded);
     }
-    console.log("updated lists 569op", followlist);
     return followlist;
 }
 export function checkOwnerIdinFollowList(followlist, ownerid){

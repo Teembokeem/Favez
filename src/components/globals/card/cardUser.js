@@ -10,16 +10,12 @@ import {
 } from 'react-native';
 
 function CardUser({card, time,follow,followed, showProfile}) {
-  console.log('thi is the card', card)
   function FollowMe() {
-      console.log("Follow  Me Called... ", follow);
       follow("follow");
   };
   function UnFollowMe() {
-      console.log("UnFollow  Me Called... ", follow);
       follow("unfollow");
   };
-  console.log("followed 569op",followed,card.owner);
   const user = (card.user && card.user.length) ? card.user[0] : {f1: 'Unknown'}
   return (
       <View style={[styles.cardUserContainer]}>

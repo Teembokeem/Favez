@@ -20,9 +20,6 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
             style={styles.container}
             key={'tab ' + index}
           >
-
-
-
             <TouchableOpacity
                 onPress={() => setFilter(view, tab)}
             >

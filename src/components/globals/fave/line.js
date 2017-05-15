@@ -8,11 +8,13 @@ import {
 } from 'react-native';
 
 function Line({fave, browseFave, index}) {
+  console.log('this is the faves', fave)
+  const user = (fave.user && fave.user.length) ? fave.user : {f1: 'Unknown'}
   return (
     <View style={styles.FaveContainer}>
       <View style={styles.FaveHeader}>
         {/*TODO: grab user image? <Image />*/}
-        <Text style={styles.FaveUsername}>@{fave.owner}: </Text>
+        <Text style={styles.FaveUsername}>@{user.f1}: </Text>
         <Text style={styles.FaveUserDescription}>{fave.description ? fave.description : ''}</Text>
       </View>
       <TouchableOpacity
