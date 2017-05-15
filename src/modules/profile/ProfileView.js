@@ -7,16 +7,20 @@ import {
     TouchableOpacity,
     ScrollView,
     Alert,
-    StyleSheet
+    StyleSheet,
+    ActivityIndicator
 } from 'react-native';
-import * as UserActions from '../../redux/user/userActions';
+
 import ProfileHeader from '../../components/profile/profileHeader/profileHeader';
 import ProfileSummary from '../../components/profile/profileSummary/profileSummary';
 import ProfileActions from '../../components/profile/profileActions/profileActions';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list';
+
+import * as UserActions from '../../redux/user/userActions';
 import * as ListActions from '../../redux/list/listActions';
+import * as ViewUtil from '../../utils/viewUtil';
 
 const ProfileView = React.createClass({
     propTypes: {},
@@ -24,10 +28,16 @@ const ProfileView = React.createClass({
         return { selected: 'lists' };
     },
 
-    componentWillMount() {
+    componentDidMount() {
 
-        this.loadUserProfile();
+        console.log('PROFILE_VIEW, componentDidMount....');
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+    },
+
+    componentDidUpdate() {
+
+      this.loadUserProfile();
+      console.log('PROFILE_VIEW, componentDidUpdate....');
     },
 
     renderChildren() {
@@ -103,16 +113,10 @@ const ProfileView = React.createClass({
     },
 
     loadUserProfile() {
-
-      if(!this.props.userId)
-        this.props.dispatch(UserActions.requestUserInfo());
-      else {
-        if(this.props.user.favez.id == this.props.userId)
-          this.props.dispatch(UserActions.requestUserInfo());
-        else
-          this.props.dispatch(UserActions.showUserProfile(this.props.userId));
-      }
-
+        if( this.props.userId &&
+            this.props.user.favez.id != this.props.userId &&
+            this.props.userId != this.props.otherUser.id
+        ) this.props.dispatch(UserActions.loadUserProfile(this.props.userId));
     },
 
     isOtherUser(userId) {
@@ -135,23 +139,31 @@ const ProfileView = React.createClass({
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
 
+        console.log('CONTENT_HEIGHT', ViewUtil.getContentHeight());
+
         return (
             <View style={styles.container}>
-                <ScrollView>
-                    <ProfileHeader/>
-                    <ProfileSummary
-                      user={user}
-                      onPickProfileImage={this.onPickProfileImage}
-                      uploadingProfileImage={uploadingProfileImage}
-                    />
-                    <ProfileActions
-                      self={authIsSelf}
-                      followedUser={this.isFollowedUser()}/>
-                    <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
-                    <View style={styles.contentContainer}>
-                        {child}
-                    </View>
-                </ScrollView>
+                <ProfileHeader/>
+                {this.props.loading ? (
+                      <View style={styles.loaderContainer}>
+                        <ActivityIndicator style={styles.centered} />
+                      </View>
+                ):(
+                      <ScrollView>
+                        <ProfileSummary
+                          user={user}
+                          onPickProfileImage={this.onPickProfileImage}
+                          uploadingProfileImage={uploadingProfileImage}
+                        />
+                        <ProfileActions
+                          self={authIsSelf}
+                          followedUser={this.isFollowedUser()}/>
+                        <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
+                        <View style={styles.contentContainer}>
+                            {child}
+                        </View>
+                      </ScrollView>
+                )}
             </View>
         );
     }
@@ -160,8 +172,15 @@ const ProfileView = React.createClass({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center'
+    },
+    loaderContainer: {
+      flex:1,
+      alignItems: 'center'
+    },
+    centered: {
+      flex: 1,
+      alignSelf: 'center'
     },
     contentContainer: {
         backgroundColor: '#e9e9e9',

@@ -38,7 +38,7 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
-export const USER_SHOW_PROFILE = 'USER_SHOW_PROFILE';
+export const LOAD_USER_PROFILE = 'LOAD_USER_PROFILE';
 export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS';
 export const USER_BY_ID_FALIURE = 'USER_BY_ID_FALIURE';
 export const FOLLOW_USER = 'FOLLOW_USER';
@@ -129,9 +129,9 @@ export async function searchUsers(query) {
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
-export async function showUserProfile(userId) {
+export async function loadUserProfile(userId) {
   return {
-    type: USER_SHOW_PROFILE,
+    type: LOAD_USER_PROFILE,
     payload: userId
   };
 }
@@ -301,4 +301,3 @@ export function removeFromFollowList(removedUserId){
     userService.removeFromFollowList(removedUserId).done()
   }
 }
-

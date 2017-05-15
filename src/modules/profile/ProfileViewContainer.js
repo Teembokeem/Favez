@@ -15,6 +15,7 @@ function grabComments(lists) {
   return aggregatedComments;
 }
 export default connect(state => ({
+  loading: state.getIn(['user', 'loading']),
   user: state.getIn(['user', 'user']),
   otherUser: state.getIn(['user', 'otherUser']),
   lists: state.getIn(['list', 'myLists']),

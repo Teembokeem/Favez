@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 import { loop, Effects } from 'redux-loop';
 import {
-    USER_SHOW_PROFILE,
+    LOAD_USER_PROFILE,
     USER_BY_ID_SUCCESS,
     USER_BY_ID_FALIURE,
     requestOtherUserInfo,
@@ -162,9 +162,9 @@ export default function UserStateReducer(state = initialState, action = {}) {
         state.set('user', {}),
         Effects.promise(() => requestUserInfo())
       );
-    case USER_SHOW_PROFILE:
+    case LOAD_USER_PROFILE:
       return loop(
-        state.set('otherUser', {}),
+        state.set('loading', true),
         Effects.promise(() => requestOtherUserInfo(action.payload))
       );
     case USER_SEARCH_RESULT_SUCCESS:

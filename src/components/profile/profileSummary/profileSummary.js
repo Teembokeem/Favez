@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
+import defaultProfileImage from '../../../../images/default-user-image.png';
 
-const renderIf = cond => elm => cond ? elm : null
-const defaultImageUri = '../../../../images/default-user-image.png';
+const renderIf = cond => elm => cond ? elm : null;
 
 function ProfileSummary({
   user,
@@ -19,7 +19,7 @@ function ProfileSummary({
 }) {
 
   const userData = user.auth0 ? user.favez : user;
-  const picture = user.auth0 ? user.auth0.picture : defaultImageUri;
+  const picture = user.auth0 ? user.auth0.picture : '';
   const {
     //id,
     displayname,
@@ -49,7 +49,7 @@ return (
         <View style={styles.avatarView}>
           <Image
             style={styles.ProfileSummaryRow1Avatar}
-            source={{uri: getImageUri(imageStatus, image, picture, uploadingProfileImage)}}
+            source={getProfileImage(imageStatus, image, picture, uploadingProfileImage)}
           />
           {renderIf(imageStatus === 'uploading' || imageStatus === 'prefetching')(<View style={styles.indicatorWrapper}>
             <ActivityIndicator
@@ -78,13 +78,15 @@ return (
   );
 }
 
-function getImageUri(imageStatus, favezImage, auth0Picture, uploadingProfileImage) {
+function getProfileImage(imageStatus, favezImage, auth0Picture, uploadingProfileImage) {
+  let imageUri = null;
   if (imageStatus === 'uploading' || imageStatus === 'prefetching') {
-    return uploadingProfileImage
+    imageUri = uploadingProfileImage;
   }
-  if (favezImage) return favezImage;
-  else if(auth0Picture) return auth0Picture;
-  else defaultImageUri;
+  if (favezImage) imageUri = favezImage;
+  else if(auth0Picture) imageUri = auth0Picture;
+
+  return (!!imageUri) ? {uri: imageUri} : defaultProfileImage;
 }
 
 const styles = StyleSheet.create({

@@ -18,13 +18,12 @@ const followedListsIds= [];
 const FeedView = React.createClass({
     propTypes: {},
     componentWillMount() {
+        // console.log("prrr", this.props.user.favez.id);
         this.props.dispatch(ListActions.getFullList());
         this.props.dispatch(ListActions.getMyLists());
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-
-        // this line is throwing an error when not logged in....
-        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez ? this.props.user.favez.id : ''));
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez.id));
 
     },
     componentDidMount() {},
@@ -36,7 +35,11 @@ const FeedView = React.createClass({
         if (action == "like") {
 
             this.props.dispatch(ListActions.sendListLikeDislike(id));
-        } 
+        } else {
+            //          console.log("not like action..");
+        }
+        // Alert.alert(action);
+        // Alert.alert(id);
     },
     userSubscribe(id, action) {
         if (id == "subsrciptions") {
@@ -51,6 +54,8 @@ const FeedView = React.createClass({
     userFollow(id, action) {
         if (id == "follow") {
             this.props.dispatch(FeedState.followUser(action));
+
+
         }
         if (id == "unfollow") {
             this.props.dispatch(FeedState.unFollowUser(action));
