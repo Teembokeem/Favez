@@ -34,6 +34,11 @@ import {
     requestGetMyLists,
     requestSingleList,
     requestSendInvites,
+    createlistRelationAction,
+    deleteListRelationAction,
+    SUBSCRIBE_LIST,
+    UNSUBSCRIBE_LIST,
+
     LIST_CREATE_RELATION_SUCCESS
 } from './listActions';
 // Initial state
@@ -54,7 +59,11 @@ const initialState = fromJS({
     inviteList: [],
     loading: true,
     listByTopics: [],
-    searchedLists: []
+    searchedLists: [],
+    recentSubscribedList:{
+      id:-1,
+      status: false
+    },
 });
 // Reducer
 export default function ListReducer(state = initialState, action = {}) {
@@ -131,6 +140,14 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEARCH_RESULT_FAILURE:
         console.log('ERROR', state, action);
         return state.set('ERROR', action);
+        case SUBSCRIBE_LIST:
+        console.log("Subscribe List called");
+            return loop(state.setIn(['recentSubscribedList','id'], action.payload),
+            Effects.promise(() => createlistRelationAction(action.payload)));
+            case UNSUBSCRIBE_LIST:
+            console.log("Action Payload of recent unsub 89op", action);
+                return loop(state.setIn(['recentSubscribedList','id'], action.payload),
+                Effects.promise(() => deleteListRelationAction(action.payload)));
     default:
         return state;
     }

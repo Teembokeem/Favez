@@ -20,18 +20,3 @@ export function getDurationStr(momentDuration) {
     if (seconds >= 1) { return Math.round(seconds) + 's' }
     return 'now'
 }
-export function showSubscribedlists(lists, subscribedlists) {
-    var new_arr = [];
-    for (var i = 0; i < subscribedlists.length; i++) {
-        new_arr.push(subscribedlists[i].id);
-    }
-    return new_arr;
-}
-
-export function showFollowedlists(lists,followedlists){
-  var new_arr =[];
-  for (var i = 0; i < followedlists.length; i++) {
-      new_arr.push(followedlists[i].id);
-  }
-  return new_arr;
-}

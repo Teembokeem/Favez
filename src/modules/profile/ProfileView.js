@@ -51,7 +51,7 @@ const ProfileView = React.createClass({
             case 'collabs':
             break;
             case 'subscriptions':
-                Alert.alert("Subscriptions tab Called....   ");
+
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
@@ -89,7 +89,7 @@ const ProfileView = React.createClass({
     },
 
     setFilter(val,tab) {
-      Alert.alert(this.props.selected);
+
       this.setState({selected: tab})
         this.props.dispatch(ProfileState.setFilter(val));
     },

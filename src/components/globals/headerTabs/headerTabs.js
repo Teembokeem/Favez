@@ -20,11 +20,14 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
             style={styles.container}
             key={'tab ' + index}
           >
+
+
+
             <TouchableOpacity
                 onPress={() => setFilter(view, tab)}
             >
               <Text
-                style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#d8d8d8'}]}
+                style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#A4A4A4'}]}
               >
               {tab.toUpperCase()}
               </Text>

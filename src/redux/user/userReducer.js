@@ -190,6 +190,22 @@ export default function UserStateReducer(state = initialState, action = {}) {
       console.log('ERROR', action.payload);
       return state.set('loading', false).set('error', action.payload);
     case USER_SUCCESS:
+
+        console.log('SUCCESS!', action.payload)
+        return state.set('loading', false).set('user', action.payload);
+        case FOLLOW_USER:
+        console.log("Follow user called 11");
+            return loop(state.setIn(['recentFollowedUser','id'], action.payload),
+            Effects.promise(() => followuserAction(action.payload)));
+            case UNFOLLOW_USER:
+                return loop(state.setIn(['recentFollowedUser','id'], action.payload),
+                Effects.promise(() => unfollowuserAction(action.payload)));
+    case FOLLOW_USER_SUCCESS:
+    console.log("User follow success", action.payload);
+        return state.setIn(['recentFollowedUser','status'],true);
+    case FOLLOW_USER_FAILURE:
+
+
       console.log('SUCCESS!', action.payload)
       return state.set('loading', false).set('user', action.payload);
     case FOLLOW_USER: {
@@ -242,6 +258,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
           ...collaborators.slice(currentIndex + 1, collaborators.length)
         ])
     }
+
     case UNFOLLOW_USER_SUCCESS:
       return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:

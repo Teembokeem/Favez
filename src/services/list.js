@@ -3,30 +3,26 @@ import { get, post, put, del } from '../utils/api';
 export async function getListAll() {
     return get('/lists/all');
 }
-
 export async function sendLikeList(data) {
     console.log("data sendign id", data);
     return post('/favez/like', { fave_id: data });
-//return get('/lists/relationship/subscribed')
+    //return get('/lists/relationship/subscribed')
     // return post('lists/relationship',{list_id:11,relationship: 1});
 }
-
 export async function getListbyRelation(data) {
-  console.log("data list relation", data);
+    console.log("data list relation", data);
     return get('lists/relationship/' + data);
 }
 export async function sendUnLikeList(data) {
     console.log("data sendign id", data);
     return post('/favez/unlike', { fave_id: data });
 }
-
-
-export async function deleteListRelation(id, relationid) {
+export async function deleteListRelation(id,) {
     console.log("Delete Relation Id", id);
-    console.log("relation code", relationid);
+    //console.log("relation code", relationid);
+    return del('lists/relationship', { list_id: id });
     // return del('lists/relationship', { list_id: id, relationship: relationid });
-      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
-
+    //      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
 }
 export async function createlistRelation(id, relationid) {
     console.log("Create List Relation Function Called....");
@@ -46,11 +42,9 @@ export async function listGetSingleDetailed(id) {
 export async function getListByTopic(topic) {
     return get(`lists/taxonomy/topic/${topic.ref}`);
 }
-
 export async function searchListsByQuery(query) {
-  return get(`/search/lists/${query}`);
+    return get(`/search/lists/${query}`);
 }
-
 export async function listCreate(data) {
     console.log('my list', data);
     const { listData, inviteData } = data;
