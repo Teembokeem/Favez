@@ -22,10 +22,10 @@ const FeedView = React.createClass({
         this.props.dispatch(FavezActions.getSelffavez());
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
 
-
         // this line is throwing an error when not logged in....
-        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez ? this.props.user.favez.id : ''));
-
+        this.props.dispatch(userActions.getlistofuserfolowingAction(this.props.user.favez
+            ? this.props.user.favez.id
+            : ''));
 
     },
     componentDidMount() {},
@@ -46,8 +46,7 @@ const FeedView = React.createClass({
 
             this.props.dispatch(FeedState.subscribeList(action, 2));
 
-          //  this.props.dispatch(ListActions.createlistRelationAction(action, 2));
-
+            //  this.props.dispatch(ListActions.createlistRelationAction(action, 2));
 
         }
         if (id == "unsubscribe") {
@@ -98,7 +97,6 @@ const FeedView = React.createClass({
 
         console.log("followed lists ini", followedusers);
 
-
         // const ds = this.state.dataSource;
         if (lists.length > 0 && subscribedlists.length > 0) {
 
@@ -116,6 +114,7 @@ const FeedView = React.createClass({
             followedListsIds = addrecentClickedFollow(followedListsIds, this.props.recentFollowedUser);
 
             console.log("new pushed latest array: ", followedListsIds);
+        }
         return (
 
             <View style={{
@@ -132,7 +131,6 @@ const FeedView = React.createClass({
     },
     renderCard(card, idx) {
 
-
         console.log("index of eleme", subscribedListsIds.indexOf(card.id));
         console.log("pross det123", this.props.recentFollowedUser);
         followed = checkOwnerIdinFollowList(followedListsIds, card.owner);
@@ -143,26 +141,13 @@ const FeedView = React.createClass({
         else
             subscribed = false;
 
-
-        return (
-          <Card key={'feed ' + idx}
-            card={card}
-            track={idx}
-            moving={this.moving}
-            subscribed={subscribed}
-            followed={followed}
-            userSubscribeAction={this.userSubscribe}
-            userFollowAction={this.userFollow}
-            userAction={this.userLikeDislike}
-            showProfile={() => this.showProfile(card.owner)}/>
-          );
+        return (<Card key={'feed ' + idx} card={card} track={idx} moving={this.moving} subscribed={subscribed} followed={followed} userSubscribeAction={this.userSubscribe} userFollowAction={this.userFollow} userAction={this.userLikeDislike} showProfile={() => this.showProfile(card.owner)}/>);
     },
 
-
     showProfile(owner) {
-      Actions.profile({userId: owner});
+        Actions.profile({userId: owner});
     }
-});
+  });
 
 const styles = StyleSheet.create({
     container: {

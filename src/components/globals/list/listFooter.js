@@ -7,10 +7,11 @@ import {
   StyleSheet,
   Text,
   Image,
-  View
+  View,
+  Alert
 } from 'react-native';
 
-function ListFooter() {
+function ListFooter(search) {
 
   return (
      <View
@@ -24,7 +25,8 @@ function ListFooter() {
         <View
           style={styles.ListFooterSettingsContainer}
         >
-          <Ionicon style={styles.ListFooterSettings} name='ios-settings'/>
+          <Ionicon style={styles.ListFooterSettings} name={search ? "ios-bookmark-outline":"ios-settings"}/>
+
         </View>
         <View
           style={styles.ListFooterCommentsContainer}
