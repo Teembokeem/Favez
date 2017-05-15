@@ -12,7 +12,8 @@ import {
   getUserById,
   followuser,
   unfollowuser,
-  getlistuserfollowing
+  getlistuserfollowing,
+  getFollowerList
 } from '../../services/user';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
@@ -49,6 +50,8 @@ export const UNFOLLOW_USER_SUCCESS =  'UNFOLLOW_USER_SUCCESS';
 export const UNFOLLOW_USER_FAILURE = 'UNFOLLOW_USER_FAILURE';
 export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
+export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
+export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
 // Action creators
 export async function login(data) {
   return {
@@ -248,10 +251,15 @@ export async function unfollowuserAction(data) {
 
 //Get List of users you are Following
 export async function requestFollowingUsersList(data) {
-  console.log('Get List of followers in action in actions');
   return await getlistuserfollowing(data)
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
+}
+
+export async function requestFollowerUsersList(data) {
+  return await getFollowerList(data)
+    .then((res) => ({type: GET_FOLLOWER_LIST_SUCCESS, payload: res}))
+    .catch((err) => ({type: GET_FOLLOWER_LIST_FAILURE, payload: err}));
 }
 
 export const REQUEST_USER_TO_FOLLOW = "REQUEST_USER_TO_FOLLOW"

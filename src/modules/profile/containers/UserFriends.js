@@ -31,9 +31,8 @@ class UserFriendsView extends React.Component {
   componentDidMount() {
     if(this.props.userId) {
       this.props.requestFollowingUsersList(this.props.userId);
+      this.props.requestFollowerUsersList(this.props.userId);
     }
-
-    //this.props.requestFolloweesList();
   }
 
   setFilter(view, tab) {
@@ -83,7 +82,7 @@ export default connect(state => ({
   followings: state.getIn(['user', 'followingUsers'])
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
-  requestFollowersList: (id) => dispatch(UserActions.requestUserToFollow(id)),
+  requestFollowerUsersList: (id) => dispatch(UserActions.requestFollowerUsersList(id)),
   requestFollowingUsersList: (id) => dispatch(UserActions.requestFollowingUsersList(id)),
 }))(UserFriendsView)
 

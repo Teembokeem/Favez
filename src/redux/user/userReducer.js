@@ -42,6 +42,8 @@ import {
     UNFOLLOW_USER_FAILURE,
     GET_FOLLOWING_LIST_SUCCESS,
     GET_FOLLOWING_LIST_FAILURE,
+    GET_FOLLOWER_LIST_SUCCESS,
+    GET_FOLLOWER_LIST_FAILURE,
     REQUEST_USER_TO_FOLLOW,
     REMOVE_USER_FROM_FOLLOW_LIST,
     UPLOAD_USER_IMAGE_PREFETCHED_FAIL
@@ -183,8 +185,10 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case REGISTER_FAILURE:
     case USER_SEARCH_RESULT_FAILURE:
     case USER_BY_ID_FALIURE:
+    case GET_FOLLOWING_LIST_FAILURE:
+    case GET_FOLLOWER_LIST_FAILURE:
       console.log('ERROR', action.payload);
-      return state.set('error', action.payload);
+      return state.set('loading', false).set('error', action.payload);
     case USER_SUCCESS:
       console.log('SUCCESS!', action.payload)
       return state.set('loading', false).set('user', action.payload);
@@ -242,9 +246,9 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:
     case GET_FOLLOWING_LIST_SUCCESS:
-    console.log("following users list followingUsers", action.payload);
-      return state.set('followingUsers', action.payload.data);
-    case GET_FOLLOWING_LIST_FAILURE:
+      return state.set('loading', false).set('followingUsers', action.payload.data);
+    case GET_FOLLOWER_LIST_SUCCESS:
+      return state.set('loading', false).set('followerUsers', action.payload.data);
     default:
       return state;
     }
