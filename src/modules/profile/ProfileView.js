@@ -139,7 +139,7 @@ const ProfileView = React.createClass({
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
 
-        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id;
+        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || this.props.user.favez.id == this.props.userId;
 
         return (
             <View style={styles.container}>
