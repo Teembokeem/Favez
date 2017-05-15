@@ -139,16 +139,16 @@ const ProfileView = React.createClass({
         const selectedTab = this.state.selected;
         const {uploadingProfileImage} = this.state
 
-        console.log('CONTENT_HEIGHT', ViewUtil.getContentHeight());
+        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id;
 
         return (
             <View style={styles.container}>
                 <ProfileHeader/>
-                {this.props.loading ? (
+                { this.props.loading ? (
                       <View style={styles.loaderContainer}>
                         <ActivityIndicator style={styles.centered} />
                       </View>
-                ):(
+                ) : renderContent ? (
                       <ScrollView>
                         <ProfileSummary
                           user={user}
@@ -163,7 +163,7 @@ const ProfileView = React.createClass({
                             {child}
                         </View>
                       </ScrollView>
-                )}
+                ) : null}
             </View>
         );
     }
@@ -179,8 +179,7 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     centered: {
-      flex: 1,
-      alignSelf: 'center'
+      flex: 1
     },
     contentContainer: {
         backgroundColor: '#e9e9e9',
