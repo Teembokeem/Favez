@@ -42,50 +42,86 @@ class UserFriendsView extends React.Component {
   }
 
   renderTabPanels() {
+    const {selectedTab} = this.props;
+    switch(selectedTab) {
+      case 'following':
+        return this.renderFollowingUsersList();
 
-    const {selectedTab, followingUsers, followerUsers, loading} = this.props;
-    console.log('RENDER_FOLLOWING_LIST: ',(selectedTab === 'following'));
+      case 'followers':
+        return this.renderFollowerUsersList();
+    }
+  }
+
+  renderFollowingUsersList() {
+
+    const {followingUsers} = this.props;
+    if(!!followingUsers && followingUsers.length > 0) {
+      console.log('rendering renderFollowingUsersList.....');
+      return (
+        <ListView
+        dataSource={ds.cloneWithRows(toJS(followingUsers))}
+        enableEmptySections={true}
+        renderRow={(followingUser) => {
+          const {id} = followingUser
+          return (
+            <View>
+              <Followee
+                followee={followingUser}
+                isFollowing={true}
+              />
+              <Divider/>
+            </View>
+          )
+        }} />
+      )
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>You have no following users</Text>
+        </View>
+      )
+    }
+  }
+
+  renderFollowerUsersList() {
+
+    const {followerUsers} = this.props;
+    if(!!followerUsers && followerUsers.length > 0) {
+      console.log('rendering renderFollowerUsersList.....');
+      return (
+        <ListView
+        dataSource={ds.cloneWithRows(toJS(followerUsers))}
+        enableEmptySections={true}
+        renderRow={(followerUser) => {
+          const {id} = followerUser
+          return (
+            <View>
+              <Follower
+                follower={followerUser}
+                isFollower={true}
+              />
+              <Divider/>
+            </View>
+          )
+        }} />
+      )
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>You have no followers</Text>
+        </View>
+      )
+    }
+  }
+
+  renderLoader() {
     return (
-      <View style={styles.contentContainer}>
-        {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
-        {renderIf(!loading && selectedTab === 'following')(
-          <ListView
-          dataSource={ds.cloneWithRows(toJS(followingUsers))}
-          enableEmptySections={true}
-          renderRow={(followingUser) => {
-            const {id} = followingUser
-            return (
-              <View>
-                <Followee
-                  followee={followingUser}
-                  isFollowing={true}
-                />
-                <Divider/>
-              </View>
-            )
-          }} />)}
-          {renderIf(!loading && selectedTab === 'followers')(
-            <ListView
-            dataSource={ds.cloneWithRows(toJS(followerUsers))}
-            enableEmptySections={true}
-            renderRow={(followerUser) => {
-              const {id} = followerUser
-              return (
-                <View>
-                  <Follower
-                    follower={followerUser}
-                    isFollower={true}
-                  />
-                  <Divider/>
-                </View>
-              )
-            }} />)}
-      </View>
-    );
+      <ActivityIndicator style={styles.loading}/>
+    )
   }
 
   render() {
-    const {tabs, selectedTab} = this.props;
+    const {tabs, selectedTab, loading} = this.props;
     console.log('USER_FRIENDS_PROPS', this.props);
     return (
       <View style={styles.base}>
@@ -104,7 +140,9 @@ class UserFriendsView extends React.Component {
               tabs={tabs}
             />
           </View>
-          {this.renderTabPanels()}
+          <View style={styles.contentContainer}>
+            { loading ? this.renderLoader() : this.renderTabPanels() }
+          </View>
       </View>
     );
   }
@@ -135,9 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6'
   },
   contentContainer: {
-    flex: 1,
-    height:400,
-    width: 400,
+    flex: 1
   },
   header: {
     backgroundColor: 'white',
@@ -191,6 +227,15 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   loading: {
-    marginTop: 20
+    alignSelf: 'center'
+  },
+  noResultContainer: {
+    flex:1,
+    flexDirection:'row'
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic',
+    margin: 15
   }
 })
