@@ -265,7 +265,6 @@ const initialState = fromJS({
       }
     ]
   },
-  selected: 'lists',
   value: 0,
   loading: false
 });
@@ -280,18 +279,11 @@ export function increment(cards, index) {
   return {type: INCREMENT, item: cards, payload: index};
 }
 
-export function setFilter(value) {
-  return {type: SETFILTER, payload: value};
-}
-
 // Reducer
 export default function ProfileStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case INCREMENT:
       return state;
-    case SETFILTER:
-      return state
-        .set('selected', action.payload);
     default:
       return state;
   }

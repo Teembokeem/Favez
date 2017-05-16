@@ -21,14 +21,10 @@ import List from '../../components/globals/list/list';
 import * as ProfileState from './ProfileState';
 import * as UserActions from '../../redux/user/userActions';
 import * as ListActions from '../../redux/list/listActions';
-import * as ViewUtil from '../../utils/viewUtil';
+import * as UIActions from '../../redux/ui/uiActions';
 
 const ProfileView = React.createClass({
     propTypes: {},
-    getInitialState() {
-        return { selected: 'lists' };
-    },
-
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
         if (!this.props.user.favez || !this.props.otherUser) {
@@ -48,7 +44,7 @@ const ProfileView = React.createClass({
         let userData = (this.props.userId)? this.props.otherUser : this.props.user;
         console.log('PROFILE_VIEW_PROPS', this.props);
         console.log('PROFILE_VIEW_USER_DATA', userData);
-        switch (this.state.selected) {
+        switch (this.props.selectedTab) {
             case 'lists':
             break;
             case 'collabs':
@@ -93,8 +89,7 @@ const ProfileView = React.createClass({
 
     setFilter(val,tab) {
 
-      this.setState({selected: tab})
-        this.props.dispatch(ProfileState.setFilter(val));
+        this.props.dispatch(UIActions.setViewTab(val, tab));
     },
 
     onPickProfileImage(){
@@ -145,8 +140,8 @@ const ProfileView = React.createClass({
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
         const child = this.renderChildren();
-        const selectedTab = this.state.selected;
-        const {uploadingProfileImage} = this.state
+        const {tabs, selectedTab} = this.props;
+        const {uploadingProfileImage} = this.props;
 
         let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || this.props.user.favez.id == this.props.userId;
 
@@ -168,7 +163,11 @@ const ProfileView = React.createClass({
                         <ProfileActions
                           self={authIsSelf}
                           followedUser={this.isFollowedUser()}/>
-                        <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
+                        <HeaderTabs
+                          view={'profileView'}
+                          setFilter={this.setFilter}
+                          selected={selectedTab}
+                          tabs={tabs}/>
                         <View style={styles.contentContainer}>
                             {child}
                         </View>

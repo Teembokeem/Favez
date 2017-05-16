@@ -195,6 +195,12 @@ const initialState = fromJS({
       }
     }
   },
+  profileView : {
+    tabs: {
+      selected: 'lists',
+      set: ['lists', 'collabs', 'subscriptions', 'likes', 'comments']
+    }
+  },
   listShow: {
     tabs: {
       selected: 'favez',
@@ -243,7 +249,7 @@ export default function UIReducer(state = initialState, action = {}) {
         .setIn([action.payload.view, 'radio'], action.payload.tab);
     case UI_BROWSER_BROWSE_LIST:
       return state
-        .setIn(['browser', 'viewList'], 
+        .setIn(['browser', 'viewList'],
         {set: action.payload.set, index: action.payload.index || 0});
     case UI_SET_TAB:
       return state

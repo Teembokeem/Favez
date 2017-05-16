@@ -16,6 +16,8 @@ function grabComments(lists) {
 }
 export default connect(state => ({
   loading: state.getIn(['user', 'loading']),
+  tabs: state.getIn(['ui','profileView', 'tabs', 'set']),
+  selectedTab: state.getIn(['ui','profileView', 'tabs', 'selected']),
   user: state.getIn(['user', 'user']),
   otherUser: state.getIn(['user', 'otherUser']),
   lists: state.getIn(['list', 'myLists']),
