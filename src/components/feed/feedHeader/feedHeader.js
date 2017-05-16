@@ -38,7 +38,6 @@ const FeedHeader = React.createClass({
 //           case 0:
 //             return Actions.contextMenu({hello: 'hi'});
 //           default:
-//             return console.log('Button Index: ', buttonIndex);
 //         }
 //       }
 //     );

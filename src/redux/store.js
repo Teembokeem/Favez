@@ -29,7 +29,6 @@ function getPackagerHostName(){
             const scriptURL = NativeModules.SourceCode.scriptURL
             const address = scriptURL.split('://')[1].split('/')[0]
             const hostname = address.split(':')[0]
-            console.log('hostname: ', hostname)
             return hostname
         }catch(err){
             return 'localhost'

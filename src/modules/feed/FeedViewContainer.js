@@ -3,7 +3,6 @@ import {
 } from 'react-redux';
 import FeedView from './FeedView';
 export default connect(state => {
-    // console.log(state);
     return {
         lists: state.getIn(['fave', 'all']),
         headerContextMenu: state.getIn(['ui', 'feed', 'header', 'contextMenu']).toJS(),

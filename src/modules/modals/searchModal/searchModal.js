@@ -53,7 +53,6 @@ export default class extends React.Component {
   }
 
   render() {
-    console.log('SEARCH_MODAL_PROPS',this.props);
     return (
         <Animated.View style={styles.container}>
             <View style={{flex: 1}}>

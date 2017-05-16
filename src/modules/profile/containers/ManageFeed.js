@@ -38,8 +38,6 @@ import Followee from '../presenters/Followee';
 
   }
   renderTabPanels() {
-console.log("all props recd 90op", this.props.followingUsers);
-console.log("current user opopop", this.props.user.favez.id);
 const {selectedTab,loading,userSubscribedList} = this.props;
 return (
   <View style={styles.contentContainer}>

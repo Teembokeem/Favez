@@ -50,11 +50,11 @@ const styles = StyleSheet.create({
     // height: APPBAR_HEIGHT
   },
   headerSearchBar: {
-    width: 340,
-    paddingLeft: 5,
-    paddingRight: 20,
+    flex: 1,
+    marginLeft: 10,
+    marginRight: 10,
     backgroundColor: '#f8f8f6',
-    alignSelf: 'flex-start',
+    alignSelf: 'stretch',
     // textAlign: 'center',
     justifyContent: 'center',
     borderRadius: 7,

@@ -71,7 +71,6 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_REQUEST:
         return loop(state.set('loading', true), Effects.promise(action.payload));
     case LIST_RESPONSE:
-        console.log("success list all", action.payload.data);
         return state.set('loading', false).set('all', action.payload.data);
     case SET_LIST:
         return state.set('current', state.get(action.payload.list)[action.payload.index]);
@@ -82,26 +81,20 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_GET_DETAILS_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestSingleList(action.payload)));
     case LIST_GET_DETAILS_SUCCESS:
-        console.log('SUCCESS', state, action);
         return state.set('loading', false).set('current', action.payload.data[0]);
     case LIST_MYLIST_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestGetMyLists()));
     case LIST_MYLIST_SUCCESS:
-        console.log('SUCCESS My List', state.toJS(), action);
         return state.set('loading', false).set('myLists', action.payload.data);
     case LIST_SEND_LIST_INVITATIONS_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestSendInvites(action.payload)));
     case LIST_SEND_LIST_INVITATIONS_SUCCESS:
-        console.log('SUCCESS', state, action);
         return state.set('loading', false).set('myLists', action.payload.data);
     case LIST_CREATE_REQUEST:
-        console.log('hello create request in reducer');
         return loop(state.set('loading', true), Effects.promise(() => requestCreateList(action.payload)));
     case LIST_CREATE_SUCCESS:
-        console.log('SUCCESS', state, action);
         return state.set('loading', false);
     case LIST_SET_NEWLIST_OPTIONS:
-        console.log('setting new list options: ', state.get('options'), action.payload);
         let key = Object.keys(action.payload)[0];
         return insertOptionParams(state, state.get('options'), key, action.payload[key]);
     case LIST_BY_TOPIC_SUCCESS:
@@ -118,35 +111,23 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
     case LIST_BY_TOPIC_FAILURE:
-        console.log('ERROR', state, action);
         return state.set('ERROR', action);
     case LIKE_UNLIKE_LIST_ITEM:
-        console.log("List Item like action called... ");
     case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
-        console.log("Success response subdata", action);
     case LIKE_UNLIKE_LIST_ITEM_FAILURE:
-        console.log("failure like recieved", action);
     case LIST_DELETE_RELATION_SUCCESS:
-      console.log("Delete Relation Success", action);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
-        console.log("Success Recieved");
     case LIST_DELETE_RELATION_FAILURE:
-        console.log("Fail list recd...",action);
     case GET_LIST_BY_RELATION_SUCCESS:
-        console.log("success list", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:
-        console.log("failed subscribe list", action);
     case LIST_SEARCH_RESULT_FAILURE:
-        console.log('ERROR', state, action);
         return state.set('ERROR', action);
         case SUBSCRIBE_LIST:
-        console.log("Subscribe List called");
             return loop(state.setIn(['recentSubscribedList','id'], action.payload),
             Effects.promise(() => createlistRelationAction(action.payload)));
             case UNSUBSCRIBE_LIST:
-            console.log("Action Payload of recent unsub 89op", action);
                 return loop(state.setIn(['recentSubscribedList','id'], action.payload),
                 Effects.promise(() => deleteListRelationAction(action.payload)));
     default:
@@ -155,13 +136,11 @@ export default function ListReducer(state = initialState, action = {}) {
 }
 
 function insertOptionParams(state, obj, prop, values) {
-    console.log('helllooooo propssss', prop, values)
     switch (prop) {
     case 'description':
     case 'currTag':
     case 'priv':
     case 'nsfw':
-        console.log('priavte, nsfw????: ', prop, values)
         return state.setIn(['options', prop], values);
     case 'topics':
         let foundIndex = state.getIn(['options', prop]).indexOf(values);
@@ -169,13 +148,10 @@ function insertOptionParams(state, obj, prop, values) {
             return state.setIn(['options', prop], state.getIn(['options', prop]).concat(values))
         } else {
             let newArr = state.getIn(['options', prop]).splice(foundIndex, 1);
-            console.log(state.getIn(['options', prop]))
             return state.setIn(['options', prop], newArr);
         }
     case 'tags':
-        console.log('tags', state.getIn(['options', prop]), values);
         if (typeof values === 'number') {
-            console.log('deleting!!');
             let newArr = state.getIn(['options', prop]).splice(values, 1);
             return state.setIn(['options', prop], newArr).setIn(['options', 'currTag'], '');
         } else {

@@ -17,7 +17,6 @@ const window = Dimensions.get('window');
 const SearchCollaboratorsSearchBar = React.createClass({
 
   render() {
-    console.log(this.props);
     return (
     <View style={styles.headerContainer}>
       <View style={styles.SearchBarBox}>

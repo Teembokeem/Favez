@@ -19,7 +19,6 @@ const FeedView = React.createClass({
   },
 
   createList(values) {
-    console.log('values', values.toJS());
     const {options, inviteList} = this.props;
     const {description, tags, topics, priv, nsfw} = options;
     let listObj = Object.assign(values.toJS(), {
@@ -29,27 +28,21 @@ const FeedView = React.createClass({
       private: priv ? 1 : 0,
       nsfw: nsfw ? 1 : 0
     });
-    console.log('going into create list');
     this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList}))
       .then(Actions.pop)
       .catch((err) => {
-        console.log('ERROR: ', err);
       });
   },
 
   toggleOption(field, val) {
-    console.log('arguments', field, val);
     let toObj = {};
     toObj[field] = val;
-    console.log('yo your object', toObj);
     return this.props.dispatch(ListActions.setNewListOptions(toObj)).then(() => {
-      console.log('yay');
     })
   },
 
   render() {
     const {options, inviteList} = this.props;
-    console.log('options', options, inviteList);
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />

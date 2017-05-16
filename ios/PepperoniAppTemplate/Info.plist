@@ -26,6 +26,8 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
@@ -43,6 +45,16 @@
 	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Select image for profile</string>
+	<key>NSRequiresCertificateTransparency</key>
+	<string></string>
+	<key>NSTemporaryExceptionRequiresForwardSecrecy</key>
+	<string></string>
+	<key>NSTemporaryThirdPartyExceptionAllowsInsecureHTTPLoads</key>
+	<string></string>
+	<key>NSTemporaryThirdPartyExceptionMinimumTLSVersion</key>
+	<string></string>
+	<key>NSTemporaryThirdPartyExceptionRequiresForwardSecrecy</key>
+	<string></string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Entypo.ttf</string>

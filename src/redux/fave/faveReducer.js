@@ -34,13 +34,11 @@ export default function FaveReducer(state = initialState, action = {}) {
       return state
         .set('current', action.payload);
     case FAVE_CREATE_REQUEST:
-      console.log('FAVE CREATE REQUEST');
       return loop(
         state.set('loading', true),
         Effects.promise(() => requestCreateFave(action.payload))
       );
     case FAVE_CREATE_SUCCESS:
-      console.log('SUCCESS', action);
       return state
         .set('loading', false)
         .set('current', {});
@@ -50,15 +48,12 @@ export default function FaveReducer(state = initialState, action = {}) {
         .set('trendingFavez', action.payload);
     case FAVE_CREATE_FAILURE:
     case FAVE_SEARCH_RESULT_FALIURE:
-      console.log('ERROR', action);
       return state.set('ERROR', action);
       case SELF_FAVEZ_SUCCESS:
-      console.log("success self favez success",action);
       return state
       .set('loading', false)
       .set('slefFavez',action.payload)
       case SELF_FAVEZ_FAILURE:
-      console.log("Failed....");
     default:
       return state;
   }

@@ -97,7 +97,6 @@ export async function requestGetMyLists() {
 }
 
 export async function setList(list, index) {
-  console.log('this index now', index);
   return {
     type: SET_LIST,
     payload: {list,index}
@@ -105,7 +104,6 @@ export async function setList(list, index) {
 }
 
 export async function createList(obj) {
-  console.log('received action, heading to reducer', obj)
   return {
     type: LIST_CREATE_REQUEST,
     payload: obj
@@ -113,14 +111,12 @@ export async function createList(obj) {
 }
 
 export async function requestCreateList(data) {
-  console.log('back from reducer heading to list service')
   return await listCreate(data)
     .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
     .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
 }
 
 export async function setNewListOptions(data) {
-  console.log('hi', data)
   return {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
@@ -142,7 +138,6 @@ export async function sendInvitations(data) {
 
 //like unlike service called
 export async function sendListLikeDislike(data){
-  console.log("sendaction called...",data);
   return await sendLikeList(data)
   .then((res) => ({type:LIKE_UNLIKE_LIST_ITEM_SUCCESS ,payload: res}))
   .catch((err) => ({type: LIKE_UNLIKE_LIST_ITEM_FAILURE, payload: err}));
@@ -156,7 +151,6 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid){
-  console.log("Create Relation Created..");
   return await createlistRelation(id,relationid)
    .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res}))
    .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
@@ -165,7 +159,6 @@ export async function createlistRelationAction(id,relationid){
 
 //Action for Delete list relationship
 export async function deleteListRelationAction(id){
-  console.log("Delete List Relaiton Called",id);
 
   return await deleteListRelation(id)
   .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res}))
@@ -174,7 +167,6 @@ export async function deleteListRelationAction(id){
 
 //Action for getting list by relaitonship
   export async function getListbyRelationAction(data){
-    console.log("create list by relation");
     return await getListbyRelation(data)
 .then((res)=>({type:GET_LIST_BY_RELATION_SUCCESS, payload: res}))
 .catch((err)=>({type:GET_LIST_BY_RELATION_FAILURE, payload: err}));
@@ -188,20 +180,16 @@ export async function requestSendInvites(data) {
 }
 
 export async function requestListByTopic(data) {
-  console.log('Fetching list by topic, topic=',data);
   return await getListByTopic(data)
     .then((res) => {
-      console.log('LIST BY TOPIC DATA', res);
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
     .catch((err) => ({type: LIST_BY_TOPIC_FAILURE, payload: err}));
 }
 
 export async function searchLists(data) {
-  console.log('searching list by query, query=',data);
   return await searchListsByQuery(data)
     .then((res) => {
-      console.log('SEARCH_LIST_RESULT', res);
       return {type: LIST_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: LIST_SEARCH_RESULT_FAILURE, payload: err}));

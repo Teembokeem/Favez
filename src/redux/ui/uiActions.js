@@ -41,7 +41,6 @@ export function browseList(set, index) {
 
 // BROWSE LIST OF FAVEZ
 export function browseFave(fave) {
-  console.log('this is the payload', fave)
   return {
     type: UI_BROWSER_BROWSE_FAVE,
     payload: fave

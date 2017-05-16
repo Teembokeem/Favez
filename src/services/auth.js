@@ -8,7 +8,6 @@ const secret = env.AUTH0_SECRET;
 const apiCred = env.AUTH0_API_CREDENTIAL;
 
 export async function authRegister(data) {
-  console.log('auth service register', data)
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -39,15 +38,12 @@ if (getAuthenticationToken()) {
 } else {
   // fakeLogin()
   // .then(function(res){
-  //   console.log('this is new', res)
   // })
   // .catch(function(err){
-  //   console.log('eerrr', err)
   // })
 }
 
 export async function authLogin(data) {
-  console.log('accessing auth login!', data)
   let body = {
     'client_id': apiCred,
     'username': data.email,
@@ -58,7 +54,6 @@ export async function authLogin(data) {
   };
   return await auth.post('/oauth/ro', body)
     .then((res) => {
-      console.log('success oauth ro res', res);
       setAuth0Token(res.access_token);
       setAuthenticationToken(res.id_token);
       return res;

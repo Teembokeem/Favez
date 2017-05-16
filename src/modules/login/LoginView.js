@@ -12,7 +12,6 @@ import LoginForm from '../../components/login/loginForm/loginForm';
 const LoginView = React.createClass({
 
   componentDidUpdate() {
-    console.log('hello this props!', this.props)
     const {user} = this.props;
     if (user && user.hasOwnProperty('favez')) {Actions.tabbar();}  },
 

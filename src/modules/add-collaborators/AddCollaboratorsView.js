@@ -18,12 +18,10 @@ const AddFaveBrowseView = React.createClass({
   },
 
   search() {
-    console.log('search method');
     return this.props.collaborators.length > 1
       ? Actions.searchCollaborators()
       : this.props.dispatch(UserActions.findCollaborators())
       .then((res) => {
-        console.log('post user action find collaborators', res);
         Actions.searchCollaborators();
       });
   },

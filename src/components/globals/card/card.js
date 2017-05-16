@@ -16,12 +16,10 @@ import {
 //const card=this.state.card;
 
 // function userAction(actionType){
-//   console.log(actionType);
 //   Alert.alert(actionType);
 //   switch (actionType) {
 //     case "like":
 //     Alert.alert("Like is called...");
-//     console.log("props value at distpatch..",this.props);
 //   //  this.props.dispatch(sendListLikeDislike("like"));
 //     // this.props.dispatch(ListReducer.fetchSimilarList(this.props.card.id));
 //
@@ -55,7 +53,9 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           browseFave={browseFave}
           card={card}
         />
-      <CardActions actions={(action)=> userAction(action,card.id)}  />
+        <CardActions 
+          actions={(action)=> userAction(action,card.id)}  
+        />
     </View>
   );
 };

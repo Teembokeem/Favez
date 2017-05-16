@@ -3,7 +3,6 @@ import SearchModal from './searchModal';
 
 export default connect(
   state => {
-    console.log('SEARCH RESULT DATA', state.toJS());
     return {
       query: state.getIn(['searchModal', 'query']),
       trendingUsers: state.getIn(['user', 'searchedUsers']),

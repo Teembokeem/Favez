@@ -23,14 +23,12 @@ const SearchCollaboratorsView = React.createClass({
   },
 
   appendInvitee(invitee) {
-    console.log('does he exist?: ', this.props.inviteList.indexOf(invitee) === -1)
     return this.props.inviteList.indexOf(invitee) === -1
     ? this.props.dispatch(ListActions.modifyInviteList(invitee, true))
     : this.props.dispatch(ListActions.modifyInviteList(invitee, false));
   },
 
   render() {
-    console.log('GOT PROPS', this.props);
     const {collaborators, inviteList} = this.props;
     return (
       <View style={styles.container}>

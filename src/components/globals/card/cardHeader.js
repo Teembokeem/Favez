@@ -14,7 +14,8 @@ function CardHeader({card, moving, track, subscribe, subscribed}) {
     }
     return (
         <View style={styles.cardHeader}>
-            <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
+            <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}
+            </Text>
         </View>
     );
 };

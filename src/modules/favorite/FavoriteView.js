@@ -131,7 +131,6 @@ const FavoriteView = React.createClass({
     }
     let {ref} = selectedMenu;
     const child = this.renderList(ref);
-    console.log('this props', this.props);
     return (
       <View style={styles.container}>
         {this.renderModal(selectedMenu)}

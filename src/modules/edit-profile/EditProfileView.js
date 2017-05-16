@@ -72,7 +72,6 @@ const EditProfileView = React.createClass({
     }
   ],
   editProfile(vals) {
-    console.log('hello', vals.toJS());
     this.props.dispatch(UserActions.update(vals.toJS())).then(() => {
       this.props.dispatch(UserActions.requestUserInfo()).then(Actions.pop);
     });

@@ -30,7 +30,6 @@ export default class extends React.Component {
     componentDidMount() {}
 
     render() {
-        console.log('SEARCH_MODAL_PROPS', this.props);
         return (
             <Text>Magae Feed View....
             </Text>

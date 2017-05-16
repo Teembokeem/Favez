@@ -11,7 +11,6 @@ import ListFooter from './listFooter';
 function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy}) {
 
   const {collaborators, name, _favez, topics, tags} = list;
-  console.log('this is hte list', list)
   return (
     <View
       style={styles.ListContainer}

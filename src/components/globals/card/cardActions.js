@@ -22,10 +22,10 @@ const CardActions = React.createClass({
     render() {
         return (
             <View style={styles.cardActionContainer}>
-                <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
+                <TouchableOpacity onPress={() => Alert.alert('Share dialog goes here')} style={{marginTop: 0}}>
                     <EntypoIcon style={styles.cardActionLeft} name='share'/>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
+                <TouchableOpacity onPress={() => Alert.alert('Subscribe and save fave goes here')} style={{marginTop: 0}}>
                     <FontAwesomeIcon style={styles.cardActionMiddle} name='heart'/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>

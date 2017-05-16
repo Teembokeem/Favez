@@ -89,7 +89,6 @@ const FeedView = React.createClass({
 
   render() {
     const { lists, subscribedlists, followedusers } = this.props;
-    console.log('this is the lists', lists)
 
     // const ds = this.state.dataSource;
     if (lists.length > 0 && subscribedlists.length > 0) {
@@ -144,7 +143,6 @@ const FeedView = React.createClass({
   },
 
   showProfile(userId) {
-    console.log('this is the real user', userId)
     Actions.profile({userId});
   }
 });

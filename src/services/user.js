@@ -5,7 +5,6 @@ export async function getUser() {
 }
 
 export async function postUser(authData) {
-  console.log(' and then finally post user service', authData)
   let user = {
     email: authData.email,
     username: authData.email,
@@ -18,7 +17,6 @@ export async function postUser(authData) {
 }
 
 export async function updateUser(toField) {
-  console.log('to field', toField);
   return await put('/users', toField);
 }
 
@@ -27,7 +25,6 @@ export async function getSimilarList(id) {
 }
 
 export async function getCollaborators() {
-  console.log('api fetching data')
   return await get('/users/all');
 }
 
@@ -40,7 +37,6 @@ export async function getUserById(userId) {
 }
 
 export async function followuser(data){
-  console.log("following users id ", data);
   return post('/users/follow',{ following_id: data });
 }
 
@@ -68,6 +64,5 @@ export async function removeFromFollowList(removedUserId) {
 }
 
 export async function requestSubscribedList(type){
-  console.log("request subcribed list called 9oop");
   return get(`/lists/relationship/${type}`);
 }

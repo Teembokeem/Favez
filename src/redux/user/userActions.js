@@ -69,21 +69,18 @@ export async function login(data) {
 }
 
 export async function requestLogin(data) {
-  console.log('now requesting login')
   return await authLogin(data)
     .then((res) => ({type: LOGIN_SUCCESS, payload: data}))
     .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
 }
 
 export async function requestUserInfo() {
-  console.log('grabbing auth user info')
   return await authUserInfo()
     .then((res) => ({type: USER_SUCCESS, payload: res}))
     .catch((err) => ({type: USER_FAILURE, payload: err}));
 }
 
 export async function register(data) {
-  console.log('auth register request');
   return {
     type: AUTH_REGISTER_REQUEST,
     payload: data
@@ -91,17 +88,14 @@ export async function register(data) {
 }
 
 export async function requestRegister(data) {
-  console.log('request auth register')
   return await authRegister(data)
     .then((res) => {
-      console.log('our res and original data', res, data)
       return {type: AUTH_REGISTER_SUCCESS, payload: data}
     })
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
 }
 
 export async function createUser(data) {
-  console.log('create user actions')
   return postUser(data)
     .then((res) => ({type: REGISTER_SUCCESS, payload: data}))
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
@@ -128,7 +122,6 @@ export async function findCollaborators() {
 }
 
 export async function requestCollaborators() {
-  console.log('requesting collaborators in actions');
   return await getCollaborators()
     .then((res) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: res.data}))
     .catch((err) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: err}));
@@ -150,7 +143,6 @@ export async function loadUserProfile(userId) {
 export async function requestOtherUserInfo(userId) {
   return await getUserById(userId)
     .then((res) => {
-      console.log('USER_DATA', res);
       return {type: USER_BY_ID_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: USER_BY_ID_FALIURE, payload: err}));
@@ -179,13 +171,10 @@ export function pickProfileImage(onUploading, onUploaded) {
     ImagePicker.showImagePicker(options, (response) => {
 
       if (response.didCancel) {
-        console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
       }
       else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
       }
       else {
 
@@ -240,7 +229,6 @@ export function pickProfileImage(onUploading, onUploaded) {
 
 
 export async function followuserAction(data) {
-  console.log('follow a user in actions',data);
   return await followuser(data)
     .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res, userId: data }))
     .catch((err) => {
@@ -251,7 +239,6 @@ export async function followuserAction(data) {
 
 // Unfollow a User
 export async function unfollowuserAction(data) {
-    console.log('unfollow a user in actions');
   return await unfollowuser(data)
     .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
     .catch((err) => ({type: UNFOLLOW_USER_FAILURE, payload: err}));
@@ -274,7 +261,6 @@ export async function requestBlockedUsersList(data) {
 
 //Get list of subscribing users......
   export async function requestSubscribedListAction(type){
-    console.log("request subs ci 90op", type);
     return await requestSubscribedList(type)
       .then((res) => ({ type: GET_USER_SUBSCRIBED_LIST_SUCCESS, payload: res}))
       .catch((err) =>({ type: GET_USER_SUBSCRIBED_LIST_FAILURE, payload: err}));
@@ -284,7 +270,6 @@ export async function requestBlockedUsersList(data) {
 
 
     export async function requestBlockedListAction(type){
-      console.log("request subs ci 90op", type);
       return await requestSubscribedList(type)
         .then((res) => ({ type: GET_USER_BLOCKED_LIST_SUCCESS, payload: res}))
         .catch((err) =>({ type: GET_USER_BLOCKED_LIST_FAILURE, payload: err}));

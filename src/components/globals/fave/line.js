@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 
 function Line({fave, browseFave, index}) {
-  console.log('this is the faves', fave)
   const user = (fave.user && fave.user.length) ? fave.user : {f1: 'Unknown'}
   return (
     <View style={styles.FaveContainer}>

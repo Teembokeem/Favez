@@ -47,8 +47,6 @@ const ProfileView = React.createClass({
 
     renderChildren() {
         let userData = (this.props.userId)? this.props.otherUser : this.props.user;
-        console.log('PROFILE_VIEW_PROPS', this.props);
-        console.log('PROFILE_VIEW_USER_DATA', userData);
         switch (this.state.selected) {
             case 'lists':
             break;

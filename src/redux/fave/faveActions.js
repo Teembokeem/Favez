@@ -29,7 +29,6 @@ export async function requestFullFave() {
 }
 
 export async function setFave(fave) {
-  console.log('this fave now', fave);
   return {
     type: FAVE_SET_NEWFAVE,
     payload: fave
@@ -37,7 +36,6 @@ export async function setFave(fave) {
 }
 
 export async function setNewFave(fave) {
-  console.log('this fave now', fave);
   return {
     type: FAVE_SET_NEWFAVE,
     payload: fave
@@ -60,7 +58,6 @@ export async function requestCreateFave(data) {
 export async function searchFavez(data) {
   return await favezSearchByQuery(data)
     .then((res) => {
-      console.log('FAVEZ_SEARCH_DATA', res);
       return {type: FAVE_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: FAVE_SEARCH_RESULT_FALIURE, payload: err}));
