@@ -2,10 +2,12 @@ import React from 'react'
 import {
   View, Text, Image, StyleSheet, TouchableOpacity,
   ActivityIndicator
-} from 'react-native'
+} from 'react-native';
+
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const renderIf = condition => element => condition ? element : null
-export default function Followee({followee, onPressFollow, onPressRemove}) {
+export default function Followee({followee, onPressFollow, onPressRemove, isFollowing}) {
   const {username, image, uiStatus} = followee
 
   return <View style={styles.base}>
@@ -22,11 +24,8 @@ export default function Followee({followee, onPressFollow, onPressRemove}) {
 
     <View style={styles.wrapper1}>
       {renderIf(!uiStatus || uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
-        <View style={styles.followBtnView}>
-          <Image
-            style={styles.followImg}
-            source={{uri: 'follow.png'}}
-          />
+        <View style={[styles.followBtnView, (isFollowing ? styles.followBtnGreen:null)]}>
+          <MCIcon style={styles.followBtnIcon} name={isFollowing ? 'account-check' : 'account-plus'} />
         </View>
       </TouchableOpacity>)}
 
@@ -38,7 +37,7 @@ export default function Followee({followee, onPressFollow, onPressRemove}) {
         />
       </View>)}
 
-      {renderIf(uiStatus === 'followSuccess')(<Text 
+      {renderIf(uiStatus === 'followSuccess')(<Text
         style={styles.followingText}
       >Following</Text>)}
     </View>
@@ -106,6 +105,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7
+  },
+  followBtnGreen: {
+    backgroundColor: '#4CAF4E'
+  },
+  followBtnIcon: {
+    fontSize: 18,
+    color: '#FFF',
+    alignSelf: 'center'
   },
   followImg: {
     width: 23, height: 23,

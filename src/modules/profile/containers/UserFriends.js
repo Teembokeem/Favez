@@ -15,6 +15,7 @@ import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import Header from '../../../components/globals/header/header';
 import HeaderTabs from '../../../components/globals/headerTabs/headerTabs';
 import Divider from '../presenters/Divider';
+import Followee from '../presenters/Followee';
 
 import * as UIActions from '../../../redux/ui/uiActions';
 import * as UserActions from '../../../redux/user/userActions';
@@ -40,16 +41,52 @@ class UserFriendsView extends React.Component {
   }
 
   renderTabPanels() {
-    const {selectedTab, followers, following} = this.props;
+
+    const {selectedTab, followingUsers, followerUsers, loading} = this.props;
+    console.log('RENDER_FOLLOWING_LIST: ',(selectedTab === 'following'));
     return (
-      <View style={styles.followList}>
-        {this.renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
+      <View style={styles.contentContainer}>
+        {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
+        {renderIf(!loading && selectedTab === 'following')(
+          <ListView
+          dataSource={ds.cloneWithRows(toJS(followingUsers))}
+          enableEmptySections={true}
+          renderRow={(followingUser) => {
+            const {id} = followingUser
+            return (
+              <View>
+                <Followee
+                  followee={followingUser}
+                  isFollowing={true}
+                />
+                <Divider/>
+              </View>
+            )
+          }} />)}
+          {renderIf(!loading && selectedTab === 'followers')(
+            <ListView
+            dataSource={ds.cloneWithRows(toJS(followerUsers))}
+            enableEmptySections={true}
+            renderRow={(followerUser) => {
+              const {id} = followerUser
+              return (
+                <View>
+                  <Followee
+                    followee={followerUser}
+                    onPressFollow={() => this.follow(id)}
+                    onPressRemove={() => this.removeFollowee(id)}
+                  />
+                  <Divider/>
+                </View>
+              )
+            }} />)}
       </View>
     );
   }
 
   render() {
     const {tabs, selectedTab} = this.props;
+    console.log('USER_FRIENDS_PROPS', this.props);
     return (
       <View style={styles.base}>
           <View style={styles.header}>
@@ -66,20 +103,26 @@ class UserFriendsView extends React.Component {
               selected={selectedTab}
               tabs={tabs}
             />
-            <View style={styles.contentContainer}>
-              {this.renderTabPanels.bind(this)}
-           </View>
           </View>
+          {this.renderTabPanels()}
       </View>
     );
   }
+}
+
+function toJS(immu) {
+  if (immu.toJS) {
+    return immu.toJS()
+  }
+  return immu
 }
 
 export default connect(state => ({
   loading: state.getIn(['user', 'loading']),
   tabs: state.getIn(['ui','userFriends', 'tabs', 'set']),
   selectedTab: state.getIn(['ui','userFriends', 'tabs', 'selected']),
-  followings: state.getIn(['user', 'followingUsers'])
+  followingUsers: state.getIn(['user', 'followingUsers']),
+  followerUsers: state.getIn(['user', 'followerUsers']),
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
   requestFollowerUsersList: (id) => dispatch(UserActions.requestFollowerUsersList(id)),
@@ -92,7 +135,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6'
   },
   contentContainer: {
-    flex: 1
+    flex: 1,
+    height:400,
+    width: 400,
   },
   header: {
     backgroundColor: 'white',

@@ -9,7 +9,7 @@ import {
 
 function CardBody({card, browseFave}) {
   const {_favez} = card;
-  console.log("WHAT THE FUCK", card)
+  //console.log("WHAT THE FUCK", card)
   const idx = 0
   return (
     <View style={[styles.cardBody]}>
