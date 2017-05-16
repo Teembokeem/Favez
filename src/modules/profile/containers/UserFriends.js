@@ -16,6 +16,7 @@ import Header from '../../../components/globals/header/header';
 import HeaderTabs from '../../../components/globals/headerTabs/headerTabs';
 import Divider from '../presenters/Divider';
 import Followee from '../presenters/Followee';
+import Follower from '../presenters/Follower';
 
 import * as UIActions from '../../../redux/ui/uiActions';
 import * as UserActions from '../../../redux/user/userActions';
@@ -71,10 +72,9 @@ class UserFriendsView extends React.Component {
               const {id} = followerUser
               return (
                 <View>
-                  <Followee
-                    followee={followerUser}
-                    onPressFollow={() => this.follow(id)}
-                    onPressRemove={() => this.removeFollowee(id)}
+                  <Follower
+                    follower={followerUser}
+                    isFollower={true}
                   />
                   <Divider/>
                 </View>
