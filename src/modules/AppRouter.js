@@ -19,6 +19,7 @@ import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
+
 import CreateListViewContainer from './create-list/CreateListViewContainer';
 import AddCollaboratorsViewContainer from './add-collaborators/AddCollaboratorsViewContainer';
 import SearchCollaboratorsViewContainer from './search-collaborators/SearchCollaboratorsViewContainer';
@@ -26,7 +27,9 @@ import MoreOptionsViewContainer from './more-options/MoreOptionsViewContainer';
 import TopicsSelectorViewContainer from './topics-selector/TopicsSelectorViewContainer';
 import AddFaveBrowseViewContainer from './add-fave-browse/AddFaveBrowseViewContainer';
 import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
-import ContactList from './profile/containers/ContactList.js'
+import ContactList from './profile/containers/ContactList.js';
+import ManageFeedList from './profile/containers/ManageFeed';
+import ManageBlock from './profile/containers/ManageBlock';
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -61,6 +64,9 @@ const NavigationView = React.createClass({
             >
               <Scene key='feed' title='Feed' icon={TabIcon} display='featured-play-list'>
                 <Scene key='feedIndex' component={FeedViewContainer} title='Feed' hideNavBar={true} hideTabBar={false}/>
+                                <Scene key='ManageFeedList' component={ManageFeedList} hideTabBar={true}/>
+                                  <Scene key='ManageBlock' component={ManageBlock} hideTabBar={true}/>
+
                 <Scene key='searchModal' component={SearchModalContainer} hideTabBar={true}/>
                 <Scene
                   key='listShow'

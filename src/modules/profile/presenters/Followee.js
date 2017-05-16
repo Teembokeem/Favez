@@ -2,10 +2,13 @@ import React from 'react'
 import {
   View, Text, Image, StyleSheet, TouchableOpacity,
   ActivityIndicator
-} from 'react-native'
+} from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
+
 
 const renderIf = condition => element => condition ? element : null
-export default function Followee({followee, onPressFollow, onPressRemove}) {
+export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage}) {
   const {username, image, uiStatus} = followee
 
   return <View style={styles.base}>
@@ -16,12 +19,12 @@ export default function Followee({followee, onPressFollow, onPressRemove}) {
     </View>
     <View style={styles.info}>
       <Text style={styles.t1}>@{username}</Text>
-      <Text style={styles.t2}></Text>
-      <Text style={styles.t3}>Based on your favez</Text>
+      <Text style={styles.t2}>{followee.displayname}</Text>
+
     </View>
 
     <View style={styles.wrapper1}>
-      {renderIf(!uiStatus || uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
+      {renderIf(uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
         <View style={styles.followBtnView}>
           <Image
             style={styles.followImg}
@@ -29,6 +32,19 @@ export default function Followee({followee, onPressFollow, onPressRemove}) {
           />
         </View>
       </TouchableOpacity>)}
+
+
+      {renderIf(followuserpage === 'followuserpage')(<TouchableOpacity >
+        <View style={styles.followedBtnView}>
+        <FontAwesomeIcon name="user-o" />
+        </View>
+      </TouchableOpacity>)}
+      {renderIf(blockeduserpage === 'blockeduserpage')(<TouchableOpacity >
+        <View style={styles.followedBtnView}>
+        <FontAwesomeIcon name="window-close" />
+        </View>
+      </TouchableOpacity>)}
+
 
       {renderIf(uiStatus === 'followRequesting')(<View style={styles.indicatorWrapper}>
         <ActivityIndicator
@@ -38,20 +54,22 @@ export default function Followee({followee, onPressFollow, onPressRemove}) {
         />
       </View>)}
 
-      {renderIf(uiStatus === 'followSuccess')(<Text 
+      {renderIf(uiStatus === 'followSuccess')(<Text
         style={styles.followingText}
       >Following</Text>)}
     </View>
 
-    <View style={styles.wrapper}>
-      <TouchableOpacity onPress={onPressRemove}>
-        <View style={styles.closeBtnView}>
-          <Image
-            style={styles.closeImg}
-            source={require('../../../../images/close.png')}/>
-        </View>
-      </TouchableOpacity>
-    </View>
+
+    {renderIf(uiStatus)(<View style={styles.wrapper}>
+        <TouchableOpacity onPress={onPressRemove}>
+          <View style={styles.closeBtnView}>
+            <Image
+              style={styles.closeImg}
+              source={require('../../../../images/close.png')}/>
+          </View>
+        </TouchableOpacity>
+      </View>)}
+
   </View>
 }
 
@@ -106,6 +124,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7
+  },
+  followedBtnView: {
+    backgroundColor: '#4CAF4E',
+    width: 60,
+    marginRight: 5,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 7
+
   },
   followImg: {
     width: 23, height: 23,

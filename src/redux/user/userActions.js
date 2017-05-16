@@ -13,7 +13,9 @@ import {
   followuser,
   unfollowuser,
   getlistuserfollowing,
-  getFollowerList
+  getFollowerList,
+  requestSubscribedList,
+  getlistuserblocked
 } from '../../services/user';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
@@ -52,6 +54,12 @@ export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
 export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
+export const GET_USER_SUBSCRIBED_LIST_SUCCESS = 'GET_USER_SUBSCRIBED_LIST_SUCCESS';
+export const GET_USER_SUBSCRIBED_LIST_FAILURE = 'GET_USER_SUBSCRIBED_LIST_FAILURE';
+export const GET_USER_BLOCKED_LIST_SUCCESS ='GET_USER_BLOCKED_LIST_SUCCESS';
+export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
+export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
+export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
 // Action creators
 export async function login(data) {
   return {
@@ -255,6 +263,33 @@ export async function requestFollowingUsersList(data) {
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
 }
+
+// Get list of  blocked users.
+
+export async function requestBlockedUsersList(data) {
+  return await getlistuserblocked(data)
+    .then((res) => ({type: GET_BLOCKED_USER_SUCCESS, payload: res}))
+    .catch((err) => ({type: GET_BLOCKED_USER_FAILURE, payload: err}));
+}
+
+//Get list of subscribing users......
+  export async function requestSubscribedListAction(type){
+    console.log("request subs ci 90op", type);
+    return await requestSubscribedList(type)
+      .then((res) => ({ type: GET_USER_SUBSCRIBED_LIST_SUCCESS, payload: res}))
+      .catch((err) =>({ type: GET_USER_SUBSCRIBED_LIST_FAILURE, payload: err}));
+
+  }
+  //Get List of users blocked
+
+
+    export async function requestBlockedListAction(type){
+      console.log("request subs ci 90op", type);
+      return await requestSubscribedList(type)
+        .then((res) => ({ type: GET_USER_BLOCKED_LIST_SUCCESS, payload: res}))
+        .catch((err) =>({ type: GET_USER_BLOCKED_LIST_FAILURE, payload: err}));
+
+    }
 
 export async function requestFollowerUsersList(data) {
   return await getFollowerList(data)
