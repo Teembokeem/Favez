@@ -4,6 +4,7 @@ import {
   UI_BROWSER_SET_INFO,
   UI_BROWSER_RELOAD,
   UI_BROWSER_BROWSE_LIST,
+  UI_BROWSER_BROWSE_FAVE,
   UI_SET_RADIO,
   UI_TOGGLE_CONTEXTMENU,
   UI_SET_TAB,
@@ -17,7 +18,7 @@ import {
 const initialState = fromJS({
   splash: false,
   browser: {
-    url: 'https://www.google.com',
+    url: '',
     title: '',
     viewList: {
       set: [],
@@ -253,6 +254,10 @@ export default function UIReducer(state = initialState, action = {}) {
     case UI_SET_RADIO:
       return state
         .setIn([action.payload.view, 'radio'], action.payload.tab);
+    case UI_BROWSER_BROWSE_FAVE:
+      return state
+        .setIn(['browser', 'url'], action.payload.link)
+        .setIn(['browser', 'title'], action.payload.name);
     case UI_BROWSER_BROWSE_LIST:
       return state
         .setIn(['browser', 'viewList'],
@@ -266,7 +271,6 @@ export default function UIReducer(state = initialState, action = {}) {
         Effects.promise(() => requestScrape(action.payload))
       );
     case UI_BROWSER_SCRAPE_SUCCESS:
-    console.log('success', action)
       return state
         .set('loading', false)
         .setIn(
@@ -278,7 +282,6 @@ export default function UIReducer(state = initialState, action = {}) {
           }
         );
     case UI_BROWSER_SCRAPE_FAILURE:
-    console.log('error', action)
       return state.set('error', action.payload);
     default :
       return state;

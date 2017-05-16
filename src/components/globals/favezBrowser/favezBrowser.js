@@ -184,10 +184,15 @@ const ListShowHeader = React.createClass({
   },
 
   render() {
-    const {browser, setNewFave, setBrowserInfo} = this.props;
+    const {browser, setNewFave, setBrowserInfo, showViewList, showViewFave} = this.props;
     let {url, scrape, title, viewList} = browser;
+    console.log('this is browser', browser)
     const {scraped, images} = scrape;
-    if (this.props.showViewList) {url = viewList.set[viewList.index].link;}
+    console.log('this is the scrape?', scrape)
+    if (showViewList) {url = viewList.set[viewList.index].link;}
+    if (showViewList) {url = viewList.set[viewList.index].link;}
+    console.log('show view list', showViewList)
+    console.log('show view fave', showViewFave)
     const sourceDelegator = scraped ? {html: this.selectImageHTML(images)} : {uri: url};
 
     return (

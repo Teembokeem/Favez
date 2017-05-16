@@ -22,10 +22,14 @@ const CardActions = React.createClass({
     render() {
         return (
             <View style={styles.cardActionContainer}>
-                <EntypoIcon style={styles.cardActionLeft} name='share'/>
-                <FontAwesomeIcon style={styles.cardActionMiddle} name='heart'/>
                 <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
-                <FontAwesomeIcon style={styles.cardActionRight}  name='thumbs-up'/>
+                    <EntypoIcon style={styles.cardActionLeft} name='share'/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
+                    <FontAwesomeIcon style={styles.cardActionMiddle} name='heart'/>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => this.likeus()} style={{marginTop: 0}}>
+                    <FontAwesomeIcon style={styles.cardActionRight}  name='thumbs-up'/>
                 </TouchableOpacity>
             </View>
         );
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     cardActionContainer: {
         height: 50,
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 10,
         width: 360,
         flexDirection: 'row',
         alignItems: 'center',

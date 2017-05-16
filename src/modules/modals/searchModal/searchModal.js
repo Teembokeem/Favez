@@ -196,6 +196,6 @@ export default class extends React.Component {
   }
 
   showUserProfile(userId) {
-    Actions.profile({userId:userId});
+    Actions.profile({userId});
   }
 }

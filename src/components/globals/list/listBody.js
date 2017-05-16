@@ -20,7 +20,7 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
                   style={styles.ListBodyTopicContainer}
                   key={'taxonomy ' + index}
                 >
-  <Text style={styles.ListBodyTopic}>{taxonomy.taxonomy.toUpperCase()}</Text>
+  <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
   </View>
 
               ))}
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 8,
         justifyContent: 'center',
-        marginRight: 2
+        marginRight: 4
     },
     ListBodyTopic: {
         color: 'white',
         fontFamily: 'Hind-Bold',
-        fontSize: 13
+        fontSize: 13,
     },
     ListBodyTagContainer: {
         marginLeft: 7,

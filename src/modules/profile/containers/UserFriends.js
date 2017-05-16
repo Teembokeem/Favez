@@ -40,7 +40,7 @@ class UserFriendsView extends React.Component {
   }
 
   renderTabPanels() {
-    const {selectedTab, followers, following} = this.props;
+    const {selectedTab, followers, following, loading} = this.props;
     return (
       <View style={styles.contentContainer}>
         {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
