@@ -52,6 +52,12 @@ export async function getlistuserfollowing(data){
   return get(`users/following/${data}`);
 }
 
+
+
+export async function getlistuserblocked(data){
+  return get(`users/following/${data}`);
+}
+
 export async function getFollowerList(data){
   return get(`/users/followed_by/${data}`);
 }
@@ -59,4 +65,9 @@ export async function getFollowerList(data){
 export async function removeFromFollowList(removedUserId) {
   return post(`/users/removeFromFollowList/${removedUserId}`)
   .catch(() => console.warn(`error on remove user ${removedUserId} from following list`))
+}
+
+export async function requestSubscribedList(type){
+  console.log("request subcribed list called 9oop");
+  return get(`/lists/relationship/${type}`);
 }

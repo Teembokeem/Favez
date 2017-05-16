@@ -33,7 +33,7 @@ import {
 // };
 
 
-function Card({card, track, moving, userAction,userSubscribeAction,subscribed, userFollowAction, followed, showProfile, browseFave}) {
+function Card({card, track, moving, userAction,userSubscribeAction,subscribed, userFollowAction, followed, showProfile}) {
 
 
   return (
@@ -52,7 +52,6 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           showProfile={showProfile}
         />
         <CardBody
-          browseFave={browseFave}
           card={card}
         />
       <CardActions actions={(action)=> userAction(action,card.id)}  />

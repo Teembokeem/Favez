@@ -49,8 +49,9 @@ const FeedHeader = React.createClass({
       <View style={[styles.feedNavHeader]}>
           <TouchableOpacity
             style={styles.headerLeftButton}
+            onPress={Actions.ManageFeedList}
           >
-            <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
+            <IoniconIcon style={styles.headerLeftButtonIcon}  name='md-list-box'/>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={Actions.searchModal}

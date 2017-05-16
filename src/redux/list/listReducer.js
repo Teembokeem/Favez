@@ -106,6 +106,7 @@ export default function ListReducer(state = initialState, action = {}) {
         return insertOptionParams(state, state.get('options'), key, action.payload[key]);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
+
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
     case LIST_MYLIST_FAILURE:

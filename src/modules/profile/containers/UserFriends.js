@@ -42,8 +42,8 @@ class UserFriendsView extends React.Component {
   renderTabPanels() {
     const {selectedTab, followers, following} = this.props;
     return (
-      <View style={styles.followList}>
-        {this.renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
+      <View style={styles.contentContainer}>
+        {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
       </View>
     );
   }
@@ -66,10 +66,8 @@ class UserFriendsView extends React.Component {
               selected={selectedTab}
               tabs={tabs}
             />
-            <View style={styles.contentContainer}>
-              {this.renderTabPanels.bind(this)}
-           </View>
           </View>
+          {this.renderTabPanels()}
       </View>
     );
   }
@@ -80,6 +78,7 @@ export default connect(state => ({
   tabs: state.getIn(['ui','userFriends', 'tabs', 'set']),
   selectedTab: state.getIn(['ui','userFriends', 'tabs', 'selected']),
   followings: state.getIn(['user', 'followingUsers'])
+
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
   requestFollowerUsersList: (id) => dispatch(UserActions.requestFollowerUsersList(id)),
