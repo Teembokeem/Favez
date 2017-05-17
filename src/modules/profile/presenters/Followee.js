@@ -10,7 +10,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const renderIf = condition => element => condition ? element : null;
 
-export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage}) {
+export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage, isFollowing}) {
   const {username, image, profile, uiStatus} = followee
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>

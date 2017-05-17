@@ -56,7 +56,6 @@ class UserFriendsView extends React.Component {
 
     const {followingUsers} = this.props;
     if(!!followingUsers && followingUsers.length > 0) {
-      console.log('rendering renderFollowingUsersList.....');
       return (
         <ListView
         dataSource={ds.cloneWithRows(toJS(followingUsers))}
@@ -87,7 +86,6 @@ class UserFriendsView extends React.Component {
 
     const {followerUsers} = this.props;
     if(!!followerUsers && followerUsers.length > 0) {
-      console.log('rendering renderFollowerUsersList.....');
       return (
         <ListView
         dataSource={ds.cloneWithRows(toJS(followerUsers))}
@@ -143,7 +141,6 @@ class UserFriendsView extends React.Component {
           <View style={styles.contentContainer}>
             { loading ? this.renderLoader() : this.renderTabPanels() }
           </View>
-          {this.renderTabPanels()}
       </View>
     );
   }
