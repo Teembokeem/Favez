@@ -26,6 +26,7 @@ const IntroView = React.createClass({
           <View style={[styles.colorColumn, {backgroundColor: '#0076ff'}]}/>
         </View>
         <Image style={styles.logo} source={require('../../../images/logo_white.png')}/>
+        <Image style={styles.splash} source={require('../../../images/splashImage.png')}/>
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.signInButton}
@@ -62,6 +63,10 @@ const styles = StyleSheet.create({
   logo: {
     width: 0.6 * window.width,
     height: 80
+  },
+  splash: {
+    width: 0.8 * window.width,
+    resizeMode: 'contain',
   },
   backgroundContainer: {
     position: 'absolute',
