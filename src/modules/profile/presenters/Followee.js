@@ -10,8 +10,8 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 const renderIf = condition => element => condition ? element : null;
 
-export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage}) {
-  const {username, image, profile, uiStatus} = followee
+export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage,isFollowing}) {
+  const {username, image, profile, uiStatus,displayname} = followee
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>
       <Image source={image ? {uri: image} : require('../../../../images/default_avatar.png')}
@@ -21,11 +21,14 @@ export default function Followee({followee, onPressFollow, onPressRemove,key,fol
     <View style={styles.info}>
       <Text style={styles.t1}>@{username}</Text>
       <Text style={styles.t2}>{profile}</Text>
-      <Text style={styles.t3}>Based on your favez</Text>
+        {renderIf(followuserpage !== 'followuserpage')(
+          <Text style={styles.t3}>Based on your favez</Text>)}
+
+        {renderIf(followuserpage === 'followuserpage')(<Text style={styles.t3}>{displayname}</Text>)}
     </View>
 
     <View style={styles.wrapper1}>
-      {renderIf(!uiStatus || uiStatus === 'followFail')(
+      {renderIf((!uiStatus || uiStatus === 'followFail') && (followuserpage !== 'followuserpage'))(
         <TouchableOpacity onPress={onPressFollow}>
           <View style={[styles.followBtnView, (isFollowing ? styles.followBtnGreen:null)]}>
             <MCIcon style={styles.followBtnIcon} name={isFollowing ? 'account-check' : 'account-plus'} />

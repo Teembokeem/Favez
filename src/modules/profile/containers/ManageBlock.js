@@ -43,50 +43,46 @@ return (
 );
   }
   renderBlockedPeople(){
-    let blockedPeople =  this.props.userBlockedPeople.length;
-let flag =false;
-    if(blockedPeople > 0){
-      flag = true;
+    if(!!this.props.userBlockedPeople && this.props.userBlockedPeople.length > 0) {
+      return (
+
+          this.props.userBlockedPeople.map((list, index) => (
+          <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} isFollowing={false} />
+          ))
+      );
+    }else{
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are no Blocked Users.  </Text>
+        </View>
+      )
     }
-    console.log("Number of blocked ",flag);
 
 
 
-{flag ? this.blockPeopleMap() : this.emptyResult("USERS") }
+
 
     }
 
-  blockPeopleMap(){
-    console.log("Render view user called 90opp");
-    return (
 
-        this.props.userBlockedPeople.map((list, index) => (
-        <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
-        ))
-    );
 
-  }
-  emptyResult(data){
-    console.log("Empty result valued called.. 90opp",data);
-    return (
-      <Text>There are no Blocked {data}</Text>
-
-    );
-
-  }
   renderBlockedList(){
-    let blockedList =  this.props.userBlockedList.length;
-    let flag =false;
-    if(blockedList > 0){
-      flag = true;
-    }
-    console.log("Number of blocked List ",flag);
-
+    if(!!this.props.userBlockedList && this.props.userBlockedList.length > 0) {
       return (
         this.props.userBlockedList.map((list, index) => (
   <SubscribedLists list={list}  blockedlist={'blockedlist'}  key={index} />
         ))
       );
+
+    }else{
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are no Blocked Lists.  </Text>
+        </View>
+      )
+
+    }
+
   }
   render() {
     const {tabs, selectedTab} = this.props;
@@ -135,6 +131,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1
+  },
+  noResultContainer:{
+    flex: 1,
+    flexDirection: 'row'
+
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic',
+    margin: 15
   },
   header: {
     backgroundColor: 'white',

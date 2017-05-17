@@ -229,7 +229,7 @@ const initialState = fromJS({
   manageBlock: {
     tabs: {
       selected: 'people',
-      set: ['list', 'people']
+      set: [ 'people', 'list']
     }
   }
 });
