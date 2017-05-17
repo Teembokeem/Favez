@@ -18,6 +18,8 @@ import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list';
 
+import * as Utils from '../../utils/Utils';
+
 import * as ProfileState from './ProfileState';
 import * as UserActions from '../../redux/user/userActions';
 import * as ListActions from '../../redux/list/listActions';
@@ -27,11 +29,7 @@ const ProfileView = React.createClass({
     propTypes: {},
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
-        if (!this.props.otherUser || !this.props.userId) {
-            return Actions.intro()
-        } else if (this.props.user.favez !== undefined ) {
-            if (!this.props.user.favez.active) return Actions.intro()
-        }
+        if (Object.keys(Utils.toJS(this.props.user)).length == 0 && !this.props.userId) return Actions.intro();
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
