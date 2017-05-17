@@ -51,11 +51,15 @@ export async function getlistuserfollowing(data){
 
 
 export async function getlistuserblocked(data){
-  return get(`users/following/${data}`);
+  return get(`users/blocked/self`);
 }
 
 export async function getFollowerList(data){
   return get(`/users/followed_by/${data}`);
+}
+
+export async function getSubscriptions(userId){
+  return get(`/lists/subscribed/${userId}`);
 }
 
 export async function removeFromFollowList(removedUserId) {

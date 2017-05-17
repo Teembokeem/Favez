@@ -14,6 +14,7 @@ import {
   unfollowuser,
   getlistuserfollowing,
   getFollowerList,
+  getSubscriptions,
   requestSubscribedList,
   getlistuserblocked
 } from '../../services/user';
@@ -41,9 +42,6 @@ export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
-export const LOAD_USER_PROFILE = 'LOAD_USER_PROFILE';
-export const USER_BY_ID_SUCCESS = 'USER_BY_ID_SUCCESS';
-export const USER_BY_ID_FALIURE = 'USER_BY_ID_FALIURE';
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 export const FOLLOW_USER_SUCCESS = 'FOLLOW_USER_SUCCESS';
@@ -54,12 +52,33 @@ export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
 export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
+
 export const GET_USER_SUBSCRIBED_LIST_SUCCESS = 'GET_USER_SUBSCRIBED_LIST_SUCCESS';
 export const GET_USER_SUBSCRIBED_LIST_FAILURE = 'GET_USER_SUBSCRIBED_LIST_FAILURE';
 export const GET_USER_BLOCKED_LIST_SUCCESS ='GET_USER_BLOCKED_LIST_SUCCESS';
 export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
 export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
 export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
+
+export const OTHER_USER_INFO_REQUEST = 'OTHER_USER_INFO_REQUEST';
+export const OTHER_USER_INFO_SUCCESS = 'OTHER_USER_INFO_SUCCESS';
+export const OTHER_USER_INFO_FALIURE = 'OTHER_USER_INFO_FALIURE';
+export const OTHER_USER_LISTS_REQUEST  = 'OTHER_USER_LISTS_REQUEST';
+export const OTHER_USER_LISTS_SUCCESS  = 'OTHER_USER_LISTS_SUCCESS';
+export const OTHER_USER_LISTS_FAILURE  = 'OTHER_USER_LISTS_FAILURE';
+export const OTHER_USER_SUBSCRIPTIONS_REQUEST  = 'OTHER_USER_SUBSCRIPTIONS_REQUEST';
+export const OTHER_USER_SUBSCRIPTIONS_SUCCESS  = 'OTHER_USER_SUBSCRIPTIONS_SUCCESS';
+export const OTHER_USER_SUBSCRIPTIONS_FAILURE  = 'OTHER_USER_SUBSCRIPTIONS_FAILURE';
+export const OTHER_USER_COLLABORATORS_REQUEST  = 'OTHER_USER_COLLABORATORS_REQUEST';
+export const OTHER_USER_COLLABORATORS_SUCCESS  = 'OTHER_USER_COLLABORATORS_SUCCESS';
+export const OTHER_USER_COLLABORATORS_FAILURE  = 'OTHER_USER_COLLABORATORS_FAILURE';
+export const OTHER_USER_LIKES_REQUEST  = 'OTHER_USER_LIKES_REQUEST';
+export const OTHER_USER_LIKES_SUCCESS  = 'OTHER_USER_LIKES_SUCCESS';
+export const OTHER_USER_LIKES_FAILURE  = 'OTHER_USER_LIKES_FAILURE';
+export const OTHER_USER_COMMENTS_REQUEST  = 'OTHER_USER_COMMENTS_REQUEST';
+export const OTHER_USER_COMMENTS_SUCCESS  = 'OTHER_USER_COMMENTS_SUCCESS';
+export const OTHER_USER_COMMENTS_FAILURE  = 'OTHER_USER_COMMENTS_FAILURE';
+
 // Action creators
 export async function login(data) {
   return {
@@ -133,9 +152,44 @@ export async function searchUsers(query) {
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
-export async function loadUserProfile(userId) {
+export function loadOtherUserInfo(userId) {
   return {
-    type: LOAD_USER_PROFILE,
+    type: OTHER_USER_INFO_REQUEST,
+    payload: userId
+  };
+}
+
+export function loadOtherUserLists(userId) {
+  return {
+    type: OTHER_USER_LISTS_REQUEST,
+    payload: userId
+  };
+}
+
+export function loadOtherUserCollaborators(userId) {
+  return {
+    type: OTHER_USER_COLLABORATORS_REQUEST,
+    payload: userId
+  };
+}
+
+export function loadOtherUserSubscriptions(userId) {
+  return {
+    type: OTHER_USER_SUBSCRIPTIONS_REQUEST,
+    payload: userId
+  };
+}
+
+export function loadOtherUserLikes(userId) {
+  return {
+    type: OTHER_USER_LIKES_REQUEST,
+    payload: userId
+  };
+}
+
+export function loadOtherUserComments(userId) {
+  return {
+    type: OTHER_USER_COMMENTS_REQUEST,
     payload: userId
   };
 }
@@ -143,9 +197,9 @@ export async function loadUserProfile(userId) {
 export async function requestOtherUserInfo(userId) {
   return await getUserById(userId)
     .then((res) => {
-      return {type: USER_BY_ID_SUCCESS, payload: res.data}
+      return {type: OTHER_USER_INFO_SUCCESS, payload: res.data}
     })
-    .catch((err) => ({type: USER_BY_ID_FALIURE, payload: err}));
+    .catch((err) => ({type: OTHER_USER_INFO_FAILURE, payload: err}));
 }
 
 export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
@@ -280,6 +334,14 @@ export async function requestFollowerUsersList(data) {
   return await getFollowerList(data)
     .then((res) => ({type: GET_FOLLOWER_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWER_LIST_FAILURE, payload: err}));
+}
+
+export async function requestOtherUserSubscriptions(userId) {
+  return await getSubscriptions(userId)
+    .then((res) => {
+      return {type: OTHER_USER_SUBSCRIPTIONS_SUCCESS, payload: res.data}
+    })
+    .catch((err) => ({type: OTHER_USER_SUBSCRIPTIONS_FAILURE, payload: err}));
 }
 
 export const REQUEST_USER_TO_FOLLOW = "REQUEST_USER_TO_FOLLOW"

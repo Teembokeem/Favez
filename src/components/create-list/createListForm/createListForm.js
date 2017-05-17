@@ -31,7 +31,7 @@ const CreateListForm = props => {
   const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
   const {priv, nsfw} = options;
   const submit = values => {
-    createList(values);
+    createList(values.toJS());
   };
   let value = false;
 

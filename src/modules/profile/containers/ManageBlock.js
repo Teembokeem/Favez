@@ -49,42 +49,36 @@ return (
 );
   }
   renderBlockedPeople(){
+    let blockedPeople =  this.props.userBlockedPeople.length;
+let flag =false;
+    if(blockedPeople > 0){
+      flag = true;
+    }
+    console.log("Number of blocked ",flag);
+
+
     return (
 
-      this.props.userBlockedPeople.map((list, index) => (
 
-<Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
+        this.props.userBlockedPeople.map((list, index) => (
 
-
-
-
-
-
-
-      ))
-
-
+  <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
+        ))
     );
   }
   renderBlockedList(){
-
+    let blockedList =  this.props.userBlockedList.length;
+let flag =false;
+    if(blockedList > 0){
+      flag = true;
+    }
+    console.log("Number of blocked List ",flag);
 
       return (
-
         this.props.userBlockedList.map((list, index) => (
-
   <SubscribedLists list={list}  blockedlist={'blockedlist'}  key={index} />
-
-
-
-
-
-
         ))
-
-
       );
-
   }
   render() {
     const {tabs, selectedTab} = this.props;
@@ -121,18 +115,11 @@ export default connect(state => ({
   userBlockedList: state.getIn(['user', 'userBlockedList']),
   userBlockedPeople: state.getIn(['user','userBlockedPeople']),
     user: state.getIn(['user', 'user']),
-
-
-
-
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
     requestBlockedListAction: (type) => dispatch(UserActions.requestBlockedListAction(type)),
         requestBlockedUsersList: (id) => dispatch(UserActions.requestBlockedUsersList(id)),
-
 }))(ManageBlock)
-
-
 const styles = StyleSheet.create({
   base: {
     flex: 1,

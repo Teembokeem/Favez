@@ -38,8 +38,12 @@ import {
     deleteListRelationAction,
     SUBSCRIBE_LIST,
     UNSUBSCRIBE_LIST,
-
-    LIST_CREATE_RELATION_SUCCESS
+    LIST_CREATE_RELATION_SUCCESS,
+    UPLOAD_LIST_IMAGE_START,
+    UPLOAD_LIST_IMAGE_SUCCESS,
+    UPLOAD_LIST_IMAGE_FAIL,
+    UPLOAD_LIST_IMAGE_PREFETCHED,
+    UPLOAD_LIST_IMAGE_PREFETCHED_FAIL
 } from './listActions';
 // Initial state
 const initialState = fromJS({
@@ -107,7 +111,6 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_SUCCESS:
-
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
     case LIST_BY_TOPIC_FAILURE:
@@ -124,12 +127,23 @@ export default function ListReducer(state = initialState, action = {}) {
     case GET_LIST_BY_RELATION_FAILURE:
     case LIST_SEARCH_RESULT_FAILURE:
         return state.set('ERROR', action);
-        case SUBSCRIBE_LIST:
-            return loop(state.setIn(['recentSubscribedList','id'], action.payload),
-            Effects.promise(() => createlistRelationAction(action.payload)));
-            case UNSUBSCRIBE_LIST:
-                return loop(state.setIn(['recentSubscribedList','id'], action.payload),
-                Effects.promise(() => deleteListRelationAction(action.payload)));
+    case SUBSCRIBE_LIST:
+        return loop(state.setIn(['recentSubscribedList','id'], action.payload),
+        Effects.promise(() => createlistRelationAction(action.payload)));
+    case UNSUBSCRIBE_LIST:
+        return loop(state.setIn(['recentSubscribedList','id'], action.payload),
+        Effects.promise(() => deleteListRelationAction(action.payload)));
+    case UPLOAD_LIST_IMAGE_START:
+        return state.setIn(['current', 'imageStatus'], 'uploading');
+    case UPLOAD_LIST_IMAGE_SUCCESS:
+        return state.setIn(['current', 'image'], action.payload).setIn(['current', 'imageStatus'], 'prefetching');
+    case UPLOAD_LIST_IMAGE_PREFETCHED:
+        return state.setIn(['current', 'imageStatus'], 'prefetched');
+    case UPLOAD_LIST_IMAGE_FAIL:
+        return state.setIn(['current', 'imageStatus'], 'uploadFailed');
+    case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
+        return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
+
     default:
         return state;
     }

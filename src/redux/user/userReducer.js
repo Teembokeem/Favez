@@ -1,9 +1,6 @@
 import { fromJS } from 'immutable';
 import { loop, Effects } from 'redux-loop';
 import {
-    LOAD_USER_PROFILE,
-    USER_BY_ID_SUCCESS,
-    USER_BY_ID_FALIURE,
     requestOtherUserInfo,
     UPLOAD_USER_IMAGE_START,
     UPLOAD_USER_IMAGE_SUCCESS,
@@ -26,14 +23,6 @@ import {
     USER_SUCCESS,
     USER_SEARCH_RESULT_SUCCESS,
     USER_SEARCH_RESULT_FAILURE,
-    requestLogin,
-    requestUserInfo,
-    requestUserUpdate,
-    requestRegister,
-    createUser,
-    followuserAction,
-    unfollowuserAction,
-    requestCollaborators,
     FOLLOW_USER,
     UNFOLLOW_USER,
     FOLLOW_USER_SUCCESS,
@@ -47,12 +36,28 @@ import {
     REQUEST_USER_TO_FOLLOW,
     REMOVE_USER_FROM_FOLLOW_LIST,
     UPLOAD_USER_IMAGE_PREFETCHED_FAIL,
+    OTHER_USER_INFO_REQUEST,
+    OTHER_USER_INFO_SUCCESS,
+    OTHER_USER_INFO_FAILURE,
+    OTHER_USER_SUBSCRIPTIONS_REQUEST,
+    OTHER_USER_SUBSCRIPTIONS_SUCCESS,
+    OTHER_USER_SUBSCRIPTIONS_FAILURE,
     GET_USER_SUBSCRIBED_LIST_SUCCESS,
     GET_USER_SUBSCRIBED_LIST_FAILURE,
     GET_USER_BLOCKED_LIST_SUCCESS,
     GET_USER_BLOCKED_LIST_FAILURE,
     GET_BLOCKED_USER_SUCCESS,
-    GET_BLOCKED_USER_FAILURE
+    GET_BLOCKED_USER_FAILURE,
+    requestLogin,
+    requestUserInfo,
+    requestUserUpdate,
+    requestRegister,
+    createUser,
+    followuserAction,
+    unfollowuserAction,
+    requestCollaborators,
+    requestOtherUserSubscriptions
+
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -68,10 +73,18 @@ const initialState = fromJS({
       id:-1,
       status: false
     },
+
     userSubscribedList: [],
     userBlockedList: [],
     userBlockedPeople: [],
-    otherUser: {}
+
+    otherUser: {},
+    otherUserLists: [],
+    otherUserCollaborators: [],
+    otherUserSubscriptions: [],
+    otherUserLikes: [],
+    otherUserComments: []
+
 });
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
@@ -168,28 +181,38 @@ export default function UserStateReducer(state = initialState, action = {}) {
         state.set('user', {}),
         Effects.promise(() => requestUserInfo())
       );
-    case LOAD_USER_PROFILE:
+    case OTHER_USER_INFO_REQUEST:
       return loop(
         state.set('loading', true),
-        Effects.promise(() => requestOtherUserInfo(action.payload))
+        Effects.promise(() => requestOtherUserInfo(action.payload)),
+      );
+    case OTHER_USER_SUBSCRIPTIONS_REQUEST:
+      return loop(
+          state.set('loading', true),
+          Effects.promise(() => requestOtherUserSubscriptions(action.payload))
       );
     case USER_SEARCH_RESULT_SUCCESS:
       return state
         .set('loading', false)
         .set('searchedUsers', action.payload);
-    case USER_BY_ID_SUCCESS:
+    case OTHER_USER_INFO_SUCCESS:
       return state
         .set('loading', false)
         .set('otherUser', action.payload);
+    case OTHER_USER_SUBSCRIPTIONS_SUCCESS:
+      return state
+          .set('loading', false)
+          .set('otherUserSubscriptions', action.payload);
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
     case USER_SEARCH_RESULT_FAILURE:
-    case USER_BY_ID_FALIURE:
+    case OTHER_USER_INFO_FAILURE:
     case GET_FOLLOWING_LIST_FAILURE:
     case GET_FOLLOWER_LIST_FAILURE:
+    case OTHER_USER_SUBSCRIPTIONS_FAILURE:
       return state.set('loading', false).set('error', action.payload);
     case USER_SUCCESS:
 
@@ -203,8 +226,6 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case FOLLOW_USER_SUCCESS:
         return state.setIn(['recentFollowedUser','status'],true);
     case FOLLOW_USER_FAILURE:
-
-
       return state.set('loading', false).set('user', action.payload);
     case FOLLOW_USER: {
       const collaborators = state.get('collaborators_all')
@@ -263,7 +284,7 @@ case GET_USER_BLOCKED_LIST_SUCCESS:
 return state.set('loading', false).set('userBlockedList',action.payload.data);
 case GET_USER_BLOCKED_LIST_FAILURE:
 case GET_BLOCKED_USER_SUCCESS:
-
+console.log("blocked users by a logged in user",action.payload.data);
 return state.set('loading', false).set('userBlockedPeople',action.payload.data);
 case GET_BLOCKED_USER_FAILURE:
     case UNFOLLOW_USER_SUCCESS:

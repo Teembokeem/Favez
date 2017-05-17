@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   listDescriptionList: {
     marginTop: 7,
-    height: 20,
+    height: 40,
     fontFamily: 'Hind-Medium',
     fontSize: 16
   },
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   },
   tagsList: {
     marginTop: 5,
-    height: 20,
+    height: 40,
     fontFamily: 'Hind-Medium',
     fontSize: 16
   },

@@ -3,14 +3,15 @@ import {
   View, Text, Image, StyleSheet, TouchableOpacity,
   ActivityIndicator
 } from 'react-native';
+
+import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 
+const renderIf = condition => element => condition ? element : null;
 
-const renderIf = condition => element => condition ? element : null
-export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage}) {
-  const {username, image, uiStatus} = followee
-
+export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage, isFollowing}) {
+  const {username, image, profile, uiStatus} = followee
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>
       <Image source={image ? {uri: image} : require('../../../../images/default_avatar.png')}
@@ -19,32 +20,30 @@ export default function Followee({followee, onPressFollow, onPressRemove,key,fol
     </View>
     <View style={styles.info}>
       <Text style={styles.t1}>@{username}</Text>
-      <Text style={styles.t2}>{followee.displayname}</Text>
-
+      <Text style={styles.t2}>{profile}</Text>
+      <Text style={styles.t3}>Based on your favez</Text>
     </View>
 
     <View style={styles.wrapper1}>
-      {renderIf(uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
-        <View style={styles.followBtnView}>
-          <Image
-            style={styles.followImg}
-            source={{uri: 'follow.png'}}
-          />
-        </View>
-      </TouchableOpacity>)}
-
+      {renderIf(!uiStatus || uiStatus === 'followFail')(
+        <TouchableOpacity onPress={onPressFollow}>
+          <View style={[styles.followBtnView, (isFollowing ? styles.followBtnGreen:null)]}>
+            <MCIcon style={styles.followBtnIcon} name={isFollowing ? 'account-check' : 'account-plus'} />
+          </View>
+        </TouchableOpacity>
+      )}
 
       {renderIf(followuserpage === 'followuserpage')(<TouchableOpacity >
-        <View style={styles.followedBtnView}>
+        <View style={[styles.followBtnView, styles.followBtnGreen]}>
         <FontAwesomeIcon name="user-o" />
         </View>
       </TouchableOpacity>)}
+
       {renderIf(blockeduserpage === 'blockeduserpage')(<TouchableOpacity >
-        <View style={styles.followedBtnView}>
+        <View style={[styles.followBtnView, styles.followBtnRed]}>
         <FontAwesomeIcon name="window-close" />
         </View>
       </TouchableOpacity>)}
-
 
       {renderIf(uiStatus === 'followRequesting')(<View style={styles.indicatorWrapper}>
         <ActivityIndicator
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
   },
   wrapper1: {
     justifyContent: 'center',
-    width: 65
+    width: 80
   },
   wrapper: {
     justifyContent: 'center'
@@ -123,28 +122,28 @@ const styles = StyleSheet.create({
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7
+    borderRadius: 7,
   },
-  followedBtnView: {
-    backgroundColor: '#4CAF4E',
-    width: 60,
-    marginRight: 5,
-    height: 30,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 7
-
+  followBtnGreen: {
+    backgroundColor: '#4CAF4E'
+  },
+  followBtnRed: {
+    backgroundColor: '#BB0000'
+  },
+  followBtnIcon: {
+    fontSize: 18,
+    color: '#FFF',
+    alignSelf: 'center'
   },
   followImg: {
     width: 23, height: 23,
     resizeMode: 'contain'
   },
   closeBtnView: {
-    marginRight: 20
+    marginRight: 15
   },
   closeImg: {
-    width: 18, height: 18,
-    marginLeft: 20
+    width: 18, height: 18
   },
   indicatorWrapper: {
     position: 'absolute',
