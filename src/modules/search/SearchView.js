@@ -92,7 +92,7 @@ componentWillMount(){
         return (this.props.listByTopics.map((list, index) => ((
           <List
             list={list}
-            user={{ 'nickname': list.owner[0].f2, 'picture': list.owner[0].f3 }}
+            user={list.owner[0]}
             moving={this.moving}
             key={'list ' + index}
             index={index}
