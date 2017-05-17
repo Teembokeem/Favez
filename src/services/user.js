@@ -51,7 +51,7 @@ export async function getlistuserfollowing(data){
 
 
 export async function getlistuserblocked(data){
-  return get(`users/following/${data}`);
+  return get(`users/blocked/self`);
 }
 
 export async function getFollowerList(data){
