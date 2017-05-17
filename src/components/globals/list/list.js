@@ -11,6 +11,7 @@ import ListFooter from './listFooter';
 function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy}) {
 
   const {collaborators, name, _favez, topics, tags} = list;
+  const userData = user.auth0 ? user.favez : user;
   return (
     <View
       style={styles.ListContainer}
@@ -23,7 +24,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
           style={styles.ListBackground}
       />
       <ListHeader
-        creator={user}
+        creator={{nickname:userData.displayname, creator: userData.image}}
         toggleContextMenu={toggleContextMenu}
         collaborators={collaborators ? collaborators.length : 0}
         showUserProfile={showUserProfile}

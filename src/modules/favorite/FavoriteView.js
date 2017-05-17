@@ -48,7 +48,7 @@ const FavoriteView = React.createClass({
           listSet.map((list, index) => (
               <List
                 list={list}
-                user={auth0}
+                user={user}
                 moving={this.moving}
                 key={'list ' + index}
                 index={index}

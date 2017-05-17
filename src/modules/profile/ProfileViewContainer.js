@@ -19,11 +19,12 @@ export default connect(state => ({
   tabs: state.getIn(['ui','profileView', 'tabs', 'set']),
   selectedTab: state.getIn(['ui','profileView', 'tabs', 'selected']),
   user: state.getIn(['user', 'user']),
-  otherUser: state.getIn(['user', 'otherUser']),
   lists: state.getIn(['list', 'myLists']),
   comments: grabComments(state.getIn(['profile', 'lists']).get('data').toJS()),
-  subscribedlists: state.getIn(['list', 'subscribedLists']),
-  followingUsers: state.getIn(['user', 'followingUsers'])
+  subscribedLists: state.getIn(['list', 'subscribedLists']),
+  followingUsers: state.getIn(['user', 'followingUsers']),
+  otherUser: state.getIn(['user', 'otherUser']),
+  otherUserSubscriptions: state.get(['user','otherUserSubscriptions'])
 }), dispatch => ({
   dispatch,
   onPickProfileImage: (onUploadingImage, onUploadedImage) => {

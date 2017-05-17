@@ -27,6 +27,7 @@ const ProfileView = React.createClass({
     propTypes: {},
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
+        console.log('PROFILE_VIEW', 'component will mount .........');
         if (!this.props.user.favez || !this.props.otherUser) {
             Actions.intro()
         } else {
@@ -34,18 +35,28 @@ const ProfileView = React.createClass({
         }
     },
 
-    componentDidMount() {},
-
     componentDidUpdate() {
-      this.loadUserProfile();
+      this.loadOtherUserInfo();
     },
 
     renderChildren() {
-        let userData = (this.props.userId)? this.props.otherUser : this.props.user;
+
         console.log('PROFILE_VIEW_PROPS', this.props);
-        console.log('PROFILE_VIEW_USER_DATA', userData);
-        switch (this.props.selectedTab) {
+        const {selectedTab, lists} = this.props;
+        let userData = (this.props.userId)? this.props.otherUser : this.props.user;
+
+        switch (selectedTab) {
             case 'lists':
+              return (
+                lists.map((list, index) => (
+                    <List
+                      list={list}
+                      user={userData}
+                      moving={this.moving}
+                      key={'list ' + index}
+                      index={index} />
+                ))
+              );
             break;
             case 'collabs':
             break;
@@ -54,7 +65,7 @@ const ProfileView = React.createClass({
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
-                    <List list={list} creator={userData} key={'list ' + index}></List>
+                    <List list={list} user={userData} key={'list ' + index}></List>
                 )));
                 break;
             case 'likes':
@@ -111,11 +122,11 @@ const ProfileView = React.createClass({
         })
     },
 
-    loadUserProfile() {
+    loadOtherUserInfo() {
         if( this.props.userId &&
             this.props.user.favez.id != this.props.userId &&
             this.props.userId != this.props.otherUser.id
-        ) this.props.dispatch(UserActions.loadUserProfile(this.props.userId));
+        ) this.props.dispatch(UserActions.loadOtherUserInfo(this.props.userId));
     },
 
     isOtherUser(userId) {
