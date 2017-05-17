@@ -29,7 +29,7 @@ export default function Follower({follower, onPressBlock, onPressRemove, isFollo
       </TouchableOpacity>
     </View>
 
-    <View style={styles.wrapper}>
+    {renderIf(!isFollower)(<View style={styles.wrapper}>
       <TouchableOpacity onPress={onPressRemove}>
         <View style={styles.closeBtnView}>
           <Image
@@ -37,7 +37,8 @@ export default function Follower({follower, onPressBlock, onPressRemove, isFollo
             source={require('../../../../images/close.png')}/>
         </View>
       </TouchableOpacity>
-    </View>
+    </View>)}
+
   </View>
 }
 
@@ -53,7 +54,7 @@ const styles = StyleSheet.create({
   },
   wrapper1: {
     justifyContent: 'center',
-    width: 65
+    width: 80
   },
   wrapper: {
     justifyContent: 'center'
@@ -96,10 +97,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   closeBtnView: {
-    marginRight: 20
+    marginRight: 15
   },
   closeImg: {
-    width: 18, height: 18,
-    marginLeft: 20
+    width: 18, height: 18
   }
 })

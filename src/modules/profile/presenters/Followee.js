@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   wrapper1: {
     justifyContent: 'center',
-    width: 65
+    width: 80
   },
   wrapper: {
     justifyContent: 'center'
@@ -120,10 +120,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#0076ff',
     width: 65,
     height: 30,
-    marginRight: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 7
+    borderRadius: 7,
   },
   followBtnGreen: {
     backgroundColor: '#4CAF4E'
@@ -141,11 +140,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain'
   },
   closeBtnView: {
-    marginRight: 20
+    marginRight: 15
   },
   closeImg: {
-    width: 18, height: 18,
-    marginLeft: 20
+    width: 18, height: 18
   },
   indicatorWrapper: {
     position: 'absolute',
