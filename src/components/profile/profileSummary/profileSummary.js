@@ -31,6 +31,7 @@ function ProfileSummary({
     image,
     imageStatus
   } = userData;
+  console.log('userData', userData)
 
 return (
   <View style={styles.ProfileSummaryContainer}>
@@ -41,7 +42,7 @@ return (
           style={styles.ProfileSummaryRow1LeftContent}
           onPress={exploreFriends}
       >
-        <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers.length.toString() : 0}</Text>
+        <Text style={styles.ProfileSummaryRow1LeftNum}>{followers ? followers : 0}</Text>
         <Text style={styles.ProfileSummaryRow1LeftText}>{'followers'}</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -67,7 +68,7 @@ return (
           style={styles.ProfileSummaryRow1RightContent}
           onPress={exploreFriends}
       >
-        <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following.length.toString() : 0}</Text>
+        <Text style={styles.ProfileSummaryRow1RightNum}>{following ? following : 0}</Text>
         <Text style={styles.ProfileSummaryRow1RightText}>{'following'}</Text>
       </TouchableOpacity>
     </View>
