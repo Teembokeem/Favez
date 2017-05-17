@@ -24,7 +24,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
           style={styles.ListBackground}
       />
       <ListHeader
-        creator={{nickname:userData.displayname, creator: userData.image}}
+        userData={userData}
         toggleContextMenu={toggleContextMenu}
         collaborators={collaborators ? collaborators.length : 0}
         showUserProfile={showUserProfile}

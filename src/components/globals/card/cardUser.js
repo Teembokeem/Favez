@@ -18,7 +18,6 @@ function CardUser({card, time,follow,followed, showProfile}) {
       follow("unfollow");
   };
   const user = (card.user && card.user.length) ? card.user[0] : {f1: 'Unknown'}
-  console.log('this user', user)
   return (
       <View style={[styles.cardUserContainer]}>
           <Image source={{uri: user.f3 ? user.f3 : 'https://www.google.com'}} style={[styles.cardUserImage]} />
