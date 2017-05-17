@@ -19,7 +19,6 @@ import EditProfileViewContainer from './edit-profile/EditProfileViewContainer';
 import LoginViewContainer from './login/LoginViewContainer';
 import RegisterViewContainer from './register/RegisterViewContainer';
 import SearchModalContainer from './modals/searchModal/searchModalContainer';
-
 import CreateListViewContainer from './create-list/CreateListViewContainer';
 import AddCollaboratorsViewContainer from './add-collaborators/AddCollaboratorsViewContainer';
 import SearchCollaboratorsViewContainer from './search-collaborators/SearchCollaboratorsViewContainer';
