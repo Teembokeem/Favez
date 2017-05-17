@@ -143,6 +143,7 @@ class UserFriendsView extends React.Component {
           <View style={styles.contentContainer}>
             { loading ? this.renderLoader() : this.renderTabPanels() }
           </View>
+          {this.renderTabPanels()}
       </View>
     );
   }

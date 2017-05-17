@@ -23,20 +23,6 @@ const FavoriteHeader = React.createClass({
         <View
           style={styles.flex1}
         >
-          <TouchableOpacity
-              style={styles.headerLeftButton}
-          >
-              <IoniconIcon style={styles.headerLeftButtonIcon} name="md-list-box"/>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={styles.flex2}
-        >
-          <TouchableOpacity
-              style={styles.headerRightButton}
-          >
-              <EntypoIcon style={styles.headerRightButtonIcon} name="plus"/>
-          </TouchableOpacity>
         </View>
     </View>
     );

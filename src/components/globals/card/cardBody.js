@@ -11,13 +11,18 @@ function CardBody({card, browseFave}) {
   const {_favez} = card;
   //console.log("WHAT THE FUCK", card)
   const idx = 0
+  const fromArr = (Array.isArray(_favez) && _favez.length > 0)
+  const fromFave = (Array.isArray(card.list) && card.list.length > 0)
+  const defaultImg = require('../../../../images/default_list_picture.png')
+  const imgSrc =  _favez ?  _favez[0].image : card.image
+
   return (
     <View style={[styles.cardBody]}>
-      <TouchableOpacity onPress={() => browseFave(idx, card.list)}>
+      <TouchableOpacity onPress={() => browseFave(card)}>
         <Text style={[styles.cardBodyMessage]}>{card.description}</Text>
         <Image
           style={styles.cardBodyImage}
-          source={Array.isArray(_favez) && _favez.length > 0 ? {uri: _favez[0].image} : require('../../../../images/default_list_picture.png')}
+          source={(fromArr || fromFave) ? {uri: imgSrc} : defaultImg}
         >
         </Image>
         <View

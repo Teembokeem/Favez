@@ -6,6 +6,7 @@ import {
 export const UI_BROWSER_SET_INFO = 'UI_BROWSER_SET_INFO';
 export const UI_BROWSER_RELOAD = 'UI_BROWSER_RELOAD';
 export const UI_BROWSER_BROWSE_LIST = 'UI_BROWSER_BROWSE_LIST';
+export const UI_BROWSER_BROWSE_FAVE = 'UI_BROWSER_BROWSE_FAVE';
 export const UI_SET_RADIO = 'UI_SET_RADIO';
 export const UI_TOGGLE_CONTEXTMENU = 'UI_TOGGLE_CONTEXTMENU';
 export const UI_SET_TAB = 'UI_SET_TAB';
@@ -35,6 +36,14 @@ export function browseList(set, index) {
   return {
     type: UI_BROWSER_BROWSE_LIST,
     payload: {set, index}
+  };
+}
+
+// BROWSE LIST OF FAVEZ
+export function browseFave(fave) {
+  return {
+    type: UI_BROWSER_BROWSE_FAVE,
+    payload: fave
   };
 }
 

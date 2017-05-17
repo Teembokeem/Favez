@@ -13,7 +13,6 @@ import FAIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
-  console.log(props);
   return <TextInput style={styles.LoginFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 

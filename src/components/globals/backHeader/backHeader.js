@@ -21,7 +21,6 @@ const LoginHeader = React.createClass({
   },
 
   render() {
-    // console.log('sup back', this.props)
     return (
     <View style={[styles.feedNavHeader]}>
         <View

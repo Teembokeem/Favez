@@ -16,7 +16,6 @@ const window = Dimensions.get('window');
 const SearchCollaboratorsHeader = React.createClass({
 
   render() {
-    console.log(this.props);
     return (
     <View style={styles.headerContainer}>
         <TouchableOpacity

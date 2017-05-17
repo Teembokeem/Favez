@@ -27,12 +27,12 @@ const ProfileView = React.createClass({
     propTypes: {},
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
-        console.log('PROFILE_VIEW', 'component will mount .........');
-        if (!this.props.user.favez || !this.props.otherUser) {
-            Actions.intro()
-        } else {
-            this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        if (!this.props.otherUser || !this.props.userId) {
+            return Actions.intro()
+        } else if (this.props.user.favez !== undefined ) {
+            if (!this.props.user.favez.active) return Actions.intro()
         }
+        this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
     componentDidUpdate() {
@@ -41,7 +41,6 @@ const ProfileView = React.createClass({
 
     renderChildren() {
 
-        console.log('PROFILE_VIEW_PROPS', this.props);
         const {selectedTab, lists} = this.props;
         let userData = (this.props.userId)? this.props.otherUser : this.props.user;
 
@@ -123,14 +122,16 @@ const ProfileView = React.createClass({
     },
 
     loadOtherUserInfo() {
+        let thisUser = this.props.user.favez ? this.props.user.favez.id : null
         if( this.props.userId &&
-            this.props.user.favez.id != this.props.userId &&
+            thisUser != this.props.userId &&
             this.props.userId != this.props.otherUser.id
         ) this.props.dispatch(UserActions.loadOtherUserInfo(this.props.userId));
     },
 
     isOtherUser(userId) {
-      return this.props.userId && (this.props.userId != this.props.user.favez.id);
+        let thisUser = this.props.user.favez ? this.props.user.favez.id : false
+        return this.props.userId && (this.props.userId != thisUser);
     },
 
     isFollowedUser() {
@@ -150,11 +151,12 @@ const ProfileView = React.createClass({
     render() {
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
+        let thisUserId = this.props.user.favez ? this.props.user.favez.id : false
         const child = this.renderChildren();
         const {tabs, selectedTab} = this.props;
         const {uploadingProfileImage} = this.props;
 
-        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || this.props.user.favez.id == this.props.userId;
+        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || thisUserId == this.props.userId;
 
         return (
             <View style={styles.container}>

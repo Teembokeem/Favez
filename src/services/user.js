@@ -5,7 +5,6 @@ export async function getUser() {
 }
 
 export async function postUser(authData) {
-  console.log(' and then finally post user service', authData)
   let user = {
     email: authData.email,
     username: authData.email,
@@ -18,7 +17,6 @@ export async function postUser(authData) {
 }
 
 export async function updateUser(toField) {
-  console.log('to field', toField);
   return await put('/users', toField);
 }
 
@@ -27,7 +25,6 @@ export async function getSimilarList(id) {
 }
 
 export async function getCollaborators() {
-  console.log('api fetching data')
   return await get('/users/all');
 }
 
@@ -40,7 +37,6 @@ export async function getUserById(userId) {
 }
 
 export async function followuser(data){
-  console.log("following users id ", data);
   return post('/users/follow',{ following_id: data });
 }
 
@@ -49,6 +45,12 @@ export async function unfollowuser(data) {
 }
 
 export async function getlistuserfollowing(data){
+  return get(`users/following/${data}`);
+}
+
+
+
+export async function getlistuserblocked(data){
   return get(`users/following/${data}`);
 }
 
@@ -63,4 +65,8 @@ export async function getSubscriptions(userId){
 export async function removeFromFollowList(removedUserId) {
   return post(`/users/removeFromFollowList/${removedUserId}`)
   .catch(() => console.warn(`error on remove user ${removedUserId} from following list`))
+}
+
+export async function requestSubscribedList(type){
+  return get(`/lists/relationship/${type}`);
 }

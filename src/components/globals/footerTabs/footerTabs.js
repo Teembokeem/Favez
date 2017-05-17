@@ -14,15 +14,12 @@ function openFavoriteModal() {
 function delegatePress(action) {
   switch (action) {
     case 'menu':
-      console.log('showing context menu');
       // Actions.FavoriteModal();
       break;
     case 'bool':
-      console.log('GETTING RID OF THIS BOOKMARk');
       // Actions.pop();
       break;
     case 'outbound':
-      console.log('traveling to message');
       // Actions.favorite();
       break;
     default :
@@ -31,7 +28,6 @@ function delegatePress(action) {
 }
 
 function FooterTabs({TabProps}) {
-  console.log(TabProps)
   return (
   <View style={[styles.container]}>
     {TabProps.map((tab, index) => {

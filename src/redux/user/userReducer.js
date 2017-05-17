@@ -42,6 +42,12 @@ import {
     OTHER_USER_SUBSCRIPTIONS_REQUEST,
     OTHER_USER_SUBSCRIPTIONS_SUCCESS,
     OTHER_USER_SUBSCRIPTIONS_FAILURE,
+    GET_USER_SUBSCRIBED_LIST_SUCCESS,
+    GET_USER_SUBSCRIBED_LIST_FAILURE,
+    GET_USER_BLOCKED_LIST_SUCCESS,
+    GET_USER_BLOCKED_LIST_FAILURE,
+    GET_BLOCKED_USER_SUCCESS,
+    GET_BLOCKED_USER_FAILURE,
     requestLogin,
     requestUserInfo,
     requestUserUpdate,
@@ -51,6 +57,7 @@ import {
     unfollowuserAction,
     requestCollaborators,
     requestOtherUserSubscriptions
+
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -66,12 +73,18 @@ const initialState = fromJS({
       id:-1,
       status: false
     },
+
+    userSubscribedList: [],
+    userBlockedList: [],
+    userBlockedPeople: [],
+
     otherUser: {},
     otherUserLists: [],
     otherUserCollaborators: [],
     otherUserSubscriptions: [],
     otherUserLikes: [],
     otherUserComments: []
+
 });
 // Reducer
 export default function UserStateReducer(state = initialState, action = {}) {
@@ -149,23 +162,17 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_UPDATE_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestUserUpdate(action.payload)));
     case USER_UPDATE_SUCCESS:
-        console.log('Success', action.payload);
         return state.set('loading', false);
     case USER_GET_COLLABORATORS_REQUEST:
-        console.log('caught reducer action to grab collaborators')
         return loop(state.set('loading', true), Effects.promise(() => requestCollaborators()));
     case USER_GET_COLLABORATORS_SUCCESS:
-        console.log('Success', action.payload);
-        // console.log('user', state.get('user'));
         action.payload = action.payload.filter((collaborator) => collaborator.id !== state.get('user').favez.id);
         return state.set('loading', false).set('collaborators_all', action.payload);
     case AUTH_REGISTER_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestRegister(action.payload)));
     case AUTH_REGISTER_SUCCESS:
-        console.log('auth register success')
         return loop(state.set('user', {}), Effects.promise(() => createUser(action.payload)));
     case REGISTER_SUCCESS:
-        console.log('register success')
         return loop(state.set('loading', false).set('user', action.payload.data), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_REQUEST:
         return loop(state.set('loading', true), Effects.promise(() => requestLogin(action.payload)));
@@ -206,29 +213,23 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case GET_FOLLOWING_LIST_FAILURE:
     case GET_FOLLOWER_LIST_FAILURE:
     case OTHER_USER_SUBSCRIPTIONS_FAILURE:
-      console.log('ERROR', action.payload);
       return state.set('loading', false).set('error', action.payload);
     case USER_SUCCESS:
 
-        console.log('SUCCESS!', action.payload)
         return state.set('loading', false).set('user', action.payload);
         case FOLLOW_USER:
-        console.log("Follow user called 11");
             return loop(state.setIn(['recentFollowedUser','id'], action.payload),
             Effects.promise(() => followuserAction(action.payload)));
             case UNFOLLOW_USER:
                 return loop(state.setIn(['recentFollowedUser','id'], action.payload),
                 Effects.promise(() => unfollowuserAction(action.payload)));
     case FOLLOW_USER_SUCCESS:
-    console.log("User follow success", action.payload);
         return state.setIn(['recentFollowedUser','status'],true);
     case FOLLOW_USER_FAILURE:
-      console.log('SUCCESS!', action.payload)
       return state.set('loading', false).set('user', action.payload);
     case FOLLOW_USER: {
       const collaborators = state.get('collaborators_all')
       const currentIndex = collaborators.findIndex(item => item.id === action.payload)
-      console.log("Follow user called 11");
       return loop(
         state.setIn(['recentFollowedUser','id'], action.payload)
         .set('collaborators_all', [
@@ -275,7 +276,17 @@ export default function UserStateReducer(state = initialState, action = {}) {
           ...collaborators.slice(currentIndex + 1, collaborators.length)
         ])
     }
+    case GET_USER_SUBSCRIBED_LIST_SUCCESS:
+ return state.set('loading', false).set('userSubscribedList',action.payload.data);
 
+case GET_USER_SUBSCRIBED_LIST_FAILURE:
+case GET_USER_BLOCKED_LIST_SUCCESS:
+return state.set('loading', false).set('userBlockedList',action.payload.data);
+case GET_USER_BLOCKED_LIST_FAILURE:
+case GET_BLOCKED_USER_SUCCESS:
+
+return state.set('loading', false).set('userBlockedPeople',action.payload.data);
+case GET_BLOCKED_USER_FAILURE:
     case UNFOLLOW_USER_SUCCESS:
       return state.setIn(['recentFollowedUser','status'],false);
     case UNFOLLOW_USER_FAILURE:

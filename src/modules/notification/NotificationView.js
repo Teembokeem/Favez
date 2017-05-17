@@ -19,7 +19,6 @@ const NotificationView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
-    // console.log('hello', this.props);
     if (!this.props.user.favez) {
       Actions.intro()
     } else {
@@ -59,12 +58,10 @@ const NotificationView = React.createClass({
   },
 
   setFilter(view, tab) {
-    console.log('view tab', view, tab)
     this.props.dispatch(UIActions.setViewTab('notification', tab));
   },
 
   render() {
-    console.log('HI props', this.props);
     const {selectedTab, tabs} = this.props;
     return (
       <View style={styles.container}>

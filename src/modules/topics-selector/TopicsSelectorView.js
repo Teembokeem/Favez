@@ -110,7 +110,6 @@ const TopicSelectorView = React.createClass({
 
   render() {
     const {options} = this.props;
-    console.log('options', options);
     const {topics} = options;
 
     return (

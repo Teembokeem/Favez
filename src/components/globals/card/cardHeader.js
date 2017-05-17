@@ -14,26 +14,8 @@ function CardHeader({card, moving, track, subscribe, subscribed}) {
     }
     return (
         <View style={styles.cardHeader}>
-            {/*<Image
-          source={{uri: header.picture}}
-          style={{width: 360, height: 50, position: 'absolute', top: 0, left: 0}}
-        />*/}
-
-            <Text numberOfLines={1} onPress={() => moving(card.id)} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}</Text>
-
-            <TouchableOpacity onPress={() => subscribed
-                ? UnsubscribeMe()
-                : SubscribeMe()}>
-                <FontAwesome style={subscribed
-                    ? styles.cardUserUnSubscribe
-                    : styles.cardUserSubscribe} name={subscribed
-                    ? "bookmark"
-                    : "bookmark-o"} size={10} color="#fff"/>
-
-            </TouchableOpacity>
-            <TouchableOpacity >
-                <IoniconIcon style={styles.cardheaderMore} name='ios-more'/>
-            </TouchableOpacity>
+            <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}
+            </Text>
         </View>
     );
 };
@@ -44,14 +26,13 @@ const styles = StyleSheet.create({
         paddingLeft: 7,
         paddingRight: 14,
         justifyContent: 'center',
-        backgroundColor: 'white',
+        backgroundColor: 'gray',
         width: 360,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-start'
     },
     cardHeaderText: {
-        // backgroundColor: 'rgba(255, 255, 255, 0.4)',
         backgroundColor: 'transparent',
         color: 'black',
         flex: 1,

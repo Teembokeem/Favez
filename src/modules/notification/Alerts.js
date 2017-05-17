@@ -11,7 +11,6 @@ export default class Alerts extends React.Component {
   };
 
   render() {
-    console.log('alerts:::',this.props.alerts)
     return <ListView
       dataSource={ds.cloneWithRows(this.props.alerts.toJS())}
       renderRow={(rowData) => {

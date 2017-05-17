@@ -14,7 +14,9 @@ import {
   unfollowuser,
   getlistuserfollowing,
   getFollowerList,
-  getSubscriptions
+  getSubscriptions,
+  requestSubscribedList,
+  getlistuserblocked
 } from '../../services/user';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
@@ -50,6 +52,14 @@ export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
 export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
+
+export const GET_USER_SUBSCRIBED_LIST_SUCCESS = 'GET_USER_SUBSCRIBED_LIST_SUCCESS';
+export const GET_USER_SUBSCRIBED_LIST_FAILURE = 'GET_USER_SUBSCRIBED_LIST_FAILURE';
+export const GET_USER_BLOCKED_LIST_SUCCESS ='GET_USER_BLOCKED_LIST_SUCCESS';
+export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
+export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
+export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
+
 export const OTHER_USER_INFO_REQUEST = 'OTHER_USER_INFO_REQUEST';
 export const OTHER_USER_INFO_SUCCESS = 'OTHER_USER_INFO_SUCCESS';
 export const OTHER_USER_INFO_FALIURE = 'OTHER_USER_INFO_FALIURE';
@@ -68,6 +78,7 @@ export const OTHER_USER_LIKES_FAILURE  = 'OTHER_USER_LIKES_FAILURE';
 export const OTHER_USER_COMMENTS_REQUEST  = 'OTHER_USER_COMMENTS_REQUEST';
 export const OTHER_USER_COMMENTS_SUCCESS  = 'OTHER_USER_COMMENTS_SUCCESS';
 export const OTHER_USER_COMMENTS_FAILURE  = 'OTHER_USER_COMMENTS_FAILURE';
+
 // Action creators
 export async function login(data) {
   return {
@@ -77,21 +88,18 @@ export async function login(data) {
 }
 
 export async function requestLogin(data) {
-  console.log('now requesting login')
   return await authLogin(data)
     .then((res) => ({type: LOGIN_SUCCESS, payload: data}))
     .catch((err) => ({type: LOGIN_FAILURE, payload: err}));
 }
 
 export async function requestUserInfo() {
-  console.log('grabbing auth user info')
   return await authUserInfo()
     .then((res) => ({type: USER_SUCCESS, payload: res}))
     .catch((err) => ({type: USER_FAILURE, payload: err}));
 }
 
 export async function register(data) {
-  console.log('auth register request');
   return {
     type: AUTH_REGISTER_REQUEST,
     payload: data
@@ -99,17 +107,14 @@ export async function register(data) {
 }
 
 export async function requestRegister(data) {
-  console.log('request auth register')
   return await authRegister(data)
     .then((res) => {
-      console.log('our res and original data', res, data)
       return {type: AUTH_REGISTER_SUCCESS, payload: data}
     })
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
 }
 
 export async function createUser(data) {
-  console.log('create user actions')
   return postUser(data)
     .then((res) => ({type: REGISTER_SUCCESS, payload: data}))
     .catch((err) => ({type: REGISTER_FAILURE, payload: err}));
@@ -136,7 +141,6 @@ export async function findCollaborators() {
 }
 
 export async function requestCollaborators() {
-  console.log('requesting collaborators in actions');
   return await getCollaborators()
     .then((res) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: res.data}))
     .catch((err) => ({type: USER_GET_COLLABORATORS_SUCCESS, payload: err}));
@@ -193,7 +197,6 @@ export function loadOtherUserComments(userId) {
 export async function requestOtherUserInfo(userId) {
   return await getUserById(userId)
     .then((res) => {
-      console.log('USER_DATA', res);
       return {type: OTHER_USER_INFO_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: OTHER_USER_INFO_FAILURE, payload: err}));
@@ -222,13 +225,10 @@ export function pickProfileImage(onUploading, onUploaded) {
     ImagePicker.showImagePicker(options, (response) => {
 
       if (response.didCancel) {
-        console.log('User cancelled image picker');
       }
       else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
       }
       else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
       }
       else {
 
@@ -283,7 +283,6 @@ export function pickProfileImage(onUploading, onUploaded) {
 
 
 export async function followuserAction(data) {
-  console.log('follow a user in actions',data);
   return await followuser(data)
     .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res, userId: data }))
     .catch((err) => {
@@ -294,7 +293,6 @@ export async function followuserAction(data) {
 
 // Unfollow a User
 export async function unfollowuserAction(data) {
-    console.log('unfollow a user in actions');
   return await unfollowuser(data)
     .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
     .catch((err) => ({type: UNFOLLOW_USER_FAILURE, payload: err}));
@@ -306,6 +304,31 @@ export async function requestFollowingUsersList(data) {
     .then((res) => ({type: GET_FOLLOWING_LIST_SUCCESS, payload: res}))
     .catch((err) => ({type: GET_FOLLOWING_LIST_FAILURE, payload: err}));
 }
+
+// Get list of  blocked users.
+
+export async function requestBlockedUsersList(data) {
+  return await getlistuserblocked(data)
+    .then((res) => ({type: GET_BLOCKED_USER_SUCCESS, payload: res}))
+    .catch((err) => ({type: GET_BLOCKED_USER_FAILURE, payload: err}));
+}
+
+//Get list of subscribing users......
+  export async function requestSubscribedListAction(type){
+    return await requestSubscribedList(type)
+      .then((res) => ({ type: GET_USER_SUBSCRIBED_LIST_SUCCESS, payload: res}))
+      .catch((err) =>({ type: GET_USER_SUBSCRIBED_LIST_FAILURE, payload: err}));
+
+  }
+  //Get List of users blocked
+
+
+    export async function requestBlockedListAction(type){
+      return await requestSubscribedList(type)
+        .then((res) => ({ type: GET_USER_BLOCKED_LIST_SUCCESS, payload: res}))
+        .catch((err) =>({ type: GET_USER_BLOCKED_LIST_FAILURE, payload: err}));
+
+    }
 
 export async function requestFollowerUsersList(data) {
   return await getFollowerList(data)

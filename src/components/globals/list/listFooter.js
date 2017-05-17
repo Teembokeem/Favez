@@ -8,6 +8,7 @@ import {
   Text,
   Image,
   View,
+  TouchableOpacity,
   Alert
 } from 'react-native';
 
@@ -17,22 +18,26 @@ function ListFooter(search) {
      <View
       style={styles.ListFooterContainer}
      >
-        <View
-          style={styles.ListFooterShareContainer}
-        >
-          <EntypoIcon style={styles.ListFooterShare} name='share'/>
-        </View>
-        <View
-          style={styles.ListFooterSettingsContainer}
-        >
-          <Ionicon style={styles.ListFooterSettings} name={search ? "ios-bookmark-outline":"ios-settings"}/>
+      <TouchableOpacity
+        style={styles.ListFooterShareContainer}
+        onPress={() => Alert.alert('Share dialog goes here')}
+      >
+        <EntypoIcon style={styles.ListFooterShare} name='share'/>
+      </TouchableOpacity>
+    
+      <TouchableOpacity
+        onPress={() => Alert.alert('Subscribe to list goes here')}
+        style={styles.ListFooterSettingsContainer}
+      >
+         <Ionicon style={styles.ListFooterSettings} name={search ? "ios-bookmark-outline":"ios-settings"}/>
+      </TouchableOpacity>
 
-        </View>
-        <View
-          style={styles.ListFooterCommentsContainer}
-        >
-          <EntypoIcon style={styles.ListFooterComments} name='message'/>
-        </View>
+      <TouchableOpacity
+        style={styles.ListFooterCommentsContainer}
+        onPress={() => Alert.alert('View comments here')}
+      >
+        <EntypoIcon style={styles.ListFooterComments} name='message'/>
+      </TouchableOpacity>
     </View>
   );
 }

@@ -16,7 +16,6 @@ const window = Dimensions.get('window');
 const AddCollaboratorsHeader = React.createClass({
 
   render() {
-    console.log(this.props);
     const {search} = this.props;
     return (
     <View style={styles.headerContainer}>

@@ -5,11 +5,13 @@ import {
 } from 'react-native';
 
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import EntypoIcon from 'react-native-vector-icons/Entypo';
 
-const renderIf = condition => element => condition ? element : null
-export default function Followee({followee, onPressFollow, onPressRemove, isFollowing}) {
+const renderIf = condition => element => condition ? element : null;
+
+export default function Followee({followee, onPressFollow, onPressRemove,key,followuserpage,blockeduserpage}) {
   const {username, image, profile, uiStatus} = followee
-
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>
       <Image source={image ? {uri: image} : require('../../../../images/default_avatar.png')}
@@ -23,9 +25,23 @@ export default function Followee({followee, onPressFollow, onPressRemove, isFoll
     </View>
 
     <View style={styles.wrapper1}>
-      {renderIf(!uiStatus || uiStatus === 'followFail')(<TouchableOpacity onPress={onPressFollow}>
-        <View style={[styles.followBtnView, (isFollowing ? styles.followBtnGreen:null)]}>
-          <MCIcon style={styles.followBtnIcon} name={isFollowing ? 'account-check' : 'account-plus'} />
+      {renderIf(!uiStatus || uiStatus === 'followFail')(
+        <TouchableOpacity onPress={onPressFollow}>
+          <View style={[styles.followBtnView, (isFollowing ? styles.followBtnGreen:null)]}>
+            <MCIcon style={styles.followBtnIcon} name={isFollowing ? 'account-check' : 'account-plus'} />
+          </View>
+        </TouchableOpacity>
+      )}
+
+      {renderIf(followuserpage === 'followuserpage')(<TouchableOpacity >
+        <View style={[styles.followBtnView, styles.followBtnGreen]}>
+        <FontAwesomeIcon name="user-o" />
+        </View>
+      </TouchableOpacity>)}
+
+      {renderIf(blockeduserpage === 'blockeduserpage')(<TouchableOpacity >
+        <View style={[styles.followBtnView, styles.followBtnRed]}>
+        <FontAwesomeIcon name="window-close" />
         </View>
       </TouchableOpacity>)}
 
@@ -42,15 +58,17 @@ export default function Followee({followee, onPressFollow, onPressRemove, isFoll
       >Following</Text>)}
     </View>
 
-    <View style={styles.wrapper}>
-      <TouchableOpacity onPress={onPressRemove}>
-        <View style={styles.closeBtnView}>
-          <Image
-            style={styles.closeImg}
-            source={require('../../../../images/close.png')}/>
-        </View>
-      </TouchableOpacity>
-    </View>
+
+    {renderIf(uiStatus)(<View style={styles.wrapper}>
+        <TouchableOpacity onPress={onPressRemove}>
+          <View style={styles.closeBtnView}>
+            <Image
+              style={styles.closeImg}
+              source={require('../../../../images/close.png')}/>
+          </View>
+        </TouchableOpacity>
+      </View>)}
+
   </View>
 }
 
@@ -102,12 +120,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#0076ff',
     width: 65,
     height: 30,
+    marginRight: 5,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 7
   },
   followBtnGreen: {
     backgroundColor: '#4CAF4E'
+  },
+  followBtnRed: {
+    backgroundColor: '#BB0000'
   },
   followBtnIcon: {
     fontSize: 18,

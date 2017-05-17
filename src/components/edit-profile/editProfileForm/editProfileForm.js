@@ -56,11 +56,9 @@ const EditProfileForm = props => {
   const {handleSubmit, submitting, editProfile, user, fieldSerials} = props;
   const fields = renderFields(user, fieldSerials);
   const submit = values => {
-    console.log('hello values', values);
     editProfile(values);
   };
 
-  console.log('hello ', props);
   return (
     <View style={styles.EditProfileFormContainer}>
       {fields}

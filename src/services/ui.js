@@ -9,7 +9,6 @@ export async function uiScrapeUrl(data) {
   let body = {url: data};
   return await post('/favez/scrape', body);
 
-  // console.log('IN UI SERVICE...SENDING FAKE DATA FOR NOW....');
   // return new Promise((resolve, reject) => {
   //   const sendTempArr = true;
   //   const testTitle = 'Faked Imgur Scrape';
@@ -22,7 +21,6 @@ export async function uiScrapeUrl(data) {
   //     'https://i.imgur.com/QReYxk2b.jpg'
   //   ];
   //   if (sendTempArr) {
-  //     console.log('sending arrays', TempArr)
   //     resolve({status: 200, data: TempArr, url: data, title: testTitle});
   //   } else {
   //     reject({status: 404, err: 'you messed up man...'});

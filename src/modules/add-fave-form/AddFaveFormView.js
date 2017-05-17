@@ -88,7 +88,6 @@ const AddFaveFormView = React.createClass({
       type: 1
     });
     this.props.dispatch(FaveActions.createFave(fave)).then((something) => {
-      console.log('Response: ', something);
       this.props.dispatch(ListActions.getMyLists()).then(Actions.feedIndex);
     });
 

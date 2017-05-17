@@ -49,7 +49,7 @@ const SearchView = React.createClass({
           <SearchHeaderIcons
             setTopic={this.setTopic}
           />
-          <Text style={styles.topicTitle}>{topic.semantic}</Text>
+          <Text style={styles.topicTitle}>{topic.semantic.toUpperCase()}</Text>
         </View>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={{
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'purple'
   },
   topicTitle: {
+    fontFamily: 'Hind-Bold',
     color: '#fff',
     fontSize: 28,
     padding: 10,

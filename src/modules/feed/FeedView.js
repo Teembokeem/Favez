@@ -26,12 +26,13 @@ const FeedView = React.createClass({
   },
   componentDidMount() { },
 
-  browseFave(idx) {
-    console.log('this props lists', this.props)
-    this.props.dispatch(UIActions.browseList(this.props.lists, idx))
-    .then(() => Actions.addFaveBrowse({viewList: true}));
+  browseFave(fave) {
+    this.props.dispatch(UIActions.browseFave(fave))
+    .then(() => Actions.addFaveBrowse({viewFave: true}));
   },
-
+  showUserProfile(userId) {
+    Actions.profile({userId:userId});
+  },
   moving(idx) {
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
@@ -128,6 +129,7 @@ const FeedView = React.createClass({
         key={'feed ' + idx}
         card={card}
         track={idx}
+        showUserProfile={this.showUserProfile}
         moving={this.moving}
         subscribed={subscribed}
         followed={followed}
@@ -140,8 +142,8 @@ const FeedView = React.createClass({
     );
   },
 
-  showProfile(owner) {
-    Actions.profile({ userId: owner });
+  showProfile(userId) {
+    Actions.profile({userId});
   }
 });
 

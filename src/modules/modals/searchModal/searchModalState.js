@@ -37,7 +37,6 @@ function searchFaliure() {
 export default function SearchStateReducer(state = initialState, action = {}) {
   switch (action.type) {
     case DO_SEARCH:
-    console.log('Searching trending lists..., query=', action.payload);
       return loop(
         state.set('loading', true).set('query', action.payload),
         Effects.batch([
@@ -49,7 +48,6 @@ export default function SearchStateReducer(state = initialState, action = {}) {
       );
       break;
     case SEARCH_SUCCESS:
-      console.log('Searching success' );
       state.set('loading', false)
       break;
     case SEARCH_FALIURE:

@@ -22,7 +22,6 @@ function organizeTaxonomies(taxonomy) {
 }
 
 function colorFinder(ref) {
-  // console.log('ref', ref, categories.filter((category) => category.ref === ref)[0]);
   return categories.filter((category) => category.ref === ref)[0];
 }
 
@@ -120,10 +119,8 @@ const categories = [
 ];
 
 function Info({list}) {
-  console.log('your list', list)
   const {description, picture, owner, taxonomy} = list;
   const {topics, tags} = organizeTaxonomies(taxonomy);
-  console.log('got it?', topics, tags)
   return (
     <View style={styles.container}>
       <View style={styles.contentHeaderContainer}>

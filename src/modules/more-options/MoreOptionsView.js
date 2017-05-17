@@ -26,7 +26,6 @@ const moreOptionsView = React.createClass({
   newTag: '',
 
   componentWillMount() {
-    console.log('hello', this.props);
   },
 
   componentWillReceiveProps(nextProps) {
@@ -60,7 +59,6 @@ const moreOptionsView = React.createClass({
   },
 
   render() {
-    console.log('More Options View: ', this.props);
     const {options} = this.props;
     const {tags, topics, description, currTag} = options;
 
