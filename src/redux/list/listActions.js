@@ -150,11 +150,12 @@ export async function sendListLikeDislike(data){
 }
 
 //Action for POST list relationship
-export async function createlistRelationAction(id,relationid){
+export async function createlistRelationAction(id,relationid,detailList){
   console.log("create a List relation list id", id);
   console.log("create a List relation list sucribe (relationid)",relationid);
+  console.log("detailed list", detailList);
   return await createlistRelation(id,relationid)
-   .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res}))
+   .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}))
    .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
 
 }

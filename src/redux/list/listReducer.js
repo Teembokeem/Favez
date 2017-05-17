@@ -108,8 +108,11 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_SUCCESS:
+console.log("List Create Relation Success",action);
+  console.log("Attached list added",action.detailList);
 
-        return state.set('loading', false).set('subscribedLists', action.payload.data);
+return state.updateIn('subscribedLists', arr => arr.push(action.detailList));
+      //  return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
         case LIST_CREATE_RELATION_FAILURE:
         return state.set('ERROR',action)
@@ -127,6 +130,7 @@ export default function ListReducer(state = initialState, action = {}) {
     return state.set('ERROR',action);
     break;
     case GET_LIST_BY_RELATION_SUCCESS:
+
     console.log("Get List by relation Success", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:

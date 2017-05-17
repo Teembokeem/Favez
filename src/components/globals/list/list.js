@@ -40,7 +40,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
         tags={tags}
         taxonomy={taxonomy}
       />
-    <ListFooter search={search} loggedInUser={loggedInUser} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id)} />
+    <ListFooter search={search} loggedInUser={loggedInUser} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
     </View>
 
 

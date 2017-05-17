@@ -32,16 +32,17 @@ componentWillMount(){
 
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
-  userSubscribe(id,action){
+  userSubscribe(id,action,detailList){
+    console.log("all details list",detailList);
     if (id == "subscribeme") {
 
       Alert.alert(id);
 
-    this.props.dispatch(ListActions.createlistRelationAction(action, 2));
+    this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
   }
   if(id=="unsubscribe"){
     Alert.alert(id);
-        this.props.dispatch(ListActions.deleteListRelationAction(action, 2));
+        this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
   }
 },
 
