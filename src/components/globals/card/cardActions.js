@@ -4,7 +4,6 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import card from './card';
 import {NavigationExperimental,TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
-
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
 const CardActions = React.createClass({

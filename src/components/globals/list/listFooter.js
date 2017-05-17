@@ -3,6 +3,7 @@ import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import Ionicon from 'react-native-vector-icons/Ionicons';
+import { Actions } from 'react-native-router-flux';
 import {
   StyleSheet,
   Text,
@@ -12,8 +13,41 @@ import {
   Alert
 } from 'react-native';
 
-function ListFooter(search) {
+function ListFooter({search, subscribe,loggedInUser}) {
+  function ifUserLoggedIn(actionName){
 
+    console.log("if user logged un", loggedInUser);
+      if(!loggedInUser.auth0){
+        Alert.alert("Please Login to Subcribe a List.");
+        Actions.login();
+
+
+
+      }else{
+        if(actionName==='subscribe'){
+          SubscribeMe();
+        }else{
+          UnsubscribeMe();
+        }
+
+      }
+  }
+
+
+function toJS(immutable) {
+ if (immutable.toJS) {
+   return immutable.toJS()
+ }
+ return immutable;
+}
+  function SubscribeMe() {
+
+      subscribe("subscribeme");
+  }
+  function UnsubscribeMe() {
+        Alert.alert("Un..Subscribe me called...");
+      subscribe("unsubscribe");
+  }
   return (
      <View
       style={styles.ListFooterContainer}
@@ -24,9 +58,9 @@ function ListFooter(search) {
       >
         <EntypoIcon style={styles.ListFooterShare} name='share'/>
       </TouchableOpacity>
-    
+
       <TouchableOpacity
-        onPress={() => Alert.alert('Subscribe to list goes here')}
+         onPress={() => search ? (ifUserLoggedIn("subscribe")) : null}
         style={styles.ListFooterSettingsContainer}
       >
          <Ionicon style={styles.ListFooterSettings} name={search ? "ios-bookmark-outline":"ios-settings"}/>

@@ -9,7 +9,9 @@ export default connect(
       topic: state.getIn(['search', 'topic']),
       selected: state.getIn(['search', 'selected']),
       lists: state.getIn(['list', 'all']),
-      listByTopics: state.getIn(['list', 'listByTopics'])
+      listByTopics: state.getIn(['list', 'listByTopics']),
+      subscribedLists: state.getIn(['list','subscribedLists']),
+            userLoggedIn: state.getIn(['user','user'])
     };
   }
 )(SearchView);

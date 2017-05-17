@@ -9,6 +9,7 @@ export async function sendLikeList(data) {
     // return post('lists/relationship',{list_id:11,relationship: 1});
 }
 export async function getListbyRelation(data) {
+  console.log("Get List By Relationship", data);
     return get('lists/relationship/' + data);
 }
 export async function sendUnLikeList(data) {
@@ -20,6 +21,8 @@ export async function deleteListRelation(id,) {
     //      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
 }
 export async function createlistRelation(id, relationid) {
+  console.log("Subscribe a List (List id) ",id );
+  console.log("Subscribe a List Relation (relation id)", relationid);
     return post('lists/relationship/', { list_id: id, relationship: relationid });
 }
 export async function getSimilarList(id) {

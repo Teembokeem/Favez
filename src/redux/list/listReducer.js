@@ -39,7 +39,8 @@ import {
     SUBSCRIBE_LIST,
     UNSUBSCRIBE_LIST,
 
-    LIST_CREATE_RELATION_SUCCESS
+    LIST_CREATE_RELATION_SUCCESS,
+    LIST_CREATE_RELATION_FAILURE
 } from './listActions';
 // Initial state
 const initialState = fromJS({
@@ -110,6 +111,9 @@ export default function ListReducer(state = initialState, action = {}) {
 
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
+        case LIST_CREATE_RELATION_FAILURE:
+        return state.set('ERROR',action)
+        break;
     case LIST_BY_TOPIC_FAILURE:
         return state.set('ERROR', action);
     case LIKE_UNLIKE_LIST_ITEM:
@@ -119,9 +123,16 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
     case LIST_DELETE_RELATION_FAILURE:
+    console.log("Delete list relation failed... ",action);
+    return state.set('ERROR',action);
+    break;
     case GET_LIST_BY_RELATION_SUCCESS:
+    console.log("Get List by relation Success", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:
+    console.log("get list by relation failure");
+    return state.set('ERROR',false);
+    break;
     case LIST_SEARCH_RESULT_FAILURE:
         return state.set('ERROR', action);
         case SUBSCRIBE_LIST:

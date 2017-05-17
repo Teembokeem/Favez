@@ -16,6 +16,10 @@ import * as ListActions from '../../redux/list/listActions';
 const SearchView = React.createClass({
   propTypes: {},
 
+componentWillMount(){
+  console.log("aaaa909");
+  this.props.dispatch(ListActions.getListbyRelationAction('subscribed'))
+},
   setFilter(val) {
     this.props.dispatch(SearchState.setFilter(val));
   },
@@ -28,6 +32,19 @@ const SearchView = React.createClass({
 
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
+  userSubscribe(id,action){
+    if (id == "subscribeme") {
+
+      Alert.alert(id);
+
+    this.props.dispatch(ListActions.createlistRelationAction(action, 2));
+  }
+  if(id=="unsubscribe"){
+    Alert.alert(id);
+        this.props.dispatch(ListActions.deleteListRelationAction(action, 2));
+  }
+},
+
 
   renderSearchCategories(categories, index) {
     return (
@@ -80,6 +97,9 @@ const SearchView = React.createClass({
             index={index}
             search={'search'}
             taxonomy={list.taxonomy}
+            subscribe={true}
+            loggedInUser={this.props.userLoggedIn}
+            userSubscribeAction={this.userSubscribe}
             toggleContextMenu={this.toggleContextMenu}
           />
         ))));

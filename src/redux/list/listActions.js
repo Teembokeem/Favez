@@ -151,6 +151,8 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid){
+  console.log("create a List relation list id", id);
+  console.log("create a List relation list sucribe (relationid)",relationid);
   return await createlistRelation(id,relationid)
    .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res}))
    .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
@@ -167,6 +169,7 @@ export async function deleteListRelationAction(id){
 
 //Action for getting list by relaitonship
   export async function getListbyRelationAction(data){
+    console.log("Get 6790p List by Relation Action",data);
     return await getListbyRelation(data)
 .then((res)=>({type:GET_LIST_BY_RELATION_SUCCESS, payload: res}))
 .catch((err)=>({type:GET_LIST_BY_RELATION_FAILURE, payload: err}));
