@@ -30,13 +30,8 @@ import Followee from '../presenters/Followee';
     this.props.setViewTab(view, tab);
   }
   componentDidMount() {
-
   this.props.requestBlockedListAction('blocked');
-  this.props.requestBlockedUsersList(this.props.user.favez.id);
-
-
-
-  }
+  this.props.requestBlockedUsersList(this.props.user.favez.id);  }
   renderTabPanels() {
 const {selectedTab,loading,userBlockedPeople} = this.props;
 return (
@@ -44,8 +39,7 @@ return (
     {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
     {selectedTab=='people' ? this.renderBlockedPeople() : null}
     {selectedTab=='list' ? this.renderBlockedList() : null}
-
-      </View>
+  </View>
 );
   }
   renderBlockedPeople(){
@@ -57,18 +51,32 @@ let flag =false;
     console.log("Number of blocked ",flag);
 
 
+
+{flag ? this.blockPeopleMap() : this.emptyResult("USERS") }
+
+    }
+
+  blockPeopleMap(){
+    console.log("Render view user called 90opp");
     return (
 
-
         this.props.userBlockedPeople.map((list, index) => (
-
-  <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
+        <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
         ))
     );
+
+  }
+  emptyResult(data){
+    console.log("Empty result valued called.. 90opp",data);
+    return (
+      <Text>There are no Blocked {data}</Text>
+
+    );
+
   }
   renderBlockedList(){
     let blockedList =  this.props.userBlockedList.length;
-let flag =false;
+    let flag =false;
     if(blockedList > 0){
       flag = true;
     }
@@ -117,8 +125,8 @@ export default connect(state => ({
     user: state.getIn(['user', 'user']),
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
-    requestBlockedListAction: (type) => dispatch(UserActions.requestBlockedListAction(type)),
-        requestBlockedUsersList: (id) => dispatch(UserActions.requestBlockedUsersList(id)),
+  requestBlockedListAction: (type) => dispatch(UserActions.requestBlockedListAction(type)),
+  requestBlockedUsersList: (id) => dispatch(UserActions.requestBlockedUsersList(id)),
 }))(ManageBlock)
 const styles = StyleSheet.create({
   base: {
