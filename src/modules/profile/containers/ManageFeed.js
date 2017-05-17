@@ -6,6 +6,7 @@ import {
   Linking,
   InteractionManager,
   Alert,
+  Dimensions,
   ScrollView,
   Text
 } from 'react-native'
@@ -22,6 +23,10 @@ import * as UIActions from '../../../redux/ui/uiActions';
 import * as UserActions from '../../../redux/user/userActions';
 import SubscribedLists from '../presenters/SubscribedLists';
 import Followee from '../presenters/Followee';
+
+
+const window = Dimensions.get('window');
+
 
 
  class ManageFeedList extends React.Component {
@@ -49,62 +54,96 @@ return (
 );
   }
   renderSubscribedList(){
-    return (
 
-      this.props.userSubscribedList.map((list, index) => (
+      if(!!this.props.userSubscribedList && this.props.userSubscribedList.length > 0) {
+        return (
 
-
-
-
-
-          <SubscribedLists list={list}   key={index} />
+          this.props.userSubscribedList.map((list, index) => (
 
 
 
-      ))
 
 
-    );
+              <SubscribedLists list={list}  subscribedlists={'subscribedlists'} key={index} />
+
+
+
+          ))
+
+
+        );
+
+
+      }else{
+        return (
+          <View style={styles.noResultContainer}>
+            <Text style={styles.noResultText}>There are No Subscribed Lists. </Text>
+          </View>
+        )
+
+      }
   }
   renderFollowingUserList(){
+      if(!!this.props.followingUsers && this.props.followingUsers.length > 0) {
+        return (
+
+          this.props.followingUsers.map((list, index) => (
 
 
-      return (
-
-        this.props.followingUsers.map((list, index) => (
-
-
-<Followee key={index} followee={list} followuserpage={'followuserpage'} />
-
-
+  <Followee key={index} followee={list} followuserpage={'followuserpage'} isFollowing={true} />
 
 
 
-        ))
 
 
-      );
+          ))
+
+
+        );
+
+      }else{
+        return (
+          <View style={styles.noResultContainer}>
+            <Text style={styles.noResultText}>There are no Users whom you are following. </Text>
+          </View>
+        )
+
+      }
+
+
+
 
   }
   render() {
     const {tabs, selectedTab} = this.props;
+
+
     return (
       <View style={styles.base}>
           <View style={styles.header}>
             <View style={{
-                flexDirection:'row'
+                flexDirection:'row',
+                width: window.width
               }}>
+              <View style={{
+                  flex: 1,
+                  width: window.width - 50
+                }}>
               <TouchableOpacity
                 onPress={Actions.pop}
                 style={styles.backBtn} >
                 <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
               </TouchableOpacity>
+            </View>
+            <View style={{
+                flex: 1
+              }}>
               <TouchableOpacity
                 onPress={Actions.ManageBlock}
                 style={styles.blockkBtn} >
                 <IoniconIcon style={styles.headerLeftButtonIcon} name='md-warning'/>
               </TouchableOpacity>
-
+</View>
             </View>
             <Header title={'MANAGE \nFEED'}/>
             <Divider />
@@ -204,6 +243,15 @@ justifyContent: 'flex-end'
     height: 15,
     resizeMode: 'contain',
     marginRight: 20
+  },
+  noResultContainer: {
+    flex:1,
+    flexDirection:'row'
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic',
+    margin: 15
   },
   loading: {
     marginTop: 20

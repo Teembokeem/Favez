@@ -43,7 +43,8 @@ import {
     UPLOAD_LIST_IMAGE_SUCCESS,
     UPLOAD_LIST_IMAGE_FAIL,
     UPLOAD_LIST_IMAGE_PREFETCHED,
-    UPLOAD_LIST_IMAGE_PREFETCHED_FAIL
+    UPLOAD_LIST_IMAGE_PREFETCHED_FAIL,
+    LIST_CREATE_RELATION_FAILURE
 } from './listActions';
 // Initial state
 const initialState = fromJS({
@@ -111,8 +112,8 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_SUCCESS:
-        return state.set('loading', false).set('subscribedLists', action.payload.data);
-        break;
+       return state.updateIn('subscribedLists', arr => arr.push(action.detailList));
+    case LIST_CREATE_RELATION_FAILURE:
     case LIST_BY_TOPIC_FAILURE:
         return state.set('ERROR', action);
     case LIKE_UNLIKE_LIST_ITEM:
@@ -122,9 +123,17 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.set('loading', false).set('subscribedLists', action.payload.data);
         break;
     case LIST_DELETE_RELATION_FAILURE:
+    console.log("Delete list relation failed... ",action);
+    return state.set('ERROR',action);
+    break;
     case GET_LIST_BY_RELATION_SUCCESS:
+
+    console.log("Get List by relation Success", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case GET_LIST_BY_RELATION_FAILURE:
+    console.log("get list by relation failure");
+    return state.set('ERROR',false);
+    break;
     case LIST_SEARCH_RESULT_FAILURE:
         return state.set('ERROR', action);
     case SUBSCRIBE_LIST:

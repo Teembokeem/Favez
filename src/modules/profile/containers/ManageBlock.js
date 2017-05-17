@@ -30,13 +30,8 @@ import Followee from '../presenters/Followee';
     this.props.setViewTab(view, tab);
   }
   componentDidMount() {
-
   this.props.requestBlockedListAction('blocked');
-  this.props.requestBlockedUsersList(this.props.user.favez.id);
-
-
-
-  }
+  this.props.requestBlockedUsersList(this.props.user.favez.id);  }
   renderTabPanels() {
 const {selectedTab,loading,userBlockedPeople} = this.props;
 return (
@@ -44,41 +39,50 @@ return (
     {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
     {selectedTab=='people' ? this.renderBlockedPeople() : null}
     {selectedTab=='list' ? this.renderBlockedList() : null}
-
-      </View>
+  </View>
 );
   }
   renderBlockedPeople(){
-    let blockedPeople =  this.props.userBlockedPeople.length;
-let flag =false;
-    if(blockedPeople > 0){
-      flag = true;
+    if(!!this.props.userBlockedPeople && this.props.userBlockedPeople.length > 0) {
+      return (
+
+          this.props.userBlockedPeople.map((list, index) => (
+          <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} isFollowing={false} />
+          ))
+      );
+    }else{
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are no Blocked Users.  </Text>
+        </View>
+      )
     }
-    console.log("Number of blocked ",flag);
 
 
-    return (
 
 
-        this.props.userBlockedPeople.map((list, index) => (
 
-  <Followee key={index} followee={list} blockeduserpage={'blockeduserpage'} />
-        ))
-    );
-  }
+    }
+
+
+
   renderBlockedList(){
-    let blockedList =  this.props.userBlockedList.length;
-let flag =false;
-    if(blockedList > 0){
-      flag = true;
-    }
-    console.log("Number of blocked List ",flag);
-
+    if(!!this.props.userBlockedList && this.props.userBlockedList.length > 0) {
       return (
         this.props.userBlockedList.map((list, index) => (
   <SubscribedLists list={list}  blockedlist={'blockedlist'}  key={index} />
         ))
       );
+
+    }else{
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are no Blocked Lists.  </Text>
+        </View>
+      )
+
+    }
+
   }
   render() {
     const {tabs, selectedTab} = this.props;
@@ -117,8 +121,8 @@ export default connect(state => ({
     user: state.getIn(['user', 'user']),
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
-    requestBlockedListAction: (type) => dispatch(UserActions.requestBlockedListAction(type)),
-        requestBlockedUsersList: (id) => dispatch(UserActions.requestBlockedUsersList(id)),
+  requestBlockedListAction: (type) => dispatch(UserActions.requestBlockedListAction(type)),
+  requestBlockedUsersList: (id) => dispatch(UserActions.requestBlockedUsersList(id)),
 }))(ManageBlock)
 const styles = StyleSheet.create({
   base: {
@@ -127,6 +131,16 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1
+  },
+  noResultContainer:{
+    flex: 1,
+    flexDirection: 'row'
+
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic',
+    margin: 15
   },
   header: {
     backgroundColor: 'white',

@@ -8,7 +8,8 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 
 
-export default function SubscribedLists(list,key,blockedlist) {
+export default function SubscribedLists({list,key,blockedlist,subscribedlists}) {
+console.log("aaaaaa",list);
 
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>
@@ -17,11 +18,11 @@ export default function SubscribedLists(list,key,blockedlist) {
     </View>
     <View style={styles.info}>
 
-      <Text style={styles.listName} >{list.list.name}</Text>
+      <Text style={styles.listName} >{list.name}</Text>
 
     </View>
 
-    {renderIf(!blockedlist)(    <View style={styles.icons}>
+    {renderIf(subscribedlists === 'subscribedlists')(    <View style={styles.icons}>
           <FontAwesomeIcon name="bookmark"  backgroundColor="green"></FontAwesomeIcon>
 
         </View>)}

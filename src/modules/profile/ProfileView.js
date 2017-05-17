@@ -53,6 +53,7 @@ const ProfileView = React.createClass({
                       list={list}
                       user={userData}
                       moving={this.moving}
+                      taxonomy={list.taxonomy}
                       key={'list ' + index}
                       index={index} />
                 ))
@@ -65,7 +66,7 @@ const ProfileView = React.createClass({
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
-                    <List list={list} user={userData} key={'list ' + index}></List>
+                    <List list={list} user={userData} taxonomy={list.taxonomy} key={'list ' + index}></List>
                 )));
                 break;
             case 'likes':
