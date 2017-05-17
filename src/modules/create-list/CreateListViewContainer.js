@@ -9,7 +9,7 @@ export default connect(
       lists: state.getIn(['list', 'all']),
       options: state.getIn(['list', 'options']).toJS(),
       inviteList: state.getIn(['list', 'inviteList']).toJS(),
-      currentList: state.getIn(['list', 'current'])
+      currentList: state.getIn(['list', 'current']).toJS()
     };
   }
 )(CreateListView);

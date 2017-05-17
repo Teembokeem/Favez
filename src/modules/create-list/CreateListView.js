@@ -46,26 +46,12 @@ const FeedView = React.createClass({
   },
 
   pickListImage(){
-      this.props.dispatch(ListActions.pickListImage(
-        this.onUploadingImage,
-        this.onUploadedImage
-      ));
-  },
-
-  onUploadingImage(imageUri) {
-      this.setState({
-          uploadingListImage: imageUri
-      })
-  },
-
-  onUploadedImage() {
-      this.setState({
-          uploadingListImage: null
-      })
+      this.props.dispatch(ListActions.pickListImage());
   },
 
   render() {
-    const {options, inviteList} = this.props;
+    console.log('CREATE_LIST_VIEW_PROPS', this.props);
+    const {options, inviteList, currentList} = this.props;
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -73,7 +59,10 @@ const FeedView = React.createClass({
           contentContainerStyle={styles.container}
         >
           <Header title={'Create List'}/>
-          <ImagePicker pickListImage={this.pickListImage} />
+          <ImagePicker
+            pickListImage={this.pickListImage}
+            listImageUri={currentList.image}
+            imageStatus={currentList.imageStatus} />
           <CreateListForm
             createList={this.createList}
             options={options}

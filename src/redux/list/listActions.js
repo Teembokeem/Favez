@@ -1,5 +1,6 @@
 import {Actions} from 'react-native-router-flux';
 import ImagePicker from 'react-native-image-picker';
+import {Image} from 'react-native';
 import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
@@ -203,7 +204,7 @@ export async function searchLists(data) {
     .catch((err) => ({type: LIST_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
-export function pickListImage(onUploading, onUploaded) {
+export function pickListImage() {
   return dispatch => {
 
     var options = {
@@ -225,16 +226,22 @@ export function pickListImage(onUploading, onUploaded) {
 
         const imageUri = 'data:image/jpeg;base64,' + response.data
 
-        dispatch({ type: UPLOAD_LIST_IMAGE_START })
+        dispatch({ type: UPLOAD_LIST_IMAGE_START });
 
-        //step 2: Show token/selected image
-        if (onUploading) { onUploading(imageUri) }
-
-        //step 3: upload to cloudinary
         cloudinary.uploadImage(imageUri).then((data) => {
 
           const {secure_url} = data;
           dispatch({ type: UPLOAD_LIST_IMAGE_SUCCESS, payload: secure_url })
+          Image.prefetch(secure_url).then(() => {
+            dispatch({
+              type: UPLOAD_LIST_IMAGE_PREFETCHED
+            })
+          }, () => {
+            console.warn(`Prefetch list image from "${secure_url}" fail. Use binary instead.`)
+            dispatch({
+              type: UPLOAD_LIST_IMAGE_PREFETCHED_FAIL
+            })
+          })
 
         }, () => {
           dispatch({type: UPLOAD_LIST_IMAGE_FAIL})

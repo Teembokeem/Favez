@@ -5,20 +5,37 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
+  Image,
+  ActivityIndicator
 } from 'react-native';
 
-function ImagePicker({pickListImage}) {
-  
+const renderIf = cond => elm => cond ? elm : null;
+
+function ImagePicker({pickListImage, listImageUri, imageStatus}) {
+
+  console.log('IMAGE_PICKER, imageStatus='+imageStatus);
   return (
     <View
       style={styles.ImagePickerContainer}
     >
       <TouchableOpacity
         style={styles.CropImageContainer}
-        onPress={pickListImage}
-      >
-        <View style={styles.FillerImage}></View>
+        onPress={pickListImage}>
+        <View style={styles.FillerImage}>
+          {renderIf(imageStatus === 'prefetched')(
+            <Image style={styles.ListCoverImage} source={{uri:listImageUri}} />
+          )}
+          {renderIf(imageStatus === 'uploading' || imageStatus === 'prefetching')(
+            <View style={styles.indicatorWrapper}>
+              <ActivityIndicator
+                animating={true}
+                style={styles.indicator}
+                size={'large'}
+              />
+            </View>
+         )}
+        </View>
       </TouchableOpacity>
       <View
         style={styles.ImagePickerTextContainer}
@@ -52,7 +69,8 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     borderRadius: 10,
-    backgroundColor: '#b8b8b8'
+    backgroundColor: '#b8b8b8',
+    alignItems: 'center'
   },
   ImagePickerTextContainer: {
     paddingTop: 4,
@@ -64,6 +82,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Hind-Medium',
     fontSize: 15,
     color: '#b8b8b8'
+  },
+  ListCoverImage: {
+    width: 150,
+    height: 100,
+    borderRadius: 10,
+    alignSelf: 'center'
+  },
+  indicator: {
+    flex: 1,
+    alignSelf: 'center'
   }
 
 });

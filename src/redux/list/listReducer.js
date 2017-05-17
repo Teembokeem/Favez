@@ -135,10 +135,12 @@ export default function ListReducer(state = initialState, action = {}) {
         Effects.promise(() => deleteListRelationAction(action.payload)));
     case UPLOAD_LIST_IMAGE_START:
         return state.setIn(['current', 'imageStatus'], 'uploading');
-    case UPLOAD_LIST_IMAGE_PREFETCHED:
-        return state.setIn(['current', 'listImage'], action.payload);
     case UPLOAD_LIST_IMAGE_SUCCESS:
-        return state.setIn(['current', 'image'], action.payload);
+        return state.setIn(['current', 'image'], action.payload).setIn(['current', 'imageStatus'], 'prefetching');
+    case UPLOAD_LIST_IMAGE_PREFETCHED:
+        return state.setIn(['current', 'imageStatus'], 'prefetched');
+    case UPLOAD_LIST_IMAGE_FAIL:
+        return state.setIn(['current', 'imageStatus'], 'uploadFailed');
     case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
         return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
 

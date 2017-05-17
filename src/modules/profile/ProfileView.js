@@ -27,6 +27,9 @@ import * as UIActions from '../../redux/ui/uiActions';
 
 const ProfileView = React.createClass({
     propTypes: {},
+    getInitialState() {
+      return {}
+    },
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
         if (Object.keys(Utils.toJS(this.props.user)).length == 0 && !this.props.userId) return Actions.intro();
