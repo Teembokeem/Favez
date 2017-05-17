@@ -11,12 +11,12 @@ import {
   Text
 } from 'react-native'
 import IoniconIcon from 'react-native-vector-icons/Ionicons'
-import {Actions} from 'react-native-router-flux'
+import { Actions } from 'react-native-router-flux'
 import Header from '../../../components/globals/header/header'
 import Divider from '../presenters/Divider'
 import Contact from '../presenters/Contact'
 import SearchTextInput from '../presenters/SearchTextInput'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import HeaderTabs from '../../../components/globals/headerTabs/headerTabs';
 var Contacts = require('react-native-contacts')
 import * as UIActions from '../../../redux/ui/uiActions';
@@ -27,136 +27,105 @@ import Followee from '../presenters/Followee';
 
 const window = Dimensions.get('window');
 
+class ManageFeedList extends React.Component {
 
-
- class ManageFeedList extends React.Component {
+  componentWillMount() {
+    if (!this.props.user.favez) {
+      Actions.intro()
+    } else {
+      this.props.requestSubscribedListAction('subscribed');
+      this.props.requestFollowingUsersList(this.props.user.favez.id);
+    }
+  }
 
   setFilter(view, tab) {
     this.props.setViewTab(view, tab);
   }
-  componentDidMount() {
 
-  this.props.requestSubscribedListAction('subscribed');
-  this.props.requestFollowingUsersList(this.props.user.favez.id);
-
-
-
-  }
   renderTabPanels() {
-const {selectedTab,loading,userSubscribedList} = this.props;
-return (
-  <View style={styles.contentContainer}>
-    {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
-    {selectedTab=='subscribed' ? this.renderSubscribedList() : null}
-    {selectedTab=='following' ? this.renderFollowingUserList() : null}
+    const { selectedTab, loading, userSubscribedList } = this.props;
+    return (
+      <View style={styles.contentContainer}>
+        {renderIf(loading)(<ActivityIndicator style={styles.loading} />)}
+        {selectedTab == 'subscribed' ? this.renderSubscribedList() : null}
+        {selectedTab == 'following' ? this.renderFollowingUserList() : null}
 
       </View>
-);
+    );
   }
-  renderSubscribedList(){
+  renderSubscribedList() {
 
-      if(!!this.props.userSubscribedList && this.props.userSubscribedList.length > 0) {
-        return (
+    if (!!this.props.userSubscribedList && this.props.userSubscribedList.length > 0) {
+      return (
+        this.props.userSubscribedList.map((list, index) => (
+          <SubscribedLists list={list} subscribedlists={'subscribedlists'} key={index} />
+        ))
+      );
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are No Subscribed Lists. </Text>
+        </View>
+      )
 
-          this.props.userSubscribedList.map((list, index) => (
-
-
-
-
-
-              <SubscribedLists list={list}  subscribedlists={'subscribedlists'} key={index} />
-
-
-
-          ))
-
-
-        );
-
-
-      }else{
-        return (
-          <View style={styles.noResultContainer}>
-            <Text style={styles.noResultText}>There are No Subscribed Lists. </Text>
-          </View>
-        )
-
-      }
+    }
   }
-  renderFollowingUserList(){
-      if(!!this.props.followingUsers && this.props.followingUsers.length > 0) {
-        return (
-
-          this.props.followingUsers.map((list, index) => (
-
-
-  <Followee key={index} followee={list} followuserpage={'followuserpage'} isFollowing={true} />
-
-
-
-
-
-          ))
-
-
-        );
-
-      }else{
-        return (
-          <View style={styles.noResultContainer}>
-            <Text style={styles.noResultText}>There are no Users whom you are following. </Text>
-          </View>
-        )
-
-      }
-
-
-
-
+  renderFollowingUserList() {
+    if (!!this.props.followingUsers && this.props.followingUsers.length > 0) {
+      return (
+        this.props.followingUsers.map((list, index) => (
+          <Followee key={index} followee={list} followuserpage={'followuserpage'} isFollowing={true} />
+        ))
+      );
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>There are no Users whom you are following. </Text>
+        </View>
+      )
+    }
   }
   render() {
-    const {tabs, selectedTab} = this.props;
-
-
+    const { tabs, selectedTab } = this.props;
     return (
       <View style={styles.base}>
-          <View style={styles.header}>
+        <View style={styles.header}>
+          <View style={{
+            flexDirection: 'row',
+            width: window.width
+          }}>
             <View style={{
-                flexDirection:'row',
-                width: window.width
-              }}>
-              <View style={{
-                  flex: 1,
-                  width: window.width - 50
-                }}>
+              flex: 1,
+              width: window.width - 50
+            }}>
               <TouchableOpacity
                 onPress={Actions.pop}
                 style={styles.backBtn} >
-                <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
+                <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back' />
               </TouchableOpacity>
             </View>
             <View style={{
-                flex: 1
-              }}>
+              flex: 1
+            }}>
               <TouchableOpacity
                 onPress={Actions.ManageBlock}
                 style={styles.blockkBtn} >
-                <IoniconIcon style={styles.headerLeftButtonIcon} name='md-warning'/>
+                <IoniconIcon style={styles.headerLeftButtonIcon} name='md-warning' />
               </TouchableOpacity>
-</View>
             </View>
-            <Header title={'MANAGE \nFEED'}/>
-            <Divider />
-              <HeaderTabs
-                view={'manageFeed'}
-                setFilter={this.setFilter.bind(this)}
-                selected={selectedTab}
-                tabs={tabs}
-              />
           </View>
-            <ScrollView contentContainerStyle={styles.container}>
-              {this.renderTabPanels()}
-            </ScrollView>
+          <Header title={'MANAGE \nFEED'} />
+          <Divider />
+          <HeaderTabs
+            view={'manageFeed'}
+            setFilter={this.setFilter.bind(this)}
+            selected={selectedTab}
+            tabs={tabs}
+          />
+        </View>
+        <ScrollView contentContainerStyle={styles.container}>
+          {this.renderTabPanels()}
+        </ScrollView>
       </View>
     );
 
@@ -165,20 +134,19 @@ return (
 
 export default connect(state => ({
   loading: state.getIn(['user', 'loading']),
-  tabs: state.getIn(['ui','manageFeed', 'tabs', 'set']),
-  selectedTab: state.getIn(['ui','manageFeed', 'tabs', 'selected']),
+  tabs: state.getIn(['ui', 'manageFeed', 'tabs', 'set']),
+  selectedTab: state.getIn(['ui', 'manageFeed', 'tabs', 'selected']),
   userSubscribedList: state.getIn(['user', 'userSubscribedList']),
-  followingUsers: state.getIn(['user','followingUsers']),
-    user: state.getIn(['user', 'user']),
+  followingUsers: state.getIn(['user', 'followingUsers']),
+  user: state.getIn(['user', 'user']),
 
 
 
 
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
-    requestSubscribedListAction: (type) => dispatch(UserActions.requestSubscribedListAction(type)),
-        requestFollowingUsersList: (id) => dispatch(UserActions.requestFollowingUsersList(id)),
-
+  requestSubscribedListAction: (type) => dispatch(UserActions.requestSubscribedListAction(type)),
+  requestFollowingUsersList: (id) => dispatch(UserActions.requestFollowingUsersList(id)),
 }))(ManageFeedList)
 
 
@@ -203,8 +171,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 40
   },
-  blockkBtn:{
-justifyContent: 'flex-end'
+  blockkBtn: {
+    justifyContent: 'flex-end'
   },
   headerLeftButtonIcon: {
     width: 35,
@@ -245,12 +213,12 @@ justifyContent: 'flex-end'
     marginRight: 20
   },
   noResultContainer: {
-    flex:1,
-    flexDirection:'row'
+    flex: 1,
+    flexDirection: 'row'
   },
   noResultText: {
-    fontSize:16,
-    fontStyle:'italic',
+    fontSize: 16,
+    fontStyle: 'italic',
     margin: 15
   },
   loading: {
