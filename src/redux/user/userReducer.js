@@ -263,7 +263,7 @@ case GET_USER_BLOCKED_LIST_SUCCESS:
 return state.set('loading', false).set('userBlockedList',action.payload.data);
 case GET_USER_BLOCKED_LIST_FAILURE:
 case GET_BLOCKED_USER_SUCCESS:
-
+console.log("blocked users by a logged in user",action.payload.data);
 return state.set('loading', false).set('userBlockedPeople',action.payload.data);
 case GET_BLOCKED_USER_FAILURE:
     case UNFOLLOW_USER_SUCCESS:
