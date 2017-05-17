@@ -21,13 +21,17 @@ const FeedView = React.createClass({
   createList(values) {
     const {options, inviteList} = this.props;
     const {description, tags, topics, priv, nsfw} = options;
-    let listObj = Object.assign(values.toJS(), {
+    let listObj = Object.assign(values, {
       description,
       tags: tags.join(','),
       topics: topics.join(','),
       private: priv ? 1 : 0,
       nsfw: nsfw ? 1 : 0
     });
+
+    console.log('CREATE_LIST_FORM_DATA', values);
+    console.log('CREATE_LIST_PROPS', this.props);
+    console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
     this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList}))
       .then(Actions.pop)
       .catch((err) => {
@@ -41,6 +45,25 @@ const FeedView = React.createClass({
     })
   },
 
+  pickListImage(){
+      this.props.dispatch(ListActions.pickListImage(
+        this.onUploadingImage,
+        this.onUploadedImage
+      ));
+  },
+
+  onUploadingImage(imageUri) {
+      this.setState({
+          uploadingListImage: imageUri
+      })
+  },
+
+  onUploadedImage() {
+      this.setState({
+          uploadingListImage: null
+      })
+  },
+
   render() {
     const {options, inviteList} = this.props;
     return (
@@ -50,7 +73,7 @@ const FeedView = React.createClass({
           contentContainerStyle={styles.container}
         >
           <Header title={'Create List'}/>
-          <ImagePicker />
+          <ImagePicker pickListImage={this.pickListImage} />
           <CreateListForm
             createList={this.createList}
             options={options}

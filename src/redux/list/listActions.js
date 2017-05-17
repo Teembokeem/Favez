@@ -1,4 +1,6 @@
 import {Actions} from 'react-native-router-flux';
+import ImagePicker from 'react-native-image-picker';
+import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
   listCreate,
@@ -49,6 +51,12 @@ export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
 export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
 export const SUBSCRIBE_LIST = 'SUBSCRIBE_LIST';
 export const UNSUBSCRIBE_LIST = 'UNSUBSCRIBE_LIST';
+
+export const UPLOAD_LIST_IMAGE_START = "UPLOAD_LIST_IMAGE_START";
+export const UPLOAD_LIST_IMAGE_SUCCESS = "UPLOAD_LIST_IMAGE_SUCCESS";
+export const UPLOAD_LIST_IMAGE_FAIL = "UPLOAD_LIST_IMAGE_FAIL";
+export const UPLOAD_LIST_IMAGE_PREFETCHED = "UPLOAD_LIST_IMAGE_PREFETCHED";
+export const UPLOAD_LIST_IMAGE_PREFETCHED_FAIL = "UPLOAD_LIST_IMAGE_PREFETCHED_FAIL";
 
 
 // Action creators
@@ -193,4 +201,45 @@ export async function searchLists(data) {
       return {type: LIST_SEARCH_RESULT_SUCCESS, payload: res.data}
     })
     .catch((err) => ({type: LIST_SEARCH_RESULT_FAILURE, payload: err}));
+}
+
+export function pickListImage(onUploading, onUploaded) {
+  return dispatch => {
+
+    var options = {
+      title: 'Select List Cover Image',
+      customButtons: [],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    //step 1: show options to take or select photos
+    ImagePicker.showImagePicker(options, (response) => {
+
+      if (response.didCancel) {}
+      else if (response.error) {}
+      else if (response.customButton) {}
+      else {
+
+        const imageUri = 'data:image/jpeg;base64,' + response.data
+
+        dispatch({ type: UPLOAD_LIST_IMAGE_START })
+
+        //step 2: Show token/selected image
+        if (onUploading) { onUploading(imageUri) }
+
+        //step 3: upload to cloudinary
+        cloudinary.uploadImage(imageUri).then((data) => {
+
+          const {secure_url} = data;
+          dispatch({ type: UPLOAD_LIST_IMAGE_SUCCESS, payload: secure_url })
+
+        }, () => {
+          dispatch({type: UPLOAD_LIST_IMAGE_FAIL})
+        })
+      }
+    });
+  }
 }

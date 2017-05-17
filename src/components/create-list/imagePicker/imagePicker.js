@@ -8,13 +8,15 @@ import {
   View
 } from 'react-native';
 
-function ImagePicker() {
+function ImagePicker({pickListImage}) {
+  
   return (
     <View
       style={styles.ImagePickerContainer}
     >
       <TouchableOpacity
         style={styles.CropImageContainer}
+        onPress={pickListImage}
       >
         <View style={styles.FillerImage}></View>
       </TouchableOpacity>
