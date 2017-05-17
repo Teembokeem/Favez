@@ -15,6 +15,8 @@ import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import Header from '../../../components/globals/header/header';
 import HeaderTabs from '../../../components/globals/headerTabs/headerTabs';
 import Divider from '../presenters/Divider';
+import Followee from '../presenters/Followee';
+import Follower from '../presenters/Follower';
 
 import * as UIActions from '../../../redux/ui/uiActions';
 import * as UserActions from '../../../redux/user/userActions';
@@ -40,16 +42,87 @@ class UserFriendsView extends React.Component {
   }
 
   renderTabPanels() {
-    const {selectedTab, followers, following, loading} = this.props;
+    const {selectedTab} = this.props;
+    switch(selectedTab) {
+      case 'following':
+        return this.renderFollowingUsersList();
+
+      case 'followers':
+        return this.renderFollowerUsersList();
+    }
+  }
+
+  renderFollowingUsersList() {
+
+    const {followingUsers} = this.props;
+    if(!!followingUsers && followingUsers.length > 0) {
+      console.log('rendering renderFollowingUsersList.....');
+      return (
+        <ListView
+        dataSource={ds.cloneWithRows(toJS(followingUsers))}
+        enableEmptySections={true}
+        renderRow={(followingUser) => {
+          const {id} = followingUser
+          return (
+            <View>
+              <Followee
+                followee={followingUser}
+                isFollowing={true}
+              />
+              <Divider/>
+            </View>
+          )
+        }} />
+      )
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>You have no following users</Text>
+        </View>
+      )
+    }
+  }
+
+  renderFollowerUsersList() {
+
+    const {followerUsers} = this.props;
+    if(!!followerUsers && followerUsers.length > 0) {
+      console.log('rendering renderFollowerUsersList.....');
+      return (
+        <ListView
+        dataSource={ds.cloneWithRows(toJS(followerUsers))}
+        enableEmptySections={true}
+        renderRow={(followerUser) => {
+          const {id} = followerUser
+          return (
+            <View>
+              <Follower
+                follower={followerUser}
+                isFollower={true}
+              />
+              <Divider/>
+            </View>
+          )
+        }} />
+      )
+    } else {
+      return (
+        <View style={styles.noResultContainer}>
+          <Text style={styles.noResultText}>You have no followers</Text>
+        </View>
+      )
+    }
+  }
+
+  renderLoader() {
     return (
-      <View style={styles.contentContainer}>
-        {renderIf(loading)(<ActivityIndicator style={styles.loading}/>)}
-      </View>
-    );
+      <ActivityIndicator style={styles.loading}/>
+    )
   }
 
   render() {
-    const {tabs, selectedTab} = this.props;
+    const {tabs, selectedTab, loading} = this.props;
+    console.log('USER_FRIENDS_PROPS', this.props);
     return (
       <View style={styles.base}>
           <View style={styles.header}>
@@ -67,18 +140,28 @@ class UserFriendsView extends React.Component {
               tabs={tabs}
             />
           </View>
+          <View style={styles.contentContainer}>
+            { loading ? this.renderLoader() : this.renderTabPanels() }
+          </View>
           {this.renderTabPanels()}
       </View>
     );
   }
 }
 
+function toJS(immu) {
+  if (immu.toJS) {
+    return immu.toJS()
+  }
+  return immu
+}
+
 export default connect(state => ({
   loading: state.getIn(['user', 'loading']),
   tabs: state.getIn(['ui','userFriends', 'tabs', 'set']),
   selectedTab: state.getIn(['ui','userFriends', 'tabs', 'selected']),
-  followings: state.getIn(['user', 'followingUsers'])
-
+  followingUsers: state.getIn(['user', 'followingUsers']),
+  followerUsers: state.getIn(['user', 'followerUsers']),
 }), dispatch => ({
   setViewTab: (view, tab) => dispatch(UIActions.setViewTab(view, tab)),
   requestFollowerUsersList: (id) => dispatch(UserActions.requestFollowerUsersList(id)),
@@ -145,6 +228,15 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   loading: {
-    marginTop: 20
+    alignSelf: 'center'
+  },
+  noResultContainer: {
+    flex:1,
+    flexDirection:'row'
+  },
+  noResultText: {
+    fontSize:16,
+    fontStyle:'italic',
+    margin: 15
   }
 })

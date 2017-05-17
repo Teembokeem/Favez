@@ -58,6 +58,10 @@ export async function getFollowerList(data){
   return get(`/users/followed_by/${data}`);
 }
 
+export async function getSubscriptions(userId){
+  return get(`/lists/subscribed/${userId}`);
+}
+
 export async function removeFromFollowList(removedUserId) {
   return post(`/users/removeFromFollowList/${removedUserId}`)
   .catch(() => console.warn(`error on remove user ${removedUserId} from following list`))

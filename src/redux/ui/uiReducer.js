@@ -196,6 +196,12 @@ const initialState = fromJS({
       }
     }
   },
+  profileView : {
+    tabs: {
+      selected: 'lists',
+      set: ['lists', 'collabs', 'subscriptions', 'likes', 'comments']
+    }
+  },
   listShow: {
     tabs: {
       selected: 'favez',

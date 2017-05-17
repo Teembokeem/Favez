@@ -21,14 +21,10 @@ import List from '../../components/globals/list/list';
 import * as ProfileState from './ProfileState';
 import * as UserActions from '../../redux/user/userActions';
 import * as ListActions from '../../redux/list/listActions';
-import * as ViewUtil from '../../utils/viewUtil';
+import * as UIActions from '../../redux/ui/uiActions';
 
 const ProfileView = React.createClass({
     propTypes: {},
-    getInitialState() {
-        return { selected: 'lists' };
-    },
-
     componentWillMount() {
         // this.props.dispatch(ListActions.getFullList());
         if (!this.props.otherUser || !this.props.userId) {
@@ -39,16 +35,27 @@ const ProfileView = React.createClass({
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
-    componentDidMount() {},
-
     componentDidUpdate() {
-      this.loadUserProfile();
+      this.loadOtherUserInfo();
     },
 
     renderChildren() {
+
+        const {selectedTab, lists} = this.props;
         let userData = (this.props.userId)? this.props.otherUser : this.props.user;
-        switch (this.state.selected) {
+
+        switch (selectedTab) {
             case 'lists':
+              return (
+                lists.map((list, index) => (
+                    <List
+                      list={list}
+                      user={userData}
+                      moving={this.moving}
+                      key={'list ' + index}
+                      index={index} />
+                ))
+              );
             break;
             case 'collabs':
             break;
@@ -57,7 +64,7 @@ const ProfileView = React.createClass({
                 <Text>Subscribed list of yours will come over here: </Text>
                 return (this.props.subscribedlists.map((list, index) => (
 
-                    <List list={list} creator={userData} key={'list ' + index}></List>
+                    <List list={list} user={userData} key={'list ' + index}></List>
                 )));
                 break;
             case 'likes':
@@ -92,8 +99,7 @@ const ProfileView = React.createClass({
 
     setFilter(val,tab) {
 
-      this.setState({selected: tab})
-        this.props.dispatch(ProfileState.setFilter(val));
+        this.props.dispatch(UIActions.setViewTab(val, tab));
     },
 
     onPickProfileImage(){
@@ -115,12 +121,12 @@ const ProfileView = React.createClass({
         })
     },
 
-    loadUserProfile() {
+    loadOtherUserInfo() {
         let thisUser = this.props.user.favez ? this.props.user.favez.id : null
         if( this.props.userId &&
             thisUser != this.props.userId &&
             this.props.userId != this.props.otherUser.id
-        ) this.props.dispatch(UserActions.loadUserProfile(this.props.userId));
+        ) this.props.dispatch(UserActions.loadOtherUserInfo(this.props.userId));
     },
 
     isOtherUser(userId) {
@@ -147,8 +153,8 @@ const ProfileView = React.createClass({
         const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
         let thisUserId = this.props.user.favez ? this.props.user.favez.id : false
         const child = this.renderChildren();
-        const selectedTab = this.state.selected;
-        const {uploadingProfileImage} = this.state
+        const {tabs, selectedTab} = this.props;
+        const {uploadingProfileImage} = this.props;
 
         let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || thisUserId == this.props.userId;
 
@@ -170,7 +176,11 @@ const ProfileView = React.createClass({
                         <ProfileActions
                           self={authIsSelf}
                           followedUser={this.isFollowedUser()}/>
-                        <HeaderTabs setFilter={this.setFilter} selected={selectedTab} tabs={['lists', 'collabs', 'subscriptions', 'likes', 'comments']}/>
+                        <HeaderTabs
+                          view={'profileView'}
+                          setFilter={this.setFilter}
+                          selected={selectedTab}
+                          tabs={tabs}/>
                         <View style={styles.contentContainer}>
                             {child}
                         </View>
