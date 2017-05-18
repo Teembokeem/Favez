@@ -170,10 +170,10 @@ export async function createlistRelationAction(id,relationid,detailList){
 }
 
 //Action for Delete list relationship
-export async function deleteListRelationAction(id){
+export async function deleteListRelationAction(id,relationid,detailList){
 
-  return await deleteListRelation(id)
-  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res}))
+  return await deleteListRelation(id,relationid)
+  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}))
   .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
 }
 

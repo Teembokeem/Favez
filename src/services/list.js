@@ -15,8 +15,10 @@ export async function getListbyRelation(data) {
 export async function sendUnLikeList(data) {
     return post('/favez/unlike', { fave_id: data });
 }
-export async function deleteListRelation(id,) {
-    return del('lists/relationship', { list_id: id });
+export async function deleteListRelation(id,relationid) {
+  console.log("delete list id 900am",id);
+  console.log("delete list relation id code 900am", relationid);
+    return del('lists/relationship', { list_id: id , relationship: relationid});
     // return del('lists/relationship', { list_id: id, relationship: relationid });
     //      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
 }

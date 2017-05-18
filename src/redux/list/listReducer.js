@@ -112,7 +112,14 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_SUCCESS:
-       return state.updateIn('subscribedLists', arr => arr.push(action.detailList));
+
+  return state.set('subscribedLists',[...state.get("subscribedLists"),action.detailList]);
+// return  state.setIn(['subscribedLists', action.detailList]);
+//return  state.delete(subscribedLists.findIndex(id => id == action.detailList.id));
+
+//return  state.delete('subscribedLists',subscribedListsres.findIndex(id => id == action.detailList.id));
+
+
     case LIST_CREATE_RELATION_FAILURE:
     case LIST_BY_TOPIC_FAILURE:
         return state.set('ERROR', action);
@@ -120,7 +127,15 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
     case LIKE_UNLIKE_LIST_ITEM_FAILURE:
     case LIST_DELETE_RELATION_SUCCESS:
-        return state.set('loading', false).set('subscribedLists', action.payload.data);
+
+    console.log("Delete Relation success",action);
+    var subscribedListsres = state.get("subscribedLists");
+    console.log("subsctibeee", subscribedListsres);
+
+return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
+
+//    return  state.delete('subscribedLists',subscribedListsres.findIndex(id => id == action.detailList.id));
+// return  state.setIn('subscribedLists', action.detailList);
         break;
     case LIST_DELETE_RELATION_FAILURE:
     console.log("Delete list relation failed... ",action);

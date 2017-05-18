@@ -16,7 +16,9 @@ export function showFollowedlists(followedlists) {
     }
 
     return new_arr;
+
 }
+
 export function addrecentClickedFollow(followlist, recentadded) {
     var flag = false;
     for (var i = 0; i < followlist.length; i++) {

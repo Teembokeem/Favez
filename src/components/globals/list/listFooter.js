@@ -13,10 +13,11 @@ import {
   Alert
 } from 'react-native';
 
-function ListFooter({search, subscribe,loggedInUser}) {
+function ListFooter({search, subscribe,loggedInUser,subscribed}) {
+
   function ifUserLoggedIn(actionName){
 
-    console.log("if user logged un", loggedInUser);
+
       if(!loggedInUser.auth0){
         Alert.alert("Please Login to Subcribe a List.");
         Actions.login();
@@ -45,7 +46,7 @@ function toJS(immutable) {
       subscribe("subscribeme");
   }
   function UnsubscribeMe() {
-        Alert.alert("Un..Subscribe me called...");
+
       subscribe("unsubscribe");
   }
   return (
@@ -60,10 +61,10 @@ function toJS(immutable) {
       </TouchableOpacity>
 
       <TouchableOpacity
-         onPress={() => search ? (ifUserLoggedIn("subscribe")) : null}
+         onPress={() => search ? ( subscribed ? ifUserLoggedIn("unsubscribe") : ifUserLoggedIn("subscribe") ) : null}
         style={styles.ListFooterSettingsContainer}
       >
-         <Ionicon style={styles.ListFooterSettings} name={search ? "ios-bookmark-outline":"ios-settings"}/>
+         <Ionicon style={styles.ListFooterSettings} name={search ? (subscribed ? "ios-bookmark" : "ios-bookmark-outline") : "ios-settings"}/>
       </TouchableOpacity>
 
       <TouchableOpacity
