@@ -40,27 +40,26 @@ export async function getListByTopic(topic) {
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);
 }
-export async function listCreate(data) {
+export function listCreate(data) {
     const { listData, inviteData } = data;
-    // delete data['topics'];
-    // delete data['tags'];
-    post('/lists', listData).then((res) => {
-        let users = inviteData;
-        let counter = 0;
-        users.map((user, idx) => {
-            let { id } = user;
-            if (idx !== users.length - 1) {
-                post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                    counter++;
-                }).catch((err) => {
-                });
-            } else {
-                return post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                    return { data: res.data, counter };
-                }).catch((err) => {
-                    return err;
-                });
-            }
-        });
+    return post('/lists', listData).then((res) => {
+      let users = inviteData;
+      let counter = 0;
+      users.map((user, idx) => {
+          let { id } = user;
+          if (idx !== users.length - 1) {
+              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
+                  counter++;
+              }).catch((err) => {
+              });
+          } else {
+              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
+                  console.log('List create success .................');
+                  return { data: res.data, counter };
+              }).catch((err) => {
+                  return err;
+              });
+          }
+      });
     });
 }

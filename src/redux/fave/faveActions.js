@@ -50,9 +50,16 @@ export async function createFave(fave) {
 }
 
 export async function requestCreateFave(data) {
+  console.log('Creating fave request............');
   return await favezCreateFave(data)
-    .then((res) => ({type: FAVE_CREATE_SUCCESS, payload: res}))
-    .catch((err) => ({type: FAVE_CREATE_FAILURE, payload: err}));
+    .then((res) => {
+      console.log('Faves create success', res);
+      return {type: FAVE_CREATE_SUCCESS, payload: res}
+    })
+    .catch((err) => {
+      console.log(FAVE_CREATE_FAILURE, err);
+      return {type: FAVE_CREATE_FAILURE, payload: err}
+    });
 }
 
 export async function searchFavez(data) {

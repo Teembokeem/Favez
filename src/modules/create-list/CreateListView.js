@@ -28,13 +28,19 @@ const FeedView = React.createClass({
       private: priv ? 1 : 0,
       nsfw: nsfw ? 1 : 0
     });
+    let favezData = {image: this.props.currentList.image};
 
-    console.log('CREATE_LIST_FORM_DATA', values);
     console.log('CREATE_LIST_PROPS', this.props);
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
-    this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList}))
-      .then(Actions.pop)
+    console.log('FAVEZ_DATA', favezData);
+
+    this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList, favezData}))
+      .then((data) => {
+        console.log('LIST created', data);
+        Actions.pop();
+      })
       .catch((err) => {
+        console.log('LIST_CREATE_FAILURE', err);
       });
   },
 
