@@ -36,12 +36,9 @@ import {
     REQUEST_USER_TO_FOLLOW,
     REMOVE_USER_FROM_FOLLOW_LIST,
     UPLOAD_USER_IMAGE_PREFETCHED_FAIL,
-    OTHER_USER_INFO_REQUEST,
-    OTHER_USER_INFO_SUCCESS,
-    OTHER_USER_INFO_FAILURE,
-    OTHER_USER_SUBSCRIPTIONS_REQUEST,
-    OTHER_USER_SUBSCRIPTIONS_SUCCESS,
-    OTHER_USER_SUBSCRIPTIONS_FAILURE,
+    GET_OTHER_USER_INFO_REQUEST,
+    GET_OTHER_USER_INFO_SUCCESS,
+    GET_OTHER_USER_INFO_FAILURE,
     GET_USER_SUBSCRIBED_LIST_SUCCESS,
     GET_USER_SUBSCRIBED_LIST_FAILURE,
     GET_USER_BLOCKED_LIST_SUCCESS,
@@ -49,15 +46,13 @@ import {
     GET_BLOCKED_USER_SUCCESS,
     GET_BLOCKED_USER_FAILURE,
     requestLogin,
+    requestCollaborators,
     requestUserInfo,
     requestUserUpdate,
     requestRegister,
     createUser,
     followuserAction,
-    unfollowuserAction,
-    requestCollaborators,
-    requestOtherUserSubscriptions
-
+    unfollowuserAction
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -78,12 +73,14 @@ const initialState = fromJS({
     userBlockedList: [],
     userBlockedPeople: [],
 
-    otherUser: {},
-    otherUserLists: [],
-    otherUserCollaborators: [],
-    otherUserSubscriptions: [],
-    otherUserLikes: [],
-    otherUserComments: []
+    otherUser: {
+      info:{},
+      lists:[],
+      subscriptions:[],
+      collabs:[],
+      comments:[],
+      likes:[]
+    }
 
 });
 // Reducer
@@ -181,38 +178,23 @@ export default function UserStateReducer(state = initialState, action = {}) {
         state.set('user', {}),
         Effects.promise(() => requestUserInfo())
       );
-    case OTHER_USER_INFO_REQUEST:
-      return loop(
-        state.set('loading', true),
-        Effects.promise(() => requestOtherUserInfo(action.payload)),
-      );
-    case OTHER_USER_SUBSCRIPTIONS_REQUEST:
-      return loop(
-          state.set('loading', true),
-          Effects.promise(() => requestOtherUserSubscriptions(action.payload))
-      );
+    case GET_OTHER_USER_INFO_REQUEST:
+      return state.set('loading', true);
     case USER_SEARCH_RESULT_SUCCESS:
       return state
         .set('loading', false)
         .set('searchedUsers', action.payload);
-    case OTHER_USER_INFO_SUCCESS:
-      return state
-        .set('loading', false)
-        .set('otherUser', action.payload);
-    case OTHER_USER_SUBSCRIPTIONS_SUCCESS:
-      return state
-          .set('loading', false)
-          .set('otherUserSubscriptions', action.payload);
+    case GET_OTHER_USER_INFO_SUCCESS:
+      return state.set('loading', false).set('otherUser', action.payload);
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
     case USER_SEARCH_RESULT_FAILURE:
-    case OTHER_USER_INFO_FAILURE:
+    case GET_OTHER_USER_INFO_FAILURE:
     case GET_FOLLOWING_LIST_FAILURE:
     case GET_FOLLOWER_LIST_FAILURE:
-    case OTHER_USER_SUBSCRIPTIONS_FAILURE:
       return state.set('loading', false).set('error', action.payload);
     case USER_SUCCESS:
 
