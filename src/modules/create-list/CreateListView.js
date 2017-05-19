@@ -34,7 +34,7 @@ const FeedView = React.createClass({
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
     console.log('FAVEZ_DATA', favezData);
 
-    this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList, favezData}))
+    this.props.dispatch(ListActions.requestCreateList({listData: listObj, inviteData: inviteList, favezData: favezData}))
       .then((data) => {
         console.log('LIST created', data);
         Actions.pop();

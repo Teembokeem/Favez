@@ -5,6 +5,7 @@ import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
   listCreate,
+  listCollaborateInvite,
   listGetMyLists,
   listGetSingleDetailed,
   sendInvites,
@@ -15,6 +16,10 @@ import {
   getListbyRelation,
   searchListsByQuery
 } from '../../services/list';
+
+import {
+  favezCreateFave
+} from '../../services/favez';
 
 // Actions
 export const INCREMENT = 'INCREMENT';
@@ -119,17 +124,42 @@ export async function createList(obj) {
   };
 }
 
-export async function requestCreateList(data) {
-  console.log('Creating list request............');
-  return await listCreate(data)
-    .then((res) => {
-      console.log('LIST_CREATE_SUCCESS', res);
-      return {type: LIST_CREATE_SUCCESS, payload: res}
-  })
-    .catch((err) => {
-      console.log('LIST_CREATE_FAILURE', err);
-      return {type: LIST_CREATE_FAILURE, payload: err}
+export function requestCreateList(data) {
+
+  const { listData, inviteData, favezData } = data;
+  return dispatch => {
+
+    dispatch({type: LIST_CREATE_REQUEST});
+    return listCreate(listData).then((res) => {
+
+        let list = res.data;
+        let users = inviteData;
+        let favez = {
+          name: 'I love stuff',
+          description: 'Hiii',
+          list_id: list.id,
+          type: 1,
+          link: 'http://google.com',
+          image: favezData.image
+        }
+
+        let promises = [
+          favezCreateFave(favez)
+        ];
+        users.map(user => promises.push(listCollaborateInvite(list.id, user.id)));
+
+        Promise.all(promises).then(responses => {
+          console.log('LIST_CREATE_SUCCESS', list, responses);
+          dispatch({type: LIST_CREATE_SUCCESS, payload: err});
+        }).catch(err => {
+          dispatch({type: LIST_CREATE_FAILURE, payload: err});
+        });
+
+    }).catch((err) => {
+        console.log('LIST_CREATE_FAILURE', err);
+        return {type: LIST_CREATE_FAILURE, payload: err}
     });
+  }
 }
 
 export async function setNewListOptions(data) {

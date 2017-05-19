@@ -101,13 +101,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEND_LIST_INVITATIONS_SUCCESS:
         return state.set('loading', false).set('myLists', action.payload.data);
     case LIST_CREATE_REQUEST:
-        return loop(
-          state.set('loading', true),
-          Effects.batch([
-            Effects.promise(() => requestCreateList(action.payload)),
-            Effects.promise(() => requestCreateFave(action.payload.favezData))
-          ])
-        );
+        state.set('loading', true);
     case LIST_CREATE_SUCCESS:
         return state.set('loading', false);
     case LIST_SET_NEWLIST_OPTIONS:
@@ -124,7 +118,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_FAILURE:
     case LIST_BY_TOPIC_FAILURE:
-        return state.set('ERROR', action);
+        return state.set('ERROR', action).set('loading', false);
     case LIST_CREATE_RELATION_SUCCESS:
         return state.updateIn('subscribedLists', arr => arr.push(action.detailList));
     case LIKE_UNLIKE_LIST_ITEM:

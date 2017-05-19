@@ -40,26 +40,9 @@ export async function getListByTopic(topic) {
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);
 }
-export function listCreate(data) {
-    const { listData, inviteData } = data;
-    return post('/lists', listData).then((res) => {
-      let users = inviteData;
-      let counter = 0;
-      users.map((user, idx) => {
-          let { id } = user;
-          if (idx !== users.length - 1) {
-              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                  counter++;
-              }).catch((err) => {
-              });
-          } else {
-              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                  console.log('List create success .................');
-                  return { data: res.data, counter };
-              }).catch((err) => {
-                  return err;
-              });
-          }
-      });
-    });
+export function listCollaborateInvite(listId, userId) {
+  return post('lists/collaborate/invite', { list_id: listId, id: listId, user_id: userId, role: 1 });
+}
+export function listCreate(listData) {
+  return post('/lists', listData);
 }
