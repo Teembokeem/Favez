@@ -19,6 +19,8 @@ import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
 
+import CountryPicker from '../../create-list/countryPicker/countryPicker';
+
 const window = Dimensions.get('window');
 
 
@@ -26,10 +28,10 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
   return <TextInput style={styles.CreateListFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 
-
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location} = props;
   const {priv, nsfw} = options;
+  const {countries, selectedCountry, onSelectCountry} = location;
   const submit = values => {
     createList(values.toJS());
   };
@@ -61,7 +63,12 @@ const CreateListForm = props => {
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
-          <Field name='location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>
+          {/*<Field name='location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>*/}
+          <CountryPicker
+            style={styles.CreateListFormLocationInput}
+            countries={countries}
+            onSelectCountry={onSelectCountry}
+            selectedCountry={selectedCountry} />
         </View>
         <View style={styles.CreateListFormLocationIconContainer}>
           <SLIcon style={styles.CreateListFormLocationIcon} name='globe'/>

@@ -42,6 +42,7 @@ export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
 export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
+export const LIST_SET_SELECTED_COUNTRY = 'LIST_SET_SELECTED_COUNTRY';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
 export const LIST_BY_TOPIC_FAILURE = 'LIST_BY_TOPIC_FAILURE';
 export const LIKE_UNLIKE_LIST_ITEM = 'LIKE_UNLIKE_LIST_ITEM';
@@ -176,6 +177,13 @@ export async function setNewListOptions(data) {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
   };
+}
+
+export function setSelectedCountry(data) {
+  return {
+    type: LIST_SET_SELECTED_COUNTRY,
+    payload: data
+  }
 }
 
 export async function modifyInviteList(invitee, concat) {

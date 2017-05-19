@@ -32,7 +32,6 @@ const FeedView = React.createClass({
     });
     let favezData = {image: this.props.currentList.image};
 
-    console.log('CREATE_LIST_PROPS', this.props);
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
     console.log('FAVEZ_DATA', favezData);
 
@@ -57,11 +56,18 @@ const FeedView = React.createClass({
       this.props.dispatch(ListActions.pickListImage());
   },
 
+  onSelectCountry(country) {
+    console.log('SELECTED_COUNTRY', country);
+    this.props.dispatch(ListActions.setSelectedCountry(country));
+  },
+
   render() {
 
     console.log('CREATE_LIST_VIEW_PROPS', this.props);
 
     const {options, inviteList, currentList} = this.props;
+    const { countryPicker } = this.props;
+    const { visible, set } = countryPicker;
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -78,6 +84,7 @@ const FeedView = React.createClass({
             options={options}
             collaborators={inviteList}
             toggleOption={this.toggleOption}
+            location={{countries: set, selectedCountry: currentList.selectedCountry, onSelectCountry: this.onSelectCountry}}
           />
         </ ScrollView>
       </View>

@@ -19,6 +19,7 @@ import {
     LIST_SEND_LIST_INVITATIONS_SUCCESS,
     LIST_SEND_LIST_INVITATIONS_FAILURE,
     LIST_SET_NEWLIST_OPTIONS,
+    LIST_SET_SELECTED_COUNTRY,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
     LIKE_UNLIKE_LIST_ITEM,
@@ -107,6 +108,8 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SET_NEWLIST_OPTIONS:
         let key = Object.keys(action.payload)[0];
         return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+    case LIST_SET_SELECTED_COUNTRY:
+        return state.setIn(['current', 'selectedCountry'], action.payload);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
 
