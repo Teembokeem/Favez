@@ -124,7 +124,7 @@ export async function createList(obj) {
   };
 }
 
-export function requestCreateList(data) {
+export function requestCreateList(data, callback) {
 
   const { listData, inviteData, favezData } = data;
   return dispatch => {
@@ -134,29 +134,38 @@ export function requestCreateList(data) {
 
         let list = res.data;
         let users = inviteData;
-        let favez = {
-          name: 'I love stuff',
-          description: 'Hiii',
-          list_id: list.id,
-          type: 1,
-          link: 'http://google.com',
-          image: favezData.image
+        let promises = [];
+
+        if(!!favezData.image) {
+          promises.push(favezCreateFave({
+            name: 'I love stuff',
+            description: 'Hiii',
+            list_id: list.id,
+            type: 1,
+            link: 'http://google.com',
+            image: favezData.image
+          }));
         }
-
-        let promises = [
-          favezCreateFave(favez)
-        ];
-        users.map(user => promises.push(listCollaborateInvite(list.id, user.id)));
-
-        Promise.all(promises).then(responses => {
-          console.log('LIST_CREATE_SUCCESS', list, responses);
-          dispatch({type: LIST_CREATE_SUCCESS, payload: err});
-        }).catch(err => {
-          dispatch({type: LIST_CREATE_FAILURE, payload: err});
+        if(users.length > 0) users.map(user => {
+          promises.push(listCollaborateInvite(list.id, user.id))
         });
 
+        if(promises.length == 0) {
+          if(!!callback) callback({successStatus: true});
+          dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+        }
+        else {
+          Promise.all(promises).then(responses => {
+            if(!!callback) callback({successStatus: true});
+            dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+          }).catch(err => {
+            if(!!callback) callback({successStatus: false});
+            dispatch({type: LIST_CREATE_FAILURE, payload: err});
+          });
+        }
+
     }).catch((err) => {
-        console.log('LIST_CREATE_FAILURE', err);
+        if(!!callback) callback({successStatus: false});
         return {type: LIST_CREATE_FAILURE, payload: err}
     });
   }

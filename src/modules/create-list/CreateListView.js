@@ -12,6 +12,8 @@ import Header from '../../components/globals/header/header';
 import CreateListHeader from '../../components/create-list/createListHeader/createListHeader';
 import CreateListForm from '../../components/create-list/createListForm/createListForm';
 
+import * as Utils from '../../utils/Utils';
+
 const FeedView = React.createClass({
   propTypes: {},
 
@@ -34,14 +36,14 @@ const FeedView = React.createClass({
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
     console.log('FAVEZ_DATA', favezData);
 
-    this.props.dispatch(ListActions.requestCreateList({listData: listObj, inviteData: inviteList, favezData: favezData}))
-      .then((data) => {
-        console.log('LIST created', data);
-        Actions.pop();
-      })
-      .catch((err) => {
-        console.log('LIST_CREATE_FAILURE', err);
-      });
+    this.props.dispatch(ListActions.requestCreateList({
+      listData: listObj,
+      inviteData: inviteList,
+      favezData: favezData
+    }, (data) => {
+      console.log('List create success',data);
+      if(data.successStatus) Actions.pop();
+    }));
   },
 
   toggleOption(field, val) {
@@ -56,7 +58,9 @@ const FeedView = React.createClass({
   },
 
   render() {
+
     console.log('CREATE_LIST_VIEW_PROPS', this.props);
+
     const {options, inviteList, currentList} = this.props;
     return (
       <View style={{flex: 1}}>
