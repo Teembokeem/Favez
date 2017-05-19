@@ -2,7 +2,9 @@ import {
   favezCreateFave,
   favezSearchByQuery,
   getFavezSelf,
-  getFavezAll
+  getFavezAll,
+  sendUnLikeFavez,
+  sendLikeFavez
 } from '../../services/favez';
 
 // Actions
@@ -18,6 +20,10 @@ export const FAVE_SEARCH_RESULT_SUCCESS = 'FAVE_SEARCH_RESULT_SUCCESS';
 export const FAVE_SEARCH_RESULT_FALIURE = 'FAVE_SEARCH_RESULT_FALIURE';
 export const SELF_FAVEZ_SUCCESS = 'SELF_FAVEZ_SUCCESS';
 export const SELF_FAVEZ_FAILURE = 'SELF_FAVEZ_FAILURE';
+export const SELF_LIKE_FAVEZ_SUCCESS ='SELF_LIKE_FAVEZ_SUCCESS';
+export const SELF_LIKE_FAVEZ_FAILURE='SELF_LIKE_FAVEZ_FAILURE';
+export const SELF_UNLIKE_FAVEZ_FAILURE = 'SELF_UNLIKE_FAVEZ_FAILURE';
+export const SELF_UNLIKE_FAVEZ_SUCCESS = 'SELF_UNLIKE_FAVEZ_SUCCESS';
 
 // Action creators
 
@@ -73,5 +79,18 @@ export async function searchFavez(data) {
 export async function getSelffavez(){
   return await getFavezSelf()
   .then((res)=>({type: SELF_FAVEZ_SUCCESS, payload: res}))
-  .catch((err)=>({type: SELF_FAVEZ_FAILURE, payload: res}));
+  .catch((err)=>({type: SELF_FAVEZ_FAILURE, payload: err}));
+}
+
+export async function LikeFavezAction(action,detailList){
+  console.log("Like favez action called...");
+  return await sendLikeFavez(action,detailList)
+  .then((res)=>({type: SELF_LIKE_FAVEZ_SUCCESS, payload: res,detailList:detailList}))
+  .catch((err)=>({type: SELF_LIKE_FAVEZ_FAILURE, payload: err}));
+}
+
+export async function unlikeFavezAction(action, detailList){
+  return await sendUnLikeFavez(action,detailList)
+  .then((res)=>({type: SELF_UNLIKE_FAVEZ_SUCCESS, payload: res,detailList: detailList}))
+  .catch((err)=>({type: SELF_UNLIKE_FAVEZ_FAILURE, payload: err}));
 }

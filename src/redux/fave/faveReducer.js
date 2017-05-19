@@ -10,7 +10,11 @@ import {
   SELF_FAVEZ_SUCCESS,
   SELF_FAVEZ_FAILURE,
   FAVE_RESPONSE,
-  requestCreateFave
+  requestCreateFave,
+  SELF_LIKE_FAVEZ_SUCCESS,
+  SELF_LIKE_FAVEZ_FAILURE,
+  SELF_UNLIKE_FAVEZ_SUCCESS,
+  SELF_UNLIKE_FAVEZ_FAILURE
 } from './faveActions';
 
 // Initial state
@@ -20,7 +24,7 @@ const initialState = fromJS({
   loading: true,
   error: {},
   trendingFavez:[],
-  slefFavez: []
+  selfFavez: []
 });
 
 // Reducer
@@ -50,10 +54,53 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_SEARCH_RESULT_FALIURE:
       return state.set('ERROR', action);
       case SELF_FAVEZ_SUCCESS:
+      console.log("self favez success called...oddpocpd",action);
       return state
       .set('loading', false)
-      .set('slefFavez',action.payload)
+      .set('selfFavez',action.payload.data)
       case SELF_FAVEZ_FAILURE:
+      console.log("Self favez failure called oddpocpd",action);
+      break;
+      case SELF_LIKE_FAVEZ_SUCCESS:
+            console.log("like favez success called",action);
+            action.detailList.likes=1;
+
+            const indexOfListToUpdate = state.get('selfFavez').findIndex(listItem => {
+  return listItem.id == action.detailList.id;
+});
+
+var selfFavezarr = state.get("selfFavez");
+console.log("selffffff",selfFavezarr);
+console.log("status of thee",selfFavezarr[indexOfListToUpdate].likes);
+selfFavezarr[indexOfListToUpdate].likes=1;
+console.log("status of thee",selfFavezarr[indexOfListToUpdate].likes);
+console.log("adijcdljfvlidvirj",indexOfListToUpdate);
+
+return state.set('selfFavez',selfFavezarr);
+//return state.setIn(['selfFavez', indexOfListToUpdate, 'likes'], 1);
+
+      break;
+      case SELF_LIKE_FAVEZ_FAILURE:
+      console.log("like favez failur+e called",action);
+
+      break;
+      case SELF_UNLIKE_FAVEZ_SUCCESS:
+      console.log("unlike favez succes called", action);
+                  action.detailList.likes=null;
+      const indexOfListToUpdateUnlike = state.get('selfFavez').findIndex(listItem => {
+return listItem.id == action.detailList.id;
+});
+ var selfFavez_arr = state.get("selfFavez");
+ console.log("selfff",selfFavez_arr);
+ selfFavez_arr[indexOfListToUpdateUnlike].likes=null;
+ return state.set('selfFavez',selfFavez_arr);
+
+// return state.setIn(['selfFavez', indexOfListToUpdateUnlike, 'likes'], null);
+
+      break;
+      case SELF_UNLIKE_FAVEZ_FAILURE:
+      console.log("Unlike favez failure called",action);
+      break;
     default:
       return state;
   }
