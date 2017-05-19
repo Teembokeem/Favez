@@ -21,14 +21,17 @@ const FeedView = React.createClass({
   },
 
   createList(values) {
-    const {options, inviteList} = this.props;
+    const {options, inviteList, countryPicker, currentList} = this.props;
     const {description, tags, topics, priv, nsfw} = options;
+    const { visible, set } = countryPicker;
+    let selectedCountry = Utils.getCountryByCode(currentList.selectedCountry, set);
     let listObj = Object.assign(values, {
       description,
       tags: tags.join(','),
       topics: topics.join(','),
       private: priv ? 1 : 0,
-      nsfw: nsfw ? 1 : 0
+      nsfw: nsfw ? 1 : 0,
+      location: selectedCountry
     });
     let favezData = {image: this.props.currentList.image};
 
@@ -57,7 +60,6 @@ const FeedView = React.createClass({
   },
 
   onSelectCountry(country) {
-    console.log('SELECTED_COUNTRY', country);
     this.props.dispatch(ListActions.setSelectedCountry(country));
   },
 

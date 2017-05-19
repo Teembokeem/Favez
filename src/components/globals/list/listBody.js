@@ -15,7 +15,7 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
             </TouchableOpacity>
             <View style={styles.ListBodyTags}>
 
-              {taxonomy.map((taxonomy,index) =>(
+              {/*taxonomy.map((taxonomy,index) =>(
                 <View
                   style={styles.ListBodyTopicContainer}
                   key={'taxonomy ' + index}
