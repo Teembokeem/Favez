@@ -21,10 +21,9 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
                   style={styles.ListBodyTopicContainer}
                   key={'taxonomy ' + index}
                 >
-  <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
-  </View>
-
-)) : null}
+                    <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
+                </View>
+                )) : null}
                 {/*{topics.map((topic, index) => (
           <View
             style={styles.ListBodyTopicContainer}

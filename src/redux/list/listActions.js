@@ -5,6 +5,7 @@ import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
   listCreate,
+  listCollaborateInvite,
   listGetMyLists,
   listGetSingleDetailed,
   sendInvites,
@@ -15,6 +16,10 @@ import {
   getListbyRelation,
   searchListsByQuery
 } from '../../services/list';
+
+import {
+  favezCreateFave
+} from '../../services/favez';
 
 // Actions
 export const INCREMENT = 'INCREMENT';
@@ -37,6 +42,7 @@ export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
 export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
+export const LIST_SET_SELECTED_COUNTRY = 'LIST_SET_SELECTED_COUNTRY';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
 export const LIST_BY_TOPIC_FAILURE = 'LIST_BY_TOPIC_FAILURE';
 export const LIKE_UNLIKE_LIST_ITEM = 'LIKE_UNLIKE_LIST_ITEM';
@@ -119,17 +125,51 @@ export async function createList(obj) {
   };
 }
 
-export async function requestCreateList(data) {
-  console.log('Creating list request............');
-  return await listCreate(data)
-    .then((res) => {
-      console.log('LIST_CREATE_SUCCESS', res);
-      return {type: LIST_CREATE_SUCCESS, payload: res}
-  })
-    .catch((err) => {
-      console.log('LIST_CREATE_FAILURE', err);
-      return {type: LIST_CREATE_FAILURE, payload: err}
+export function requestCreateList(data, callback) {
+
+  const { listData, inviteData, favezData } = data;
+  return dispatch => {
+
+    dispatch({type: LIST_CREATE_REQUEST});
+    return listCreate(listData).then((res) => {
+
+        let list = res.data;
+        let users = inviteData;
+        let promises = [];
+
+        if(!!favezData.image) {
+          promises.push(favezCreateFave({
+            name: 'I love stuff',
+            description: 'Hiii',
+            list_id: list.id,
+            type: 1,
+            link: 'http://google.com',
+            image: favezData.image
+          }));
+        }
+        if(users.length > 0) users.map(user => {
+          promises.push(listCollaborateInvite(list.id, user.id))
+        });
+
+        if(promises.length == 0) {
+          if(!!callback) callback({successStatus: true});
+          dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+        }
+        else {
+          Promise.all(promises).then(responses => {
+            if(!!callback) callback({successStatus: true});
+            dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+          }).catch(err => {
+            if(!!callback) callback({successStatus: false});
+            dispatch({type: LIST_CREATE_FAILURE, payload: err});
+          });
+        }
+
+    }).catch((err) => {
+        if(!!callback) callback({successStatus: false});
+        return {type: LIST_CREATE_FAILURE, payload: err}
     });
+  }
 }
 
 export async function setNewListOptions(data) {
@@ -137,6 +177,13 @@ export async function setNewListOptions(data) {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
   };
+}
+
+export function setSelectedCountry(data) {
+  return {
+    type: LIST_SET_SELECTED_COUNTRY,
+    payload: data
+  }
 }
 
 export async function modifyInviteList(invitee, concat) {

@@ -48,8 +48,6 @@ export async function getlistuserfollowing(data){
   return get(`users/following/${data}`);
 }
 
-
-
 export async function getlistuserblocked(data){
   return get(`users/blocked/self`);
 }
@@ -65,4 +63,24 @@ export async function removeFromFollowList(removedUserId) {
 
 export async function requestSubscribedList(type){
   return get(`/lists/relationship/${type}`);
+}
+
+export function getOtherUserLists(userId) {
+  return get(`/lists/user/${userId}`);
+}
+
+export function getOtherUserSubscriptions(userId) {
+  return get(`/lists/subscribed/${userId}`);
+}
+
+export function getOtherUserCollabs(userId) {
+  return get(`/users/collaborate/collaborating/${userId}`);
+}
+
+export function getOtherUserComments(userId) {
+  return get(`/comments/user/${userId}`);
+}
+
+export function getOtherUserLikes(userId) {
+  return get(`/favez/liked/${userId}`);
 }

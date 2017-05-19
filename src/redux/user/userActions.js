@@ -14,9 +14,13 @@ import {
   unfollowuser,
   getlistuserfollowing,
   getFollowerList,
-  getSubscriptions,
   requestSubscribedList,
-  getlistuserblocked
+  getlistuserblocked,
+  getOtherUserSubscriptions,
+  getOtherUserLists,
+  getOtherUserCollabs,
+  getOtherUserComments,
+  getOtherUserLikes,
 } from '../../services/user';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
@@ -60,24 +64,9 @@ export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
 export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
 export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
 
-export const OTHER_USER_INFO_REQUEST = 'OTHER_USER_INFO_REQUEST';
-export const OTHER_USER_INFO_SUCCESS = 'OTHER_USER_INFO_SUCCESS';
-export const OTHER_USER_INFO_FALIURE = 'OTHER_USER_INFO_FALIURE';
-export const OTHER_USER_LISTS_REQUEST  = 'OTHER_USER_LISTS_REQUEST';
-export const OTHER_USER_LISTS_SUCCESS  = 'OTHER_USER_LISTS_SUCCESS';
-export const OTHER_USER_LISTS_FAILURE  = 'OTHER_USER_LISTS_FAILURE';
-export const OTHER_USER_SUBSCRIPTIONS_REQUEST  = 'OTHER_USER_SUBSCRIPTIONS_REQUEST';
-export const OTHER_USER_SUBSCRIPTIONS_SUCCESS  = 'OTHER_USER_SUBSCRIPTIONS_SUCCESS';
-export const OTHER_USER_SUBSCRIPTIONS_FAILURE  = 'OTHER_USER_SUBSCRIPTIONS_FAILURE';
-export const OTHER_USER_COLLABORATORS_REQUEST  = 'OTHER_USER_COLLABORATORS_REQUEST';
-export const OTHER_USER_COLLABORATORS_SUCCESS  = 'OTHER_USER_COLLABORATORS_SUCCESS';
-export const OTHER_USER_COLLABORATORS_FAILURE  = 'OTHER_USER_COLLABORATORS_FAILURE';
-export const OTHER_USER_LIKES_REQUEST  = 'OTHER_USER_LIKES_REQUEST';
-export const OTHER_USER_LIKES_SUCCESS  = 'OTHER_USER_LIKES_SUCCESS';
-export const OTHER_USER_LIKES_FAILURE  = 'OTHER_USER_LIKES_FAILURE';
-export const OTHER_USER_COMMENTS_REQUEST  = 'OTHER_USER_COMMENTS_REQUEST';
-export const OTHER_USER_COMMENTS_SUCCESS  = 'OTHER_USER_COMMENTS_SUCCESS';
-export const OTHER_USER_COMMENTS_FAILURE  = 'OTHER_USER_COMMENTS_FAILURE';
+export const GET_OTHER_USER_INFO_REQUEST = 'GET_OTHER_USER_INFO_REQUEST';
+export const GET_OTHER_USER_INFO_SUCCESS = 'GET_OTHER_USER_INFO_SUCCESS';
+export const GET_OTHER_USER_INFO_FAILURE = 'GET_OTHER_USER_INFO_FAILURE';
 
 // Action creators
 export async function login(data) {
@@ -152,54 +141,35 @@ export async function searchUsers(query) {
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
-export function loadOtherUserInfo(userId) {
-  return {
-    type: OTHER_USER_INFO_REQUEST,
-    payload: userId
-  };
-}
-
-export function loadOtherUserLists(userId) {
-  return {
-    type: OTHER_USER_LISTS_REQUEST,
-    payload: userId
-  };
-}
-
-export function loadOtherUserCollaborators(userId) {
-  return {
-    type: OTHER_USER_COLLABORATORS_REQUEST,
-    payload: userId
-  };
-}
-
-export function loadOtherUserSubscriptions(userId) {
-  return {
-    type: OTHER_USER_SUBSCRIPTIONS_REQUEST,
-    payload: userId
-  };
-}
-
-export function loadOtherUserLikes(userId) {
-  return {
-    type: OTHER_USER_LIKES_REQUEST,
-    payload: userId
-  };
-}
-
-export function loadOtherUserComments(userId) {
-  return {
-    type: OTHER_USER_COMMENTS_REQUEST,
-    payload: userId
-  };
-}
-
 export async function requestOtherUserInfo(userId) {
-  return await getUserById(userId)
-    .then((res) => {
-      return {type: OTHER_USER_INFO_SUCCESS, payload: res.data}
+
+  return dispatch => {
+
+    dispatch({type: GET_OTHER_USER_INFO_REQUEST});
+
+    return Promise.all([
+      getUserById(userId),
+      getOtherUserLists(userId),
+      getOtherUserSubscriptions(userId),
+      getOtherUserCollabs(userId),
+      getOtherUserComments(userId),
+      getOtherUserLikes(userId)
+    ]).then(res => {
+      const payload = {
+        info: res[0].data,
+        lists: res[1].data,
+        subscriptions: res[2].data,
+        collabs: res[3].data,
+        comments: res[4].data,
+        likes: res[5].data
+      }
+      console.log('OTHER_USER_INFO_SUCCESS', payload);
+      dispatch({type: GET_OTHER_USER_INFO_SUCCESS, payload: payload});
+    }).catch(err => {
+      console.log('OTHER_USER_INFO_LOAD_ERROR', err);
+      dispatch({type: GET_OTHER_USER_INFO_FAILURE, payload: err});
     })
-    .catch((err) => ({type: OTHER_USER_INFO_FAILURE, payload: err}));
+  }
 }
 
 export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"

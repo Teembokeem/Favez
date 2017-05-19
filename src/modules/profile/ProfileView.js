@@ -31,19 +31,18 @@ const ProfileView = React.createClass({
       return {}
     },
     componentWillMount() {
-        // this.props.dispatch(ListActions.getFullList());
         if (Object.keys(Utils.toJS(this.props.user)).length == 0 && !this.props.userId) return Actions.intro();
         this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
     },
 
     componentDidUpdate() {
-      this.loadOtherUserInfo();
+      this.loadotherUserInfoInfo();
     },
 
     renderChildren() {
 
         const {selectedTab, lists} = this.props;
-        let userData = (this.props.userId)? this.props.otherUser : this.props.user;
+        let userInfo = (this.props.userId)? Utils.toJS(this.props.otherUser).info : this.props.user;
 
         switch (selectedTab) {
             case 'lists':
@@ -51,7 +50,7 @@ const ProfileView = React.createClass({
                 lists.map((list, index) => (
                     <List
                       list={list}
-                      user={userData}
+                      user={userInfo}
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
@@ -123,15 +122,15 @@ const ProfileView = React.createClass({
         })
     },
 
-    loadOtherUserInfo() {
+    loadotherUserInfoInfo() {
         let thisUser = this.props.user.favez ? this.props.user.favez.id : null
         if( this.props.userId &&
             thisUser != this.props.userId &&
-            this.props.userId != this.props.otherUser.id
-        ) this.props.dispatch(UserActions.loadOtherUserInfo(this.props.userId));
+            this.props.userId != Utils.toJS(this.props.otherUser).info.id
+        ) this.props.dispatch(UserActions.requestOtherUserInfo(this.props.userId));
     },
 
-    isOtherUser(userId) {
+    isotherUserInfo(userId) {
         let thisUser = this.props.user.favez ? this.props.user.favez.id : false
         return this.props.userId && (this.props.userId != thisUser);
     },
@@ -151,14 +150,17 @@ const ProfileView = React.createClass({
     },
 
     render() {
-        const authIsSelf = this.isOtherUser() ? false : true;
-        const user = this.isOtherUser() ? this.props.otherUser : this.props.user;
-        let thisUserId = this.props.user.favez ? this.props.user.favez.id : false
+
+        console.log('PROFILE_VIEW_PROPS', this.props);
+
+        const authIsSelf = this.isotherUserInfo() ? false : true;
+        const user = this.isotherUserInfo() ? Utils.toJS(this.props.otherUser).info : this.props.user;
         const child = this.renderChildren();
         const {tabs, selectedTab} = this.props;
         const {uploadingProfileImage} = this.props;
 
-        let renderContent = !this.props.userId || this.props.userId == this.props.otherUser.id || thisUserId == this.props.userId;
+        let thisUserId = this.props.user.favez ? this.props.user.favez.id : false;
+        let renderContent = !this.props.userId || this.props.userId == Utils.toJS(this.props.otherUser).info.id || thisUserId == this.props.userId;
 
         return (
             <View style={styles.container}>

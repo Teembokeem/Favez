@@ -12,6 +12,8 @@ import Header from '../../components/globals/header/header';
 import CreateListHeader from '../../components/create-list/createListHeader/createListHeader';
 import CreateListForm from '../../components/create-list/createListForm/createListForm';
 
+import * as Utils from '../../utils/Utils';
+
 const FeedView = React.createClass({
   propTypes: {},
 
@@ -19,29 +21,31 @@ const FeedView = React.createClass({
   },
 
   createList(values) {
-    const {options, inviteList} = this.props;
+    const {options, inviteList, countryPicker, currentList} = this.props;
     const {description, tags, topics, priv, nsfw} = options;
+    const { visible, set } = countryPicker;
+    let selectedCountry = Utils.getCountryByCode(currentList.selectedCountry, set);
     let listObj = Object.assign(values, {
       description,
       tags: tags.join(','),
       topics: topics.join(','),
       private: priv ? 1 : 0,
-      nsfw: nsfw ? 1 : 0
+      nsfw: nsfw ? 1 : 0,
+      location: selectedCountry
     });
     let favezData = {image: this.props.currentList.image};
 
-    console.log('CREATE_LIST_PROPS', this.props);
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
     console.log('FAVEZ_DATA', favezData);
 
-    this.props.dispatch(ListActions.createList({listData: listObj, inviteData: inviteList, favezData}))
-      .then((data) => {
-        console.log('LIST created', data);
-        Actions.pop();
-      })
-      .catch((err) => {
-        console.log('LIST_CREATE_FAILURE', err);
-      });
+    this.props.dispatch(ListActions.requestCreateList({
+      listData: listObj,
+      inviteData: inviteList,
+      favezData: favezData
+    }, (data) => {
+      console.log('List create success',data);
+      if(data.successStatus) Actions.pop();
+    }));
   },
 
   toggleOption(field, val) {
@@ -55,9 +59,17 @@ const FeedView = React.createClass({
       this.props.dispatch(ListActions.pickListImage());
   },
 
+  onSelectCountry(country) {
+    this.props.dispatch(ListActions.setSelectedCountry(country));
+  },
+
   render() {
+
     console.log('CREATE_LIST_VIEW_PROPS', this.props);
+
     const {options, inviteList, currentList} = this.props;
+    const { countryPicker } = this.props;
+    const { visible, set } = countryPicker;
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -74,6 +86,7 @@ const FeedView = React.createClass({
             options={options}
             collaborators={inviteList}
             toggleOption={this.toggleOption}
+            location={{countries: set, selectedCountry: currentList.selectedCountry, onSelectCountry: this.onSelectCountry}}
           />
         </ ScrollView>
       </View>
