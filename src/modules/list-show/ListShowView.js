@@ -51,9 +51,6 @@ const ListShowView = React.createClass({
   },
   userLikeUnlike(id,action,detailList){
     if (id == "like") {
-console.log("id recd 90opopop", id);
-console.log("action recd 90opopop", action);
-console.log("detaillsit recd 90opopop", detailList);
     this.props.dispatch(favezActions.LikeFavezAction(action, detailList));
   }
   if(id=="unlike"){
@@ -84,16 +81,10 @@ renderFavez(fave,index){
 },
 
   renderChildren() {
-    console.log("jdojcodjcd",this.props.selfFavez);
     const {selfFavez} = this.props;
     if (selfFavez.length > 0) {
-
       selfFavezLikedIds = selfFavezLiked(selfFavez);
-      console.log("dcdcdfdkjv",selfFavezLikedIds.length);
-
-
     }
-
     switch (this.props.selectedTab) {
       case 'info':
         return (
@@ -147,8 +138,6 @@ renderFavez(fave,index){
         action: 'outbound'
       }
     ];
-
-    console.log("dddd",selfFavezLikedIds);
 
     return (
       <View style={{flex: 1}}>

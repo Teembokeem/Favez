@@ -19,8 +19,7 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
               {taxonomy ? taxonomy.map((taxonomy,index) =>(
                 <View
                   style={styles.ListBodyTopicContainer}
-                  key={'taxonomy ' + index}
-                >
+                  key={'taxonomy ' + index}>
   <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
   </View>
 

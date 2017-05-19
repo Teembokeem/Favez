@@ -19,6 +19,7 @@ import {
     LIST_SEND_LIST_INVITATIONS_SUCCESS,
     LIST_SEND_LIST_INVITATIONS_FAILURE,
     LIST_SET_NEWLIST_OPTIONS,
+    LIST_SET_SELECTED_COUNTRY,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
     LIKE_UNLIKE_LIST_ITEM,
@@ -101,70 +102,26 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEND_LIST_INVITATIONS_SUCCESS:
         return state.set('loading', false).set('myLists', action.payload.data);
     case LIST_CREATE_REQUEST:
-        return loop(
-          state.set('loading', true),
-          Effects.batch([
-            Effects.promise(() => requestCreateList(action.payload)),
-            Effects.promise(() => requestCreateFave(action.payload.favezData))
-          ])
-        );
+        return state.set('loading', true).setIn(['current', 'listData'], undefined);
     case LIST_CREATE_SUCCESS:
-        return state.set('loading', false);
+        return state.set('loading', false).setIn(['current', 'listData'], action.payload);
     case LIST_SET_NEWLIST_OPTIONS:
         let key = Object.keys(action.payload)[0];
         return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+    case LIST_SET_SELECTED_COUNTRY:
+        return state.setIn(['current', 'selectedCountry'], action.payload);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
 
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
-    case LIST_MYLIST_FAILURE:
-    case LIST_CREATE_FAILURE:
-    case LIST_GET_DETAILS_FAILURE:
-    case LIST_SEND_LIST_INVITATIONS_FAILURE:
-
     case LIST_CREATE_RELATION_SUCCESS:
-
-  return state.set('subscribedLists',[...state.get("subscribedLists"),action.detailList]);
-// return  state.setIn(['subscribedLists', action.detailList]);
-//return  state.delete(subscribedLists.findIndex(id => id == action.detailList.id));
-
-//return  state.delete('subscribedLists',subscribedListsres.findIndex(id => id == action.detailList.id));
-
-
-
-
-    case LIST_CREATE_RELATION_FAILURE:
-    case LIST_BY_TOPIC_FAILURE:
-        return state.set('ERROR', action);
-    case LIKE_UNLIKE_LIST_ITEM:
-    case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
-    case LIKE_UNLIKE_LIST_ITEM_FAILURE:
+      return state.set('subscribedLists',[...state.get("subscribedLists"),action.detailList]);
     case LIST_DELETE_RELATION_SUCCESS:
-
-    console.log("Delete Relation success",action);
-    var subscribedListsres = state.get("subscribedLists");
-    console.log("subsctibeee", subscribedListsres);
-
-return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
-
-//    return  state.delete('subscribedLists',subscribedListsres.findIndex(id => id == action.detailList.id));
-// return  state.setIn('subscribedLists', action.detailList);
-        break;
-    case LIST_DELETE_RELATION_FAILURE:
-    console.log("Delete list relation failed... ",action);
-    return state.set('ERROR',action);
-    break;
+        let subscribedListsres = state.get("subscribedLists");
+        return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
     case GET_LIST_BY_RELATION_SUCCESS:
-
-    console.log("Get List by relation Success", action.payload.data);
         return state.set('loading', false).set('subscribedLists', action.payload.data);
-    case GET_LIST_BY_RELATION_FAILURE:
-    console.log("get list by relation failure");
-    return state.set('ERROR',false);
-    break;
-    case LIST_SEARCH_RESULT_FAILURE:
-        return state.set('ERROR', action);
     case SUBSCRIBE_LIST:
         return loop(state.setIn(['recentSubscribedList','id'], action.payload),
         Effects.promise(() => createlistRelationAction(action.payload)));
@@ -181,7 +138,16 @@ return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.i
         return state.setIn(['current', 'imageStatus'], 'uploadFailed');
     case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
         return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
-
+    case LIST_MYLIST_FAILURE:
+    case LIST_GET_DETAILS_FAILURE:
+    case LIST_SEND_LIST_INVITATIONS_FAILURE:
+    case LIST_CREATE_RELATION_FAILURE:
+    case LIST_BY_TOPIC_FAILURE:
+    case LIST_CREATE_FAILURE:
+    case LIST_DELETE_RELATION_FAILURE:
+    case GET_LIST_BY_RELATION_FAILURE:
+    case LIST_SEARCH_RESULT_FAILURE:
+        return state.set('ERROR', action).set('loading', false);
     default:
         return state;
     }
