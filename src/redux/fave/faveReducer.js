@@ -70,11 +70,8 @@ export default function FaveReducer(state = initialState, action = {}) {
 });
 
 var selfFavezarr = state.get("selfFavez");
-console.log("selffffff",selfFavezarr);
-console.log("status of thee",selfFavezarr[indexOfListToUpdate].likes);
 selfFavezarr[indexOfListToUpdate].likes=1;
-console.log("status of thee",selfFavezarr[indexOfListToUpdate].likes);
-console.log("adijcdljfvlidvirj",indexOfListToUpdate);
+
 
 return state.set('selfFavez',selfFavezarr);
 //return state.setIn(['selfFavez', indexOfListToUpdate, 'likes'], 1);

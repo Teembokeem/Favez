@@ -28,8 +28,9 @@ const ListShowView = React.createClass({
   propTypes: {},
   componentWillMount() {
     // this.setState({ready: false})\
-     this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
+
      this.props.dispatch(favezActions.getSelffavez());
+          this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
   componentWillReceiveProps(nextProps) {
@@ -84,9 +85,10 @@ renderFavez(fave,index){
 
   renderChildren() {
     console.log("jdojcodjcd",this.props.selfFavez);
-    if (this.props.selfFavez.length > 0) {
+    const {selfFavez} = this.props;
+    if (selfFavez.length > 0) {
 
-      selfFavezLikedIds = selfFavezLiked(this.props.selfFavez);
+      selfFavezLikedIds = selfFavezLiked(selfFavez);
       console.log("dcdcdfdkjv",selfFavezLikedIds.length);
 
 
@@ -145,6 +147,8 @@ renderFavez(fave,index){
         action: 'outbound'
       }
     ];
+
+    console.log("dddd",selfFavezLikedIds);
 
     return (
       <View style={{flex: 1}}>

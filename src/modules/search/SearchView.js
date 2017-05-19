@@ -113,7 +113,7 @@ renderList(list,index){
 },
   renderChildren() {
     const {subscribedLists, list} = this.props;
-    if (subscribedLists.length > 0) {
+      if (subscribedLists.length > 0) {
 
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
     }
