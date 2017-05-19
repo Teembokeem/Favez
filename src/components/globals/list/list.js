@@ -9,7 +9,7 @@ import ListBody from './listBody';
 import ListFooter from './listFooter';
 
 function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy,userSubscribeAction,loggedInUser,subscribed}) {
-
+console.log("User909099090", user);
   const {collaborators, name, _favez, topics, tags} = list;
   const userData = user.auth0 ? user.favez : user;
   return (

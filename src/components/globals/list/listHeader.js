@@ -13,7 +13,7 @@ function returnText(number) {
 
 function ListHeader({user, collaborators, toggleContextMenu, showUserProfile, displayName, userImage}) {
   const semantics = returnText(collaborators);
-  // console.log('this user', user)
+  console.log('this user', user)
   return (
     <View style={styles.ListHeader}>
       <View style={styles.leftContent}>

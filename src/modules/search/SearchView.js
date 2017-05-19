@@ -90,12 +90,13 @@ renderList(list,index){
   var subscribed
   if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
   else subscribed = false;
+  console.log("List of user....",list);
 
   return (
 
      <List
       list={list}
-      user={{ 'nickname': list.owner[0].f2, 'picture': list.owner[0].f3 }}
+      user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
       moving={this.moving}
       key={'list ' + index}
       index={index}
