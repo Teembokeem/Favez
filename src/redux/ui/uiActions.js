@@ -16,6 +16,7 @@ export const UI_BROWSER_SCRAPE_FAILURE = 'UI_BROWSER_SCRAPE_FAILURE';
 
 // Action creators
 
+
 // SET TO INITIAL STATE
 export function setBrowserInitialState() {
   return {

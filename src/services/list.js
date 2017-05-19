@@ -4,6 +4,7 @@ export async function getListAll() {
     return get('/lists/all');
 }
 export async function sendLikeList(data) {
+  console.log("send like request for id",data);
     return post('/favez/like', { fave_id: data });
     //return get('/lists/relationship/subscribed')
     // return post('lists/relationship',{list_id:11,relationship: 1});
@@ -13,6 +14,7 @@ export async function getListbyRelation(data) {
     return get('lists/relationship/' + data);
 }
 export async function sendUnLikeList(data) {
+    console.log("unlike reuest called for id",data);
     return post('/favez/unlike', { fave_id: data });
 }
 export async function deleteListRelation(id,relationid) {
