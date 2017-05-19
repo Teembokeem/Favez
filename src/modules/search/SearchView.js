@@ -120,10 +120,12 @@ renderList(list,index){
       case 'lists':
       case 'sites':
       case 'filter':
+
         return (this.props.listByTopics.map(  this.renderList
 
 
         ));
+
       case 'products':
         return (this.props.favez.map((fave, index) => (<Card key={'fave ' + index} card={fave} track={index} moving={this.moving} increment={this.increment} />)));
       default:

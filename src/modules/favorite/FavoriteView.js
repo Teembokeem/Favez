@@ -40,7 +40,6 @@ const FavoriteView = React.createClass({
     }
   },
   renderListChildren(listSet, childType) {
-    console.log("ListSet 123444", listSet);
     const {user} = this.props;
     const {auth0, favez} = user;
     switch (childType) {
@@ -53,8 +52,7 @@ const FavoriteView = React.createClass({
                 moving={this.moving}
                 key={'list ' + index}
                 index={index}
-                                taxonomy={list.taxonomy}
-
+                taxonomy={list.taxonomy}
                 showUserProfile={() => this.showUserProfile(favez)}
                 toggleContextMenu={this.toggleContextMenu}
               />

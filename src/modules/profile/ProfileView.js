@@ -64,7 +64,7 @@ const ProfileView = React.createClass({
             case 'subscriptions':
 
                 <Text>Subscribed list of yours will come over here: </Text>
-                return (this.props.subscribedlists.map((list, index) => (
+                return (this.props.subscribedLists.map((list, index) => (
 
                     <List list={list} user={userData} taxonomy={list.taxonomy} key={'list ' + index}></List>
                 )));

@@ -120,9 +120,16 @@ export async function createList(obj) {
 }
 
 export async function requestCreateList(data) {
+  console.log('Creating list request............');
   return await listCreate(data)
-    .then((res) => ({type: LIST_CREATE_SUCCESS, payload: res}))
-    .catch((err) => ({type: LIST_CREATE_FAILURE, payload: err}));
+    .then((res) => {
+      console.log('LIST_CREATE_SUCCESS', res);
+      return {type: LIST_CREATE_SUCCESS, payload: res}
+  })
+    .catch((err) => {
+      console.log('LIST_CREATE_FAILURE', err);
+      return {type: LIST_CREATE_FAILURE, payload: err}
+    });
 }
 
 export async function setNewListOptions(data) {

@@ -11,20 +11,20 @@ function returnText(number) {
         : '';
 }
 
-function ListHeader({creator, collaborators, toggleContextMenu, showUserProfile, moving}) {
-  let {picture, nickname} = creator;
+function ListHeader({user, collaborators, toggleContextMenu, showUserProfile, displayName, userImage}) {
   const semantics = returnText(collaborators);
+  // console.log('this user', user)
   return (
     <View style={styles.ListHeader}>
       <View style={styles.leftContent}>
         <Image
-          source={picture ? {uri: picture} : require('../../../../images/default_avatar.png')}
+          source={userImage ? {uri: userImage} : require('../../../../images/default_avatar.png')}
           style={styles.ListHeaderAvatar}
         />
         <Text
           style={styles.ListHeaderUsername} onPress={() => showUserProfile()}
         >
-          {'@' + nickname}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
+          {'@' + displayName}{collaborators > 0 ? ' & ' + collaborators + ' other' + semantics + '.' : ''}
         </Text>
       </View>
       <TouchableOpacity

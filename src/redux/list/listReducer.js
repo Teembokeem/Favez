@@ -46,6 +46,11 @@ import {
     UPLOAD_LIST_IMAGE_PREFETCHED_FAIL,
     LIST_CREATE_RELATION_FAILURE
 } from './listActions';
+
+import {
+  requestCreateFave
+} from '../fave/faveActions';
+
 // Initial state
 const initialState = fromJS({
     all: [],
@@ -96,7 +101,13 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEND_LIST_INVITATIONS_SUCCESS:
         return state.set('loading', false).set('myLists', action.payload.data);
     case LIST_CREATE_REQUEST:
-        return loop(state.set('loading', true), Effects.promise(() => requestCreateList(action.payload)));
+        return loop(
+          state.set('loading', true),
+          Effects.batch([
+            Effects.promise(() => requestCreateList(action.payload)),
+            Effects.promise(() => requestCreateFave(action.payload.favezData))
+          ])
+        );
     case LIST_CREATE_SUCCESS:
         return state.set('loading', false);
     case LIST_SET_NEWLIST_OPTIONS:
@@ -111,6 +122,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_CREATE_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
+
     case LIST_CREATE_RELATION_SUCCESS:
 
   return state.set('subscribedLists',[...state.get("subscribedLists"),action.detailList]);
@@ -118,6 +130,8 @@ export default function ListReducer(state = initialState, action = {}) {
 //return  state.delete(subscribedLists.findIndex(id => id == action.detailList.id));
 
 //return  state.delete('subscribedLists',subscribedListsres.findIndex(id => id == action.detailList.id));
+
+
 
 
     case LIST_CREATE_RELATION_FAILURE:
