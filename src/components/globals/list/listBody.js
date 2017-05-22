@@ -17,6 +17,8 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
             <View style={styles.ListBodyTags}>
 
               {taxonomy ? taxonomy.map((taxonomy,index) =>(
+
+
                 <View
                   style={styles.ListBodyTopicContainer}
                   key={'taxonomy ' + index}>

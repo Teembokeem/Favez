@@ -13,6 +13,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
   const {collaborators, name, _favez, topics, tags, bg_image} = list;
   const userData = user.auth0 ? user.favez : user;
 
+console.log("user recd",userData);
 
   return (
     <View
