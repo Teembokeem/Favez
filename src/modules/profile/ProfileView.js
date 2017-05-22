@@ -42,57 +42,117 @@ const ProfileView = React.createClass({
 
     renderChildren() {
 
-        const {selectedTab, lists} = this.props;
+        const {selectedTab, lists,userDetail} = this.props;
+        console.log("iopo likes and collabs", this.props.userDetail.collabs);
         let userInfo = (this.props.userId)? Utils.toJS(this.props.userDetail).info : this.props.user;
 
         switch (selectedTab) {
             case 'lists':
+            if(this.props.userDetail.lists){
               return (
-                lists.map((list, index) => (
+                this.props.userDetail.lists.map((list, index) => (
                     <List
                       list={list}
-                      user={userInfo}
+                      user={this.props.userDetail.info}
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
                       index={index} />
                 ))
               );
+            }else{
+              return(
+                <View>
+                <Text>There are No Lists yet.</Text>
+                </View>
+
+
+              );
+            }
+
             break;
             case 'collabs':
+            if(this.props.userDetail.collabs.length > 0){
+              return(
+                this.props.userDetail.collabs.map((list,index) =>(
+
+                  <List list={list} user={userDetail.info} taxonomy={list.taxonomy} key={'list ' + index}></List>
+
+
+                )));
+
+
+            }else{
+              return(
+                <View>
+                <Text>There are No Collaborators yet.</Text>
+                </View>
+              );
+
+            }
             break;
             case 'subscriptions':
 
-                <Text>Subscribed list of yours will come over here: </Text>
-                return (this.props.subscribedlists.map((list, index) => (
+if(this.props.userDetail.subscriptions.length > 0){
+  return (this.props.userDetail.subscriptions.map((list, index) => (
 
-                    <List list={list} user={userData} taxonomy={list.taxonomy} key={'list ' + index}></List>
-                )));
-                break;
+      <List list={list} user={list.owner[0]} taxonomy={list.taxonomy} key={'list ' + index}></List>
+  )));
+
+}else{
+  return(
+    <View>
+      <Text>There are No Subscriptions yet.</Text>
+    </View>
+  );
+}
+                  break;
             case 'likes':
+            if(this.props.userDetail.likes.length > 0){
+                return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+            }else{
+              <View>
+                <Text>There are No Likes yet.</Text>
+              </View>
 
-                return (this.props.favez.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+
+            }
+
                 break;
             case 'comments':
-                return (this.props.comments.map((comment, idx) => (
-                    <View style={styles.ProfileMessageContainer}>
-                        <TouchableOpacity style={styles.ProfileMessageHeader}>
-                            <Image style={styles.ProfileMessageListPicture} source={{
-                                uri: comment.listPicture
-                            }}/>
-                            <Text style={styles.ProfileMessageListName}>{comment.listSource.toUpperCase()}</Text>
-                        </TouchableOpacity>
-                        <View style={styles.ProfileMessageBody}>
-                            <View style={styles.ProfileMessageUserInfo}>
-                                <Image style={styles.ProfileMessageAvatar} source={{
-                                    uri: comment.avatar
-                                }}/>
-                                <Text style={styles.ProfileMessageUsername}>{comment.user}</Text>
-                            </View>
-                            <Text style={styles.ProfileMessageMessage}>{comment.message}</Text>
-                        </View>
-                    </View>
-                )));
+            if(userDetail.comments.length > 0){
+              return (userDetail.comments.map((comment, idx) => (
+                  <View style={styles.ProfileMessageContainer}>
+                      <TouchableOpacity style={styles.ProfileMessageHeader}>
+                        <Image
+                            source={userDetail.info.image
+                              ? {uri: userDetail.info.image}
+                              : require('../../../images/default_list_picture.png')}
+                            style={styles.ProfileMessageListPicture}
+                        />
+                        <Text style={styles.ProfileMessageListName}>{comment.list[0].name.toUpperCase()}</Text>
+                      </TouchableOpacity>
+
+
+                      <View style={styles.ProfileMessageBody}>
+                     <View style={styles.ProfileMessageUserInfo}>
+                         <Image style={styles.ProfileMessageAvatar} source={{
+                             uri: userDetail.info.image
+                         }}/>
+                       <Text style={styles.ProfileMessageUsername}>{userDetail.info.displayname}</Text>
+                     </View>
+                     <Text style={styles.ProfileMessageMessage}>{comment.content}</Text>
+                 </View>
+
+                  </View>
+              )));
+
+
+            }else{
+              <View>
+                <Text> There are no comments yet.</Text>
+              </View>
+            }
                 break;
             default:
                 return null;

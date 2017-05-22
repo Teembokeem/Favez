@@ -5,6 +5,21 @@ export function showSubscribedlists(lists, subscribedlists) {
     }
     return new_arr;
 }
+
+//if fave is liked or not .. if yes push its id in a array
+export function selfFavezLiked(list){
+  var new_arr =[];
+  for(var i=0;i< list.length; i++){
+    console.log("likes and id",list[i].likes,list[i].id);
+    console.log("new arr sss90909",new_arr);
+
+    if(list[i].likes!=null){
+      new_arr.push(list[i].id);
+    }
+
+  }
+  return new_arr;
+}
 export function showFollowedlists(followedlists) {
     var new_arr = [];
     for (var i = 0; i < followedlists.length; i++) {
@@ -16,7 +31,9 @@ export function showFollowedlists(followedlists) {
     }
 
     return new_arr;
+
 }
+
 export function addrecentClickedFollow(followlist, recentadded) {
     var flag = false;
     for (var i = 0; i < followlist.length; i++) {

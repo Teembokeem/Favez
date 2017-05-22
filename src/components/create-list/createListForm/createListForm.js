@@ -22,7 +22,7 @@ import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
 
-import CountryPicker from '../../create-list/countryPicker/countryPicker';
+import CountryPicker from '../countryPicker/countryPicker';
 
 const window = Dimensions.get('window');
 

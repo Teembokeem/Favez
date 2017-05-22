@@ -17,6 +17,7 @@ export const UI_PICKER_VISIBILITY_CHANGE_REQUEST = "UI_PICKER_VISIBILITY_CHANGE_
 
 // Action creators
 
+
 // SET TO INITIAL STATE
 export function setBrowserInitialState() {
   return {
