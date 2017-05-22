@@ -45,13 +45,13 @@ import {
     UPLOAD_LIST_IMAGE_FAIL,
     UPLOAD_LIST_IMAGE_PREFETCHED,
     UPLOAD_LIST_IMAGE_PREFETCHED_FAIL,
-    LIST_CREATE_RELATION_FAILURE
+    LIST_CREATE_RELATION_FAILURE,
+    GET_COMMENTS_BY_LIST_SUCCESS,
+    GET_COMMENTS_BY_LIST_FAILURE
 } from './listActions';
-
 import {
-  requestCreateFave
+    requestCreateFave
 } from '../fave/faveActions';
-
 // Initial state
 const initialState = fromJS({
     all: [],
@@ -71,10 +71,11 @@ const initialState = fromJS({
     loading: true,
     listByTopics: [],
     searchedLists: [],
-    recentSubscribedList:{
-      id:-1,
-      status: false
+    recentSubscribedList: {
+        id: -1,
+        status: false
     },
+    commentsByList: []
 });
 // Reducer
 export default function ListReducer(state = initialState, action = {}) {
@@ -112,22 +113,19 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'selectedCountry'], action.payload);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
-
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
     case LIST_CREATE_RELATION_SUCCESS:
-      return state.set('subscribedLists',[...state.get("subscribedLists"),action.detailList]);
+        return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
     case LIST_DELETE_RELATION_SUCCESS:
         let subscribedListsres = state.get("subscribedLists");
         return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
     case GET_LIST_BY_RELATION_SUCCESS:
         return state.set('loading', false).set('subscribedLists', action.payload.data);
     case SUBSCRIBE_LIST:
-        return loop(state.setIn(['recentSubscribedList','id'], action.payload),
-        Effects.promise(() => createlistRelationAction(action.payload)));
+        return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => createlistRelationAction(action.payload)));
     case UNSUBSCRIBE_LIST:
-        return loop(state.setIn(['recentSubscribedList','id'], action.payload),
-        Effects.promise(() => deleteListRelationAction(action.payload)));
+        return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => deleteListRelationAction(action.payload)));
     case UPLOAD_LIST_IMAGE_START:
         return state.setIn(['current', 'imageStatus'], 'uploading');
     case UPLOAD_LIST_IMAGE_SUCCESS:
@@ -138,6 +136,8 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'imageStatus'], 'uploadFailed');
     case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
         return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
+    case GET_COMMENTS_BY_LIST_SUCCESS:
+        return state.set('loading', false).set('commentsByList', action.payload.data);
     case LIST_MYLIST_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
@@ -147,6 +147,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_DELETE_RELATION_FAILURE:
     case GET_LIST_BY_RELATION_FAILURE:
     case LIST_SEARCH_RESULT_FAILURE:
+    case GET_COMMENTS_BY_LIST_FAILURE:
         return state.set('ERROR', action).set('loading', false);
     default:
         return state;

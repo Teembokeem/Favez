@@ -69,7 +69,7 @@ function toJS(immutable) {
 
       <TouchableOpacity
         style={styles.ListFooterCommentsContainer}
-        onPress={() => Alert.alert('View comments here')}
+        onPress={Actions.listComments}
       >
         <EntypoIcon style={styles.ListFooterComments} name='message'/>
       </TouchableOpacity>
