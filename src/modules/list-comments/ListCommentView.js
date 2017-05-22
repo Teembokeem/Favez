@@ -1,5 +1,5 @@
 import React, {PropTypes} from 'react';
-import * as ListCommentState from './ListCommentState';
+
 import {
   Text,
   View,
@@ -30,8 +30,11 @@ let selfFavezLikedIds =[];
 const window = Dimensions.get('window');
 const ListShowView = React.createClass({
 
+
+
   propTypes: {},
   componentWillMount() {
+    const {ListId} = this.props;
     this.props.dispatch(ListActions.commentsByListAction(11));
   },
 
@@ -57,7 +60,7 @@ const ListShowView = React.createClass({
 
   render() {
     // if (!this.state.ready) return null;
-
+const {commentsByList} = this.props;
 console.log("comments by list recd..",this.props.commentsByList);
     return (
       <View style={styles.base}>
@@ -88,7 +91,39 @@ console.log("comments by list recd..",this.props.commentsByList);
           <Divider />
         </View>
         <ScrollView contentContainerStyle={styles.container}>
-          <Text>Comments will come here.. </Text>
+
+          <View>
+
+                this.props.commentsByList.map((comment, index) => (
+
+                  <View style={styles.ProfileMessageContainer}>
+                      <TouchableOpacity style={styles.ProfileMessageHeader}>
+                        <Image
+                            source={comment.image
+                              ? {uri: comment.image}
+                              : require('../../../images/default_list_picture.png')}
+                            style={styles.ProfileMessageListPicture}
+                        />
+                      <Text style={styles.ProfileMessageListName}>{comment.username.toUpperCase()}</Text>
+                      </TouchableOpacity>
+
+
+                      <View style={styles.ProfileMessageBody}>
+
+                     <Text style={styles.ProfileMessageMessage}>{comment.content}</Text>
+                 </View>
+
+                  </View>
+
+                ))
+
+
+            }
+          </View>
+
+
+
+
 
         </ScrollView>
       </View>
@@ -110,7 +145,12 @@ const styles = StyleSheet.create({
     flex: 1
     // justifyContent: 'center'
   },
-  ListBackgroundImageContainer: {
+  ProfileMessageListPicture: {
+      width: 35,
+      height: 35,
+      borderRadius: 5
+  },
+    ListBackgroundImageContainer: {
     position: 'absolute',
     width: window.width,
     height: 200,
@@ -122,6 +162,44 @@ const styles = StyleSheet.create({
     width: window.width,
     backgroundColor: 'rgba(255, 255, 255, 0.8)',
     zIndex: 3
+  },
+  ProfileMessageListPicture: {
+      width: 35,
+      height: 35,
+      borderRadius: 5
+  },
+  ProfileMessageListName: {
+      marginLeft: 10,
+      fontFamily: 'Hind-Bold',
+      fontSize: 17
+  },
+  ProfileMessageBody: {
+      flex: 1,
+      marginTop: 5,
+      backgroundColor: '#8cbf28',
+      padding: 15,
+      borderRadius: 12
+  },
+  ProfileMessageUserInfo: {
+      flexDirection: 'row',
+      flex: 1,
+      alignItems: 'center'
+  },
+  ProfileMessageAvatar: {
+      width: 25,
+      height: 25,
+      borderRadius: 12
+  },
+  ProfileMessageUsername: {
+      marginLeft: 5,
+      fontFamily: 'Hind-Bold',
+      fontSize: 15,
+      color: 'white'
+  },
+  ProfileMessageMessage: {
+      fontFamily: 'Hind-Regular',
+      fontSize: 15,
+      color: 'white'
   },
   ListBackgroundImage: {
     width: window.width,

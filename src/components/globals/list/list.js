@@ -45,7 +45,7 @@ console.log("user recd",userData);
         tags={tags}
         taxonomy={taxonomy}
       />
-    <ListFooter search={search} loggedInUser={loggedInUser} subscribed={subscribed} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
+    <ListFooter search={search} loggedInUser={loggedInUser} ListId={list.id} subscribed={subscribed} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
     </View>
 
 
