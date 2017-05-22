@@ -2,8 +2,8 @@ import { fromJS } from 'immutable';
 import { loop, Effects } from 'redux-loop';
 import {
     LIST_REQUEST,
-    LIST_RESPONSE,
     SET_LIST,
+    LIST_RESPONSE,
     LIST_ADD_INVITEE,
     LIST_REMOVE_INVITEE,
     LIST_GET_DETAILS_REQUEST,

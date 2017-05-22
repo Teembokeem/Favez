@@ -9,17 +9,19 @@ import ListBody from './listBody';
 import ListFooter from './listFooter';
 
 function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy,userSubscribeAction,loggedInUser,subscribed}) {
-console.log("User909099090", user);
-  const {collaborators, name, _favez, topics, tags} = list;
+
+  const {collaborators, name, _favez, topics, tags, bg_image} = list;
   const userData = user.auth0 ? user.favez : user;
+
+
   return (
     <View
       style={styles.ListContainer}
     >
       <View style={styles.fadeLayer} />
       <Image
-          source={Array.isArray(_favez) && _favez.length > 0
-            ? {uri: _favez[0].image}
+          source={bg_image
+            ? {uri: bg_image}
             : require('../../../../images/default_list_picture.png')}
           style={styles.ListBackground}
       />
