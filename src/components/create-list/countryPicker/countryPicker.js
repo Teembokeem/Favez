@@ -7,29 +7,49 @@ import {
   Dimensions,
   View,
   StyleSheet,
-  Picker
+  Picker,
+  Platform
 } from 'react-native';
 const window = Dimensions.get('window');
 const PICKER_WIDTH = window.width;
-const PICKER_HEIGHT = window.height * 0.4;
+const PICKER_HEIGHT = window.height * 0.3;
 
-function CountryPicker({onSelectCountry, selectedCountry, countries}) {
+function CountryPicker({onChangeCountry, selectedCountry, countries, visible, open, close}) {
 
-  return (
-    <Picker style={styles.picker}
-      selectedValue={selectedCountry}
-      onValueChange={val => onSelectCountry(val)}>
-      {countries.map((country, index) => {
-        return (<Picker.Item label={country.name} value={country.code} key={index} />)
-      })}
-    </Picker>
-  );
+  return (Platform.OS == 'ios') ? (
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={visible}
+        style={styles.countryPickerModal}>
+          <View style={styles.container}>
+            <View style={styles.pickerContainer}>
+              <Picker style={styles.picker}
+                selectedValue={selectedCountry}
+                onValueChange={val => onChangeCountry(val)}>
+
+                {countries.map((country, index) => {
+                  return (<Picker.Item label={country.name} value={country.code} key={index} />)
+                })}
+              </Picker>
+            </View>
+          </View>
+        </Modal>
+    ): (
+      <Picker style={styles.picker}
+        selectedValue={selectedCountry}
+        onValueChange={val => onChangeCountry(val)}>
+        {countries.map((country, index) => {
+          return (<Picker.Item label={country.name} value={country.code} key={index} />)
+        })}
+      </Picker>
+    )
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    height: window.height,
-    width: window.width
+
+  countryPickerModal: {
+    backgroundColor: 'transparent'
   },
   container: {
     backgroundColor: 'transparent',
@@ -50,8 +70,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex:1,
-    flexDirection:'column',
-    alignItems:'center'
   }
 });
 

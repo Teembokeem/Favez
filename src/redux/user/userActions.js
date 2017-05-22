@@ -141,11 +141,11 @@ export async function searchUsers(query) {
     .catch((err) => ({type: USER_SEARCH_RESULT_FAILURE, payload: err}));
 }
 
-export async function requestOtherUserInfo(userId) {
+export function requestOtherUserInfo(userId) {
 
   return dispatch => {
 
-    dispatch({type: GET_OTHER_USER_INFO_REQUEST});
+    dispatch({type: GET_OTHER_USER_INFO_REQUEST, payload: userId});
 
     return Promise.all([
       getUserById(userId),

@@ -13,7 +13,7 @@ import {
   Alert
 } from 'react-native';
 
-function ListFooter({search, subscribe,loggedInUser,subscribed}) {
+function ListFooter({search, subscribe,loggedInUser,subscribed, ListId}) {
 
   function ifUserLoggedIn(actionName){
 
@@ -69,7 +69,7 @@ function toJS(immutable) {
 
       <TouchableOpacity
         style={styles.ListFooterCommentsContainer}
-        onPress={() => Alert.alert('View comments here')}
+        onPress={Actions.listComments}
       >
         <EntypoIcon style={styles.ListFooterComments} name='message'/>
       </TouchableOpacity>

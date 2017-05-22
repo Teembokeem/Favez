@@ -11,6 +11,7 @@ import {
   UI_BROWSER_SCRAPE_REQUEST,
   UI_BROWSER_SCRAPE_SUCCESS,
   UI_BROWSER_SCRAPE_FAILURE,
+  UI_PICKER_VISIBILITY_CHANGE_REQUEST,
   requestScrape
 } from './uiActions';
 
@@ -540,6 +541,8 @@ export default function UIReducer(state = initialState, action = {}) {
         );
     case UI_BROWSER_SCRAPE_FAILURE:
       return state.set('error', action.payload);
+    case UI_PICKER_VISIBILITY_CHANGE_REQUEST:
+      return state.setIn(['picker', action.payload.picker, 'visible'], action.payload.visible);
     default :
       return state;
   }

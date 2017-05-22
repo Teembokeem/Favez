@@ -29,7 +29,7 @@ import AddFaveFormViewContainer from './add-fave-form/AddFaveFormViewContainer';
 import ContactList from './profile/containers/ContactList.js';
 import ManageFeedList from './profile/containers/ManageFeed';
 import ManageBlock from './profile/containers/ManageBlock';
-
+import ListCommentsContainer from './list-comments/ListCommentContainer';
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
     alignItems: 'center'
@@ -113,6 +113,7 @@ const NavigationView = React.createClass({
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
           </Scene>
+          <Scene key='listComments' component={ListCommentsContainer} title="Comment on List" hideNavBar />
       </Router>
     );
   }

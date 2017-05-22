@@ -32,66 +32,127 @@ const ProfileView = React.createClass({
     },
     componentWillMount() {
         if (Object.keys(Utils.toJS(this.props.user)).length == 0 && !this.props.userId) return Actions.intro();
-        this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        //this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
+        this.loadOtherUserInfo();
     },
 
     componentDidUpdate() {
-      this.loadotherUserInfoInfo();
+      this.loadOtherUserInfo();
     },
 
     renderChildren() {
 
-        const {selectedTab, lists} = this.props;
-        let userInfo = (this.props.userId)? Utils.toJS(this.props.otherUser).info : this.props.user;
+        const {selectedTab, lists,userDetail} = this.props;
+        console.log("iopo likes and collabs", this.props.userDetail.collabs);
+        let userInfo = (this.props.userId)? Utils.toJS(this.props.userDetail).info : this.props.user;
 
         switch (selectedTab) {
             case 'lists':
+            if(this.props.userDetail.lists){
               return (
-                lists.map((list, index) => (
+                this.props.userDetail.lists.map((list, index) => (
                     <List
                       list={list}
-                      user={userInfo}
+                      user={this.props.userDetail.info}
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
                       index={index} />
                 ))
               );
+            }else{
+              return(
+                <View>
+                <Text>There are No Lists yet.</Text>
+                </View>
+
+
+              );
+            }
+
             break;
             case 'collabs':
+            if(this.props.userDetail.collabs.length > 0){
+              return(
+                this.props.userDetail.collabs.map((list,index) =>(
+
+                  <List list={list} user={userDetail.info} taxonomy={list.taxonomy} key={'list ' + index}></List>
+
+
+                )));
+
+
+            }else{
+              return(
+                <View>
+                <Text>There are No Collaborators yet.</Text>
+                </View>
+              );
+
+            }
             break;
             case 'subscriptions':
 
-                <Text>Subscribed list of yours will come over here: </Text>
-                return (this.props.subscribedLists.map((list, index) => (
+if(this.props.userDetail.subscriptions.length > 0){
+  return (this.props.userDetail.subscriptions.map((list, index) => (
 
-                    <List list={list} user={userData} taxonomy={list.taxonomy} key={'list ' + index}></List>
-                )));
-                break;
+      <List list={list} user={list.owner[0]} taxonomy={list.taxonomy} key={'list ' + index}></List>
+  )));
+
+}else{
+  return(
+    <View>
+      <Text>There are No Subscriptions yet.</Text>
+    </View>
+  );
+}
+                  break;
             case 'likes':
+            if(this.props.userDetail.likes.length > 0){
+                return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+            }else{
+              <View>
+                <Text>There are No Likes yet.</Text>
+              </View>
 
-                return (this.props.favez.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+
+            }
+
                 break;
             case 'comments':
-                return (this.props.comments.map((comment, idx) => (
-                    <View style={styles.ProfileMessageContainer}>
-                        <TouchableOpacity style={styles.ProfileMessageHeader}>
-                            <Image style={styles.ProfileMessageListPicture} source={{
-                                uri: comment.listPicture
-                            }}/>
-                            <Text style={styles.ProfileMessageListName}>{comment.listSource.toUpperCase()}</Text>
-                        </TouchableOpacity>
-                        <View style={styles.ProfileMessageBody}>
-                            <View style={styles.ProfileMessageUserInfo}>
-                                <Image style={styles.ProfileMessageAvatar} source={{
-                                    uri: comment.avatar
-                                }}/>
-                                <Text style={styles.ProfileMessageUsername}>{comment.user}</Text>
-                            </View>
-                            <Text style={styles.ProfileMessageMessage}>{comment.message}</Text>
-                        </View>
-                    </View>
-                )));
+            if(userDetail.comments.length > 0){
+              return (userDetail.comments.map((comment, idx) => (
+                  <View style={styles.ProfileMessageContainer}>
+                      <TouchableOpacity style={styles.ProfileMessageHeader}>
+                        <Image
+                            source={userDetail.info.image
+                              ? {uri: userDetail.info.image}
+                              : require('../../../images/default_list_picture.png')}
+                            style={styles.ProfileMessageListPicture}
+                        />
+                        <Text style={styles.ProfileMessageListName}>{comment.list[0].name.toUpperCase()}</Text>
+                      </TouchableOpacity>
+
+
+                      <View style={styles.ProfileMessageBody}>
+                     <View style={styles.ProfileMessageUserInfo}>
+                         <Image style={styles.ProfileMessageAvatar} source={{
+                             uri: userDetail.info.image
+                         }}/>
+                       <Text style={styles.ProfileMessageUsername}>{userDetail.info.displayname}</Text>
+                     </View>
+                     <Text style={styles.ProfileMessageMessage}>{comment.content}</Text>
+                 </View>
+
+                  </View>
+              )));
+
+
+            }else{
+              <View>
+                <Text> There are no comments yet.</Text>
+              </View>
+            }
                 break;
             default:
                 return null;
@@ -122,15 +183,14 @@ const ProfileView = React.createClass({
         })
     },
 
-    loadotherUserInfoInfo() {
-        let thisUser = this.props.user.favez ? this.props.user.favez.id : null
-        if( this.props.userId &&
-            thisUser != this.props.userId &&
-            this.props.userId != Utils.toJS(this.props.otherUser).info.id
-        ) this.props.dispatch(UserActions.requestOtherUserInfo(this.props.userId));
+    loadOtherUserInfo() {
+        let thisUserId = this.props.user.favez ? this.props.user.favez.id : null;
+        let userId = this.props.userId ? this.props.userId : thisUserId;
+        if(this.props.lastFetchedUserId != userId)
+          this.props.dispatch(UserActions.requestOtherUserInfo(userId));
     },
 
-    isotherUserInfo(userId) {
+    isOtherUser(userId) {
         let thisUser = this.props.user.favez ? this.props.user.favez.id : false
         return this.props.userId && (this.props.userId != thisUser);
     },
@@ -153,14 +213,14 @@ const ProfileView = React.createClass({
 
         console.log('PROFILE_VIEW_PROPS', this.props);
 
-        const authIsSelf = this.isotherUserInfo() ? false : true;
-        const user = this.isotherUserInfo() ? Utils.toJS(this.props.otherUser).info : this.props.user;
+        const authIsSelf = this.isOtherUser() ? false : true;
+        const user = this.isOtherUser() ? Utils.toJS(this.props.userDetail).info : this.props.user;
         const child = this.renderChildren();
         const {tabs, selectedTab} = this.props;
         const {uploadingProfileImage} = this.props;
 
         let thisUserId = this.props.user.favez ? this.props.user.favez.id : false;
-        let renderContent = !this.props.userId || this.props.userId == Utils.toJS(this.props.otherUser).info.id || thisUserId == this.props.userId;
+        let renderContent = !this.props.userId || this.props.userId == Utils.toJS(this.props.userDetail).info.id || thisUserId == this.props.userId;
 
         return (
             <View style={styles.container}>

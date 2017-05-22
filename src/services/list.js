@@ -42,3 +42,8 @@ export function listCollaborateInvite(listId, userId) {
 export function listCreate(listData) {
   return post('/lists', listData);
 }
+//Getting comment by list
+export  function commentsByList(id){
+    console.log("api call done service",id);
+  return get(`/comments/list/${id}`);
+  }

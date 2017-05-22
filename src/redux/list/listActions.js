@@ -14,7 +14,8 @@ import {
   createlistRelation,
   deleteListRelation,
   getListbyRelation,
-  searchListsByQuery
+  searchListsByQuery,
+  commentsByList
 } from '../../services/list';
 
 import {
@@ -65,7 +66,9 @@ export const UPLOAD_LIST_IMAGE_FAIL = "UPLOAD_LIST_IMAGE_FAIL";
 export const UPLOAD_LIST_IMAGE_PREFETCHED = "UPLOAD_LIST_IMAGE_PREFETCHED";
 export const UPLOAD_LIST_IMAGE_PREFETCHED_FAIL = "UPLOAD_LIST_IMAGE_PREFETCHED_FAIL";
 
-
+//Comment List
+export const GET_COMMENTS_BY_LIST_SUCCESS = "GET_COMMENTS_BY_LIST_SUCCESS";
+export const GET_COMMENTS_BY_LIST_FAILURE = "GET_COMMENTS_BY_LIST_FAILURE";
 // Action creators
 export function increment(cards, index) {
   Actions.intro();
@@ -127,7 +130,7 @@ export async function createList(obj) {
 
 export function requestCreateList(data, callback) {
 
-  const { listData, inviteData, favezData } = data;
+  const { listData, inviteData } = data;
   return dispatch => {
 
     dispatch({type: LIST_CREATE_REQUEST});
@@ -137,16 +140,6 @@ export function requestCreateList(data, callback) {
         let users = inviteData;
         let promises = [];
 
-        if(!!favezData.image) {
-          promises.push(favezCreateFave({
-            name: 'I love stuff',
-            description: 'Hiii',
-            list_id: list.id,
-            type: 1,
-            link: 'http://google.com',
-            image: favezData.image
-          }));
-        }
         if(users.length > 0) users.map(user => {
           promises.push(listCollaborateInvite(list.id, user.id))
         });
@@ -214,9 +207,6 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid,detailList){
-  console.log("create a List relation list id", id);
-  console.log("create a List relation list sucribe (relationid)",relationid);
-  console.log("detailed list", detailList);
   return await createlistRelation(id,relationid)
    .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}))
    .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
@@ -233,7 +223,7 @@ export async function deleteListRelationAction(id,relationid,detailList){
 
 //Action for getting list by relaitonship
   export async function getListbyRelationAction(data){
-    console.log("Get 6790p List by Relation Action",data);
+
     return await getListbyRelation(data)
 .then((res)=>({type:GET_LIST_BY_RELATION_SUCCESS, payload: res}))
 .catch((err)=>({type:GET_LIST_BY_RELATION_FAILURE, payload: err}));
@@ -307,4 +297,15 @@ export function pickListImage() {
       }
     });
   }
+}
+
+//Comments by List
+
+export async function commentsByListAction(id) {
+
+  return await commentsByList(id)
+    .then((res) => {
+      return {type: GET_COMMENTS_BY_LIST_SUCCESS, payload: res}
+    })
+    .catch((err) => ({type: GET_COMMENTS_BY_LIST_FAILURE, payload: err}));
 }
