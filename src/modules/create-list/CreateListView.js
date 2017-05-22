@@ -60,7 +60,6 @@ const FeedView = React.createClass({
 
   onSelectCountry(country) {
     this.props.dispatch(ListActions.setSelectedCountry(country));
-    this.closeCountryPicker();
   },
 
   openCountryPicker() {
@@ -104,7 +103,8 @@ const FeedView = React.createClass({
             countryPicker={{countries: set,
               onChangeCountry: this.onSelectCountry,
               countryPickerVisibility: countryPicker.visible,
-              openCountryPicker: this.openCountryPicker
+              openCountryPicker: this.openCountryPicker,
+              closeCountryPicker: this.closeCountryPicker
             }}
             dataValid={this.isDataValid()}
           />

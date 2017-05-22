@@ -7,34 +7,43 @@ import {
   Dimensions,
   View,
   StyleSheet,
-  Picker
+  Picker,
+  Platform
 } from 'react-native';
 const window = Dimensions.get('window');
 const PICKER_WIDTH = window.width;
 const PICKER_HEIGHT = window.height * 0.3;
 
-function CountryPicker({onChangeCountry, selectedCountry, countries, visible}) {
+function CountryPicker({onChangeCountry, selectedCountry, countries, visible, open, close}) {
 
-  return (
-    <Modal
-      animationType={'slide'}
-      transparent={true}
-      visible={visible}
-      style={styles.countryPickerModal}>
-        <View style={styles.container}>
-          <View style={styles.pickerContainer}>
-            <Picker style={styles.picker}
-              selectedValue={selectedCountry}
-              onValueChange={val => onChangeCountry(val)}>
+  return (Platform.OS == 'ios') ? (
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={visible}
+        style={styles.countryPickerModal}>
+          <View style={styles.container}>
+            <View style={styles.pickerContainer}>
+              <Picker style={styles.picker}
+                selectedValue={selectedCountry}
+                onValueChange={val => onChangeCountry(val)}>
 
-              {countries.map((country, index) => {
-                return (<Picker.Item label={country.name} value={country.code} key={index} />)
-              })}
-            </Picker>
+                {countries.map((country, index) => {
+                  return (<Picker.Item label={country.name} value={country.code} key={index} />)
+                })}
+              </Picker>
+            </View>
           </View>
-        </View>
-      </Modal>
-  );
+        </Modal>
+    ): (
+      <Picker style={styles.picker}
+        selectedValue={selectedCountry}
+        onValueChange={val => onChangeCountry(val)}>
+        {countries.map((country, index) => {
+          return (<Picker.Item label={country.name} value={country.code} key={index} />)
+        })}
+      </Picker>
+    )
 }
 
 const styles = StyleSheet.create({

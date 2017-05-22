@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  Platform,
   Switch,
   // Dimensions,
   TextInput
@@ -33,7 +34,7 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 const CreateListForm = props => {
   const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, countryPicker, dataValid} = props;
   const {priv, nsfw} = options;
-  const {countries, onChangeCountry, countryPickerVisibility, openCountryPicker} = countryPicker;
+  const {countries, onChangeCountry, countryPickerVisibility, openCountryPicker, closeCountryPicker} = countryPicker;
   const submit = values => {
     createList(values.toJS());
   };
@@ -75,7 +76,10 @@ const CreateListForm = props => {
             countries={countries}
             onChangeCountry={onChangeCountry}
             selectedCountry={location}
-            visible={countryPickerVisibility} />
+            visible={countryPickerVisibility}
+            open={openCountryPicker}
+            close={closeCountryPicker} />
+
         </View>
         <View style={styles.CreateListFormLocationIconContainer}>
           <SLIcon style={styles.CreateListFormLocationIcon} name='globe'/>
