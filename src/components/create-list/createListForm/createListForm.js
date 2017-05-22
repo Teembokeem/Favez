@@ -14,6 +14,8 @@ import {
   Button
 } from 'react-native-clean-form';
 
+import * as Utils from '../../../utils/Utils';
+
 import {Field, reduxForm} from 'redux-form/immutable';
 import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
@@ -29,9 +31,9 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 };
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, dataValid} = props;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, countryPicker, dataValid} = props;
   const {priv, nsfw} = options;
-  const {countries, selectedCountry, onSelectCountry} = location;
+  const {countries, onChangeCountry, countryPickerVisibility, openCountryPicker} = countryPicker;
   const submit = values => {
     createList(values.toJS());
   };
@@ -63,12 +65,17 @@ const CreateListForm = props => {
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
-          {/*<Field name='location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>*/}
+          {(Platform.OS == 'ios')? (
+            <Text onPress={() => openCountryPicker()} style={styles.CreateListFormLocationInput}>
+              {location ? Utils.getCountryByCode(location, countries):'Select Location'}
+            </Text>
+          ): null}
           <CountryPicker
             style={styles.CreateListFormLocationInput}
             countries={countries}
-            onSelectCountry={onSelectCountry}
-            selectedCountry={selectedCountry} />
+            onChangeCountry={onChangeCountry}
+            selectedCountry={location}
+            visible={countryPickerVisibility} />
         </View>
         <View style={styles.CreateListFormLocationIconContainer}>
           <SLIcon style={styles.CreateListFormLocationIcon} name='globe'/>

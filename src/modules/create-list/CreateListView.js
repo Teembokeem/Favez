@@ -1,5 +1,6 @@
 import React from 'react';
 import * as ListActions from '../../redux/list/listActions';
+import * as UIActions from '../../redux/ui/uiActions';
 import {
   View,
   ScrollView,
@@ -59,6 +60,15 @@ const FeedView = React.createClass({
 
   onSelectCountry(country) {
     this.props.dispatch(ListActions.setSelectedCountry(country));
+    this.closeCountryPicker();
+  },
+
+  openCountryPicker() {
+    this.props.dispatch(UIActions.setPickerVisibility('countryPicker',true));
+  },
+
+  closeCountryPicker() {
+    this.props.dispatch(UIActions.setPickerVisibility('countryPicker',false))
   },
 
   isDataValid() {
@@ -71,8 +81,7 @@ const FeedView = React.createClass({
 
     console.log('CREATE_LIST_VIEW_PROPS', this.props);
 
-    const {options, inviteList, currentList} = this.props;
-    const { countryPicker } = this.props;
+    const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;
     const selectedCountry = currentList.selectedCountry ? currentList.selectedCountry : 'RO' //default country 'Romania'
     return (
@@ -91,7 +100,12 @@ const FeedView = React.createClass({
             options={options}
             collaborators={inviteList}
             toggleOption={this.toggleOption}
-            location={{countries: set, selectedCountry: selectedCountry, onSelectCountry: this.onSelectCountry}}
+            location={selectedCountry}
+            countryPicker={{countries: set,
+              onChangeCountry: this.onSelectCountry,
+              countryPickerVisibility: countryPicker.visible,
+              openCountryPicker: this.openCountryPicker
+            }}
             dataValid={this.isDataValid()}
           />
         </ ScrollView>

@@ -13,19 +13,19 @@ const window = Dimensions.get('window');
 const PICKER_WIDTH = window.width;
 const PICKER_HEIGHT = window.height * 0.3;
 
-function CountryPicker({onSelectCountry, selectedCountry, countries, visible}) {
+function CountryPicker({onChangeCountry, selectedCountry, countries, visible}) {
 
   return (
     <Modal
       animationType={'slide'}
       transparent={true}
-      visible={true}
+      visible={visible}
       style={styles.countryPickerModal}>
         <View style={styles.container}>
           <View style={styles.pickerContainer}>
             <Picker style={styles.picker}
               selectedValue={selectedCountry}
-              onValueChange={val => onSelectCountry(val)}>
+              onValueChange={val => onChangeCountry(val)}>
 
               {countries.map((country, index) => {
                 return (<Picker.Item label={country.name} value={country.code} key={index} />)
@@ -61,8 +61,6 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex:1,
-    flexDirection:'column',
-    alignItems:'center'
   }
 });
 
