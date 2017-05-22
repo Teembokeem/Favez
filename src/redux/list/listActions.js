@@ -5,6 +5,7 @@ import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
   listCreate,
+  listCollaborateInvite,
   listGetMyLists,
   listGetSingleDetailed,
   sendInvites,
@@ -13,8 +14,13 @@ import {
   createlistRelation,
   deleteListRelation,
   getListbyRelation,
-  searchListsByQuery
+  searchListsByQuery,
+  commentsByList
 } from '../../services/list';
+
+import {
+  favezCreateFave
+} from '../../services/favez';
 
 // Actions
 export const INCREMENT = 'INCREMENT';
@@ -37,6 +43,7 @@ export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
 export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
 export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
 export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
+export const LIST_SET_SELECTED_COUNTRY = 'LIST_SET_SELECTED_COUNTRY';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
 export const LIST_BY_TOPIC_FAILURE = 'LIST_BY_TOPIC_FAILURE';
 export const LIKE_UNLIKE_LIST_ITEM = 'LIKE_UNLIKE_LIST_ITEM';
@@ -59,7 +66,9 @@ export const UPLOAD_LIST_IMAGE_FAIL = "UPLOAD_LIST_IMAGE_FAIL";
 export const UPLOAD_LIST_IMAGE_PREFETCHED = "UPLOAD_LIST_IMAGE_PREFETCHED";
 export const UPLOAD_LIST_IMAGE_PREFETCHED_FAIL = "UPLOAD_LIST_IMAGE_PREFETCHED_FAIL";
 
-
+//Comment List
+export const GET_COMMENTS_BY_LIST_SUCCESS = "GET_COMMENTS_BY_LIST_SUCCESS";
+export const GET_COMMENTS_BY_LIST_FAILURE = "GET_COMMENTS_BY_LIST_FAILURE";
 // Action creators
 export function increment(cards, index) {
   Actions.intro();
@@ -119,17 +128,41 @@ export async function createList(obj) {
   };
 }
 
-export async function requestCreateList(data) {
-  console.log('Creating list request............');
-  return await listCreate(data)
-    .then((res) => {
-      console.log('LIST_CREATE_SUCCESS', res);
-      return {type: LIST_CREATE_SUCCESS, payload: res}
-  })
-    .catch((err) => {
-      console.log('LIST_CREATE_FAILURE', err);
-      return {type: LIST_CREATE_FAILURE, payload: err}
+export function requestCreateList(data, callback) {
+
+  const { listData, inviteData } = data;
+  return dispatch => {
+
+    dispatch({type: LIST_CREATE_REQUEST});
+    return listCreate(listData).then((res) => {
+
+        let list = res.data;
+        let users = inviteData;
+        let promises = [];
+
+        if(users.length > 0) users.map(user => {
+          promises.push(listCollaborateInvite(list.id, user.id))
+        });
+
+        if(promises.length == 0) {
+          if(!!callback) callback({successStatus: true});
+          dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+        }
+        else {
+          Promise.all(promises).then(responses => {
+            if(!!callback) callback({successStatus: true});
+            dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+          }).catch(err => {
+            if(!!callback) callback({successStatus: false});
+            dispatch({type: LIST_CREATE_FAILURE, payload: err});
+          });
+        }
+
+    }).catch((err) => {
+        if(!!callback) callback({successStatus: false});
+        return {type: LIST_CREATE_FAILURE, payload: err}
     });
+  }
 }
 
 export async function setNewListOptions(data) {
@@ -137,6 +170,13 @@ export async function setNewListOptions(data) {
     type: LIST_SET_NEWLIST_OPTIONS,
     payload: data
   };
+}
+
+export function setSelectedCountry(data) {
+  return {
+    type: LIST_SET_SELECTED_COUNTRY,
+    payload: data
+  }
 }
 
 export async function modifyInviteList(invitee, concat) {
@@ -167,9 +207,6 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid,detailList){
-  console.log("create a List relation list id", id);
-  console.log("create a List relation list sucribe (relationid)",relationid);
-  console.log("detailed list", detailList);
   return await createlistRelation(id,relationid)
    .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}))
    .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
@@ -177,16 +214,16 @@ export async function createlistRelationAction(id,relationid,detailList){
 }
 
 //Action for Delete list relationship
-export async function deleteListRelationAction(id){
+export async function deleteListRelationAction(id,relationid,detailList){
 
-  return await deleteListRelation(id)
-  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res}))
+  return await deleteListRelation(id,relationid)
+  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}))
   .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
 }
 
 //Action for getting list by relaitonship
   export async function getListbyRelationAction(data){
-    console.log("Get 6790p List by Relation Action",data);
+
     return await getListbyRelation(data)
 .then((res)=>({type:GET_LIST_BY_RELATION_SUCCESS, payload: res}))
 .catch((err)=>({type:GET_LIST_BY_RELATION_FAILURE, payload: err}));
@@ -260,4 +297,15 @@ export function pickListImage() {
       }
     });
   }
+}
+
+//Comments by List
+
+export async function commentsByListAction(id) {
+
+  return await commentsByList(id)
+    .then((res) => {
+      return {type: GET_COMMENTS_BY_LIST_SUCCESS, payload: res}
+    })
+    .catch((err) => ({type: GET_COMMENTS_BY_LIST_FAILURE, payload: err}));
 }

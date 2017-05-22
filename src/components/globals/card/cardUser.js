@@ -8,7 +8,6 @@ import {
   Image,
   View
 } from 'react-native';
-import {toDuration} from '../../../utils/timeUtils.js'
 
 function CardUser({card, time,follow,followed, showProfile}) {
   function FollowMe() {
@@ -20,11 +19,11 @@ function CardUser({card, time,follow,followed, showProfile}) {
   const user = (card.user && card.user.length) ? card.user[0] : {f1: 'Unknown'}
   return (
       <View style={[styles.cardUserContainer]}>
-          <Image source={{uri: user.f3 ? user.f3 : 'https://www.google.com'}} style={[styles.cardUserImage]} />
+          {/*<Image source={{uri: user.avatar}} style={[styles.cardUserImage]} />*/}
           <View
             style={styles.cardUserInfoColumn}>
             <Text style={[styles.cardUserName]} onPress={showProfile}>{'@' + user.f1}</Text>
-            <Text style={styles.cardUserAgo}>{toDuration(card.created) + ' ago'} </Text>
+            <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
 
               <TouchableOpacity onPress={() => followed ? UnFollowMe() : FollowMe()}>

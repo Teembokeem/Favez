@@ -8,18 +8,21 @@ import ListHeader from './listHeader';
 import ListBody from './listBody';
 import ListFooter from './listFooter';
 
-function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy,userSubscribeAction,loggedInUser}) {
+function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy,userSubscribeAction,loggedInUser,subscribed}) {
 
-  const {collaborators, name, _favez, topics, tags} = list;
+  const {collaborators, name, _favez, topics, tags, bg_image} = list;
   const userData = user.auth0 ? user.favez : user;
+
+console.log("user recd",userData);
+
   return (
     <View
       style={styles.ListContainer}
     >
       <View style={styles.fadeLayer} />
       <Image
-          source={Array.isArray(_favez) && _favez.length > 0
-            ? {uri: _favez[0].image}
+          source={bg_image
+            ? {uri: bg_image}
             : require('../../../../images/default_list_picture.png')}
           style={styles.ListBackground}
       />
@@ -42,7 +45,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
         tags={tags}
         taxonomy={taxonomy}
       />
-    <ListFooter search={search} loggedInUser={loggedInUser} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
+    <ListFooter search={search} loggedInUser={loggedInUser} subscribed={subscribed} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
     </View>
 
 

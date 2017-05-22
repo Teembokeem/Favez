@@ -13,8 +13,10 @@ export const UI_SET_TAB = 'UI_SET_TAB';
 export const UI_BROWSER_SCRAPE_REQUEST = 'UI_BROWSER_SCRAPE_REQUEST';
 export const UI_BROWSER_SCRAPE_SUCCESS = 'UI_BROWSER_SCRAPE_SUCCESS';
 export const UI_BROWSER_SCRAPE_FAILURE = 'UI_BROWSER_SCRAPE_FAILURE';
+export const UI_PICKER_VISIBILITY_CHANGE_REQUEST = "UI_PICKER_VISIBILITY_CHANGE_REQUEST";
 
 // Action creators
+
 
 // SET TO INITIAL STATE
 export function setBrowserInitialState() {
@@ -67,6 +69,13 @@ export function setBrowserInfo(url, title) {
   return {
     type: UI_BROWSER_SET_INFO,
     payload: {url, title}
+  };
+}
+
+export function setPickerVisibility(picker, visible) {
+  return {
+    type: UI_PICKER_VISIBILITY_CHANGE_REQUEST,
+    payload: {picker,visible}
   };
 }
 

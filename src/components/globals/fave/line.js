@@ -4,10 +4,20 @@ import {
   Text,
   Image,
   TouchableOpacity,
-  View
+  View,
+  Alert
 } from 'react-native';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-function Line({fave, browseFave, index}) {
+function Line({fave, browseFave, index,liked,likeUnlike,favezLikeUnlikeAction}) {
+  function likeme(){
+    Alert.alert("Like me called..");
+    likeUnlike("like");
+  }
+  function unlikeme(){
+    Alert.alert("UnLike me called...");
+    likeUnlike("unlike");
+  }
   const user = (fave.user && fave.user.length) ? fave.user : {f1: 'Unknown'}
   return (
     <View style={styles.FaveContainer}>
@@ -15,6 +25,12 @@ function Line({fave, browseFave, index}) {
         {/*TODO: grab user image? <Image />*/}
         <Text style={styles.FaveUsername}>@{user.f1}: </Text>
         <Text style={styles.FaveUserDescription}>{fave.description ? fave.description : ''}</Text>
+        <TouchableOpacity    onPress={() =>   liked ? favezLikeUnlikeAction("unlike",fave.id,fave) : favezLikeUnlikeAction("like",fave.id,fave)  }>
+          <FontAwesomeIcon name={liked ? "thumbs-up" : "thumbs-o-up" } style={styles.thumbIcon}/>
+
+
+        </TouchableOpacity>
+
       </View>
       <TouchableOpacity
         style={styles.FaveInfoContainer}
@@ -40,6 +56,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     borderRadius: 10,
     marginBottom: 20
+  },
+  thumbIcon:{
+    paddingLeft: 10,
+    fontSize: 20
   },
   FaveContainer: {
     flex: 1,

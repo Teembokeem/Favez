@@ -6,6 +6,7 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  Platform,
   Switch,
   // Dimensions,
   TextInput
@@ -14,10 +15,14 @@ import {
   Button
 } from 'react-native-clean-form';
 
+import * as Utils from '../../../utils/Utils';
+
 import {Field, reduxForm} from 'redux-form/immutable';
 import OIcon from 'react-native-vector-icons/Octicons';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 import SLIcon from 'react-native-vector-icons/SimpleLineIcons';
+
+import CountryPicker from '../countryPicker/countryPicker';
 
 const window = Dimensions.get('window');
 
@@ -26,10 +31,10 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
   return <TextInput style={styles.CreateListFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
 
-
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options, collaborators} = props;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, countryPicker, dataValid} = props;
   const {priv, nsfw} = options;
+  const {countries, onChangeCountry, countryPickerVisibility, openCountryPicker, closeCountryPicker} = countryPicker;
   const submit = values => {
     createList(values.toJS());
   };
@@ -61,7 +66,20 @@ const CreateListForm = props => {
       <View style={styles.CreateListFormFieldLocationContainer}>
         <View style={styles.CreateListFormLocationInputContainer}>
           <Text style={styles.CreateListFormLocationLabel}>{'LOCATION'}</Text>
-          <Field name='location' component={renderInput} type='text' placeholder='Your Location' style={styles.CreateListFormLocationInput}/>
+          {(Platform.OS == 'ios')? (
+            <Text onPress={() => openCountryPicker()} style={styles.CreateListFormLocationInput}>
+              {location ? Utils.getCountryByCode(location, countries):'Select Location'}
+            </Text>
+          ): null}
+          <CountryPicker
+            style={styles.CreateListFormLocationInput}
+            countries={countries}
+            onChangeCountry={onChangeCountry}
+            selectedCountry={location}
+            visible={countryPickerVisibility}
+            open={openCountryPicker}
+            close={closeCountryPicker} />
+
         </View>
         <View style={styles.CreateListFormLocationIconContainer}>
           <SLIcon style={styles.CreateListFormLocationIcon} name='globe'/>
@@ -103,9 +121,10 @@ const CreateListForm = props => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={handleSubmit(submit)}
+        onPress={dataValid ? handleSubmit(submit) : null}
         submitting={submitting}
-        style={styles.CreateListButton}
+        activeOpacity={dataValid?0.2:1}
+        style={[styles.CreateListButton, dataValid ? null : styles.ButtonDisable]}
       >
         <View
           style={styles.CreateListButtonTextContainer}
@@ -335,6 +354,9 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // alignItems: 'flex-start',
     // justifyContent: 'center'
+  },
+  ButtonDisable: {
+    backgroundColor: '#8bcb8c'
   },
   CreateListButtonTextContainer: {
     width: 375,

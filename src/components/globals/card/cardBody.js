@@ -16,6 +16,7 @@ function CardBody({card, browseFave}) {
   const defaultImg = require('../../../../images/default_list_picture.png')
   const imgSrc =  _favez ?  _favez[0].image : card.image
 
+
   return (
     <View style={[styles.cardBody]}>
       <TouchableOpacity onPress={() => browseFave(card)}>

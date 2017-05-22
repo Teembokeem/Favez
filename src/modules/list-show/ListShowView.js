@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as UIActions from '../../redux/ui/uiActions';
+import * as favezActions from '../../redux/fave/faveActions';
 import ListShowHeader from '../../components/list-show/listShowHeader/listShowHeader';
 import Header from '../../components/globals/header/header';
 import HeaderTabs from '../../components/globals/headerTabs/headerTabs';
@@ -18,13 +19,18 @@ import FooterTabs from '../../components/globals/footerTabs/footerTabs';
 import Line from '../../components/globals/fave/line';
 import Info from '../../components/globals/fave/info';
 import Card from '../../components/globals/card/card';
+import { selfFavezLiked } from '../../utils/userFollow';
+let selfFavezLikedIds =[];
 const window = Dimensions.get('window');
 
 const ListShowView = React.createClass({
+
   propTypes: {},
   componentWillMount() {
     // this.setState({ready: false})\
-    return this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
+
+     this.props.dispatch(favezActions.getSelffavez());
+          this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
   componentWillReceiveProps(nextProps) {
@@ -43,8 +49,42 @@ const ListShowView = React.createClass({
     this.props.dispatch(UIActions.browseList(this.props.list._favez, idx))
     .then(() => Actions.addFaveBrowse({viewList: true}));
   },
+  userLikeUnlike(id,action,detailList){
+    if (id == "like") {
+    this.props.dispatch(favezActions.LikeFavezAction(action, detailList));
+  }
+  if(id=="unlike"){
+
+    this.props.dispatch(favezActions.unlikeFavezAction(action, detailList));
+}
+
+},
+renderFavez(fave,index){
+  var liked
+  if (selfFavezLikedIds.indexOf(fave.id) > -1) liked = true;
+  else liked = false;
+
+
+  return(
+    <Line
+      fave={fave}
+      index={index}
+      liked={liked}
+      browseFave={this.browseFave}
+      key={'fave ' + index}
+      favezLikeUnlikeAction={this.userLikeUnlike}
+    />
+
+
+  );
+
+},
 
   renderChildren() {
+    const {selfFavez} = this.props;
+    if (selfFavez.length > 0) {
+      selfFavezLikedIds = selfFavezLiked(selfFavez);
+    }
     switch (this.props.selectedTab) {
       case 'info':
         return (
@@ -55,14 +95,8 @@ const ListShowView = React.createClass({
       case 'favez':
         return this.props.list._favez && Array.isArray(this.props.list._favez)
         ? (
-          this.props.list._favez.map((fave, index) => (
-            <Line
-              fave={fave}
-              index={index}
-              browseFave={this.browseFave}
-              key={'fave ' + index}
-            />
-          ))
+          this.props.list._favez.map(this.renderFavez)
+
         )
         : (null);
       case 'similar':
@@ -85,6 +119,7 @@ const ListShowView = React.createClass({
 
   render() {
     // if (!this.state.ready) return null;
+
     const {index, list, selected, similar, selectedTab, tabs} = this.props;
     const tabProps = [
       {

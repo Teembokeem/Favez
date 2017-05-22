@@ -12,12 +12,15 @@ import Category from '../../components/search/category/category';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list'
 import * as ListActions from '../../redux/list/listActions';
+import { showSubscribedlists } from '../../utils/userFollow';
+let subscribedListsIds = [];
+
 
 const SearchView = React.createClass({
   propTypes: {},
 
 componentWillMount(){
-  console.log("aaaa909");
+
   this.props.dispatch(ListActions.getListbyRelationAction('subscribed'))
 },
   setFilter(val) {
@@ -33,15 +36,15 @@ componentWillMount(){
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
   userSubscribe(id,action,detailList){
-    console.log("all details list",detailList);
+
     if (id == "subscribeme") {
 
-      Alert.alert(id);
+
 
     this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
   }
   if(id=="unsubscribe"){
-    Alert.alert(id);
+
         this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
   }
 },
@@ -83,27 +86,44 @@ componentWillMount(){
       </View>
     )
   },
+renderList(list,index){
+  var subscribed
+  if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
+  else subscribed = false;
+  console.log("List of user....",list);
 
+  return (
+
+     <List
+      list={list}
+      user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
+      moving={this.moving}
+      key={'list ' + index}
+      index={index}
+      search={'search'}
+      taxonomy={list.taxonomy}
+      subscribe={true}
+      subscribed={subscribed}
+      loggedInUser={this.props.userLoggedIn}
+      userSubscribeAction={this.userSubscribe}
+      toggleContextMenu={this.toggleContextMenu}
+    />
+
+  );
+},
   renderChildren() {
+    const {subscribedLists, list} = this.props;
+      if (subscribedLists.length > 0) {
+
+      subscribedListsIds = showSubscribedlists(list, subscribedLists);
+    }
     switch (this.props.selected) {
       case 'lists':
       case 'sites':
       case 'filter':
-        return (this.props.listByTopics.map((list, index) => ((
-          <List
-            list={list}
-            user={list.owner[0]}
-            moving={this.moving}
-            key={'list ' + index}
-            index={index}
-            search={'search'}
-            taxonomy={list.taxonomy}
-            subscribe={true}
-            loggedInUser={this.props.userLoggedIn}
-            userSubscribeAction={this.userSubscribe}
-            toggleContextMenu={this.toggleContextMenu}
-          />
-        ))));
+
+        return (this.props.listByTopics.map(this.renderList));
+
       case 'products':
         return (this.props.favez.map((fave, index) => (<Card key={'fave ' + index} card={fave} track={index} moving={this.moving} increment={this.increment} />)));
       default:
@@ -113,6 +133,8 @@ componentWillMount(){
 
   render() {
     const {index, categories, topic} = this.props;
+
+
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>

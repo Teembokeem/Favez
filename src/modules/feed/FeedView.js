@@ -91,10 +91,6 @@ const FeedView = React.createClass({
     const { lists, subscribedlists, followedusers } = this.props;
 
     // const ds = this.state.dataSource;
-    if (lists.length > 0 && subscribedlists.length > 0) {
-
-      subscribedListsIds = showSubscribedlists(lists, subscribedlists);
-    }
 
     if (followedusers && followedusers.length > 0) {
       followedListsIds = showFollowedlists(followedusers);
@@ -120,9 +116,6 @@ const FeedView = React.createClass({
   renderCard(card, idx) {
 
     var followed = checkOwnerIdinFollowList(followedListsIds, card.owner);
-    var subscribed
-    if (subscribedListsIds.indexOf(card.id) > -1) subscribed = true;
-    else subscribed = false;
 
     return (
       <Card
@@ -131,7 +124,7 @@ const FeedView = React.createClass({
         track={idx}
         showUserProfile={this.showUserProfile}
         moving={this.moving}
-        subscribed={subscribed}
+
         followed={followed}
         userSubscribeAction={this.userSubscribe}
         userFollowAction={this.userFollow}

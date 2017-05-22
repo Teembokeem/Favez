@@ -3,20 +3,16 @@ import { get, post, put, del } from '../utils/api';
 export async function getListAll() {
     return get('/lists/all');
 }
-export async function sendLikeList(data) {
-    return post('/favez/like', { fave_id: data });
-    //return get('/lists/relationship/subscribed')
-    // return post('lists/relationship',{list_id:11,relationship: 1});
-}
+
 export async function getListbyRelation(data) {
   console.log("Get List By Relationship", data);
     return get('lists/relationship/' + data);
 }
-export async function sendUnLikeList(data) {
-    return post('/favez/unlike', { fave_id: data });
-}
-export async function deleteListRelation(id,) {
-    return del('lists/relationship', { list_id: id });
+
+export async function deleteListRelation(id,relationid) {
+  console.log("delete list id 900am",id);
+  console.log("delete list relation id code 900am", relationid);
+    return del('lists/relationship', { list_id: id , relationship: relationid});
     // return del('lists/relationship', { list_id: id, relationship: relationid });
     //      return del(`lists/relationship?list_id=${id}&relationship=${relationid}`);
 }
@@ -40,26 +36,14 @@ export async function getListByTopic(topic) {
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);
 }
-export function listCreate(data) {
-    const { listData, inviteData } = data;
-    return post('/lists', listData).then((res) => {
-      let users = inviteData;
-      let counter = 0;
-      users.map((user, idx) => {
-          let { id } = user;
-          if (idx !== users.length - 1) {
-              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                  counter++;
-              }).catch((err) => {
-              });
-          } else {
-              post('lists/collaborate/invite', { list_id: res.data.id, id: res.data.id, user_id: id, role: 1 }).then((res) => {
-                  console.log('List create success .................');
-                  return { data: res.data, counter };
-              }).catch((err) => {
-                  return err;
-              });
-          }
-      });
-    });
+export function listCollaborateInvite(listId, userId) {
+  return post('lists/collaborate/invite', { list_id: listId, id: listId, user_id: userId, role: 1 });
 }
+export function listCreate(listData) {
+  return post('/lists', listData);
+}
+//Getting comment by list
+export  function commentsByList(id){
+    console.log("api call done service",id);
+  return get(`/comments/list/${id}`);
+  }
