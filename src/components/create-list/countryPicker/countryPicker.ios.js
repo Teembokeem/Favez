@@ -11,25 +11,36 @@ import {
 } from 'react-native';
 const window = Dimensions.get('window');
 const PICKER_WIDTH = window.width;
-const PICKER_HEIGHT = window.height * 0.4;
+const PICKER_HEIGHT = window.height * 0.3;
 
-function CountryPicker({onSelectCountry, selectedCountry, countries}) {
+function CountryPicker({onSelectCountry, selectedCountry, countries, visible}) {
 
   return (
-    <Picker style={styles.picker}
-      selectedValue={selectedCountry}
-      onValueChange={val => onSelectCountry(val)}>
-      {countries.map((country, index) => {
-        return (<Picker.Item label={country.name} value={country.code} key={index} />)
-      })}
-    </Picker>
+    <Modal
+      animationType={'slide'}
+      transparent={true}
+      visible={true}
+      style={styles.countryPickerModal}>
+        <View style={styles.container}>
+          <View style={styles.pickerContainer}>
+            <Picker style={styles.picker}
+              selectedValue={selectedCountry}
+              onValueChange={val => onSelectCountry(val)}>
+
+              {countries.map((country, index) => {
+                return (<Picker.Item label={country.name} value={country.code} key={index} />)
+              })}
+            </Picker>
+          </View>
+        </View>
+      </Modal>
   );
 }
 
 const styles = StyleSheet.create({
-  overlay: {
-    height: window.height,
-    width: window.width
+
+  countryPickerModal: {
+    backgroundColor: 'transparent'
   },
   container: {
     backgroundColor: 'transparent',
