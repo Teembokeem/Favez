@@ -8,5 +8,5 @@ export function toJS(immutable) {
 
 export function getCountryByCode(code, countries) {
   filteredCountry = countries.filter(country => country.code == code);
-  return filteredCountry[0].name;
+  return filteredCountry[0] && filteredCountry[0].name;
 }

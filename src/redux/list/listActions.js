@@ -127,7 +127,7 @@ export async function createList(obj) {
 
 export function requestCreateList(data, callback) {
 
-  const { listData, inviteData, favezData } = data;
+  const { listData, inviteData } = data;
   return dispatch => {
 
     dispatch({type: LIST_CREATE_REQUEST});
@@ -137,16 +137,6 @@ export function requestCreateList(data, callback) {
         let users = inviteData;
         let promises = [];
 
-        if(!!favezData.image) {
-          promises.push(favezCreateFave({
-            name: 'I love stuff',
-            description: 'Hiii',
-            list_id: list.id,
-            type: 1,
-            link: 'http://google.com',
-            image: favezData.image
-          }));
-        }
         if(users.length > 0) users.map(user => {
           promises.push(listCollaborateInvite(list.id, user.id))
         });

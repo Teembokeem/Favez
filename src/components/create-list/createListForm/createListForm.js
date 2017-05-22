@@ -29,7 +29,7 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 };
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location} = props;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, dataValid} = props;
   const {priv, nsfw} = options;
   const {countries, selectedCountry, onSelectCountry} = location;
   const submit = values => {
@@ -110,9 +110,10 @@ const CreateListForm = props => {
         </View>
       </View>
       <TouchableOpacity
-        onPress={handleSubmit(submit)}
+        onPress={dataValid ? handleSubmit(submit) : null}
         submitting={submitting}
-        style={styles.CreateListButton}
+        activeOpacity={dataValid?0.2:1}
+        style={[styles.CreateListButton, dataValid ? null : styles.ButtonDisable]}
       >
         <View
           style={styles.CreateListButtonTextContainer}
@@ -342,6 +343,9 @@ const styles = StyleSheet.create({
     // alignItems: 'center',
     // alignItems: 'flex-start',
     // justifyContent: 'center'
+  },
+  ButtonDisable: {
+    backgroundColor: '#8bcb8c'
   },
   CreateListButtonTextContainer: {
     width: 375,

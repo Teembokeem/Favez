@@ -31,17 +31,15 @@ const FeedView = React.createClass({
       topics: topics.join(','),
       private: priv ? 1 : 0,
       nsfw: nsfw ? 1 : 0,
-      location: selectedCountry
+      location: selectedCountry,
+      bg_image: this.props.currentList.image
     });
-    let favezData = {image: this.props.currentList.image};
 
     console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
-    console.log('FAVEZ_DATA', favezData);
 
     this.props.dispatch(ListActions.requestCreateList({
       listData: listObj,
-      inviteData: inviteList,
-      favezData: favezData
+      inviteData: inviteList
     }, (data) => {
       console.log('List create success',data);
       if(data.successStatus) Actions.pop();
@@ -63,6 +61,12 @@ const FeedView = React.createClass({
     this.props.dispatch(ListActions.setSelectedCountry(country));
   },
 
+  isDataValid() {
+    const createListForm = this.props.form.createList;
+    let title = createListForm && createListForm.values ? createListForm.values.name : undefined;
+    return this.props.currentList.image && title;
+  },
+
   render() {
 
     console.log('CREATE_LIST_VIEW_PROPS', this.props);
@@ -70,6 +74,7 @@ const FeedView = React.createClass({
     const {options, inviteList, currentList} = this.props;
     const { countryPicker } = this.props;
     const { visible, set } = countryPicker;
+    const selectedCountry = currentList.selectedCountry ? currentList.selectedCountry : 'RO' //default country 'Romania'
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
@@ -86,7 +91,8 @@ const FeedView = React.createClass({
             options={options}
             collaborators={inviteList}
             toggleOption={this.toggleOption}
-            location={{countries: set, selectedCountry: currentList.selectedCountry, onSelectCountry: this.onSelectCountry}}
+            location={{countries: set, selectedCountry: selectedCountry, onSelectCountry: this.onSelectCountry}}
+            dataValid={this.isDataValid()}
           />
         </ ScrollView>
       </View>

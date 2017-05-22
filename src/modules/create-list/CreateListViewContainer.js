@@ -10,7 +10,8 @@ export default connect(
       options: state.getIn(['list', 'options']).toJS(),
       inviteList: state.getIn(['list', 'inviteList']).toJS(),
       currentList: state.getIn(['list', 'current']).toJS(),
-      countryPicker: state.getIn(['ui', 'picker', 'countryPicker']).toJS()
+      countryPicker: state.getIn(['ui', 'picker', 'countryPicker']).toJS(),
+      form : state.get('form').toJS()
     };
   }
 )(CreateListView);
