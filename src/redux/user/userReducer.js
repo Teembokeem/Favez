@@ -73,14 +73,15 @@ const initialState = fromJS({
     userBlockedList: [],
     userBlockedPeople: [],
 
-    otherUser: {
+    userDetail: {
       info:{},
       lists:[],
       subscriptions:[],
       collabs:[],
       comments:[],
-      likes:[]
-    }
+      likes:[],
+    },
+    lastFetchedUserId: -1
 
 });
 // Reducer
@@ -179,13 +180,13 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => requestUserInfo())
       );
     case GET_OTHER_USER_INFO_REQUEST:
-      return state.set('loading', true);
+      return state.set('loading', true).set('lastFetchedUserId', action.payload);
     case USER_SEARCH_RESULT_SUCCESS:
       return state
         .set('loading', false)
         .set('searchedUsers', action.payload);
     case GET_OTHER_USER_INFO_SUCCESS:
-      return state.set('loading', false).set('otherUser', action.payload);
+      return state.set('loading', false).set('userDetail', action.payload);
     case LOGIN_FAILURE:
     case USER_FAILURE:
     case USER_UPDATE_FAILURE:
