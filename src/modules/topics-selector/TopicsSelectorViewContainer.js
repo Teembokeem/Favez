@@ -6,7 +6,7 @@ export default connect(
     return {
       categories: state.getIn(['search', 'categories']).get('data').toJS(),
       loading: state.getIn(['search', 'loading']),
-      options: state.getIn(['list', 'options']).toJS(),
+      options: state.getIn(['list', 'options']),
     };
   }
 )(TopicsSelectorView);

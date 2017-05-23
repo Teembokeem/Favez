@@ -13,42 +13,9 @@ import {
   Alert
 } from 'react-native';
 
-function ListFooter({search, subscribe,loggedInUser,subscribed, ListId}) {
-
-  function ifUserLoggedIn(actionName){
+function ListFooter({ListId, onUserAction, userActionData}) {
 
 
-      if(!loggedInUser.auth0){
-        Alert.alert("Please Login to Subcribe a List.");
-        Actions.login();
-
-
-
-      }else{
-        if(actionName==='subscribe'){
-          SubscribeMe();
-        }else{
-          UnsubscribeMe();
-        }
-
-      }
-  }
-
-
-function toJS(immutable) {
- if (immutable.toJS) {
-   return immutable.toJS()
- }
- return immutable;
-}
-  function SubscribeMe() {
-
-      subscribe("subscribeme");
-  }
-  function UnsubscribeMe() {
-
-      subscribe("unsubscribe");
-  }
   return (
      <View
       style={styles.ListFooterContainer}
@@ -61,10 +28,10 @@ function toJS(immutable) {
       </TouchableOpacity>
 
       <TouchableOpacity
-         onPress={() => search ? ( subscribed ? ifUserLoggedIn("unsubscribe") : ifUserLoggedIn("subscribe") ) : null}
+         onPress={() => onUserAction() }
         style={styles.ListFooterSettingsContainer}
       >
-         <Ionicon style={styles.ListFooterSettings} name={search ? (subscribed ? "ios-bookmark" : "ios-bookmark-outline") : "ios-settings"}/>
+        {renderUserActionIcon()}
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -75,6 +42,24 @@ function toJS(immutable) {
       </TouchableOpacity>
     </View>
   );
+
+  function renderUserActionIcon() {
+
+    switch(userActionData.type) {
+      case "subscribe_unsubscribe":
+        return (
+          <Ionicon style={styles.ListFooterSettings}
+            name={userActionData.data ? "ios-bookmark" : "ios-bookmark-outline"}/>
+        )
+      case "user_collabs":
+        break;
+      case "edit_list":
+        return (
+          <Ionicon style={styles.ListFooterSettings} name={"ios-settings"}/>
+        )
+    }
+
+  }
 }
 
 const styles = StyleSheet.create({

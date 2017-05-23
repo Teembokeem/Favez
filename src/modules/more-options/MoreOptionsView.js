@@ -14,6 +14,7 @@ import Ionicon from 'react-native-vector-icons/Ionicons';
 import MCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FAIcon from 'react-native-vector-icons/FontAwesome';
 import {Actions} from 'react-native-router-flux';
+import * as Utils from '../../utils/Utils';
 import * as UIActions from '../../redux/ui/uiActions';
 import * as ListActions from '../../redux/list/listActions';
 import Header from '../../components/globals/header/header';
@@ -42,7 +43,7 @@ const moreOptionsView = React.createClass({
   },
   renderText() {
     const {options} = this.props;
-    const {topics} = options;
+    const {topics} = Utils.toJS(options);
 
     if (topics && topics.length > 0) {
       switch (topics.length) {
@@ -60,7 +61,7 @@ const moreOptionsView = React.createClass({
 
   render() {
     const {options} = this.props;
-    const {tags, topics, description, currTag} = options;
+    const {tags, topics, description, currTag} = Utils.toJS(options);
 
     return (
       <View style={styles.container}>

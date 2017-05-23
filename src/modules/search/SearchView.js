@@ -12,6 +12,7 @@ import Category from '../../components/search/category/category';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list'
 import * as ListActions from '../../redux/list/listActions';
+import * as Utils from '../../utils/Utils';
 import { showSubscribedlists } from '../../utils/userFollow';
 let subscribedListsIds = [];
 
@@ -19,35 +20,46 @@ let subscribedListsIds = [];
 const SearchView = React.createClass({
   propTypes: {},
 
-componentWillMount(){
+  componentWillMount(){
+    this.props.dispatch(ListActions.getListbyRelationAction('subscribed'));
+    this.selectTaxonomy();
+  },
 
-  this.props.dispatch(ListActions.getListbyRelationAction('subscribed'))
-},
+  componentDidUpdate() {
+    this.selectTaxonomy();
+  },
+
   setFilter(val) {
     this.props.dispatch(SearchState.setFilter(val));
   },
 
   setTopic(val) {
-    this.props.dispatch(SearchState.setTopic(val));
+    //this.props.dispatch(SearchState.setTopic(val));
+    if(val && val.ref) this.onSelectTaxonomy(val.ref);
   },
+
   moving(idx) {
-
-
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
-  userSubscribe(id,action,detailList){
 
-    if (id == "subscribeme") {
+  userSubscribe(action,detailList){
+    console.log('USER_SUBSCRIBE_ACTION', action, detailList);
+    if (action === "subscribe") {
+        this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
+    } else if(action === "unsubscribe"){
+          this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
+    }
+  },
 
-
-
-    this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
-  }
-  if(id=="unsubscribe"){
-
-        this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
-  }
-},
+  selectTaxonomy() {
+    let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
+    let topicName = this.props.topic && this.props.topic.ref;
+    if(!!taxonomy && taxonomy != topicName) {
+      let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
+      if(!!topic) this.props.dispatch(SearchState.setTopic(topic));
+      else this.props.dispatch(SearchState.resetTopic());
+    }
+  },
 
 
   renderSearchCategories(categories, index) {
@@ -86,36 +98,47 @@ componentWillMount(){
       </View>
     )
   },
-renderList(list,index){
-  var subscribed
-  if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
-  else subscribed = false;
-  console.log("List of user....",list);
 
-  return (
+  onSelectTaxonomy(taxonomy) {
+    Actions.search({taxonomy});
+  },
 
-     <List
-      list={list}
-      user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
-      moving={this.moving}
-      key={'list ' + index}
-      index={index}
-      search={'search'}
-      taxonomy={list.taxonomy}
-      subscribe={true}
-      subscribed={subscribed}
-      loggedInUser={this.props.userLoggedIn}
-      userSubscribeAction={this.userSubscribe}
-      toggleContextMenu={this.toggleContextMenu}
-    />
+  renderList(list,index){
 
-  );
-},
+    return (
+       <List
+        list={list}
+        user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
+        moving={this.moving}
+        key={'list ' + index}
+        index={index}
+        taxonomy={list.taxonomy}
+        subscribe={true}
+        toggleContextMenu={this.toggleContextMenu}
+        onSelectTaxonomy={this.onSelectTaxonomy}
+        onUserAction={() => this.onUserAction(list)}
+        userActionData={{type: 'subscribe_unsubscribe', data: this.isSubscribedToList(list)}}
+      />
+
+    );
+  },
+
+  isSubscribedToList(list) {
+    return subscribedListsIds.indexOf(list.id) != -1
+  },
+
+  onUserAction(list) {
+    if(!!this.props.userLoggedIn && this.props.userLoggedIn.auth0) {
+      if(this.isSubscribedToList(list)) this.userSubscribe("unsubscribe", list)
+      else this.userSubscribe("subscribe", list)
+    } else Actions.login();
+  },
+
   renderChildren() {
     const {subscribedLists, list} = this.props;
       if (subscribedLists.length > 0) {
-
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
+      console.log('SUBSCRIBED_LISTS', subscribedListsIds);
     }
     switch (this.props.selected) {
       case 'lists':
@@ -132,9 +155,8 @@ renderList(list,index){
   },
 
   render() {
+    console.log('SEARCH_VIEW_PROPS', this.props);
     const {index, categories, topic} = this.props;
-
-
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>

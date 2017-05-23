@@ -11,7 +11,7 @@ export default connect(
       lists: state.getIn(['list', 'all']),
       listByTopics: state.getIn(['list', 'listByTopics']),
       subscribedLists: state.getIn(['list','subscribedLists']),
-            userLoggedIn: state.getIn(['user','user'])
+      userLoggedIn: state.getIn(['user','user'])
     };
   }
 )(SearchView);

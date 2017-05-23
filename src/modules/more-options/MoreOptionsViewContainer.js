@@ -6,7 +6,7 @@ import MoreOptionsView from './MoreOptionsView';
 export default connect(
   state => {
     return {
-      options: state.getIn(['list', 'options']).toJS(),
+      options: state.getIn(['list', 'options']),
       loading: state.getIn(['listShow', 'loading'])
     };
   }
