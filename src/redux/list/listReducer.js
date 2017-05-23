@@ -122,8 +122,6 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_BY_TOPIC_FAILURE:
     case LIST_CREATE_FAILURE:
         return state.set('ERROR', action).set('loading', false);
-    case LIST_CREATE_RELATION_SUCCESS:
-        return state.updateIn('subscribedLists', arr => arr.push(action.detailList));
     case LIKE_UNLIKE_LIST_ITEM:
     case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
     case LIKE_UNLIKE_LIST_ITEM_FAILURE:

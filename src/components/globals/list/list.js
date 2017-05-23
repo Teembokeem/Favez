@@ -8,7 +8,7 @@ import ListHeader from './listHeader';
 import ListBody from './listBody';
 import ListFooter from './listFooter';
 
-function List({list, user, toggleContextMenu, moving, index, showUserProfile,search,taxonomy,userSubscribeAction,loggedInUser,subscribed, onSelectTaxonomy}) {
+function List({list, user, toggleContextMenu, moving, index, showUserProfile,taxonomy, onSelectTaxonomy, onUserAction, userActionData}) {
 
   const {collaborators, name, _favez, topics, tags, bg_image} = list;
   const userData = user.auth0 ? user.favez : user;
@@ -44,7 +44,10 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,sea
         taxonomy={taxonomy}
         onSelectTaxonomy={onSelectTaxonomy}
       />
-    <ListFooter search={search} loggedInUser={loggedInUser} ListId={list.id} subscribed={subscribed} subscribe={(usersubscribe)=>userSubscribeAction(usersubscribe,list.id,list)} />
+    <ListFooter
+      ListId={list.id}
+      onUserAction={onUserAction}
+      userActionData={userActionData} />
     </View>
 
 

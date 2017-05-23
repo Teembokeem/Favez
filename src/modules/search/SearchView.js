@@ -35,20 +35,20 @@ const SearchView = React.createClass({
 
   setTopic(val) {
     //this.props.dispatch(SearchState.setTopic(val));
-    this.onSelectTaxonomy(val.ref);
+    if(val && val.ref) this.onSelectTaxonomy(val.ref);
   },
 
   moving(idx) {
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
 
-  userSubscribe(id,action,detailList){
-      if (id == "subscribeme") {
+  userSubscribe(action,detailList){
+    console.log('USER_SUBSCRIBE_ACTION', action, detailList);
+    if (action === "subscribe") {
         this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
-      }
-      if(id=="unsubscribe"){
+    } else if(action === "unsubscribe"){
           this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
-      }
+    }
   },
 
   selectTaxonomy() {
@@ -104,36 +104,41 @@ const SearchView = React.createClass({
   },
 
   renderList(list,index){
-    var subscribed
-    if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
-    else subscribed = false;
 
     return (
-
        <List
         list={list}
         user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
         moving={this.moving}
         key={'list ' + index}
         index={index}
-        search={'search'}
         taxonomy={list.taxonomy}
         subscribe={true}
-        subscribed={subscribed}
-        loggedInUser={this.props.userLoggedIn}
-        userSubscribeAction={this.userSubscribe}
         toggleContextMenu={this.toggleContextMenu}
         onSelectTaxonomy={this.onSelectTaxonomy}
+        onUserAction={() => this.onUserAction(list)}
+        userActionData={{type: 'subscribe_unsubscribe', data: this.isSubscribedToList(list)}}
       />
 
     );
   },
 
+  isSubscribedToList(list) {
+    return subscribedListsIds.indexOf(list.id) != -1
+  },
+
+  onUserAction(list) {
+    if(!!this.props.userLoggedIn && this.props.userLoggedIn.auth0) {
+      if(this.isSubscribedToList(list)) this.userSubscribe("unsubscribe", list)
+      else this.userSubscribe("subscribe", list)
+    } else Actions.login();
+  },
+
   renderChildren() {
     const {subscribedLists, list} = this.props;
       if (subscribedLists.length > 0) {
-
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
+      console.log('SUBSCRIBED_LISTS', subscribedListsIds);
     }
     switch (this.props.selected) {
       case 'lists':

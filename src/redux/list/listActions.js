@@ -207,18 +207,30 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid,detailList){
-  return await createlistRelation(id,relationid)
-   .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}))
-   .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
+  return await createlistRelation(detailList.id,relationid)
+   .then((res)=> {
+     console.log('Subscribed success', res);
+     return {type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}
+   })
+   .catch((err)=>{
+     console.log('Subscribed failed', err);
+     return {type:LIST_CREATE_RELATION_FAILURE, payload: err}
+   });
 
 }
 
 //Action for Delete list relationship
 export async function deleteListRelationAction(id,relationid,detailList){
 
-  return await deleteListRelation(id,relationid)
-  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}))
-  .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
+  return await deleteListRelation(detailList.id,relationid)
+  .then((res)=>{
+    console.log('Unsubscribed success', res);
+    return {type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}
+  })
+  .catch((err)=>{
+    console.log('Unsubscribed failed', err);
+    return {type:LIST_DELETE_RELATION_FAILURE, payload: err}
+  });
 }
 
 //Action for getting list by relaitonship
