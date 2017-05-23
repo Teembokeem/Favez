@@ -59,6 +59,7 @@ const ProfileView = React.createClass({
                       key={'list ' + index}
                       index={index}
                       onSelectTaxonomy={this.onSelectTaxonomy}
+                      onUserAction={()=> this.onEditList(list)}
                       userActionData={{type:'edit_list'}} />
                 ))
               );
@@ -67,8 +68,6 @@ const ProfileView = React.createClass({
                 <View>
                 <Text>There are No Lists yet.</Text>
                 </View>
-
-
               );
             }
 
@@ -167,6 +166,10 @@ const ProfileView = React.createClass({
             default:
                 return null;
         }
+    },
+
+    onEditList(list) {
+      Actions.createList({listData: list});
     },
 
     setFilter(val,tab) {

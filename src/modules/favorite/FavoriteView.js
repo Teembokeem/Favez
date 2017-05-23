@@ -56,7 +56,8 @@ const FavoriteView = React.createClass({
                 showUserProfile={() => this.showUserProfile(favez)}
                 toggleContextMenu={this.toggleContextMenu}
                 onSelectTaxonomy={this.onSelectTaxonomy}
-                userActionData={{type:'subscribe_unsubscribe'}}
+                userActionData={{type:'edit_list'}}
+                onUserAction={() => Actions.createList({listData: list})}
               />
           ))
         );

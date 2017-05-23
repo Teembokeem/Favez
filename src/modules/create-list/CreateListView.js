@@ -19,6 +19,13 @@ const FeedView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
+
+    console.log('CREATE_LIST_PROPS', this.props);
+    this.loadListData();
+  },
+
+  loadListData() {
+    console.log('LOAD_LIST_DATA');
   },
 
   createList(values) {
