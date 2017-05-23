@@ -57,7 +57,8 @@ const ProfileView = React.createClass({
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
-                      index={index} />
+                      index={index}
+                      onSelectTaxonomy={this.onSelectTaxonomy} />
                 ))
               );
             }else{
@@ -76,7 +77,12 @@ const ProfileView = React.createClass({
               return(
                 this.props.userDetail.collabs.map((list,index) =>(
 
-                  <List list={list} user={userDetail.info} taxonomy={list.taxonomy} key={'list ' + index}></List>
+                  <List
+                    list={list}
+                    user={userDetail.info}
+                    taxonomy={list.taxonomy}
+                    key={'list ' + index}
+                    onSelectTaxonomy={this.onSelectTaxonomy}></List>
 
 
                 )));
@@ -92,33 +98,34 @@ const ProfileView = React.createClass({
             }
             break;
             case 'subscriptions':
+              if(this.props.userDetail.subscriptions.length > 0){
+                return (this.props.userDetail.subscriptions.map((list, index) => (
 
-if(this.props.userDetail.subscriptions.length > 0){
-  return (this.props.userDetail.subscriptions.map((list, index) => (
+                    <List
+                      list={list}
+                      user={list.owner[0]}
+                      taxonomy={list.taxonomy}
+                      key={'list ' + index}
+                      onSelectTaxonomy={this.onSelectTaxonomy}></List>
+                )));
 
-      <List list={list} user={list.owner[0]} taxonomy={list.taxonomy} key={'list ' + index}></List>
-  )));
-
-}else{
-  return(
-    <View>
-      <Text>There are No Subscriptions yet.</Text>
-    </View>
-  );
-}
-                  break;
+              }else{
+                return(
+                  <View>
+                    <Text>There are No Subscriptions yet.</Text>
+                  </View>
+                );
+              }
+              break;
             case 'likes':
-            if(this.props.userDetail.likes.length > 0){
-                return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
-            }else{
-              <View>
-                <Text>There are No Likes yet.</Text>
-              </View>
-
-
-            }
-
-                break;
+              if(this.props.userDetail.likes.length > 0){
+                  return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+              }else{
+                <View>
+                  <Text>There are No Likes yet.</Text>
+                </View>
+              }
+              break;
             case 'comments':
             if(userDetail.comments.length > 0){
               return (userDetail.comments.map((comment, idx) => (
@@ -207,6 +214,10 @@ if(this.props.userDetail.subscriptions.length > 0){
     exploreFriends(user) {
       let userId = user.auth0 ? user.favez.id : user.id;
       Actions.userFriends({userId});
+    },
+
+    onSelectTaxonomy(taxonomy) {
+      Actions.search({taxonomy});
     },
 
     render() {
