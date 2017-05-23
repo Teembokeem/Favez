@@ -4,22 +4,25 @@ import {
   Text,
   TouchableOpacity,
   View,
-  ScrollView
+  ScrollView,
+  Dimensions
 } from 'react-native';
-
+const window = Dimensions.get('window');
 function HeaderTabs({view, selected, tabs, setFilter}) {
+
   return (
     <View style={styles.parentScroll}>
 
     <ScrollView
       contentContainerStyle={[styles.HeaderTabs]}
-      directionalLockEnabled={true}
+      directionalLockEnabled={false}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
     >
       {tabs.map((tab, index) => {
         return (
           <View
+
             style={styles.container}
             key={'tab ' + index}
           >
@@ -45,6 +48,7 @@ const styles = StyleSheet.create({
   HeaderTabs: {
     backgroundColor: 'white',
     padding: 6,
+    minWidth: window.width
   },
   parentScroll:{
     flex:1,
@@ -55,6 +59,12 @@ const styles = StyleSheet.create({
   },
   container: {
 
+    alignItems: 'center',
+    flex: 1
+
+  },
+  flexOneContainer: {
+    flex: 1,
     alignItems: 'center'
   },
   HeaderTabsTab: {

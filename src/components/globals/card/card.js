@@ -53,8 +53,8 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           browseFave={browseFave}
           card={card}
         />
-        <CardActions 
-          actions={(action)=> userAction(action,card.id)}  
+        <CardActions
+          actions={(action)=> userAction(action,card.id)}
         />
     </View>
   );
@@ -69,8 +69,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     overflow: 'hidden',
-    width: 360,
-    marginBottom: 30
+    width: 350,
+    marginBottom: 30,
+    marginLeft: 5,
+    marginRight: 5
   },
   hello: {
     textAlign: 'center'

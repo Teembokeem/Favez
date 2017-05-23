@@ -101,19 +101,28 @@ renderFavez(fave,index){
         : (null);
       case 'similar':
         return (
-          this.props.similar.map((fave, index) => (
-              <Card
-                key={'fave ' + index}
-                card={fave}
-                track={index}
-                moving={this.moving}
+          <View contentContainerStyle={styles.Parentcontainer}>
+            {  this.props.similar.map(this.renderCard)}
+          </View>
 
-            />
-          ))
         );
       default :
         return null;
     }
+  },
+  renderCard(){
+    return(
+      this.props.similar.map((fave, index) => (
+          <Card
+            key={'fave ' + index}
+            card={fave}
+            track={index}
+            moving={this.moving}
+
+
+        />
+      ))
+    );
   },
 
 
@@ -152,12 +161,15 @@ renderFavez(fave,index){
           contentContainerStyle={styles.contentContainer}
         >
           <Header title={list.name}/>
+
           <HeaderTabs
             view={'listShow'}
             setFilter={this.setFilter}
             selected={selectedTab}
             tabs={tabs}
+
           />
+
           {this.renderChildren()}
         {/*<Text>{list.description}</Text>*/}
         </ ScrollView>
@@ -182,6 +194,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
     // justifyContent: 'center'
+  },
+  Parentcontainer:{
+    backgroundColor: '#fff',
+    paddingTop: 20,
+    paddingBottom: 50,
+    alignItems: 'center',
+    marginLeft: 3,
+    marginRight: 3
+
   },
   ListBackgroundImageContainer: {
     position: 'absolute',
