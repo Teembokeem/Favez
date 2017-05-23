@@ -20,54 +20,46 @@ let subscribedListsIds = [];
 const SearchView = React.createClass({
   propTypes: {},
 
-componentWillMount(){
+  componentWillMount(){
+    this.props.dispatch(ListActions.getListbyRelationAction('subscribed'));
+    this.selectTaxonomy();
+  },
 
-  this.props.dispatch(ListActions.getListbyRelationAction('subscribed'));
-  this.selectTaxonomy();
-},
-
-componentDidUpdate() {
-  this.selectTaxonomy();
-},
+  componentDidUpdate() {
+    this.selectTaxonomy();
+  },
 
   setFilter(val) {
     this.props.dispatch(SearchState.setFilter(val));
   },
 
   setTopic(val) {
-    this.props.dispatch(SearchState.setTopic(val));
+    //this.props.dispatch(SearchState.setTopic(val));
+    this.onSelectTaxonomy(val.ref);
   },
+
   moving(idx) {
-
-
     this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
   },
+
   userSubscribe(id,action,detailList){
+      if (id == "subscribeme") {
+        this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
+      }
+      if(id=="unsubscribe"){
+          this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
+      }
+  },
 
-    if (id == "subscribeme") {
-
-
-
-    this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
-  }
-  if(id=="unsubscribe"){
-
-        this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
-  }
-},
-
-selectTaxonomy() {
-  let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
-  let topicName = this.props.topic && this.props.topic.ref;
-  console.log('TAXONOMY='+taxonomy+", TOPIC_NAME="+topicName);
-  if(!!taxonomy && taxonomy != topicName) {
-    let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
-    console.log('TOPIC_BY_TAXONOMY', topic);
-    if(!!topic) this.props.dispatch(SearchState.setTopic(topic));
-    else this.props.dispatch(SearchState.resetTopic());
-    this.props.taxonomy = null;
-  }
-},
+  selectTaxonomy() {
+    let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
+    let topicName = this.props.topic && this.props.topic.ref;
+    if(!!taxonomy && taxonomy != topicName) {
+      let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
+      if(!!topic) this.props.dispatch(SearchState.setTopic(topic));
+      else this.props.dispatch(SearchState.resetTopic());
+    }
+  },
 
 
   renderSearchCategories(categories, index) {
@@ -106,31 +98,37 @@ selectTaxonomy() {
       </View>
     )
   },
-renderList(list,index){
-  var subscribed
-  if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
-  else subscribed = false;
-  console.log("List of user....",list);
 
-  return (
+  onSelectTaxonomy(taxonomy) {
+    Actions.search({taxonomy});
+  },
 
-     <List
-      list={list}
-      user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
-      moving={this.moving}
-      key={'list ' + index}
-      index={index}
-      search={'search'}
-      taxonomy={list.taxonomy}
-      subscribe={true}
-      subscribed={subscribed}
-      loggedInUser={this.props.userLoggedIn}
-      userSubscribeAction={this.userSubscribe}
-      toggleContextMenu={this.toggleContextMenu}
-    />
+  renderList(list,index){
+    var subscribed
+    if (subscribedListsIds.indexOf(list.id) > -1) subscribed = true;
+    else subscribed = false;
 
-  );
-},
+    return (
+
+       <List
+        list={list}
+        user={{ 'username': list.owner[0].f2, 'image': list.owner[0].f3 }}
+        moving={this.moving}
+        key={'list ' + index}
+        index={index}
+        search={'search'}
+        taxonomy={list.taxonomy}
+        subscribe={true}
+        subscribed={subscribed}
+        loggedInUser={this.props.userLoggedIn}
+        userSubscribeAction={this.userSubscribe}
+        toggleContextMenu={this.toggleContextMenu}
+        onSelectTaxonomy={this.onSelectTaxonomy}
+      />
+
+    );
+  },
+
   renderChildren() {
     const {subscribedLists, list} = this.props;
       if (subscribedLists.length > 0) {
