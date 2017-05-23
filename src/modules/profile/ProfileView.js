@@ -58,7 +58,8 @@ const ProfileView = React.createClass({
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
                       index={index}
-                      onSelectTaxonomy={this.onSelectTaxonomy} />
+                      onSelectTaxonomy={this.onSelectTaxonomy}
+                      userActionData={{type:'edit_list'}} />
                 ))
               );
             }else{
@@ -82,8 +83,9 @@ const ProfileView = React.createClass({
                     user={userDetail.info}
                     taxonomy={list.taxonomy}
                     key={'list ' + index}
-                    onSelectTaxonomy={this.onSelectTaxonomy}></List>
-
+                    onSelectTaxonomy={this.onSelectTaxonomy}
+                    userActionData={{type:'user_collabs'}}
+                    ></List>
 
                 )));
 
@@ -106,7 +108,8 @@ const ProfileView = React.createClass({
                       user={list.owner[0]}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
-                      onSelectTaxonomy={this.onSelectTaxonomy}></List>
+                      onSelectTaxonomy={this.onSelectTaxonomy}
+                      userActionData={{type:'subscribe_unsubscribe'}}></List>
                 )));
 
               }else{
