@@ -17,35 +17,13 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
             <View style={styles.ListBodyTags}>
 
               {taxonomy ? taxonomy.map((taxonomy,index) =>(
-
-
                 <View
                   style={styles.ListBodyTopicContainer}
-                  key={'taxonomy ' + index}>
-  <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
-  </View>
-
-)) : null}
-                {/*{topics.map((topic, index) => (
-          <View
-            style={styles.ListBodyTopicContainer}
-            key={'topic ' + index}
-          >
-            <Text
-              style={styles.ListBodyTopic}
-            >{topic.toUpperCase()}</Text>
-          </View>
-        ))}
-        {tags.map((tag, index) => (
-          <View
-            style={styles.ListBodyTagContainer}
-            key={'tag ' + index}
-          >
-            <Text
-              style={styles.ListBodyTag}
-            >{'#' + tag.toUpperCase()}</Text>
-          </View>
-        ))}*/}
+                  key={'taxonomy ' + index}
+                >
+                    <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
+                </View>
+                )) : null}
             </View>
         </View>
     );
