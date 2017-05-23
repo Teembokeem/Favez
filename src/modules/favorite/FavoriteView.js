@@ -55,6 +55,7 @@ const FavoriteView = React.createClass({
                 taxonomy={list.taxonomy}
                 showUserProfile={() => this.showUserProfile(favez)}
                 toggleContextMenu={this.toggleContextMenu}
+                onSelectTaxonomy={this.onSelectTaxonomy}
               />
           ))
         );
@@ -72,6 +73,11 @@ const FavoriteView = React.createClass({
         );
     }
   },
+
+  onSelectTaxonomy(taxonomy) {
+    Actions.search({taxonomy});
+  },
+
   setFilter(view, tab) {
     this.props.dispatch(UIActions.setViewTab(view, tab));
   },

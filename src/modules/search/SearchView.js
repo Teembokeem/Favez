@@ -12,6 +12,7 @@ import Category from '../../components/search/category/category';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list'
 import * as ListActions from '../../redux/list/listActions';
+import * as Utils from '../../utils/Utils';
 import { showSubscribedlists } from '../../utils/userFollow';
 let subscribedListsIds = [];
 
@@ -21,8 +22,14 @@ const SearchView = React.createClass({
 
 componentWillMount(){
 
-  this.props.dispatch(ListActions.getListbyRelationAction('subscribed'))
+  this.props.dispatch(ListActions.getListbyRelationAction('subscribed'));
+  this.selectTaxonomy();
 },
+
+componentDidUpdate() {
+  this.selectTaxonomy();
+},
+
   setFilter(val) {
     this.props.dispatch(SearchState.setFilter(val));
   },
@@ -46,6 +53,19 @@ componentWillMount(){
   if(id=="unsubscribe"){
 
         this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
+  }
+},
+
+selectTaxonomy() {
+  let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
+  let topicName = this.props.topic && this.props.topic.ref;
+  console.log('TAXONOMY='+taxonomy+", TOPIC_NAME="+topicName);
+  if(!!taxonomy && taxonomy != topicName) {
+    let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
+    console.log('TOPIC_BY_TAXONOMY', topic);
+    if(!!topic) this.props.dispatch(SearchState.setTopic(topic));
+    else this.props.dispatch(SearchState.resetTopic());
+    this.props.taxonomy = null;
   }
 },
 
@@ -132,9 +152,8 @@ renderList(list,index){
   },
 
   render() {
+    console.log('SEARCH_VIEW_PROPS', this.props);
     const {index, categories, topic} = this.props;
-
-
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>

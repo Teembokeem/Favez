@@ -31,7 +31,7 @@ export async function listGetSingleDetailed(id) {
     return get('/lists/id/' + id);
 }
 export async function getListByTopic(topic) {
-    return get(`lists/taxonomy/topic/${topic.ref}`);
+    return get(`lists/taxonomy/topic/${topic}`);
 }
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);

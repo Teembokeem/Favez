@@ -237,7 +237,7 @@ export async function requestSendInvites(data) {
 }
 
 export async function requestListByTopic(data) {
-  return await getListByTopic(data)
+  return await getListByTopic(data.ref)
     .then((res) => {
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
