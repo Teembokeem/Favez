@@ -9,9 +9,13 @@ import {
 
 function HeaderTabs({view, selected, tabs, setFilter}) {
   return (
+    <View style={styles.parentScroll}>
+
     <ScrollView
       contentContainerStyle={[styles.HeaderTabs]}
       directionalLockEnabled={true}
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
     >
       {tabs.map((tab, index) => {
         return (
@@ -32,6 +36,8 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
         );
       })}
     </ScrollView>
+  </View>
+
   );
 }
 
@@ -39,17 +45,23 @@ const styles = StyleSheet.create({
   HeaderTabs: {
     backgroundColor: 'white',
     padding: 6,
+  },
+  parentScroll:{
+    flex:1,
     borderBottomWidth: 1,
     flexDirection: 'row',
     borderColor: '#efefef'
+
   },
   container: {
-    flex: 1,
+
     alignItems: 'center'
   },
   HeaderTabsTab: {
     fontFamily: 'Hind-Bold',
-    fontSize: 18
+    fontSize: 16,
+    paddingLeft: 10,
+    paddingRight: 10
   },
   HeaderTabsSeparator: {
     textAlign: 'center',
