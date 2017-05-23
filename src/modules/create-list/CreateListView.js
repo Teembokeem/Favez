@@ -21,7 +21,6 @@ const FeedView = React.createClass({
 
   componentWillMount() {
 
-    console.log('CREATE_LIST_PROPS', this.props);
     this.loadListData();
   },
 
@@ -55,13 +54,11 @@ const FeedView = React.createClass({
       bg_image: this.props.currentList.image
     });
 
-    console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
 
     this.props.dispatch(ListActions.requestCreateList({
       listData: listObj,
       inviteData: inviteList
     }, (data) => {
-      console.log('List create success',data);
       if(data.successStatus) Actions.pop();
     }));
   },
@@ -97,7 +94,6 @@ const FeedView = React.createClass({
 
   render() {
 
-    console.log('CREATE_LIST_VIEW_PROPS', this.props);
 
     const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;

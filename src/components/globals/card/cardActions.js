@@ -14,7 +14,6 @@ const CardActions = React.createClass({
     },
 
     _shareText(card) {
-        console.log('this card', card)
         Share.share({
             message: `Hey! Check out this awesome link from FAVEZ: `,
             url: card.link,

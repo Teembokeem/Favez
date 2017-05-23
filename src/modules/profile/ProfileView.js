@@ -43,7 +43,6 @@ const ProfileView = React.createClass({
     renderChildren() {
 
         const {selectedTab, lists,userDetail} = this.props;
-        console.log("iopo likes and collabs", this.props.userDetail.collabs);
         let userInfo = (this.props.userId)? Utils.toJS(this.props.userDetail).info : this.props.user;
 
         switch (selectedTab) {
@@ -228,7 +227,6 @@ const ProfileView = React.createClass({
 
     render() {
 
-        console.log('PROFILE_VIEW_PROPS', this.props);
 
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? Utils.toJS(this.props.userDetail).info : this.props.user;

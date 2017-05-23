@@ -43,7 +43,6 @@ const SearchView = React.createClass({
   },
 
   userSubscribe(action,detailList){
-    console.log('USER_SUBSCRIBE_ACTION', action, detailList);
     if (action === "subscribe") {
         this.props.dispatch(ListActions.createlistRelationAction(action, 2,detailList));
     } else if(action === "unsubscribe"){
@@ -138,7 +137,6 @@ const SearchView = React.createClass({
     const {subscribedLists, list} = this.props;
       if (subscribedLists.length > 0) {
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
-      console.log('SUBSCRIBED_LISTS', subscribedListsIds);
     }
     switch (this.props.selected) {
       case 'lists':
@@ -155,7 +153,6 @@ const SearchView = React.createClass({
   },
 
   render() {
-    console.log('SEARCH_VIEW_PROPS', this.props);
     const {index, categories, topic} = this.props;
     return (
       <View style={styles.container}>

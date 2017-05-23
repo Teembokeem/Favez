@@ -61,7 +61,6 @@ const ListShowView = React.createClass({
   render() {
     // if (!this.state.ready) return null;
 const {commentsByList} = this.props;
-console.log("comments by list recd..",this.props.commentsByList);
     return (
       <View style={styles.base}>
         <View style={styles.header}>

@@ -31,7 +31,6 @@ function ProfileSummary({
     image,
     imageStatus
   } = userData;
-  console.log('userData', userData)
 
 return (
   <View style={styles.ProfileSummaryContainer}>
