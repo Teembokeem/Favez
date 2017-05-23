@@ -57,6 +57,7 @@ export const GET_LIST_BY_RELATION_SUCCESS ='GET_LIST_BY_RELATION_SUCCESS';
 export const GET_LIST_BY_RELATION_FAILURE = 'GET_LIST_BY_RELATION_FAILURE';
 export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
 export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
+export const LIST_LOAD_DATA_TO_EDIT = 'LIST_LOAD_DATA_TO_EDIT';
 export const SUBSCRIBE_LIST = 'SUBSCRIBE_LIST';
 export const UNSUBSCRIBE_LIST = 'UNSUBSCRIBE_LIST';
 
@@ -320,4 +321,22 @@ export async function commentsByListAction(id) {
       return {type: GET_COMMENTS_BY_LIST_SUCCESS, payload: res}
     })
     .catch((err) => ({type: GET_COMMENTS_BY_LIST_FAILURE, payload: err}));
+}
+
+export function loadListToEdit(list) {
+
+  return {
+    type: LIST_LOAD_DATA_TO_EDIT,
+    payload: {
+      image: list.bg_image,
+      options: {
+        description: list.description,
+        priv: list.private == 0 ? false : true,
+        nsfw: list.nsfw == 0 ? false : true,
+        tags: list.tags,
+        topics: list.topics,
+      },
+      location: list.countryCode
+    }
+  }
 }

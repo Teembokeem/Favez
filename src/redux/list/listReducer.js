@@ -22,6 +22,7 @@ import {
     LIST_SET_SELECTED_COUNTRY,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
+    LIST_LOAD_DATA_TO_EDIT,
     LIKE_UNLIKE_LIST_ITEM,
     LIKE_UNLIKE_LIST_ITEM_SUCCESS,
     LIKE_UNLIKE_LIST_ITEM_FAILURE,
@@ -148,6 +149,10 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
     case GET_COMMENTS_BY_LIST_SUCCESS:
         return state.set('loading', false).set('commentsByList', action.payload.data);
+    case LIST_LOAD_DATA_TO_EDIT:
+        return state.setIn(['current', 'image'], action.payload.image)
+          .setIn(['current', 'selectedCountry'], action.payload.location)
+          .set('options', action.payload.options);
     case LIST_MYLIST_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:

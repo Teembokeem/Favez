@@ -25,12 +25,22 @@ const FeedView = React.createClass({
   },
 
   loadListData() {
-    console.log('LOAD_LIST_DATA');
+
+    if(this.props.listData) {
+      let listData = this.props.listData;
+      listData.tags = [];
+      listData.topics = [];
+      if(listData.taxonomy) listData.taxonomy.map(data => {
+        if(!!data.taxonomy) listData.topics.push(data.taxonomy)
+      });
+      listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
+      this.props.dispatch(ListActions.loadListToEdit(listData));
+    }
   },
 
   createList(values) {
     const {options, inviteList, countryPicker, currentList} = this.props;
-    const {description, tags, topics, priv, nsfw} = options;
+    const {description, tags, topics, priv, nsfw} = Utils.toJS(options);
     const { visible, set } = countryPicker;
     let selectedCountry = Utils.getCountryByCode(currentList.selectedCountry, set);
     let listObj = Object.assign(values, {
