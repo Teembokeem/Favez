@@ -53,8 +53,9 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           browseFave={browseFave}
           card={card}
         />
-        <CardActions 
-          actions={(action)=> userAction(action,card.id)}  
+        <CardActions
+          card={card}
+          actions={(action)=> userAction(action,card.id)}
         />
     </View>
   );
