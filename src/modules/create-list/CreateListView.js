@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {change} from 'redux-form';
 import UserActions from '../../redux/user/userActions';
 import ImagePicker from '../../components/create-list/imagePicker/imagePicker';
 import Header from '../../components/globals/header/header';
@@ -35,6 +36,7 @@ const FeedView = React.createClass({
       });
       listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
       this.props.dispatch(ListActions.loadListToEdit(listData));
+      this.props.dispatch(change('createList','name', listData.name));
     }
   },
 

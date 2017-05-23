@@ -26,7 +26,6 @@ import CountryPicker from '../../globals/pickers/countryPicker/countryPicker';
 
 const window = Dimensions.get('window');
 
-
 const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
   return <TextInput style={styles.CreateListFormEmailInput} type={props.type} secureTextEntry={props.secureTextEntry} placeholder={props.placeholder} onChangeText={onChange} {...restInput}/>
 };
@@ -372,5 +371,5 @@ const styles = StyleSheet.create({
 });
 
 export default reduxForm({
-  form: 'createList'
+  form: 'createList',
 })(CreateListForm);
