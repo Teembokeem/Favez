@@ -98,7 +98,12 @@ renderFavez(fave,index){
           this.props.list._favez.map(this.renderFavez)
 
         )
-        : (null);
+        : (
+          <View style={styles.noResultContainer}>
+            <Text style={styles.noResultText}> This list currently has no Favez.</Text>
+          </View>
+
+        );
       case 'similar':
         return (
           <View contentContainerStyle={styles.Parentcontainer}>
@@ -182,6 +187,17 @@ renderFavez(fave,index){
 })
 
 const styles = StyleSheet.create({
+  noResultContainer:{
+    padding: 10,
+    marginTop: 10,
+  },
+  noResultText:{
+    padding: 10,
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Hind-Regular'
+  },
   container: {
     // flexGrow: 1,
     backgroundColor: 'white',
