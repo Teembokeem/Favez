@@ -20,6 +20,7 @@ const LoginView = React.createClass({
   },
 
   render() {
+    const {loginAttempt, errorValue} = this.props;
     return (
       <View style={styles.container} >
         <BackHeader
@@ -30,6 +31,8 @@ const LoginView = React.createClass({
         />
         <LoginForm
           login={this.login}
+          loginAttempt={loginAttempt}
+          errorValue={errorValue}
         />
       </View>
     );

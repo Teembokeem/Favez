@@ -107,7 +107,7 @@ renderFavez(fave,index){
       case 'similar':
         return (
           <View contentContainerStyle={styles.Parentcontainer}>
-            {  this.props.similar.map(this.renderCard)}
+            {this.props.similar.map(this.renderCard)}
           </View>
 
         );
