@@ -104,7 +104,9 @@ class SettingsView extends React.Component {
                   <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.settingItem}>
+              <TouchableOpacity
+                onPress={() => Actions.ManageBlock()}
+                style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <Text style={styles.settingItemText}>Blocked & Hidden</Text>
                 </View>
