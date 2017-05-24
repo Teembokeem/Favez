@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, Button, Animated, Dimensions, Platform, TouchableOpacity, Image, ScrollView, TextInput, ActivityIndicator, Alert} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import * as SearchModalState from './searchModalState';
 
@@ -43,6 +43,7 @@ export default class extends React.Component {
   }
 
   handleKeyDown(e) {
+    Alert.alert("vff");
     if (e.nativeEvent.key == "Enter"){
       if(!!this.state.query) this.props.dispatch(SearchModalState.doSearch(this.state.query));
     }

@@ -47,8 +47,12 @@ import {
     UPLOAD_LIST_IMAGE_PREFETCHED,
     UPLOAD_LIST_IMAGE_PREFETCHED_FAIL,
     LIST_CREATE_RELATION_FAILURE,
+    GET_COMMENTS_BY_LIST_REQUEST,
     GET_COMMENTS_BY_LIST_SUCCESS,
-    GET_COMMENTS_BY_LIST_FAILURE
+    GET_COMMENTS_BY_LIST_FAILURE,
+    POST_COMMENTS_BY_LIST_SUCCESS,
+    POST_COMMENTS_BY_LIST_FAILURE,
+    commentsByListActionRes,
 } from './listActions';
 import {
     requestCreateFave
@@ -141,8 +145,20 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'imageStatus'], 'uploadFailed');
     case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
         return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
+        case GET_COMMENTS_BY_LIST_REQUEST:
+        console.log("dfce",action);
+            return loop(state.set('loading', true), Effects.promise(() => commentsByListActionRes(action.payload)));
+
     case GET_COMMENTS_BY_LIST_SUCCESS:
         return state.set('loading', false).set('commentsByList', action.payload.data);
+    case POST_COMMENTS_BY_LIST_SUCCESS:
+    let newComment= {};
+    newComment.content = action.content;
+    newComment.username = action.currUser.favez.username ;
+    newComment.id= action.payload.data[0].id;
+    newComment.image = action.currUser.favez.image;
+    newComment.author = action.currUser.favez.id;
+     return state.set('commentsByList', [...state.get("commentsByList"), newComment]);
     case LIST_LOAD_DATA_TO_EDIT:
         return state.setIn(['current', 'image'], action.payload.image)
           .setIn(['current', 'selectedCountry'], action.payload.location)
@@ -162,6 +178,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEARCH_RESULT_FAILURE:
     case GET_COMMENTS_BY_LIST_FAILURE:
     case LIKE_UNLIKE_LIST_ITEM_FAILURE:
+    case POST_COMMENTS_BY_LIST_FAILURE:
         return state.set('ERROR', action).set('loading', false);
     default:
         return state;

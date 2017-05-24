@@ -272,6 +272,7 @@ const ProfileView = React.createClass({
                           view={'profileView'}
                           setFilter={this.setFilter}
                           selected={selectedTab}
+
                           tabs={tabs}/>
                         <View style={styles.contentContainer}>
                             {child}

@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 
 function ListFooter({list, onUserAction, userActionData}) {
-  
+
 
   return (
      <View
@@ -37,7 +37,7 @@ function ListFooter({list, onUserAction, userActionData}) {
 
       <TouchableOpacity
         style={styles.ListFooterCommentsContainer}
-        onPress={Actions.listComments}
+        onPress={()=> Actions.listComments({listId: list.id})}
       >
         <EntypoIcon style={styles.ListFooterComments} name='message'/>
       </TouchableOpacity>

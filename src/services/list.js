@@ -48,3 +48,9 @@ export function listSave(listData) {
 export  function commentsByList(id){
   return get(`/comments/list/${id}`);
   }
+
+//Post Comments on List
+export function postCommentOnList(content, listId){
+  return post(`comments`,{content: content, list_id: listId, parent: 0});
+
+}

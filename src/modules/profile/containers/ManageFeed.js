@@ -116,12 +116,14 @@ class ManageFeedList extends React.Component {
           </View>
           <Header title={'MANAGE \nFEED'} />
           <Divider />
+            <View style={{height: 30}}>
           <HeaderTabs
             view={'manageFeed'}
             setFilter={this.setFilter.bind(this)}
             selected={selectedTab}
             tabs={tabs}
           />
+      </View>
         </View>
         <ScrollView contentContainerStyle={styles.container}>
           {this.renderTabPanels()}
