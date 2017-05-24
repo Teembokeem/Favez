@@ -111,25 +111,26 @@ const initialState = fromJS({
   value: 0,
   loading: false,
   topic: null,
+  tag: null,
   selected: 'lists'
 });
 
 // Actions
 const SET_FILTER = 'ListShowState/SET_FILTER';
-const SET_TOPIC = 'ListShowState/SET_TOPIC';
-const RESET_TOPIC = 'ListShowState/RESET_TOPIC';
+const SEARCH_BY_TOPIC = 'ListShowState/SEARCH_BY_TOPIC';
+const SEARCH_BY_TAG = 'ListShowState/SEARCH_BY_TAG';
 
 // Action creators
 export function setFilter(value) {
   return {type: SET_FILTER, payload: value};
 }
 
-export function setTopic(value) {
-  return {type: SET_TOPIC, payload: value};
+export function searchByTopic(value) {
+  return {type: SEARCH_BY_TOPIC, payload: value};
 }
 
-export function resetTopic(value) {
-  return {type: RESET_TOPIC};
+export function searchByTag(value) {
+  return {type: SEARCH_BY_TAG, payload: value};
 }
 
 // Reducer
@@ -138,15 +139,16 @@ export default function FeedStateReducer(state = initialState, action = {}) {
     case SET_FILTER:
       return state
         .set('selected', action.payload);
-    case SET_TOPIC:
-      //return state.set('topic', action.payload);
-      //state.set('topic', action.payload);
+    case SEARCH_BY_TOPIC:
       return loop(
-        state.set('topic', action.payload),
+        state.set('topic', action.payload).set('tag', null),
         Effects.promise(() => ListActions.requestListByTopic(action.payload))
       );
-    case RESET_TOPIC:
-      return state.set('topic', null);
+    case SEARCH_BY_TAG:
+      return loop(
+        state.set('topic', null).set('tag', action.payload),
+        Effects.promise(() => ListActions.requestListByTag(action.payload))
+      );
     default:
       return state;
   }

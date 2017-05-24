@@ -22,6 +22,8 @@ import {
     LIST_SET_SELECTED_COUNTRY,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
+    LIST_BY_TAG_SUCCESS,
+    LIST_BY_TAG_FAILURE,
     LIST_LOAD_DATA_TO_EDIT,
     LIKE_UNLIKE_LIST_ITEM,
     LIKE_UNLIKE_LIST_ITEM_SUCCESS,
@@ -71,6 +73,7 @@ const initialState = fromJS({
     inviteList: [],
     loading: true,
     listByTopics: [],
+    listByTags: [],
     searchedLists: [],
     recentSubscribedList: {
         id: -1,
@@ -114,6 +117,8 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'selectedCountry'], action.payload);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
+    case LIST_BY_TAG_SUCCESS:
+        return state.set('loading', false).set('listByTags', action.payload.data);
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
     case LIKE_UNLIKE_LIST_ITEM:
@@ -156,6 +161,7 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_FAILURE:
     case LIST_BY_TOPIC_FAILURE:
+    case LIST_BY_TAG_FAILURE:
     case LIST_SAVE_FAILURE:
     case LIST_DELETE_RELATION_FAILURE:
     case GET_LIST_BY_RELATION_FAILURE:
