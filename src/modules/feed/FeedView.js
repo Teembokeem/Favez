@@ -18,11 +18,13 @@ const FeedView = React.createClass({
   propTypes: {},
   componentWillMount() {
     this.props.dispatch(FavezActions.requestFullFave());
-    // this line needs work..... break shit
-    // this.props.dispatch(ListActions.getMyLists());
-    this.props.dispatch(FavezActions.getSelffavez());
     this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-    if (this.props.user.favez) this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
+    
+    if (this.props.user.favez) {
+      this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
+      this.props.dispatch(ListActions.getMyLists());
+      this.props.dispatch(FavezActions.getSelffavez());
+    }
   },
   componentDidMount() { },
 
