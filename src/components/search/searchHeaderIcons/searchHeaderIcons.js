@@ -20,13 +20,7 @@ const SearchHeaderIcons = React.createClass({
           style={styles.headerLeftButton}
           onPress={() => showTopics()}
       >
-          <IoniconIcon style={styles.headerLeftButtonIcon} name='md-list-box'/>
-      </TouchableOpacity>
-      <View style={styles.flexMiddle} />
-      <TouchableOpacity
-          style={styles.headerRightButton}
-      >
-          <IoniconIcon style={styles.headerRightButtonIcon} name='ios-more'/>
+          <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
       </TouchableOpacity>
     </View>
     );
@@ -45,7 +39,7 @@ const styles = StyleSheet.create({
   headerLeftButton: {
     flex: 1,
     padding: 10,
-    alignItems: 'center'
+    justifyContent: 'flex-start'
   },
   flexMiddle: {
     flex: 6

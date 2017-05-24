@@ -29,7 +29,6 @@ const SearchHeader = React.createClass({
                 style={styles.headerSearchBar}
             >
                 <FontAwesomeIcon style={styles.searchBarIcon} name="search"/>
-
             </TouchableOpacity>
         </View>
         );

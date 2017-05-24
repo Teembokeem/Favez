@@ -72,7 +72,6 @@ const SearchView = React.createClass({
       <View>
         <SearchHeader />
         <Header title={'Topics'} />
-        <LocationSpecifier />
         {categories.map((category, idx) => (<Category key={'category' + idx} category={category} track={index} moving={this.setTopic} />))}
       </View>
     )
@@ -97,7 +96,7 @@ const SearchView = React.createClass({
           }}>
             <HeaderTabs
               setFilter={this.setFilter} selected={selected}
-              tabs={['lists', 'sites', 'products', 'filter']} />
+              tabs={['lists', 'sites', 'filter']} />
           </View>
           {this.renderChildren()}
         </ScrollView>
@@ -188,7 +187,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   TopicHeader: {
-    height: 150,
+    height: 130,
     backgroundColor: 'purple'
   },
   topicTitle: {
@@ -197,8 +196,6 @@ const styles = StyleSheet.create({
     fontSize: 28,
     padding: 10,
     fontWeight: 'bold',
-    marginBottom: 0,
-    marginTop: 15
   },
   contentContainer: {
     // backgroundColor: '#e9e9e9',
