@@ -10,13 +10,9 @@ export function showSubscribedlists(lists, subscribedlists) {
 export function selfFavezLiked(list){
   var new_arr =[];
   for(var i=0;i< list.length; i++){
-    console.log("likes and id",list[i].likes,list[i].id);
-    console.log("new arr sss90909",new_arr);
-
     if(list[i].likes!=null){
       new_arr.push(list[i].id);
     }
-
   }
   return new_arr;
 }
@@ -27,9 +23,7 @@ export function showFollowedlists(followedlists) {
         followed_list.id = followedlists[i].id;
         followed_list.status = true;
         new_arr.push(followed_list);
-
     }
-
     return new_arr;
 
 }

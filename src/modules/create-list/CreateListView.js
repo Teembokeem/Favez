@@ -21,7 +21,6 @@ const FeedView = React.createClass({
 
   componentWillMount() {
 
-    console.log('CREATE_LIST_PROPS', this.props);
     this.loadListData();
   },
 
@@ -99,7 +98,6 @@ const FeedView = React.createClass({
 
   render() {
 
-    console.log('CREATE_LIST_VIEW_PROPS', this.props);
 
     const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;

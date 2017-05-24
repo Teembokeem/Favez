@@ -116,7 +116,23 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.set('loading', false).set('listByTopics', action.payload.data);
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
+    case LIKE_UNLIKE_LIST_ITEM:=======
+        case LIST_CREATE_RELATION_SUCCESS:
+            return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
+   case LIST_MYLIST_FAILURE:
+    case LIST_GET_DETAILS_FAILURE:
+    case LIST_SEND_LIST_INVITATIONS_FAILURE:
+    case LIST_CREATE_RELATION_FAILURE:
+    case LIST_BY_TOPIC_FAILURE:
+    case LIST_CREATE_FAILURE:
+    case LIKE_UNLIKE_LIST_ITEM_FAILURE:
+        return state.set('ERROR', action).set('loading', false);
     case LIKE_UNLIKE_LIST_ITEM:
+    break;
+    case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
+        break;
+
+>>>>>>> 14f17f2b5e2d6aa1245ca79b9807b03473a8dd02
       break;
     case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
       break;

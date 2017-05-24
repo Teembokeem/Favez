@@ -14,19 +14,15 @@ const AddFaveBrowseView = React.createClass({
   componentWillMount() {
     // [TD2d] you have access to this.props here
     const {title, url} = this.props.browser;
-    if (this.props.viewList || this.props.viewFave ) {
-      return;
-    } else {
-      this.props.dispatch(UIActions.setBrowserInitialState());
+    if (!this.props.viewList || !this.props.viewFave ) {
+      if (!url) this.props.dispatch(UIActions.setBrowserInitialState());
     }
   },
 
   setBrowserInfo(url, title) {
     if (url) {
       this.props.dispatch(UIActions.setBrowserInfo(url, title));
-    } else {
-      return;
-    }
+    } 
   },
 
   scrapeUrl(url) {

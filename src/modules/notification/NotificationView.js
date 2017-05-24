@@ -67,7 +67,7 @@ const NotificationView = React.createClass({
       <View style={styles.container}>
         <NotificationHeader />
         <Header title={'Notifications'}/>
-        <View>
+        <View style={{height: 30}}>
           <HeaderTabs
             view={'notification'}
             setFilter={this.setFilter}

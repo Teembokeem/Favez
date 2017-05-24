@@ -163,10 +163,8 @@ export function requestOtherUserInfo(userId) {
         comments: res[4].data,
         likes: res[5].data
       }
-      console.log('OTHER_USER_INFO_SUCCESS', payload);
       dispatch({type: GET_OTHER_USER_INFO_SUCCESS, payload: payload});
     }).catch(err => {
-      console.log('OTHER_USER_INFO_LOAD_ERROR', err);
       dispatch({type: GET_OTHER_USER_INFO_FAILURE, payload: err});
     })
   }

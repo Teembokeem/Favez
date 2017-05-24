@@ -56,14 +56,11 @@ export async function createFave(fave) {
 }
 
 export async function requestCreateFave(data) {
-  console.log('Creating fave request............');
   return await favezCreateFave(data)
     .then((res) => {
-      console.log('Faves create success', res);
       return {type: FAVE_CREATE_SUCCESS, payload: res}
     })
     .catch((err) => {
-      console.log(FAVE_CREATE_FAILURE, err);
       return {type: FAVE_CREATE_FAILURE, payload: err}
     });
 }
@@ -83,7 +80,6 @@ export async function getSelffavez(){
 }
 
 export async function LikeFavezAction(action,detailList){
-  console.log("Like favez action called...");
   return await sendLikeFavez(action,detailList)
   .then((res)=>({type: SELF_LIKE_FAVEZ_SUCCESS, payload: res,detailList:detailList}))
   .catch((err)=>({type: SELF_LIKE_FAVEZ_FAILURE, payload: err}));

@@ -10,11 +10,12 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Share,
 } from 'react-native';
 
-function ListFooter({ListId, onUserAction, userActionData}) {
-
+function ListFooter({list, onUserAction, userActionData}) {
+  
 
   return (
      <View
@@ -22,7 +23,7 @@ function ListFooter({ListId, onUserAction, userActionData}) {
      >
       <TouchableOpacity
         style={styles.ListFooterShareContainer}
-        onPress={() => Alert.alert('Share dialog goes here')}
+        onPress={() => _shareText(list)}
       >
         <EntypoIcon style={styles.ListFooterShare} name='share'/>
       </TouchableOpacity>
@@ -43,8 +44,16 @@ function ListFooter({ListId, onUserAction, userActionData}) {
     </View>
   );
 
-  function renderUserActionIcon() {
+  function _shareText(list) {
+        Share.share({
+            message: `Hey! Check out this awesome list from FAVEZ: `,
+            title: list.description
+        }, {
+            dialogTitle: list.description,
+        })
+    }
 
+  function renderUserActionIcon() {
     switch(userActionData.type) {
       case "subscribe_unsubscribe":
         return (

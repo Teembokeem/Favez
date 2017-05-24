@@ -9,7 +9,6 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 
 export default function SubscribedLists({list,key,blockedlist,subscribedlists}) {
-console.log("aaaaaa",list);
 
   return <View style={styles.base}>
     <View style={styles.avatarWrapper}>

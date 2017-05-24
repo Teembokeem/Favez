@@ -45,7 +45,7 @@ function List({list, user, toggleContextMenu, moving, index, showUserProfile,tax
         onSelectTaxonomy={onSelectTaxonomy}
       />
     <ListFooter
-      ListId={list.id}
+      list={list}
       onUserAction={onUserAction}
       userActionData={userActionData} />
     </View>
