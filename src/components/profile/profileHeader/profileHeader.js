@@ -1,6 +1,6 @@
 import React from 'react';
 import {Actions} from 'react-native-router-flux';
-import Ionicon from 'react-native-vector-icons/Ionicons';
+import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import {
   StyleSheet,
   View,
@@ -9,6 +9,8 @@ import {
 } from 'react-native';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
+
+const renderIf = condition => element => condition ? element : null;
 
 const ProfileHeader = React.createClass({
 
@@ -19,13 +21,19 @@ const ProfileHeader = React.createClass({
   render() {
     return (
     <View style={[styles.ProfileHeader]}>
-        <View
-          style={styles.flex1}
-        >
+        <View style={styles.flex1}>
+          {renderIf(!this.props.self)(
+            <TouchableOpacity
+                style={styles.headerLeftButton}
+                onPress={() => Actions.pop()}>
+                <IoniconIcon style={styles.headerButtonIcon} name='md-arrow-round-back'/>
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.flex2}>
           <TouchableOpacity
-              style={styles.headerRightButton}
-          >
-              <Ionicon style={styles.headerRightButtonIcon} name="ios-settings"/>
+              style={styles.headerRightButton} >
+              <IoniconIcon style={styles.headerButtonIcon} name="ios-settings"/>
           </TouchableOpacity>
         </View>
     </View>
@@ -35,41 +43,35 @@ const ProfileHeader = React.createClass({
 
 const styles = StyleSheet.create({
   ProfileHeader: {
-    // alignItems: 'center',
     backgroundColor: Platform.OS === 'ios' ? '#FFFFFF' : '#FFFFFF',
-    // borderBottomColor: 'rgba(0, 0, 0, .15)',
-    // borderBottomWidth: Platform.OS === 'ios' ? StyleSheet.hairlineWidth : 0,
     elevation: 4,
-    // flex: 1,
     width: 375,
     flexDirection: 'row',
-    justifyContent: 'flex-start',
+    alignItems: 'center',
     paddingTop: STATUSBAR_HEIGHT,
     height: APPBAR_HEIGHT
   },
   flex1: {
-    height: 35,
     flex: 1,
-    paddingLeft: 20
-  },
-  headerLeftButtonIcon: {
-    width: 35,
-    fontSize: 30,
-    color: '#000000',
-    alignSelf: 'flex-start'
+    paddingLeft: 20,
+    alignItems: 'flex-start'
   },
   flex2: {
     flex: 1,
-    paddingRight: 20
+    paddingRight: 20,
+    alignItems: 'flex-end'
   },
-  headerRightButtonIcon: {
+  headerLeftButton: {
+    alignSelf: 'flex-start'
+  },
+  headerRightButton: {
+    alignSelf: 'flex-end'
+  },
+  headerButtonIcon: {
     height: 35,
     width: 35,
-    fontSize: 25,
-    // top: 30,
-    // margin: 10,
-    color: '#000000',
-    alignSelf: 'flex-end'
+    fontSize: 30,
+    color: '#000000'
   },
   placeHolder: {
     marginLeft: 20

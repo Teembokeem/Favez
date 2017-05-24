@@ -252,7 +252,7 @@ const ProfileView = React.createClass({
 
         return (
             <View style={styles.container}>
-                <ProfileHeader/>
+                <ProfileHeader self={authIsSelf} />
                 { this.props.loading ? (
                       <View style={styles.loaderContainer}>
                         <ActivityIndicator style={styles.centered} />
