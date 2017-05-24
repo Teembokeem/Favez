@@ -54,6 +54,7 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_SEARCH_RESULT_FALIURE:
       return state.set('ERROR', action);
       case SELF_FAVEZ_SUCCESS:
+      console.log("self favez successsss", action);
       return state
       .set('loading', false)
       .set('selfFavez',action.payload.data)
@@ -66,8 +67,14 @@ export default function FaveReducer(state = initialState, action = {}) {
             });
           let selfFavezArr = state.get("selfFavez");
             let faveToUpdate = selfFavezArr[indexOfListToUpdate];
+            if(faveToUpdate){
+
+
             faveToUpdate.likes = 1;
 return state.set('selfFavez',[...selfFavezArr.slice(0,indexOfListToUpdate),faveToUpdate, ...selfFavezArr.slice(indexOfListToUpdate+1)]);
+}else{
+              return state.set('selfFavez', [...state.get("selfFavez"), action.detailList]);
+}
       break;
       case SELF_LIKE_FAVEZ_FAILURE:
       break;
