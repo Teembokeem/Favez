@@ -9,14 +9,17 @@ import {
 } from 'react-native';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
-function Line({fave, browseFave, index,liked,likeUnlike,favezLikeUnlikeAction}) {
+function Line({fave, browseFave, index,liked,likeUnlike,favezLikeUnlikeAction,loggedIn}) {
   function likeme(){
-    Alert.alert("Like me called..");
+
     likeUnlike("like");
   }
   function unlikeme(){
-    Alert.alert("UnLike me called...");
+
     likeUnlike("unlike");
+  }
+  function LoginAlert(){
+    Alert.alert("Please Login to Like or Unlike a Favez. ");
   }
   const user = (fave.user && fave.user.length) ? fave.user : {f1: 'Unknown'}
   return (
@@ -25,7 +28,7 @@ function Line({fave, browseFave, index,liked,likeUnlike,favezLikeUnlikeAction}) 
         {/*TODO: grab user image? <Image />*/}
         <Text style={styles.FaveUsername}>@{user.f1}: </Text>
         <Text style={styles.FaveUserDescription}>{fave.description ? fave.description : ''}</Text>
-        <TouchableOpacity    onPress={() =>   liked ? favezLikeUnlikeAction("unlike",fave.id,fave) : favezLikeUnlikeAction("like",fave.id,fave)  }>
+        <TouchableOpacity    onPress={() =>  loggedIn ? (liked ? favezLikeUnlikeAction("unlike",fave.id,fave) : favezLikeUnlikeAction("like",fave.id,fave) ) :   LoginAlert() }>
           <FontAwesomeIcon name={liked ? "thumbs-up" : "thumbs-o-up" } style={styles.thumbIcon}/>
 
 
