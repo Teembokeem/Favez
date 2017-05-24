@@ -3,25 +3,31 @@ import React from 'react';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import EntypoIcon from 'react-native-vector-icons/Entypo';
 import card from './card';
-import {NavigationExperimental,TouchableOpacity, StyleSheet, View, Alert} from 'react-native';
+import {NavigationExperimental,TouchableOpacity, StyleSheet, View, Alert, Share} from 'react-native';
 const {PropTypes: NavigationPropTypes} = NavigationExperimental;
 
 const CardActions = React.createClass({
     displayName: 'CardActions',
-    propTypes: {
-        // tabs: NavigationPropTypes.navigationState.isRequired,
-        // height: PropTypes.number.isRequired,
-        // currentTabIndex: PropTypes.number.isRequired,
-        // switchTab: PropTypes.func.isRequired
-    },
+    
     likeus() {
         this.props.actions("like");
     },
 
+    _shareText(card) {
+        Share.share({
+            message: `Hey! Check out this awesome link from FAVEZ: `,
+            url: card.link,
+            title: card.name
+        }, {
+            dialogTitle: card.description,
+        })
+    },
+
     render() {
+        const {card} = this.props
         return (
             <View style={styles.cardActionContainer}>
-                <TouchableOpacity onPress={() => Alert.alert('Share dialog goes here')} style={{marginTop: 0}}>
+                <TouchableOpacity onPress={() => this._shareText(card)} style={{marginTop: 0}}>
                     <EntypoIcon style={styles.cardActionLeft} name='share'/>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => Alert.alert('Subscribe and save fave goes here')} style={{marginTop: 0}}>

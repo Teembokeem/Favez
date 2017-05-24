@@ -2,7 +2,7 @@ import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
+function ListBody({name, index, moving, topics, tags,taxonomy,id, onSelectTaxonomy}) {
 
     // [TD3e]
 
@@ -19,9 +19,10 @@ function ListBody({name, index, moving, topics, tags,taxonomy,id}) {
               {taxonomy ? taxonomy.map((taxonomy,index) =>(
                 <View
                   style={styles.ListBodyTopicContainer}
-                  key={'taxonomy ' + index}
-                >
-                    <Text style={styles.ListBodyTopic}>{`#${taxonomy.taxonomy.toUpperCase()}`}</Text>
+                  key={'taxonomy ' + index} >
+                    <Text style={styles.ListBodyTopic} onPress={() => onSelectTaxonomy(taxonomy.taxonomy)}>
+                      {`#${taxonomy.taxonomy.toUpperCase()}`}
+                    </Text>
                 </View>
                 )) : null}
             </View>

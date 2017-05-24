@@ -7,6 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import {change} from 'redux-form';
 import UserActions from '../../redux/user/userActions';
 import ImagePicker from '../../components/create-list/imagePicker/imagePicker';
 import Header from '../../components/globals/header/header';
@@ -19,11 +20,28 @@ const FeedView = React.createClass({
   propTypes: {},
 
   componentWillMount() {
+
+    this.loadListData();
+  },
+
+  loadListData() {
+
+    if(this.props.listData) {
+      let listData = this.props.listData;
+      listData.tags = [];
+      listData.topics = [];
+      if(listData.taxonomy) listData.taxonomy.map(data => {
+        if(!!data.taxonomy) listData.topics.push(data.taxonomy)
+      });
+      listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
+      this.props.dispatch(ListActions.loadListToEdit(listData));
+      this.props.dispatch(change('createList','name', listData.name));
+    }
   },
 
   createList(values) {
     const {options, inviteList, countryPicker, currentList} = this.props;
-    const {description, tags, topics, priv, nsfw} = options;
+    const {description, tags, topics, priv, nsfw} = Utils.toJS(options);
     const { visible, set } = countryPicker;
     let selectedCountry = Utils.getCountryByCode(currentList.selectedCountry, set);
     let listObj = Object.assign(values, {
@@ -36,13 +54,11 @@ const FeedView = React.createClass({
       bg_image: this.props.currentList.image
     });
 
-    console.log('CREATE_LIST_DATA_TO_SUBMIT', listObj);
 
     this.props.dispatch(ListActions.requestCreateList({
       listData: listObj,
       inviteData: inviteList
     }, (data) => {
-      console.log('List create success',data);
       if(data.successStatus) Actions.pop();
     }));
   },
@@ -78,7 +94,6 @@ const FeedView = React.createClass({
 
   render() {
 
-    console.log('CREATE_LIST_VIEW_PROPS', this.props);
 
     const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;

@@ -10,61 +10,29 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Share,
 } from 'react-native';
 
-function ListFooter({search, subscribe,loggedInUser,subscribed, ListId}) {
+function ListFooter({list, onUserAction, userActionData}) {
+  
 
-  function ifUserLoggedIn(actionName){
-
-
-      if(!loggedInUser.auth0){
-        Alert.alert("Please Login to Subcribe a List.");
-        Actions.login();
-
-
-
-      }else{
-        if(actionName==='subscribe'){
-          SubscribeMe();
-        }else{
-          UnsubscribeMe();
-        }
-
-      }
-  }
-
-
-function toJS(immutable) {
- if (immutable.toJS) {
-   return immutable.toJS()
- }
- return immutable;
-}
-  function SubscribeMe() {
-
-      subscribe("subscribeme");
-  }
-  function UnsubscribeMe() {
-
-      subscribe("unsubscribe");
-  }
   return (
      <View
       style={styles.ListFooterContainer}
      >
       <TouchableOpacity
         style={styles.ListFooterShareContainer}
-        onPress={() => Alert.alert('Share dialog goes here')}
+        onPress={() => _shareText(list)}
       >
         <EntypoIcon style={styles.ListFooterShare} name='share'/>
       </TouchableOpacity>
 
       <TouchableOpacity
-         onPress={() => search ? ( subscribed ? ifUserLoggedIn("unsubscribe") : ifUserLoggedIn("subscribe") ) : null}
+         onPress={() => onUserAction() }
         style={styles.ListFooterSettingsContainer}
       >
-         <Ionicon style={styles.ListFooterSettings} name={search ? (subscribed ? "ios-bookmark" : "ios-bookmark-outline") : "ios-settings"}/>
+        {renderUserActionIcon()}
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -75,6 +43,32 @@ function toJS(immutable) {
       </TouchableOpacity>
     </View>
   );
+
+  function _shareText(list) {
+        Share.share({
+            message: `Hey! Check out this awesome list from FAVEZ: `,
+            title: list.description
+        }, {
+            dialogTitle: list.description,
+        })
+    }
+
+  function renderUserActionIcon() {
+    switch(userActionData.type) {
+      case "subscribe_unsubscribe":
+        return (
+          <Ionicon style={styles.ListFooterSettings}
+            name={userActionData.data ? "ios-bookmark" : "ios-bookmark-outline"}/>
+        )
+      case "user_collabs":
+        break;
+      case "edit_list":
+        return (
+          <Ionicon style={styles.ListFooterSettings} name={"ios-settings"}/>
+        )
+    }
+
+  }
 }
 
 const styles = StyleSheet.create({

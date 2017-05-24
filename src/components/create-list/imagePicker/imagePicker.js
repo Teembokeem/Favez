@@ -14,7 +14,6 @@ const renderIf = cond => elm => cond ? elm : null;
 
 function ImagePicker({pickListImage, listImageUri, imageStatus}) {
 
-  console.log('IMAGE_PICKER, imageStatus='+imageStatus);
   return (
     <View
       style={styles.ImagePickerContainer}

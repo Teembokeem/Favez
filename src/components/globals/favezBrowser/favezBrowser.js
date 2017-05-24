@@ -207,7 +207,8 @@ const ListShowHeader = React.createClass({
           : (
             <WebView
               todo={'[TD2c]'}
-              onNavigationStateChange={(webView) => scraped ? '' : setBrowserInfo(webView.url, webView.title)}
+              // this line is breaking things
+              // onNavigationStateChange={(webView) => scraped ? null : setBrowserInfo(webView.url, webView.title)}
               source={sourceDelegator}
               style={styles.FaveBrowser}
             />

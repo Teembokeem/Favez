@@ -13,10 +13,12 @@ function CardHeader({card, moving, track, subscribe, subscribed}) {
         subscribe("unsubscribe");
     }
     return (
-        <View style={styles.cardHeader}>
-            <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}
-            </Text>
-        </View>
+        <Image style={styles.cardImage} source={ (card.list && card.list[0].bg_image) ? card.list[0].bg_image : require('../../../../images/buttons/rainbow.png')}>
+            <View style={styles.cardHeader}>
+                <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}
+                </Text>
+            </View>
+        </Image>
     );
 };
 
@@ -26,11 +28,16 @@ const styles = StyleSheet.create({
         paddingLeft: 7,
         paddingRight: 14,
         justifyContent: 'center',
-        backgroundColor: 'gray',
-        width: 345,
+        width: 360,
         flex: 1,
         flexDirection: 'row',
         alignItems: 'flex-start'
+    },
+    cardImage: {
+        flex: 1,
+        resizeMode: 'cover',
+        width: 360,
+        height: 50,
     },
     cardHeaderText: {
         backgroundColor: 'transparent',
@@ -63,7 +70,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     cardUserUnSubscribe: {
-
         color: 'black',
         marginLeft: 30,
         paddingTop: 10,

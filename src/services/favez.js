@@ -13,14 +13,11 @@ export async function favezSearchByQuery(query) {
 }
 
 export async function getFavezSelf(){
-  console.log("oddpocpd");
   return get('/favez/self');
 }
-export async function sendUnLikeFavez(action,detailList) {
-console.log("unlike favez id", action);
-    return post('/favez/unlike', { fave_id: action });
+export async function sendUnLikeFavez(action, detailList) {
+  return post('/favez/unlike', { fave_id: action });
 }
-export async function sendLikeFavez(action,detailList) {
-console.log("like favez id", action);
-    return post('/favez/like', { fave_id: action });
+export async function sendLikeFavez(action, detailList) {
+  return post('/favez/like', { fave_id: action });
 }

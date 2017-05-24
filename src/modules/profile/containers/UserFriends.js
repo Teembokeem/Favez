@@ -120,7 +120,6 @@ class UserFriendsView extends React.Component {
 
   render() {
     const {tabs, selectedTab, loading} = this.props;
-    console.log('USER_FRIENDS_PROPS', this.props);
     return (
       <View style={styles.base}>
           <View style={styles.header}>

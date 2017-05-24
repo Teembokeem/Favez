@@ -63,8 +63,15 @@ const ProfileView = React.createClass({
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
+<<<<<<< HEAD
+                      index={index}
+                      onSelectTaxonomy={this.onSelectTaxonomy}
+                      onUserAction={()=> this.onEditList(list)}
+                      userActionData={{type:'edit_list'}} />
+=======
         showUserProfile={() => this.showUserProfile(list.owner)}
                       index={index} />
+>>>>>>> mani_dev
                 ))
               );
             }else{
@@ -72,8 +79,6 @@ const ProfileView = React.createClass({
                 <View style={styles.noResultContainer}>
                 <Text style={styles.noResultText}>There are No Lists yet.</Text>
                 </View>
-
-
               );
             }
 
@@ -83,8 +88,19 @@ const ProfileView = React.createClass({
               return(
                 this.props.userDetail.collabs.map((list,index) =>(
 
+<<<<<<< HEAD
+                  <List
+                    list={list}
+                    user={userDetail.info}
+                    taxonomy={list.taxonomy}
+                    key={'list ' + index}
+                    onSelectTaxonomy={this.onSelectTaxonomy}
+                    userActionData={{type:'user_collabs'}}
+                    ></List>
+=======
                   <List list={list} user={userDetail.info} taxonomy={list.taxonomy}                       moving={this.moving}  key={'list ' + index}></List>
 
+>>>>>>> mani_dev
 
                 )));
 
@@ -99,7 +115,37 @@ const ProfileView = React.createClass({
             }
             break;
             case 'subscriptions':
+              if(this.props.userDetail.subscriptions.length > 0){
+                return (this.props.userDetail.subscriptions.map((list, index) => (
 
+<<<<<<< HEAD
+                    <List
+                      list={list}
+                      user={list.owner[0]}
+                      taxonomy={list.taxonomy}
+                      key={'list ' + index}
+                      onSelectTaxonomy={this.onSelectTaxonomy}
+                      userActionData={{type:'subscribe_unsubscribe'}}></List>
+                )));
+
+              }else{
+                return(
+                  <View>
+                    <Text>There are No Subscriptions yet.</Text>
+                  </View>
+                );
+              }
+              break;
+            case 'likes':
+              if(this.props.userDetail.likes.length > 0){
+                  return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+              }else{
+                <View>
+                  <Text>There are No Likes yet.</Text>
+                </View>
+              }
+              break;
+=======
 if(this.props.userDetail.subscriptions.length > 0){
   return (this.props.userDetail.subscriptions.map((list, index) => (
 
@@ -131,6 +177,7 @@ if(this.props.userDetail.subscriptions.length > 0){
             }
 
                 break;
+>>>>>>> mani_dev
             case 'comments':
 
             if(userDetail.comments.length > 0){
@@ -177,6 +224,10 @@ if(this.props.userDetail.subscriptions.length > 0){
             default:
                 return null;
         }
+    },
+
+    onEditList(list) {
+      Actions.createList({listData: list});
     },
 
     setFilter(val,tab) {
@@ -229,9 +280,12 @@ if(this.props.userDetail.subscriptions.length > 0){
       Actions.userFriends({userId});
     },
 
+    onSelectTaxonomy(taxonomy) {
+      Actions.search({taxonomy});
+    },
+
     render() {
 
-        console.log('PROFILE_VIEW_PROPS', this.props);
 
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? Utils.toJS(this.props.userDetail).info : this.props.user;

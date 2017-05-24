@@ -57,6 +57,7 @@ export const GET_LIST_BY_RELATION_SUCCESS ='GET_LIST_BY_RELATION_SUCCESS';
 export const GET_LIST_BY_RELATION_FAILURE = 'GET_LIST_BY_RELATION_FAILURE';
 export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
 export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
+export const LIST_LOAD_DATA_TO_EDIT = 'LIST_LOAD_DATA_TO_EDIT';
 export const SUBSCRIBE_LIST = 'SUBSCRIBE_LIST';
 export const UNSUBSCRIBE_LIST = 'UNSUBSCRIBE_LIST';
 
@@ -207,18 +208,26 @@ export async function sendListLikeDislike(data){
 
 //Action for POST list relationship
 export async function createlistRelationAction(id,relationid,detailList){
-  return await createlistRelation(id,relationid)
-   .then((res)=> ({type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}))
-   .catch((err)=>({type:LIST_CREATE_RELATION_FAILURE, payload: err}));
+  return await createlistRelation(detailList.id,relationid)
+   .then((res)=> {
+     return {type:LIST_CREATE_RELATION_SUCCESS , payload: res,detailList:detailList}
+   })
+   .catch((err)=>{
+     return {type:LIST_CREATE_RELATION_FAILURE, payload: err}
+   });
 
 }
 
 //Action for Delete list relationship
 export async function deleteListRelationAction(id,relationid,detailList){
 
-  return await deleteListRelation(id,relationid)
-  .then((res)=>({type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}))
-  .catch((err)=>({type:LIST_DELETE_RELATION_FAILURE, payload: err}));
+  return await deleteListRelation(detailList.id,relationid)
+  .then((res)=>{
+    return {type:LIST_DELETE_RELATION_SUCCESS,payload: res,detailList:detailList}
+  })
+  .catch((err)=>{
+    return {type:LIST_DELETE_RELATION_FAILURE, payload: err}
+  });
 }
 
 //Action for getting list by relaitonship
@@ -237,7 +246,7 @@ export async function requestSendInvites(data) {
 }
 
 export async function requestListByTopic(data) {
-  return await getListByTopic(data)
+  return await getListByTopic(data.ref)
     .then((res) => {
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
@@ -308,4 +317,22 @@ export async function commentsByListAction(id) {
       return {type: GET_COMMENTS_BY_LIST_SUCCESS, payload: res}
     })
     .catch((err) => ({type: GET_COMMENTS_BY_LIST_FAILURE, payload: err}));
+}
+
+export function loadListToEdit(list) {
+
+  return {
+    type: LIST_LOAD_DATA_TO_EDIT,
+    payload: {
+      image: list.bg_image,
+      options: {
+        description: list.description,
+        priv: list.private == 0 ? false : true,
+        nsfw: list.nsfw == 0 ? false : true,
+        tags: list.tags,
+        topics: list.topics,
+      },
+      location: list.countryCode
+    }
+  }
 }

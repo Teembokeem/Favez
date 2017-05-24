@@ -117,6 +117,7 @@ const initialState = fromJS({
 // Actions
 const SET_FILTER = 'ListShowState/SET_FILTER';
 const SET_TOPIC = 'ListShowState/SET_TOPIC';
+const RESET_TOPIC = 'ListShowState/RESET_TOPIC';
 
 // Action creators
 export function setFilter(value) {
@@ -125,6 +126,10 @@ export function setFilter(value) {
 
 export function setTopic(value) {
   return {type: SET_TOPIC, payload: value};
+}
+
+export function resetTopic(value) {
+  return {type: RESET_TOPIC};
 }
 
 // Reducer
@@ -140,6 +145,8 @@ export default function FeedStateReducer(state = initialState, action = {}) {
         state.set('topic', action.payload),
         Effects.promise(() => ListActions.requestListByTopic(action.payload))
       );
+    case RESET_TOPIC:
+      return state.set('topic', null);
     default:
       return state;
   }

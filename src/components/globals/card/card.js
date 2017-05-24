@@ -54,6 +54,7 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           card={card}
         />
         <CardActions
+          card={card}
           actions={(action)=> userAction(action,card.id)}
         />
     </View>

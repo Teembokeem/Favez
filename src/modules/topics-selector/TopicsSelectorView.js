@@ -8,6 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import * as Utils from '../../utils/Utils';
 import * as ListActions from '../../redux/list/listActions';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import Header from '../../components/globals/header/header';
@@ -110,7 +111,7 @@ const TopicSelectorView = React.createClass({
 
   render() {
     const {options} = this.props;
-    const {topics} = options;
+    const {topics} = Utils.toJS(options);
 
     return (
       <View style={styles.container}>
