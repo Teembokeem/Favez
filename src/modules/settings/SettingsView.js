@@ -41,7 +41,9 @@ class SettingsView extends React.Component {
           <View style={styles.contentContainer}>
 
             <View style={styles.settingsGroup}>
-              <TouchableOpacity style={styles.settingItem}>
+              <TouchableOpacity
+                onPress={() => Actions.invitePeople()}
+                style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <Text style={styles.settingItemText}>Discover & Invite People</Text>
                 </View>
