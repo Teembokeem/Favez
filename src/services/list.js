@@ -42,6 +42,15 @@ export function listCollaborateInvite(listId, userId) {
 export function listCreate(listData) {
   return post('/lists', listData);
 }
+export function listSave(listData) {
+  if(!!listData.list_id) {
+    console.log('LIST_SAVE, url=', `/lists`, listData);
+    return put(`/lists`, listData);
+  } else {
+    console.log('LIST_SAVE, url=', `/lists`, listData);
+    return post('/lists', listData);
+  }
+}
 //Getting comment by list
 export  function commentsByList(id){
     console.log("api call done service",id);

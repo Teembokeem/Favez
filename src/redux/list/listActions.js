@@ -1,10 +1,12 @@
 import {Actions} from 'react-native-router-flux';
+import { fromJS } from 'immutable';
 import ImagePicker from 'react-native-image-picker';
 import {Image} from 'react-native';
 import * as cloudinary from '../../services/cloudinary';
 import {
   getListAll,
   listCreate,
+  listSave,
   listCollaborateInvite,
   listGetMyLists,
   listGetSingleDetailed,
@@ -39,9 +41,9 @@ export const SET_LIST = 'SET_LIST';
 export const LIST_SEND_LIST_INVITATIONS_REQUEST = 'LIST_SEND_LIST_INVITATIONS_REQUEST';
 export const LIST_SEND_LIST_INVITATIONS_SUCCESS = 'LIST_SEND_LIST_INVITATIONS_SUCCESS';
 export const LIST_SEND_LIST_INVITATIONS_FAILURE = 'LIST_SEND_LIST_INVITATIONS_FAILURE';
-export const LIST_CREATE_REQUEST = 'LIST_CREATE_REQUEST';
-export const LIST_CREATE_SUCCESS = 'LIST_CREATE_SUCCESS';
-export const LIST_CREATE_FAILURE = 'LIST_CREATE_FAILURE';
+export const LIST_SAVE_REQUEST = 'LIST_SAVE_REQUEST';
+export const LIST_SAVE_SUCCESS = 'LIST_SAVE_SUCCESS';
+export const LIST_SAVE_FAILURE = 'LIST_SAVE_FAILURE';
 export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
 export const LIST_SET_SELECTED_COUNTRY = 'LIST_SET_SELECTED_COUNTRY';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
@@ -124,18 +126,20 @@ export async function setList(list, index) {
 
 export async function createList(obj) {
   return {
-    type: LIST_CREATE_REQUEST,
+    type: LIST_SAVE_REQUEST,
     payload: obj
   };
 }
 
-export function requestCreateList(data, callback) {
+export function requestSaveList(data, callback) {
 
   const { listData, inviteData } = data;
   return dispatch => {
 
-    dispatch({type: LIST_CREATE_REQUEST});
-    return listCreate(listData).then((res) => {
+    dispatch({type: LIST_SAVE_REQUEST});
+    return listSave(listData).then((res) => {
+
+        console.log('LIST_SAVE_RESPONSE', res);
 
         let list = res.data;
         let users = inviteData;
@@ -147,21 +151,22 @@ export function requestCreateList(data, callback) {
 
         if(promises.length == 0) {
           if(!!callback) callback({successStatus: true});
-          dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+          dispatch({type: LIST_SAVE_SUCCESS, payload: list});
         }
         else {
           Promise.all(promises).then(responses => {
             if(!!callback) callback({successStatus: true});
-            dispatch({type: LIST_CREATE_SUCCESS, payload: list});
+            dispatch({type: LIST_SAVE_SUCCESS, payload: list});
           }).catch(err => {
             if(!!callback) callback({successStatus: false});
-            dispatch({type: LIST_CREATE_FAILURE, payload: err});
+            dispatch({type: LIST_SAVE_FAILURE, payload: err});
           });
         }
 
     }).catch((err) => {
+        console.log('LIST_SAVE_ERROR', err);
         if(!!callback) callback({successStatus: false});
-        return {type: LIST_CREATE_FAILURE, payload: err}
+        return {type: LIST_SAVE_FAILURE, payload: err}
     });
   }
 }
