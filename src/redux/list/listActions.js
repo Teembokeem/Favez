@@ -18,7 +18,8 @@ import {
   deleteListRelation,
   getListbyRelation,
   searchListsByQuery,
-  commentsByList
+  commentsByList,
+  postCommentOnList
 } from '../../services/list';
 
 import {
@@ -73,8 +74,11 @@ export const UPLOAD_LIST_IMAGE_PREFETCHED = "UPLOAD_LIST_IMAGE_PREFETCHED";
 export const UPLOAD_LIST_IMAGE_PREFETCHED_FAIL = "UPLOAD_LIST_IMAGE_PREFETCHED_FAIL";
 
 //Comment List
+export const GET_COMMENTS_BY_LIST_REQUEST = "GET_COMMENTS_BY_LIST_REQUEST";
 export const GET_COMMENTS_BY_LIST_SUCCESS = "GET_COMMENTS_BY_LIST_SUCCESS";
 export const GET_COMMENTS_BY_LIST_FAILURE = "GET_COMMENTS_BY_LIST_FAILURE";
+export const POST_COMMENTS_BY_LIST_SUCCESS ="POST_COMMENTS_BY_LIST_SUCCESS";
+export const POST_COMMENTS_BY_LIST_FAILURE ="POST_COMMENTS_BY_LIST_FAILURE";
 // Action creators
 export function increment(cards, index) {
   Actions.intro();
@@ -331,12 +335,32 @@ export function pickListImage() {
 //Comments by List
 
 export async function commentsByListAction(id) {
+  return {
+    type: GET_COMMENTS_BY_LIST_REQUEST,
+    payload: id
+  };
 
+}
+
+export async function commentsByListActionRes(id) {
   return await commentsByList(id)
     .then((res) => {
       return {type: GET_COMMENTS_BY_LIST_SUCCESS, payload: res}
     })
     .catch((err) => ({type: GET_COMMENTS_BY_LIST_FAILURE, payload: err}));
+
+
+}
+
+
+//Post Comment on a list
+
+export async function postCommentOnListAction(content, listId, currUser){
+  return await postCommentOnList(content,listId)
+  .then((res) => {
+    return {type: POST_COMMENTS_BY_LIST_SUCCESS, payload: res,content: content, currUser: currUser}
+  })
+  .catch((err) => ({type: POST_COMMENTS_BY_LIST_FAILURE, payload: err}));
 }
 
 export function loadListToEdit(list) {

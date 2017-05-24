@@ -116,8 +116,8 @@ const ProfileView = React.createClass({
 
               }else{
                 return(
-                  <View>
-                    <Text>There are No Subscriptions yet.</Text>
+                  <View style={styles.noResultContainer}>
+                    <Text style={styles.noResultText}>There are No Subscriptions yet.</Text>
                   </View>
                 );
               }
@@ -126,8 +126,8 @@ const ProfileView = React.createClass({
               if(this.props.userDetail.likes.length > 0){
                   return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
               }else{
-                <View>
-                  <Text>There are No Likes yet.</Text>
+                <View style={styles.noResultContainer}>
+                  <Text style={styles.noResultText}>There are No Likes yet.</Text>
                 </View>
               }
               break;
@@ -272,6 +272,7 @@ const ProfileView = React.createClass({
                           view={'profileView'}
                           setFilter={this.setFilter}
                           selected={selectedTab}
+
                           tabs={tabs}/>
                         <View style={styles.contentContainer}>
                             {child}

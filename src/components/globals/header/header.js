@@ -6,11 +6,15 @@ import {
   View
 } from 'react-native';
 
-function Header({title}) {
+function Header({title,theme}) {
+  let themeStatus =false;
+  if(theme=='light'){
+    themeStatus=true;
+  }
   return (
     <View style={[styles.header]}>
       <Text
-        style={styles.headerText}
+        style={themeStatus ? styles.headerLightText : styles.headerText}
       >{title.toUpperCase()}</Text>
       <Text
         style={styles.headerSeparator}
@@ -33,6 +37,14 @@ const styles = StyleSheet.create({
     fontSize: 35,
     paddingTop: 10,
     paddingBottom: 5
+  },
+  headerLightText: {
+    fontFamily: 'Hind-Bold',
+    lineHeight: 40,
+    fontSize: 35,
+    paddingTop: 10,
+    paddingBottom: 5,
+    color: 'white'
   },
   headerSeparator: {
     textAlign: 'center',

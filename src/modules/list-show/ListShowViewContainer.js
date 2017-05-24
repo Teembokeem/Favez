@@ -13,7 +13,8 @@ export default connect(
       loading: state.getIn(['listShow', 'loading']),
       selected: state.getIn(['listShow', 'selected']),
       similar: state.getIn(['listShow', 'similar']),
-      selfFavez: state.getIn(['fave', 'selfFavez'])
+      selfFavez: state.getIn(['fave', 'selfFavez']),
+      userLoggedIn: state.getIn(['user','user'])
     };
   }
 )(ListShowView);

@@ -63,6 +63,10 @@ renderFavez(fave,index){
   var liked
   if (selfFavezLikedIds.indexOf(fave.id) > -1) liked = true;
   else liked = false;
+  let loggedIn= false;
+  if(!!this.props.userLoggedIn && this.props.userLoggedIn.auth0) {
+    loggedIn= true;
+  }
 
 
   return(
@@ -73,6 +77,7 @@ renderFavez(fave,index){
       browseFave={this.browseFave}
       key={'fave ' + index}
       favezLikeUnlikeAction={this.userLikeUnlike}
+      loggedIn={loggedIn}
     />
 
 

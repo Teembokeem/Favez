@@ -96,12 +96,14 @@ return (
             </TouchableOpacity>
             <Header title={'BLOCKED & \nHIDDEN'}/>
             <Divider />
+              <View style={{height: 30}}>
               <HeaderTabs
                 view={'manageBlock'}
                 setFilter={this.setFilter.bind(this)}
                 selected={selectedTab}
                 tabs={tabs}
               />
+          </View>
           </View>
             <ScrollView contentContainerStyle={styles.container}>
               {this.renderTabPanels()}
