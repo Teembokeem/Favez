@@ -98,22 +98,36 @@ renderFavez(fave,index){
           this.props.list._favez.map(this.renderFavez)
 
         )
-        : (null);
+        : (
+          <View style={styles.noResultContainer}>
+            <Text style={styles.noResultText}> This list currently has no Favez.</Text>
+          </View>
+
+        );
       case 'similar':
         return (
-          this.props.similar.map((fave, index) => (
-              <Card
-                key={'fave ' + index}
-                card={fave}
-                track={index}
-                moving={this.moving}
+          <View contentContainerStyle={styles.Parentcontainer}>
+            {this.props.similar.map(this.renderCard)}
+          </View>
 
-            />
-          ))
         );
       default :
         return null;
     }
+  },
+  renderCard(){
+    return(
+      this.props.similar.map((fave, index) => (
+          <Card
+            key={'fave ' + index}
+            card={fave}
+            track={index}
+            moving={this.moving}
+
+
+        />
+      ))
+    );
   },
 
 
@@ -152,12 +166,15 @@ renderFavez(fave,index){
           contentContainerStyle={styles.contentContainer}
         >
           <Header title={list.name}/>
+
           <HeaderTabs
             view={'listShow'}
             setFilter={this.setFilter}
             selected={selectedTab}
             tabs={tabs}
+
           />
+
           {this.renderChildren()}
         {/*<Text>{list.description}</Text>*/}
         </ ScrollView>
@@ -170,6 +187,17 @@ renderFavez(fave,index){
 })
 
 const styles = StyleSheet.create({
+  noResultContainer:{
+    padding: 10,
+    marginTop: 10,
+  },
+  noResultText:{
+    padding: 10,
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Hind-Regular'
+  },
   container: {
     // flexGrow: 1,
     backgroundColor: 'white',
@@ -182,6 +210,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1
     // justifyContent: 'center'
+  },
+  Parentcontainer:{
+    backgroundColor: '#fff',
+    paddingTop: 20,
+    paddingBottom: 50,
+    alignItems: 'center',
+    marginLeft: 3,
+    marginRight: 3
+
   },
   ListBackgroundImageContainer: {
     position: 'absolute',

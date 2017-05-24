@@ -22,7 +22,8 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 
 const LoginForm = props => {
-  const {handleSubmit, submitting, login} = props;
+  const {handleSubmit, submitting, login, loginAttempt, errorValue } = props;
+
 
   const submit = values => {
     login(values.toJS());
@@ -50,13 +51,16 @@ const LoginForm = props => {
       </View>
       <View style={styles.LoginFormButtonContainer}>
         <TouchableOpacity
-          onPress={handleSubmit(submit)}
+          onPress={ loginAttempt ? null : handleSubmit(submit)}
           submitting={submitting}
-          style={styles.LoginFormButton}>
+          style={loginAttempt ? styles.LoginFormButtonDisable : styles.LoginFormButton}>
           <Text style={styles.LoginFormButtonText}>ENTER FAVEZ</Text>
         </TouchableOpacity>
       </View>
+      {renderIf(errorValue.size==undefined)(<View style={{flex:1,marginTop: -100}}><Text style={styles.errorMessage}>Unable to login. Please try again later. </Text></View>)}
     </View>
+
+
   );
 };
 
@@ -67,6 +71,12 @@ const styles = StyleSheet.create({
     // paddingRight: 10,
     flex: 1,
     borderBottomWidth: 0
+  },
+  errorMessage: {
+    color : 'red',
+    padding: 10,
+    textAlign: 'center'
+
   },
   LoginFormFieldEmailContainer: {
     flex: 1,
@@ -140,7 +150,18 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'center',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    opacity: 1
+  },
+  LoginFormButtonDisable: {
+    width: 320,
+    backgroundColor: 'rgba(76,175,78,0.3)',
+    borderRadius: 15,
+    height: 50,
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+
   },
   LoginFormButtonText: {
     fontSize: 20,

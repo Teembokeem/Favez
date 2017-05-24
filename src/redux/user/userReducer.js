@@ -65,6 +65,7 @@ const initialState = fromJS({
   collaborators_all: [],
   value: 0,
   loading: false,
+  loginAttempt: false,
   error: {},
   searchedUsers: [],
   followingUsers: [],
@@ -185,7 +186,12 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case REGISTER_SUCCESS:
       return loop(state.set('loading', false).set('user', action.payload.data), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_REQUEST:
-      return loop(state.set('loading', true), Effects.promise(() => requestLogin(action.payload)));
+      <<
+      << << < HEAD
+      return loop(state.set('loading', true), Effects.promise(() => requestLogin(action.payload))); ===
+      === =
+      return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload))); >>>
+      >>> > mani_dev
     case LOGIN_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -200,7 +206,6 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case GET_OTHER_USER_INFO_SUCCESS:
       return state.set('loading', false).set('userDetail', action.payload);
     case LOGIN_FAILURE:
-    case USER_FAILURE:
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
@@ -209,9 +214,19 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case GET_FOLLOWING_LIST_FAILURE:
     case GET_FOLLOWER_LIST_FAILURE:
       return state.set('loading', false).set('error', action.payload);
+    case FOLLOW_USER:
+      return loop(state.setIn(['recentFollowedUser', 'id'], action.payload),
+        Effects.promise(() => followuserAction(action.payload)));
+    case UNFOLLOW_USER:
+      return loop(state.setIn(['recentFollowedUser', 'id'], action.payload),
+        Effects.promise(() => unfollowuserAction(action.payload)));
+    case GET_BLOCKED_USER_FAILURE:
+    case UNFOLLOW_USER_FAILURE:
+      return state.set('loading', false).set('error', action.payload);
+    case USER_FAILURE:
+      return state.set('error', action.payload).set('loginAttempt', false);
     case USER_SUCCESS:
-
-      return state.set('loading', false).set('user', action.payload);
+      return state.set('loading', false).set('loginAttempt', false).set('user', action.payload);
     case FOLLOW_USER:
       return loop(state.setIn(['recentFollowedUser', 'id'], action.payload),
         Effects.promise(() => followuserAction(action.payload)));
@@ -276,13 +291,14 @@ export default function UserStateReducer(state = initialState, action = {}) {
       }
     case GET_USER_SUBSCRIBED_LIST_SUCCESS:
       return state.set('loading', false).set('userSubscribedList', action.payload.data);
+
     case GET_USER_SUBSCRIBED_LIST_FAILURE:
     case GET_USER_BLOCKED_LIST_SUCCESS:
       return state.set('loading', false).set('userBlockedList', action.payload.data);
     case GET_USER_BLOCKED_LIST_FAILURE:
     case GET_BLOCKED_USER_SUCCESS:
+      console.log("blocked users by a logged in user", action.payload.data);
       return state.set('loading', false).set('userBlockedPeople', action.payload.data);
-    case GET_BLOCKED_USER_FAILURE:
     case UNFOLLOW_USER_SUCCESS:
       return state.setIn(['recentFollowedUser', 'status'], false);
     case GET_FOLLOWING_LIST_SUCCESS:

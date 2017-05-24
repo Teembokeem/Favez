@@ -39,12 +39,19 @@ const ProfileView = React.createClass({
     componentDidUpdate() {
       this.loadOtherUserInfo();
     },
+    moving(idx) {
+
+
+      this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
+    },
+    showUserProfile(userId) {
+      Actions.profile({userId});
+    },
 
     renderChildren() {
 
         const {selectedTab, lists,userDetail} = this.props;
         let userInfo = (this.props.userId)? Utils.toJS(this.props.userDetail).info : this.props.user;
-
         switch (selectedTab) {
             case 'lists':
             if(this.props.userDetail.lists){
@@ -56,16 +63,21 @@ const ProfileView = React.createClass({
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
+<<<<<<< HEAD
                       index={index}
                       onSelectTaxonomy={this.onSelectTaxonomy}
                       onUserAction={()=> this.onEditList(list)}
                       userActionData={{type:'edit_list'}} />
+=======
+        showUserProfile={() => this.showUserProfile(list.owner)}
+                      index={index} />
+>>>>>>> mani_dev
                 ))
               );
             }else{
               return(
-                <View>
-                <Text>There are No Lists yet.</Text>
+                <View style={styles.noResultContainer}>
+                <Text style={styles.noResultText}>There are No Lists yet.</Text>
                 </View>
               );
             }
@@ -76,6 +88,7 @@ const ProfileView = React.createClass({
               return(
                 this.props.userDetail.collabs.map((list,index) =>(
 
+<<<<<<< HEAD
                   <List
                     list={list}
                     user={userDetail.info}
@@ -84,14 +97,18 @@ const ProfileView = React.createClass({
                     onSelectTaxonomy={this.onSelectTaxonomy}
                     userActionData={{type:'user_collabs'}}
                     ></List>
+=======
+                  <List list={list} user={userDetail.info} taxonomy={list.taxonomy}                       moving={this.moving}  key={'list ' + index}></List>
+
+>>>>>>> mani_dev
 
                 )));
 
 
             }else{
               return(
-                <View>
-                <Text>There are No Collaborators yet.</Text>
+                <View style={styles.noResultContainer}>
+                <Text style={styles.noResultText}>There are No Collaborators yet.</Text>
                 </View>
               );
 
@@ -101,6 +118,7 @@ const ProfileView = React.createClass({
               if(this.props.userDetail.subscriptions.length > 0){
                 return (this.props.userDetail.subscriptions.map((list, index) => (
 
+<<<<<<< HEAD
                     <List
                       list={list}
                       user={list.owner[0]}
@@ -127,7 +145,41 @@ const ProfileView = React.createClass({
                 </View>
               }
               break;
+=======
+if(this.props.userDetail.subscriptions.length > 0){
+  return (this.props.userDetail.subscriptions.map((list, index) => (
+
+      <List list={list} user={list.owner[0]} moving={this.moving}  taxonomy={list.taxonomy} key={'list ' + index}></List>
+  )));
+
+}else{
+  return(
+    <View style={styles.noResultContainer}>
+      <Text style={styles.noResultText}>There are No Subscriptions yet.</Text>
+    </View>
+  );
+}
+                  break;
+            case 'likes':
+
+            if(this.props.userDetail.likes.length > 0){
+                return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+            }else{
+              return(
+                <View style={styles.noResultContainer}>
+                  <Text style={styles.noResultText}>There are No Likes yet.</Text>
+                </View>
+
+
+              );
+
+
+            }
+
+                break;
+>>>>>>> mani_dev
             case 'comments':
+
             if(userDetail.comments.length > 0){
               return (userDetail.comments.map((comment, idx) => (
                   <View style={styles.ProfileMessageContainer}>
@@ -136,20 +188,23 @@ const ProfileView = React.createClass({
                             source={userDetail.info.image
                               ? {uri: userDetail.info.image}
                               : require('../../../images/default_list_picture.png')}
-                            style={styles.ProfileMessageListPicture}
+                            style={styles.ProfileMessageAvatar}
                         />
-                        <Text style={styles.ProfileMessageListName}>{comment.list[0].name.toUpperCase()}</Text>
+                      <Text style={styles.ProfileMessageListName}>@{userDetail.info.displayname}:</Text>
+                      <Text style={styles.commentContent}>{comment.content}</Text>
                       </TouchableOpacity>
 
 
                       <View style={styles.ProfileMessageBody}>
                      <View style={styles.ProfileMessageUserInfo}>
-                         <Image style={styles.ProfileMessageAvatar} source={{
-                             uri: userDetail.info.image
-                         }}/>
-                       <Text style={styles.ProfileMessageUsername}>{userDetail.info.displayname}</Text>
+                         <Image style={styles.ListMessageAvatar}   source={comment.bg_image
+                             ? {uri: comment.bg_image}
+                             : require('../../../images/default_list_picture.png')}/>
+                       <Text style={styles.ProfileMessageUsername}>{comment.list[0].name.toUpperCase()}</Text>
+
                      </View>
-                     <Text style={styles.ProfileMessageMessage}>{comment.content}</Text>
+                     <Text style={styles.CommentLocation}>{comment.list[0].location}</Text>
+
                  </View>
 
                   </View>
@@ -157,9 +212,13 @@ const ProfileView = React.createClass({
 
 
             }else{
-              <View>
-                <Text> There are no comments yet.</Text>
-              </View>
+              return(
+                <View style={styles.noResultContainer}>
+                  <Text style={styles.noResultText}> There are no comments yet.</Text>
+                </View>
+
+
+              );
             }
                 break;
             default:
@@ -294,7 +353,22 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
         paddingTop: 10,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        borderBottomWidth: 1,
+        borderBottomColor: '#F8F8F8',
+        backgroundColor: '#fff'
+
+    },
+    commentContent:{
+      paddingLeft: 5,
+      paddingBottom: 5
+    },
+    CommentLocation:{
+      color: 'gray',
+      fontSize: 14,
+      paddingLeft:60,
+      marginTop: -30
+
     },
     ProfileMessageHeader: {
         flex: 1,
@@ -309,14 +383,16 @@ const styles = StyleSheet.create({
     ProfileMessageListName: {
         marginLeft: 10,
         fontFamily: 'Hind-Bold',
-        fontSize: 17
+        fontSize: 17,
+        color: '#000'
     },
     ProfileMessageBody: {
         flex: 1,
-        marginTop: 5,
-        backgroundColor: '#8cbf28',
-        padding: 15,
-        borderRadius: 12
+        marginTop: 15,
+        backgroundColor: '#fff',
+        marginLeft: 8
+
+
     },
     ProfileMessageUserInfo: {
         flexDirection: 'row',
@@ -324,21 +400,40 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     ProfileMessageAvatar: {
-        width: 25,
-        height: 25,
-        borderRadius: 12
+        width: 32,
+        height: 32,
+        borderRadius: 15
+    },
+    ListMessageAvatar:{
+      height: 80,
+      width: 50,
+      borderRadius: 3
+
     },
     ProfileMessageUsername: {
         marginLeft: 5,
         fontFamily: 'Hind-Bold',
         fontSize: 15,
-        color: 'white'
+        color: '#000',
+        paddingLeft: 8
     },
     ProfileMessageMessage: {
         fontFamily: 'Hind-Regular',
         fontSize: 15,
         color: 'white'
+    },
+    noResultContainer:{
+      padding: 10,
+      marginTop: 10,
+    },
+    noResultText:{
+      padding: 10,
+      textAlign: 'center',
+      fontSize: 20,
+      fontWeight: 'bold',
+      fontFamily: 'Hind-Regular'
     }
+
 });
 
 export default ProfileView;
