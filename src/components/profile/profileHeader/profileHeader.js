@@ -32,6 +32,7 @@ const ProfileHeader = React.createClass({
         </View>
         <View style={styles.flex2}>
           <TouchableOpacity
+              onPress={() => Actions.userSettings()}
               style={styles.headerRightButton} >
               <IoniconIcon style={styles.headerButtonIcon} name="ios-settings"/>
           </TouchableOpacity>
