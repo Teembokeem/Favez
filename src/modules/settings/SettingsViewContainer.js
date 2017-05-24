@@ -6,7 +6,7 @@ import SettingsView from './SettingsView';
 export default connect(
   state => {
     return {
-
+      user: state.getIn(['user','user'])
     };
   }
 )(SettingsView);

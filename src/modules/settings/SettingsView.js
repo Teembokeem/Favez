@@ -18,6 +18,7 @@ import * as ViewUtils from '../../utils/viewUtil';
 class SettingsView extends React.Component {
 
   componentWillMount() {
+
   }
 
   renderHeader() {
@@ -33,6 +34,10 @@ class SettingsView extends React.Component {
   }
 
   render() {
+
+    const {user} = this.props;
+    const loggedUser = user && user.auth0 ? user.favez : null;
+
     return (
       <View style={styles.container}>
         {this.renderHeader()}
@@ -51,7 +56,9 @@ class SettingsView extends React.Component {
                   <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.settingItem}>
+              <TouchableOpacity
+                onPress={() => Actions.editProfile()}
+                style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <Text style={styles.settingItemText}>Edit Profile</Text>
                 </View>
