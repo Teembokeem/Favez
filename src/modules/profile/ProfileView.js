@@ -63,15 +63,12 @@ const ProfileView = React.createClass({
                       moving={this.moving}
                       taxonomy={list.taxonomy}
                       key={'list ' + index}
-<<<<<<< HEAD
                       index={index}
                       onSelectTaxonomy={this.onSelectTaxonomy}
                       onUserAction={()=> this.onEditList(list)}
-                      userActionData={{type:'edit_list'}} />
-=======
-        showUserProfile={() => this.showUserProfile(list.owner)}
-                      index={index} />
->>>>>>> mani_dev
+                      userActionData={{type:'edit_list'}}
+                      showUserProfile={() => this.showUserProfile(list.owner)}
+                       />
                 ))
               );
             }else{
@@ -81,14 +78,11 @@ const ProfileView = React.createClass({
                 </View>
               );
             }
-
             break;
             case 'collabs':
             if(this.props.userDetail.collabs.length > 0){
               return(
                 this.props.userDetail.collabs.map((list,index) =>(
-
-<<<<<<< HEAD
                   <List
                     list={list}
                     user={userDetail.info}
@@ -96,15 +90,9 @@ const ProfileView = React.createClass({
                     key={'list ' + index}
                     onSelectTaxonomy={this.onSelectTaxonomy}
                     userActionData={{type:'user_collabs'}}
+                    moving={this.moving}
                     ></List>
-=======
-                  <List list={list} user={userDetail.info} taxonomy={list.taxonomy}                       moving={this.moving}  key={'list ' + index}></List>
-
->>>>>>> mani_dev
-
                 )));
-
-
             }else{
               return(
                 <View style={styles.noResultContainer}>
@@ -117,8 +105,6 @@ const ProfileView = React.createClass({
             case 'subscriptions':
               if(this.props.userDetail.subscriptions.length > 0){
                 return (this.props.userDetail.subscriptions.map((list, index) => (
-
-<<<<<<< HEAD
                     <List
                       list={list}
                       user={list.owner[0]}
@@ -145,39 +131,7 @@ const ProfileView = React.createClass({
                 </View>
               }
               break;
-=======
-if(this.props.userDetail.subscriptions.length > 0){
-  return (this.props.userDetail.subscriptions.map((list, index) => (
 
-      <List list={list} user={list.owner[0]} moving={this.moving}  taxonomy={list.taxonomy} key={'list ' + index}></List>
-  )));
-
-}else{
-  return(
-    <View style={styles.noResultContainer}>
-      <Text style={styles.noResultText}>There are No Subscriptions yet.</Text>
-    </View>
-  );
-}
-                  break;
-            case 'likes':
-
-            if(this.props.userDetail.likes.length > 0){
-                return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
-            }else{
-              return(
-                <View style={styles.noResultContainer}>
-                  <Text style={styles.noResultText}>There are No Likes yet.</Text>
-                </View>
-
-
-              );
-
-
-            }
-
-                break;
->>>>>>> mani_dev
             case 'comments':
 
             if(userDetail.comments.length > 0){
@@ -298,7 +252,7 @@ if(this.props.userDetail.subscriptions.length > 0){
 
         return (
             <View style={styles.container}>
-                <ProfileHeader/>
+                <ProfileHeader self={authIsSelf} />
                 { this.props.loading ? (
                       <View style={styles.loaderContainer}>
                         <ActivityIndicator style={styles.centered} />

@@ -12,9 +12,9 @@ import {
     LIST_MYLIST_REQUEST,
     LIST_MYLIST_SUCCESS,
     LIST_MYLIST_FAILURE,
-    LIST_CREATE_REQUEST,
-    LIST_CREATE_SUCCESS,
-    LIST_CREATE_FAILURE,
+    LIST_SAVE_REQUEST,
+    LIST_SAVE_SUCCESS,
+    LIST_SAVE_FAILURE,
     LIST_SEND_LIST_INVITATIONS_REQUEST,
     LIST_SEND_LIST_INVITATIONS_SUCCESS,
     LIST_SEND_LIST_INVITATIONS_FAILURE,
@@ -22,6 +22,8 @@ import {
     LIST_SET_SELECTED_COUNTRY,
     LIST_BY_TOPIC_SUCCESS,
     LIST_BY_TOPIC_FAILURE,
+    LIST_BY_TAG_SUCCESS,
+    LIST_BY_TAG_FAILURE,
     LIST_LOAD_DATA_TO_EDIT,
     LIKE_UNLIKE_LIST_ITEM,
     LIKE_UNLIKE_LIST_ITEM_SUCCESS,
@@ -71,6 +73,7 @@ const initialState = fromJS({
     inviteList: [],
     loading: true,
     listByTopics: [],
+    listByTags: [],
     searchedLists: [],
     recentSubscribedList: {
         id: -1,
@@ -103,9 +106,9 @@ export default function ListReducer(state = initialState, action = {}) {
         return loop(state.set('loading', true), Effects.promise(() => requestSendInvites(action.payload)));
     case LIST_SEND_LIST_INVITATIONS_SUCCESS:
         return state.set('loading', false).set('myLists', action.payload.data);
-    case LIST_CREATE_REQUEST:
+    case LIST_SAVE_REQUEST:
         return state.set('loading', true).setIn(['current', 'listData'], undefined);
-    case LIST_CREATE_SUCCESS:
+    case LIST_SAVE_SUCCESS:
         return state.set('loading', false).setIn(['current', 'listData'], action.payload);
     case LIST_SET_NEWLIST_OPTIONS:
         let key = Object.keys(action.payload)[0];
@@ -114,23 +117,16 @@ export default function ListReducer(state = initialState, action = {}) {
         return state.setIn(['current', 'selectedCountry'], action.payload);
     case LIST_BY_TOPIC_SUCCESS:
         return state.set('loading', false).set('listByTopics', action.payload.data);
+    case LIST_BY_TAG_SUCCESS:
+        return state.set('loading', false).set('listByTags', action.payload.data);
     case LIST_SEARCH_RESULT_SUCCESS:
         return state.set('loading', false).set('searchedLists', action.payload);
-        case LIST_CREATE_RELATION_SUCCESS:
-            return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
-   case LIST_MYLIST_FAILURE:
-    case LIST_GET_DETAILS_FAILURE:
-    case LIST_SEND_LIST_INVITATIONS_FAILURE:
-    case LIST_CREATE_RELATION_FAILURE:
-    case LIST_BY_TOPIC_FAILURE:
-    case LIST_CREATE_FAILURE:
-    case LIKE_UNLIKE_LIST_ITEM_FAILURE:
-        return state.set('ERROR', action).set('loading', false);
     case LIKE_UNLIKE_LIST_ITEM:
-    break;
+      break;
     case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
-        break;
-
+      break;
+    case LIST_CREATE_RELATION_SUCCESS:
+        return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
     case LIST_DELETE_RELATION_SUCCESS:
         let subscribedListsres = state.get("subscribedLists");
         return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
@@ -155,17 +151,23 @@ export default function ListReducer(state = initialState, action = {}) {
     case LIST_LOAD_DATA_TO_EDIT:
         return state.setIn(['current', 'image'], action.payload.image)
           .setIn(['current', 'selectedCountry'], action.payload.location)
-          .set('options', action.payload.options);
+          .setIn(['current', 'description'], action.payload.options.description)
+          .setIn(['options', 'priv'], action.payload.options.priv)
+          .setIn(['options', 'nsfw'], action.payload.options.nsfw)
+          .setIn(['options', 'tags'], action.payload.options.tags)
+          .setIn(['options', 'topics'], action.payload.options.topics);
     case LIST_MYLIST_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:
     case LIST_CREATE_RELATION_FAILURE:
     case LIST_BY_TOPIC_FAILURE:
-    case LIST_CREATE_FAILURE:
+    case LIST_BY_TAG_FAILURE:
+    case LIST_SAVE_FAILURE:
     case LIST_DELETE_RELATION_FAILURE:
     case GET_LIST_BY_RELATION_FAILURE:
     case LIST_SEARCH_RESULT_FAILURE:
     case GET_COMMENTS_BY_LIST_FAILURE:
+    case LIKE_UNLIKE_LIST_ITEM_FAILURE:
         return state.set('ERROR', action).set('loading', false);
     default:
         return state;

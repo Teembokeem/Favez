@@ -26,6 +26,9 @@ export async function listGetSingleDetailed(id) {
 export async function getListByTopic(topic) {
     return get(`lists/taxonomy/topic/${topic}`);
 }
+export async function getListByTag(tag) {
+    return get(`lists/taxonomy/tag/${tag}`);
+}
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);
 }
@@ -34,6 +37,15 @@ export function listCollaborateInvite(listId, userId) {
 }
 export function listCreate(listData) {
   return post('/lists', listData);
+}
+export function listSave(listData) {
+  if(!!listData.list_id) {
+    console.log('LIST_SAVE, url=', `/lists`, listData);
+    return put(`/lists`, listData);
+  } else {
+    console.log('LIST_SAVE, url=', `/lists`, listData);
+    return post('/lists', listData);
+  }
 }
 //Getting comment by list
 export  function commentsByList(id){

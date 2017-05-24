@@ -33,6 +33,12 @@ const SearchView = React.createClass({
     this.props.dispatch(SearchState.setFilter(val));
   },
 
+  showTopics() {
+    this.props.dispatch(SearchState.resetTopic());
+    this.props.dispatch(SearchState.resetTag());
+    Actions.search();
+  },
+
   setTopic(val) {
     //this.props.dispatch(SearchState.setTopic(val));
     if(val && val.ref) this.onSelectTaxonomy(val.ref);
@@ -52,11 +58,11 @@ const SearchView = React.createClass({
 
   selectTaxonomy() {
     let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
-    let topicName = this.props.topic && this.props.topic.ref;
+    let topicName = this.props.tag ? this.props.tag : this.props.topic && this.props.topic.ref;
     if(!!taxonomy && taxonomy != topicName) {
       let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
-      if(!!topic) this.props.dispatch(SearchState.setTopic(topic));
-      else this.props.dispatch(SearchState.resetTopic());
+      if(!!topic) this.props.dispatch(SearchState.searchByTopic(topic));
+      else this.props.dispatch(SearchState.searchByTag(taxonomy));
     }
   },
 
@@ -73,15 +79,16 @@ const SearchView = React.createClass({
   },
 
   renderSearchTopic() {
-    const {topic, selected} = this.props;
+    const {topic, tag, selected} = this.props;
     var {height, width} = Dimensions.get('window');
+    let title = tag ? tag : topic.semantic;
     return (
       <View>
-        <View style={{height: 150, backgroundColor: topic.color}}>
+        <View style={{height: 150, backgroundColor: topic ? topic.color : '#FF9900'}}>
           <SearchHeaderIcons
-            setTopic={this.setTopic}
+            showTopics={this.showTopics}
           />
-          <Text style={styles.topicTitle}>{topic.semantic.toUpperCase()}</Text>
+          <Text style={styles.topicTitle}>{title.toUpperCase()}</Text>
         </View>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={{
@@ -134,16 +141,19 @@ const SearchView = React.createClass({
   },
 
   renderChildren() {
-    const {subscribedLists, list} = this.props;
+    const {subscribedLists, list, tag, topic} = this.props;
       if (subscribedLists.length > 0) {
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
     }
+    let listsToRender = [];
+    listsToRender = tag ? this.props.listByTags : this.props.listByTopics;
+
     switch (this.props.selected) {
       case 'lists':
       case 'sites':
       case 'filter':
 
-        return (this.props.listByTopics.map(this.renderList));
+        return listsToRender.map(this.renderList);
 
       case 'products':
         return (this.props.favez.map((fave, index) => (<Card key={'fave ' + index} card={fave} track={index} moving={this.moving} increment={this.increment} />)));
@@ -153,12 +163,15 @@ const SearchView = React.createClass({
   },
 
   render() {
-    const {index, categories, topic} = this.props;
+
+    console.log("SEARCH_VIEW_PROPS", this.props);
+
+    const {index, categories, topic, tag} = this.props;
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {
-            topic
+            topic || tag
               ? this.renderSearchTopic()
               : this.renderSearchCategories(categories, index)
           }

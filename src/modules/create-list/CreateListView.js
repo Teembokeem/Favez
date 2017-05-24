@@ -54,11 +54,15 @@ const FeedView = React.createClass({
       bg_image: this.props.currentList.image
     });
 
+    if(this.props.listData) listObj.list_id = this.props.listData.id;
 
-    this.props.dispatch(ListActions.requestCreateList({
+    console.log('SAVE_LIST_DATA_TO_SUBMIT', listObj);
+
+    this.props.dispatch(ListActions.requestSaveList({
       listData: listObj,
       inviteData: inviteList
     }, (data) => {
+      console.log('List save response',data);
       if(data.successStatus) Actions.pop();
     }));
   },

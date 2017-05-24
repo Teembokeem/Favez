@@ -186,12 +186,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case REGISTER_SUCCESS:
       return loop(state.set('loading', false).set('user', action.payload.data), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_REQUEST:
-      <<
-      << << < HEAD
-      return loop(state.set('loading', true), Effects.promise(() => requestLogin(action.payload))); ===
-      === =
-      return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload))); >>>
-      >>> > mani_dev
+     return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload))); 
     case LOGIN_SUCCESS:
       return loop(
         state.set('user', {}),
