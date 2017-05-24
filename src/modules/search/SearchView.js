@@ -33,6 +33,12 @@ const SearchView = React.createClass({
     this.props.dispatch(SearchState.setFilter(val));
   },
 
+  showTopics() {
+    this.props.dispatch(SearchState.resetTopic());
+    this.props.dispatch(SearchState.resetTag());
+    Actions.search();
+  },
+
   setTopic(val) {
     //this.props.dispatch(SearchState.setTopic(val));
     if(val && val.ref) this.onSelectTaxonomy(val.ref);
@@ -52,7 +58,7 @@ const SearchView = React.createClass({
 
   selectTaxonomy() {
     let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
-    let topicName = this.props.topic && this.props.topic.ref;
+    let topicName = this.props.tag ? this.props.tag : this.props.topic && this.props.topic.ref;
     if(!!taxonomy && taxonomy != topicName) {
       let topic = Utils.getTopicByTaxonomy(taxonomy, this.props.categories);
       if(!!topic) this.props.dispatch(SearchState.searchByTopic(topic));
@@ -80,7 +86,7 @@ const SearchView = React.createClass({
       <View>
         <View style={{height: 150, backgroundColor: topic ? topic.color : '#FF9900'}}>
           <SearchHeaderIcons
-            setTopic={this.setTopic}
+            showTopics={this.showTopics}
           />
           <Text style={styles.topicTitle}>{title.toUpperCase()}</Text>
         </View>

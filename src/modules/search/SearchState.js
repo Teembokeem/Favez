@@ -119,6 +119,8 @@ const initialState = fromJS({
 const SET_FILTER = 'ListShowState/SET_FILTER';
 const SEARCH_BY_TOPIC = 'ListShowState/SEARCH_BY_TOPIC';
 const SEARCH_BY_TAG = 'ListShowState/SEARCH_BY_TAG';
+const RESET_TOPIC = 'ListShowState/RESET_TOPIC';
+const RESET_TAG = 'ListShowState/RESET_TAG';
 
 // Action creators
 export function setFilter(value) {
@@ -131,6 +133,14 @@ export function searchByTopic(value) {
 
 export function searchByTag(value) {
   return {type: SEARCH_BY_TAG, payload: value};
+}
+
+export function resetTopic() {
+  return {type: RESET_TOPIC};
+}
+
+export function resetTag() {
+  return {type: RESET_TAG};
 }
 
 // Reducer
@@ -149,6 +159,10 @@ export default function FeedStateReducer(state = initialState, action = {}) {
         state.set('topic', null).set('tag', action.payload),
         Effects.promise(() => ListActions.requestListByTag(action.payload))
       );
+    case RESET_TOPIC:
+      return state.set('topic', null);
+    case RESET_TAG:
+      return state.set('tag', null);
     default:
       return state;
   }
