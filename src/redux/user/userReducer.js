@@ -361,10 +361,26 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_SAVE_LOCATION_REQUEST:
       return state.set('location', action.payload)
     case USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST:
-      //console.log('USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST, settingId=',action.payload );
-      //let settings = state.getIn(['settings', 'pushNotifications']).toJS();
-      //console.log('USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST, settings=',settings );
       let settingValue = state.getIn(['settings','pushNotifications', action.payload]);
+      if(action.payload === 'enable' && settingValue) {
+        return state.setIn(['settings','pushNotifications'], fromJS(
+          {
+            enable: false,
+            announcements: false,
+            reccomendations: false,
+            newFollower: false,
+            followRequest: false,
+            acceptedFollowRequest: false,
+            friendsOnFavez: false,
+            newFriendList: false,
+            newListFollower: false,
+            collaborationInvitation: false,
+            collaborationResponse: false,
+            newComment: false,
+            mentionsAndReplies: false
+          }
+        ))
+      } 
       return state.setIn(['settings','pushNotifications', action.payload], !settingValue);
 
     case USER_CLEAR_DATA_REQUEST:
