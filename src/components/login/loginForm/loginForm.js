@@ -47,8 +47,8 @@ const LoginForm = props => {
             </View>
             <View style={styles.LoginFormButtonContainer}>
                 <TouchableOpacity activeOpacity={loginAttempt
-                    ? 0.2
-                    : 0.2}
+                    ? 1
+                    : 1}
                     onPress={loginAttempt
                     ? null
                     : handleSubmit(submit)} submitting={submitting}    style={loginAttempt ? styles.LoginFormButtonDisable : styles.LoginFormButton}>
@@ -141,13 +141,13 @@ const styles = StyleSheet.create({
     },
     LoginFormButtonDisable: {
         width: 320,
-        backgroundColor: 'rgba(76,175,78,1)',
+        backgroundColor: 'rgba(76,175,78,0.2)',
         borderRadius: 15,
         height: 50,
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: 0.2,
+
         justifyContent: 'center'
 
     },
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        opacity: 1
+
     },
 
     LoginFormButtonText: {
