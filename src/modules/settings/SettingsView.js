@@ -20,7 +20,11 @@ import * as UiActions from '../../redux/ui/uiActions';
 class SettingsView extends React.Component {
 
   componentWillMount() {
+    this.handleUserAuth();
+  }
 
+  componentDidUpdate() {
+    this.handleUserAuth();
   }
 
   renderHeader() {
@@ -49,6 +53,10 @@ class SettingsView extends React.Component {
 
   setCountryPickerVisibility(toggleState) {
     this.props.dispatch(UiActions.setPickerVisibility('countryPicker', toggleState));
+  }
+
+  requestLogout() {
+    this.props.dispatch(UserActions.logout());
   }
 
   render() {
@@ -184,7 +192,7 @@ class SettingsView extends React.Component {
             </View>
 
             <View style={styles.logoutButtonContainer}>
-              <TouchableOpacity style={styles.logoutTextContainer}>
+              <TouchableOpacity onPress={() => this.requestLogout()} style={styles.logoutTextContainer}>
                 <Text style={styles.logoutText}>Log out</Text>
               </TouchableOpacity>
             </View>
@@ -193,6 +201,10 @@ class SettingsView extends React.Component {
         </ ScrollView>
       </View>
     );
+  }
+
+  handleUserAuth() {
+    if (Object.keys(Utils.toJS(this.props.user)).length == 0) Actions.intro();
   }
 
 }

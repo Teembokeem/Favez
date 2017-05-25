@@ -23,6 +23,8 @@ import {
   getOtherUserLikes,
   saveSettings
 } from '../../services/user';
+import * as snapshot from '../../utils/snapshot';
+import * as authentication from '../../utils/authentication';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
 import * as cloudinary from '../../services/cloudinary'
@@ -45,6 +47,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
+export const USER_CLEAR_DATA_REQUEST = 'USER_CLEAR_DATA_REQUEST';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
 export const FOLLOW_USER = 'FOLLOW_USER';
@@ -419,4 +422,12 @@ export function removeFromFollowList(removedUserId){
     })
     userService.removeFromFollowList(removedUserId).done()
   }
+}
+
+export async function logout() {
+  snapshot.clearSnapshot();
+  authentication.clearAuthenticationToken();
+  authentication.clearAuth0Token();
+
+  return { type : USER_CLEAR_DATA_REQUEST }
 }

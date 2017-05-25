@@ -9,7 +9,8 @@ export default connect(
       user: state.getIn(['user','user']),
       settings: state.getIn(['user', 'settings']),
       location: state.getIn(['user', 'location']),
-      countryPicker: state.getIn(['ui', 'picker', 'countryPicker'])
+      countryPicker: state.getIn(['ui', 'picker', 'countryPicker']),
+      state: state
     };
   }
 )(SettingsView);

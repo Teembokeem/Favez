@@ -28,6 +28,7 @@ import {
   USER_SUCCESS,
   USER_SEARCH_RESULT_SUCCESS,
   USER_SEARCH_RESULT_FAILURE,
+  USER_CLEAR_DATA_REQUEST,
   FOLLOW_USER,
   UNFOLLOW_USER,
   FOLLOW_USER_SUCCESS,
@@ -365,6 +366,9 @@ export default function UserStateReducer(state = initialState, action = {}) {
       //console.log('USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST, settings=',settings );
       let settingValue = state.getIn(['settings','pushNotifications', action.payload]);
       return state.setIn(['settings','pushNotifications', action.payload], !settingValue);
+
+    case USER_CLEAR_DATA_REQUEST:
+      return state.set('user', {});
     default:
       return state;
   }
