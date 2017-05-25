@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 function CardUser({card, time, showProfile,onUserAction,userActionData}) {
+  console.log("dcvf",userActionData);
   function renderUserActionIcon() {
 
     switch(userActionData.type) {
@@ -33,7 +34,7 @@ function CardUser({card, time, showProfile,onUserAction,userActionData}) {
           </View>
 
               <TouchableOpacity      onPress={() => onUserAction() }>
-                {renderUserActionIcon()}
+                {renderIf(userActionData.type)(renderUserActionIcon())}
 {/*}                <IoniconIcon style={styles.cardUserSubscribe} name={followed ? 'md-person' : 'md-person-add'}/> */}
               </TouchableOpacity>
 
