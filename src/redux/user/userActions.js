@@ -68,6 +68,13 @@ export const GET_OTHER_USER_INFO_REQUEST = 'GET_OTHER_USER_INFO_REQUEST';
 export const GET_OTHER_USER_INFO_SUCCESS = 'GET_OTHER_USER_INFO_SUCCESS';
 export const GET_OTHER_USER_INFO_FAILURE = 'GET_OTHER_USER_INFO_FAILURE';
 
+export const USER_TOGGLE_NSFW_SETTING_REQUEST = 'USER_TOGGLE_NSFW_SETTING';
+export const USER_TOGGLE_NSFW_SETTING_SUCCESS = 'USER_TOGGLE_NSFW_SETTING_SUCCESS';
+export const USER_TOGGLE_NSFW_SETTING_FAILURE = 'USER_TOGGLE_NSFW_SETTING_FAILURE';
+export const USER_TOGGLE_PRIVATE_SETTING_REQUEST = 'USER_TOGGLE_PRIVATE_SETTING_REQUEST';
+export const USER_TOGGLE_PRIVATE_SETTING_SUCCESS = 'USER_TOGGLE_PRIVATE_SETTING_SUCCESS';
+export const USER_TOGGLE_PRIVATE_SETTING_FAILURE = 'USER_TOGGLE_PRIVATE_SETTING_FAILURE';
+
 // Action creators
 export async function login(data) {
   return {
@@ -167,6 +174,18 @@ export function requestOtherUserInfo(userId) {
     }).catch(err => {
       dispatch({type: GET_OTHER_USER_INFO_FAILURE, payload: err});
     })
+  }
+}
+
+export function toggleNSFWSetting() {
+  return {
+    type: USER_TOGGLE_NSFW_SETTING_REQUEST
+  }
+}
+
+export function togglePrivateSetting() {
+  return {
+    type: USER_TOGGLE_PRIVATE_SETTING_REQUEST
   }
 }
 

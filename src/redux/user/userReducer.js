@@ -50,6 +50,8 @@ import {
   GET_USER_BLOCKED_LIST_FAILURE,
   GET_BLOCKED_USER_SUCCESS,
   GET_BLOCKED_USER_FAILURE,
+  USER_TOGGLE_NSFW_SETTING_REQUEST,
+  USER_TOGGLE_PRIVATE_SETTING_REQUEST,
   requestLogin,
   requestCollaborators,
   requestUserInfo,
@@ -87,7 +89,12 @@ const initialState = fromJS({
     comments: [],
     likes: [],
   },
-  lastFetchedUserId: -1
+  lastFetchedUserId: -1,
+
+  settings: {
+    nsfw: false,
+    priv: false
+  }
 
 });
 // Reducer
@@ -186,7 +193,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case REGISTER_SUCCESS:
       return loop(state.set('loading', false).set('user', action.payload.data), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_REQUEST:
-     return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload))); 
+     return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -300,6 +307,12 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return state.set('loading', false).set('followingUsers', action.payload.data);
     case GET_FOLLOWER_LIST_SUCCESS:
       return state.set('loading', false).set('followerUsers', action.payload.data);
+    case USER_TOGGLE_NSFW_SETTING_REQUEST:
+      let currentNSFW = state.getIn(['settings','nsfw']);
+      return state.setIn(['settings','nsfw'], !currentNSFW);
+    case USER_TOGGLE_PRIVATE_SETTING_REQUEST:
+      let currentPrivate = state.getIn(['settings','priv']);
+      return state.setIn(['settings','priv'], !currentPrivate);
     default:
       return state;
   }

@@ -9,11 +9,12 @@ import {
   Platform,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
-import UserActions from '../../redux/user/userActions';
 import Header from '../../components/globals/header/header';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 
+import * as Utils from '../../utils/Utils';
 import * as ViewUtils from '../../utils/viewUtil';
+import * as UserActions from '../../redux/user/userActions';
 
 class SettingsView extends React.Component {
 
@@ -33,10 +34,21 @@ class SettingsView extends React.Component {
     )
   }
 
+  toggleNSFW() {
+    this.props.dispatch(UserActions.toggleNSFWSetting());
+  }
+
+  togglePrivate() {
+    this.props.dispatch(UserActions.togglePrivateSetting());
+  }
+
   render() {
 
-    const {user} = this.props;
+    console.log('SETTINGS_VIEW_PROPS', this.props);
+
+    const {user, settings} = this.props;
     const loggedUser = user && user.auth0 ? user.favez : null;
+    const {nsfw, priv} = Utils.toJS(settings);
 
     return (
       <View style={styles.container}>
@@ -82,7 +94,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Private Profile</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <Switch style={styles.settingItemIcon}/>
+                  <Switch style={styles.settingItemIcon} onValueChange={this.togglePrivate.bind(this)} value={priv}/>
                 </View>
               </View>
               <View style={styles.settingItem}>
@@ -90,7 +102,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Show NSFW</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <Switch style={styles.settingItemIcon}/>
+                  <Switch style={styles.settingItemIcon} onValueChange={this.toggleNSFW.bind(this)} value={nsfw}/>
                 </View>
               </View>
             </View>
