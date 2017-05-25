@@ -48,7 +48,7 @@ class SettingsView extends React.Component {
     this.props.dispatch(UserActions.saveLocation({country}));
   }
 
-  toggleCountryPickerVisibility(toggleState) {
+  setCountryPickerVisibility(toggleState) {
     this.props.dispatch(UiActions.setPickerVisibility('countryPicker', toggleState));
   }
 
@@ -95,8 +95,8 @@ class SettingsView extends React.Component {
                   <View style={styles.settingItemWithLabel}>
                     <Text style={styles.settingItemHintText}>LOCATION</Text>
                     {(Platform.OS == 'ios')? (
-                      <Text onPress={() => openCountryPicker()} style={styles.settingItemText}>
-                        {location ? Utils.getCountryByCode(location, countries):'Select Location'}
+                      <Text onPress={() => this.setCountryPickerVisibility(true)} style={styles.settingItemText}>
+                        {selectedCountry ? Utils.getCountryByCode(selectedCountry, countries):'Select Location'}
                       </Text>
                     ): null}
                     <CountryPicker
@@ -105,8 +105,8 @@ class SettingsView extends React.Component {
                       onChangeCountry={this.onChangeCountry.bind(this)}
                       selectedCountry={selectedCountry}
                       visible={countryPickerVisibility}
-                      open={() => this.toggleCountryPickerVisibility(true)}
-                      close={() => this.toggleCountryPickerVisibility(false)} />
+                      open={() => this.setCountryPickerVisibility(true)}
+                      close={() => this.setCountryPickerVisibility(false)} />
                   </View>
                 </View>
                 <View style={styles.settingItemIconContainer}>
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   switchStyle: {
     alignSelf:'flex-end'
   },
-  countryPicker: {    
+  countryPicker: {
     width: ViewUtils.WINDOW_WIDTH,
     fontFamily: 'Hind-Medium'
   },
