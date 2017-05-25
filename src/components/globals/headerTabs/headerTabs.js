@@ -22,7 +22,6 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
       {tabs.map((tab, index) => {
         return (
           <View
-
             style={styles.container}
             key={'tab ' + index}
           >

@@ -39,9 +39,8 @@ const ProfileView = React.createClass({
     componentDidUpdate() {
       this.loadOtherUserInfo();
     },
+    
     moving(idx) {
-
-
       this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
     },
     showUserProfile(userId) {
@@ -252,7 +251,7 @@ const ProfileView = React.createClass({
 
         return (
             <View style={styles.container}>
-                <ProfileHeader/>
+                <ProfileHeader self={authIsSelf} />
                 { this.props.loading ? (
                       <View style={styles.loaderContainer}>
                         <ActivityIndicator style={styles.centered} />

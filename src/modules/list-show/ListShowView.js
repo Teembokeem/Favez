@@ -29,16 +29,12 @@ const ListShowView = React.createClass({
   componentWillMount() {
     // this.setState({ready: false})\
 
-     this.props.dispatch(favezActions.getSelffavez());
-          this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
+    // this.props.dispatch(favezActions.getSelffavez());
+    this.props.dispatch(ListShowState.fetchSimilarList(this.props.list.id));
   },
 
   componentWillReceiveProps(nextProps) {
     // this.setState({ready: !nextProps.loading});
-  },
-
-  moving() {
-    Actions.subbar();
   },
 
   setFilter(view, tab) {
@@ -127,9 +123,7 @@ renderFavez(fave,index){
             key={'fave ' + index}
             card={fave}
             track={index}
-            moving={this.moving}
-
-
+            browseFave={this.browseFave}
         />
       ))
     );

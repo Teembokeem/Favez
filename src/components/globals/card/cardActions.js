@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         height: 50,
         width: 50,
         fontSize: 30,
-        marginLeft: 20,
+        marginLeft: 40,
         marginRight: 47.5,
         backgroundColor: 'transparent',
         color: '#b8b8b8'

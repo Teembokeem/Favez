@@ -5,19 +5,13 @@ import {StyleSheet, TouchableOpacity, Text, Image, View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import card from './card';
 
-function CardHeader({card, moving, track, subscribe, subscribed}) {
-    function SubscribeMe() {
-        subscribe("subsrciptions");
-    };
-    function UnsubscribeMe() {
-        subscribe("unsubscribe");
-    }
+function CardHeader({card, moving}) {
     return (
         <Image style={styles.cardImage} source={ (card.list && card.list[0].bg_image) ? card.list[0].bg_image : require('../../../../images/buttons/rainbow.png')}>
-            <View style={styles.cardHeader}>
-                <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.name.toUpperCase()}
+            <TouchableOpacity onPress={() => moving(card.list_id)} style={styles.cardHeader}>
+                <Text numberOfLines={1} style={[styles.cardHeaderText]}>{card.list && card.list.length ? card.list[0].name.toUpperCase() : card.name.toUpperCase()}
                 </Text>
-            </View>
+            </TouchableOpacity>
         </Image>
     );
 };

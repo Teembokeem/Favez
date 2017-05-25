@@ -61,10 +61,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 355,
     padding: 15,
-    paddingTop: 5,
+    marginTop: 20,
     overflow: 'hidden',
     borderRadius: 10,
-    marginBottom: 20
   },
   fadeLayer: {
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -77,8 +76,9 @@ const styles = StyleSheet.create({
   },
   ListBackground: {
     width: 355,
-    height: 400,
+    height: 200,
     position: 'absolute',
+    resizeMode: 'cover',
     top: 0,
     left: 0,
     flex: 1,

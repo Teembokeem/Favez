@@ -12,6 +12,7 @@ import {
   listGetSingleDetailed,
   sendInvites,
   getListByTopic,
+  getListByTag,
   sendLikeList,
   createlistRelation,
   deleteListRelation,
@@ -49,6 +50,8 @@ export const LIST_SET_NEWLIST_OPTIONS = 'LIST_SET_NEWLIST_OPTIONS';
 export const LIST_SET_SELECTED_COUNTRY = 'LIST_SET_SELECTED_COUNTRY';
 export const LIST_BY_TOPIC_SUCCESS = 'LIST_BY_TOPIC_SUCCESS';
 export const LIST_BY_TOPIC_FAILURE = 'LIST_BY_TOPIC_FAILURE';
+export const LIST_BY_TAG_SUCCESS = 'LIST_BY_TAG_SUCCESS';
+export const LIST_BY_TAG_FAILURE = 'LIST_BY_TAG_FAILURE';
 export const LIKE_UNLIKE_LIST_ITEM = 'LIKE_UNLIKE_LIST_ITEM';
 export const LIKE_UNLIKE_LIST_ITEM_SUCCESS = 'LIKE_UNLIKE_LIST_ITEM_SUCCESS';
 export const LIKE_UNLIKE_LIST_ITEM_FAILURE = 'LIKE_UNLIKE_LIST_ITEM_FAILURE';
@@ -260,6 +263,18 @@ export async function requestListByTopic(data) {
       return {type: LIST_BY_TOPIC_SUCCESS, payload: res}
     })
     .catch((err) => ({type: LIST_BY_TOPIC_FAILURE, payload: err}));
+}
+
+export async function requestListByTag(data) {
+  return await getListByTag(data)
+    .then((res) => {
+      console.log('REQUEST_LIST_BY_TAG_SUCCESS', res);
+      return {type: LIST_BY_TAG_SUCCESS, payload: res}
+    })
+    .catch((err) => {
+      console.log('REQUEST_LIST_BY_TAG_ERROR', err);
+      return {type: LIST_BY_TAG_FAILURE, payload: err}
+    });
 }
 
 export async function searchLists(data) {

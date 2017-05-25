@@ -18,11 +18,13 @@ const FeedView = React.createClass({
   propTypes: {},
   componentWillMount() {
     this.props.dispatch(FavezActions.requestFullFave());
-    // this line needs work..... break shit
-    // this.props.dispatch(ListActions.getMyLists());
-    this.props.dispatch(FavezActions.getSelffavez());
     this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-    if (this.props.user.favez) this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
+    
+    if (this.props.user.favez) {
+      this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
+      this.props.dispatch(ListActions.getMyLists());
+      this.props.dispatch(FavezActions.getSelffavez());
+    }
   },
   componentDidMount() { },
 
@@ -88,7 +90,7 @@ const FeedView = React.createClass({
   },
 
   render() {
-    const { lists, subscribedlists, followedusers } = this.props;
+    const { lists, subscribedlists, followedusers, user } = this.props;
 
     // const ds = this.state.dataSource;
 
@@ -104,9 +106,8 @@ const FeedView = React.createClass({
       <View style={{
         flex: 1
       }}>
-
         {this.renderModal()}
-        <FeedHeader toggleContextMenu={this.toggleContextMenu} />
+        <FeedHeader user={user} toggleContextMenu={this.toggleContextMenu} />
         <ScrollView contentContainerStyle={styles.container}>
           {lists.map(this.renderCard)}
         </ScrollView>
@@ -124,7 +125,6 @@ const FeedView = React.createClass({
         track={idx}
         showUserProfile={this.showUserProfile}
         moving={this.moving}
-
         followed={followed}
         userSubscribeAction={this.userSubscribe}
         userFollowAction={this.userFollow}

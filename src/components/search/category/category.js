@@ -27,14 +27,15 @@ function Category({category, moving}) {
     );
   } else {
     return (
-      <TouchableOpacity
-        style={[styles.Category]}
-        onPress={() => moving(category)}
-      >
-        <SLIcon style={styles.CategoryIcon} name='globe'/>
-        <Text style={[styles.CategoryText]}>{semantic.toUpperCase()}</Text>
-        <Ionicon style={styles.CategoryArrow} name='md-arrow-round-forward'/>
-      </TouchableOpacity>
+      // <TouchableOpacity
+      //  style={[styles.Category]}
+      //  onPress={() => moving(category)}
+      // >
+      //   <SLIcon style={styles.CategoryIcon} name='globe'/>
+      //   <Text style={[styles.CategoryText]}>{semantic.toUpperCase()}</Text>
+      //   <Ionicon style={styles.CategoryArrow} name='md-arrow-round-forward'/>
+      // </TouchableOpacity>
+      null
     );
 
   }

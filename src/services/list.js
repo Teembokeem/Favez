@@ -26,6 +26,9 @@ export async function listGetSingleDetailed(id) {
 export async function getListByTopic(topic) {
     return get(`lists/taxonomy/topic/${topic}`);
 }
+export async function getListByTag(tag) {
+    return get(`lists/taxonomy/tag/${tag}`);
+}
 export async function searchListsByQuery(query) {
     return get(`/search/lists/${query}`);
 }

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+
 // [1a]
 // const ACTION_BUTTONS = [
 //   'Create New List',
@@ -44,6 +45,7 @@ const FeedHeader = React.createClass({
 //   },
 
   render() {
+    const {user} = this.props
     return (
       <View style={[styles.feedNavHeader]}>
           <TouchableOpacity
@@ -60,7 +62,7 @@ const FeedHeader = React.createClass({
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.headerRightButton}
-            onPress={() => this.props.toggleContextMenu()}
+            onPress={() => user.favez ? this.props.toggleContextMenu() : Actions.intro()}
           >
             <EntypoIcon style={styles.headerRightButtonIcon} name='plus'/>
           </TouchableOpacity>
