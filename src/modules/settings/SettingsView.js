@@ -183,7 +183,7 @@ class SettingsView extends React.Component {
               </TouchableOpacity>
               <TouchableOpacity style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
-                  <Text style={styles.settingItemText}>Delete Account</Text>
+                  <Text style={[styles.settingItemText, styles.deleteAccountText]}>Delete Account</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
                   <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>

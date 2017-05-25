@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Hind-Medium'
   },
   deleteAccountText: {
-    color: '#FF0000'
+    color: '#DD0000'
   },
   logoutButtonContainer: {
     flex:1,
