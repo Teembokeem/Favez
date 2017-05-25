@@ -92,7 +92,7 @@ class SettingsView extends React.Component {
               <View style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <View style={styles.settingItemWithLabel}>
-                    <Text style={styles.settingItemHintText}>LOCATION</Text>
+                    <Text style={styles.settingItemLabel}>LOCATION</Text>
                     {(Platform.OS == 'ios')? (
                       <Text onPress={() => this.setCountryPickerVisibility(true)} style={styles.settingItemText}>
                         {selectedCountry ? Utils.getCountryByCode(selectedCountry, countries):'Select Location'}

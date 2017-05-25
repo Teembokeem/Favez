@@ -61,7 +61,9 @@ const styles = StyleSheet.create({
   settingItemContentContainer: {
     flex:1,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop:5,
+    paddingBottom:5
   },
   settingItemText: {
     fontSize: 18,
@@ -78,11 +80,16 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end',
     color: '#cccccc'
   },
-  settingItemHintText: {
-    paddingTop:4,
+  settingItemLabel: {
     fontSize:12,
     fontWeight: 'bold',
     color: '#AAA'
+  },
+  settingItemHintText: {
+    fontSize:13,
+    color: '#BBB',
+    fontFamily: 'Hind-Light',
+    marginTop:-5
   },
   switchStyle: {
     alignSelf:'flex-end'
