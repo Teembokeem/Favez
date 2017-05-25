@@ -23,8 +23,7 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 
 const LoginForm = props => {
   const {handleSubmit, submitting, login, loginAttempt, errorValue } = props;
-
-
+console.log("vjdfvjrgvjfrg",loginAttempt);
   const submit = values => {
     login(values.toJS());
   };
@@ -51,6 +50,7 @@ const LoginForm = props => {
       </View>
       <View style={styles.LoginFormButtonContainer}>
         <TouchableOpacity
+          activeOpacity={loginAttempt ? 0.2 : 0.2}
           onPress={ loginAttempt ? null : handleSubmit(submit)}
           submitting={submitting}
           style={loginAttempt ? styles.LoginFormButtonDisable : styles.LoginFormButton}>
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   LoginFormButton: {
     width: 320,
-    backgroundColor: '#4caf4e',
+    backgroundColor: 'rgba(76,175,78,1)',
     borderRadius: 15,
     height: 50,
     alignSelf: 'center',
@@ -155,12 +155,13 @@ const styles = StyleSheet.create({
   },
   LoginFormButtonDisable: {
     width: 320,
-    backgroundColor: 'rgba(76,175,78,0.3)',
+  backgroundColor: 'rgba(76,175,78,0.2)',
     borderRadius: 15,
     height: 50,
     alignSelf: 'center',
     alignItems: 'center',
     justifyContent: 'center',
+    opacity: 0.2
 
   },
   LoginFormButtonText: {

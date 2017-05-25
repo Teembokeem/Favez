@@ -186,7 +186,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case REGISTER_SUCCESS:
       return loop(state.set('loading', false).set('user', action.payload.data), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_REQUEST:
-     return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload))); 
+     return loop(state.set('loading', true).set('loginAttempt', true), Effects.promise(() => requestLogin(action.payload)));
     case LOGIN_SUCCESS:
       return loop(
         state.set('user', {}),
@@ -201,6 +201,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case GET_OTHER_USER_INFO_SUCCESS:
       return state.set('loading', false).set('userDetail', action.payload);
     case LOGIN_FAILURE:
+      return state.set('loading', false).set('loginAttempt', false).set('error', action.payload);
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
