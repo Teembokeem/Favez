@@ -57,32 +57,22 @@ return (
         </View>
       )
     }
+  }
 
-
-
-
-
-    }
-
-
-
-  renderBlockedList(){
+renderBlockedList(){
     if(!!this.props.userBlockedList && this.props.userBlockedList.length > 0) {
       return (
         this.props.userBlockedList.map((list, index) => (
   <SubscribedLists list={list}  blockedlist={'blockedlist'}  key={index} />
         ))
       );
-
     }else{
       return (
         <View style={styles.noResultContainer}>
           <Text style={styles.noResultText}>There are no Blocked Lists.  </Text>
         </View>
       )
-
     }
-
   }
   render() {
     const {tabs, selectedTab} = this.props;
