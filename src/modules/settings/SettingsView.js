@@ -31,7 +31,7 @@ class SettingsView extends React.Component {
     return (
       <View style={styles.header}>
         <View style={styles.headerLeftButtons}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={Actions.pop}>
             <IoniconIcon style={styles.headerButtonIcon} name='md-arrow-round-back'/>
           </TouchableOpacity>
         </View>
