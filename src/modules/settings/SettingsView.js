@@ -2,19 +2,18 @@ import React from 'react';
 import {
   View,
   ScrollView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   Switch,
   Platform,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
+import styles from './styles';
 import Header from '../../components/globals/header/header';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import CountryPicker from '../../components/globals/pickers/countryPicker/countryPicker';
 
 import * as Utils from '../../utils/Utils';
-import * as ViewUtils from '../../utils/viewUtil';
 import * as UserActions from '../../redux/user/userActions';
 import * as UiActions from '../../redux/ui/uiActions';
 
@@ -132,7 +131,9 @@ class SettingsView extends React.Component {
             </View>
 
             <View style={styles.settingsGroup}>
-              <TouchableOpacity style={styles.settingItem}>
+              <TouchableOpacity
+                onPress={() => Actions.pushNotifications()}
+                style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <Text style={styles.settingItemText}>Push Notification Settings</Text>
                 </View>
@@ -195,114 +196,5 @@ class SettingsView extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex:1
-  },
-  header: {
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    paddingTop: ViewUtils.STATUSBAR_HEIGHT,
-    height: ViewUtils.APPBAR_HEIGHT,
-    width: ViewUtils.WINDOW_WIDTH
-  },
-  headerLeftButtons: {
-    flex:1,
-    paddingLeft: 20,
-    alignItems:'flex-start'
-  },
-  headerLeftButton: {
-    alignSelf: 'flex-start'
-  },
-  headerRightButton: {
-    paddingRight: 20,
-    alignSelf: 'flex-end'
-  },
-  headerRightButtons: {
-    flex:1,
-    alignItems:'flex-end'
-  },
-  headerButtonIcon: {
-    width: 35,
-    fontSize: 30,
-    marginTop: 10,
-    color: '#000000'
-  },
-  contentContainer: {
-    flex:1,
-    backgroundColor: '#F4F4F4'
-  },
-  settingsGroup: {
-    borderTopColor: '#EEE',
-    borderTopWidth: 0.5,
-    marginBottom: 25
-  },
-  settingItem: {
-    backgroundColor:'#FFF',
-    borderBottomColor: '#EEE',
-    borderBottomWidth: 0.5,
-    height: 54,
-    paddingLeft: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: ViewUtils.WINDOW_WIDTH
-  },
-  settingItemWithLabel: {
-    flex:1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
-  },
-  settingItemContentContainer: {
-    flex:1,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  settingItemText: {
-    fontSize: 18,
-    fontFamily: 'Hind-Medium',
-  },
-  settingItemIconContainer: {
-    width:60,
-    flexDirection: 'column',
-    alignItems:'flex-end',
-    marginRight:15
-  },
-  settingItemIcon: {
-    fontSize: 23,
-    alignSelf:'flex-end',
-    color: '#cccccc'
-  },
-  settingItemHintText: {
-    paddingTop:4,
-    fontSize:12,
-    fontWeight: 'bold',
-    color: '#AAA'
-  },
-  switchStyle: {
-    alignSelf:'flex-end'
-  },
-  countryPicker: {
-    width: ViewUtils.WINDOW_WIDTH,
-    fontFamily: 'Hind-Medium'
-  },
-  deleteAccountText: {
-    color: '#FF0000'
-  },
-  logoutButtonContainer: {
-    flex:1,
-    marginBottom:20
-  },
-  logoutTextContainer: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  logoutText: {
-    fontSize: 18,
-    textAlign: 'center',
-    fontFamily: 'Hind-Medium',
-    color: '#888'
-  }
-});
 
 export default SettingsView;
