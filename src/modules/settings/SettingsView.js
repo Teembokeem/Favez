@@ -11,10 +11,12 @@ import {
 import {Actions} from 'react-native-router-flux';
 import Header from '../../components/globals/header/header';
 import IoniconIcon from 'react-native-vector-icons/Ionicons';
+import CountryPicker from '../../components/globals/pickers/countryPicker/countryPicker';
 
 import * as Utils from '../../utils/Utils';
 import * as ViewUtils from '../../utils/viewUtil';
 import * as UserActions from '../../redux/user/userActions';
+import * as UiActions from '../../redux/ui/uiActions';
 
 class SettingsView extends React.Component {
 
@@ -42,13 +44,23 @@ class SettingsView extends React.Component {
     this.props.dispatch(UserActions.togglePrivateSetting());
   }
 
+  onChangeCountry(country) {
+    this.props.dispatch(UserActions.saveLocation({country}));
+  }
+
+  toggleCountryPickerVisibility(toggleState) {
+    this.props.dispatch(UiActions.setPickerVisibility('countryPicker', toggleState));
+  }
+
   render() {
 
     console.log('SETTINGS_VIEW_PROPS', this.props);
 
-    const {user, settings} = this.props;
+    const {user, settings, countryPicker, location} = this.props;
     const loggedUser = user && user.auth0 ? user.favez : null;
     const {nsfw, priv} = Utils.toJS(settings);
+    const {set: countries, visible: countryPickerVisibility} = Utils.toJS(countryPicker);
+    const selectedCountry = Utils.toJS(location).country;
 
     return (
       <View style={styles.container}>
@@ -82,7 +94,19 @@ class SettingsView extends React.Component {
                 <View style={styles.settingItemContentContainer}>
                   <View style={styles.settingItemWithLabel}>
                     <Text style={styles.settingItemHintText}>LOCATION</Text>
-                    <Text style={styles.settingItemText}>Romania</Text>
+                    {(Platform.OS == 'ios')? (
+                      <Text onPress={() => openCountryPicker()} style={styles.settingItemText}>
+                        {location ? Utils.getCountryByCode(location, countries):'Select Location'}
+                      </Text>
+                    ): null}
+                    <CountryPicker
+                      style={styles.countryPicker}
+                      countries={countries}
+                      onChangeCountry={this.onChangeCountry.bind(this)}
+                      selectedCountry={selectedCountry}
+                      visible={countryPickerVisibility}
+                      open={() => this.toggleCountryPickerVisibility(true)}
+                      close={() => this.toggleCountryPickerVisibility(false)} />
                   </View>
                 </View>
                 <View style={styles.settingItemIconContainer}>
@@ -94,7 +118,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Private Profile</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <Switch style={styles.settingItemIcon} onValueChange={this.togglePrivate.bind(this)} value={priv}/>
+                  <Switch style={styles.switchStyle} onValueChange={this.togglePrivate.bind(this)} value={priv}/>
                 </View>
               </View>
               <View style={styles.settingItem}>
@@ -102,7 +126,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Show NSFW</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <Switch style={styles.settingItemIcon} onValueChange={this.toggleNSFW.bind(this)} value={nsfw}/>
+                  <Switch style={styles.switchStyle} onValueChange={this.toggleNSFW.bind(this)} value={nsfw}/>
                 </View>
               </View>
             </View>
@@ -225,6 +249,7 @@ const styles = StyleSheet.create({
     width: ViewUtils.WINDOW_WIDTH
   },
   settingItemWithLabel: {
+    flex:1,
     flexDirection: 'column',
     justifyContent: 'flex-start'
   },
@@ -253,6 +278,13 @@ const styles = StyleSheet.create({
     fontSize:12,
     fontWeight: 'bold',
     color: '#AAA'
+  },
+  switchStyle: {
+    alignSelf:'flex-end'
+  },
+  countryPicker: {    
+    width: ViewUtils.WINDOW_WIDTH,
+    fontFamily: 'Hind-Medium'
   },
   deleteAccountText: {
     color: '#FF0000'

@@ -7,7 +7,9 @@ export default connect(
   state => {
     return {
       user: state.getIn(['user','user']),
-      settings: state.getIn(['user', 'settings'])
+      settings: state.getIn(['user', 'settings']),
+      location: state.getIn(['user', 'location']),
+      countryPicker: state.getIn(['ui', 'picker', 'countryPicker'])
     };
   }
 )(SettingsView);

@@ -56,6 +56,7 @@ import {
   USER_TOGGLE_PRIVATE_SETTING_REQUEST,
   USER_TOGGLE_PRIVATE_SETTING_SUCCESS,
   USER_TOGGLE_PRIVATE_SETTING_FAILURE,
+  USER_SAVE_LOCATION_REQUEST,
   requestLogin,
   requestCollaborators,
   requestUserInfo,
@@ -95,11 +96,16 @@ const initialState = fromJS({
     comments: [],
     likes: [],
   },
+
   lastFetchedUserId: -1,
 
   settings: {
     nsfw: false,
-    priv: false
+    priv: false,
+  },
+
+  location: {
+    country: 'RO' // default country 'Romania' code
   }
 
 });
@@ -335,6 +341,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case USER_TOGGLE_PRIVATE_SETTING_FAILURE:
       currentPrivate = state.getIn(['settings','priv']);
       return state.setIn(['settings','priv'], !currentPrivate);
+    case USER_SAVE_LOCATION_REQUEST:
+      return state.set('location', action.payload)
     default:
       return state;
   }
