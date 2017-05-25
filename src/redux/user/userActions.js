@@ -76,6 +76,7 @@ export const USER_TOGGLE_PRIVATE_SETTING_REQUEST = 'USER_TOGGLE_PRIVATE_SETTING_
 export const USER_TOGGLE_PRIVATE_SETTING_SUCCESS = 'USER_TOGGLE_PRIVATE_SETTING_SUCCESS';
 export const USER_TOGGLE_PRIVATE_SETTING_FAILURE = 'USER_TOGGLE_PRIVATE_SETTING_FAILURE';
 export const USER_SAVE_LOCATION_REQUEST = 'USER_SAVE_LOCATION_REQUEST';
+export const USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST = 'USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST';
 
 // Action creators
 export async function login(data) {
@@ -195,6 +196,13 @@ export function saveLocation(data) {
   return {
     type: USER_SAVE_LOCATION_REQUEST,
     payload: data
+  }
+}
+
+export function togglePushNotificationsSetting(settingId) {
+  return {
+    type: USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST,
+    payload: settingId
   }
 }
 
