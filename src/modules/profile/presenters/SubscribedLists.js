@@ -10,7 +10,7 @@ import EntypoIcon from 'react-native-vector-icons/Entypo';
 
 export default function SubscribedLists({list,key,blockedlist,subscribedlists}) {
 
-  return <View style={styles.base}>
+  return <View style={styles.base} >
     <View style={styles.avatarWrapper}>
       <Image source={require('../../../../images/default_avatar.png')}
         style={styles.avatar} />
@@ -22,7 +22,13 @@ export default function SubscribedLists({list,key,blockedlist,subscribedlists}) 
     </View>
 
     {renderIf(subscribedlists === 'subscribedlists')(    <View style={styles.icons}>
-          <FontAwesomeIcon name="bookmark"  backgroundColor="green"></FontAwesomeIcon>
+
+            <Image
+                source={
+                require('../../../../images/buttons/subscribed.png')
+                }
+                style={styles.ListIcons}
+            />
 
         </View>)}
 {renderIf(blockedlist === 'blockedlist')(<TouchableOpacity >
@@ -66,6 +72,10 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     justifyContent: 'center'
+  },
+  ListIcons:{
+    height: 25,
+    width: 25
   },
   avatar: {
     width: avatarD,

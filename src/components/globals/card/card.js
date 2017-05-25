@@ -15,23 +15,9 @@ import {
 
 //const card=this.state.card;
 
-// function userAction(actionType){
-//   Alert.alert(actionType);
-//   switch (actionType) {
-//     case "like":
-//     Alert.alert("Like is called...");
-//   //  this.props.dispatch(sendListLikeDislike("like"));
-//     // this.props.dispatch(ListReducer.fetchSimilarList(this.props.card.id));
-//
-//       break;
-//     default:
-//
-//   }
-//
-// };
 
 
-function Card({card, track, moving, userAction,userSubscribeAction,subscribed, userFollowAction, followed, showProfile, browseFave}) {
+function Card({card, track, moving, userAction,userSubscribeAction,subscribed,  showProfile, browseFave,onUserAction,userActionData}) {
 
 
   return (
@@ -45,9 +31,11 @@ function Card({card, track, moving, userAction,userSubscribeAction,subscribed, u
           />
         <CardUser
           card={card}
-          follow={(userFollow)=>userFollowAction(userFollow,card.owner)}
-          followed={followed}
+
+
           showProfile={showProfile}
+              onUserAction={onUserAction}
+                userActionData={userActionData}
         />
         <CardBody
           browseFave={browseFave}

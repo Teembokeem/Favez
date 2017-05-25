@@ -19,10 +19,10 @@ export function selfFavezLiked(list){
 export function showFollowedlists(followedlists) {
     var new_arr = [];
     for (var i = 0; i < followedlists.length; i++) {
-        var followed_list = {}
-        followed_list.id = followedlists[i].id;
-        followed_list.status = true;
-        new_arr.push(followed_list);
+
+
+
+        new_arr.push(followedlists[i].id);
     }
     return new_arr;
 

@@ -57,8 +57,12 @@ function ListFooter({list, onUserAction, userActionData}) {
     switch(userActionData.type) {
       case "subscribe_unsubscribe":
         return (
-          <Ionicon style={styles.ListFooterSettings}
-            name={userActionData.data ? "ios-bookmark" : "ios-bookmark-outline"}/>
+          <Image
+              source={
+                userActionData.data ? require('../../../../images/buttons/subscribed.png')
+                : require('../../../../images/buttons/subscribe.png')}
+              style={styles.ListSubscribeIcons}
+          />
         )
       case "user_collabs":
         break;
@@ -93,6 +97,10 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 25
 
+  },
+  ListSubscribeIcons: {
+    height: 25,
+    width: 25
   },
   ListFooterCommentsContainer: {
     flex: 1,

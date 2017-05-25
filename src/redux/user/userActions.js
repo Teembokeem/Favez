@@ -60,18 +60,15 @@ export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
 export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
-
 export const GET_USER_SUBSCRIBED_LIST_SUCCESS = 'GET_USER_SUBSCRIBED_LIST_SUCCESS';
 export const GET_USER_SUBSCRIBED_LIST_FAILURE = 'GET_USER_SUBSCRIBED_LIST_FAILURE';
 export const GET_USER_BLOCKED_LIST_SUCCESS ='GET_USER_BLOCKED_LIST_SUCCESS';
 export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
 export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
 export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
-
 export const GET_OTHER_USER_INFO_REQUEST = 'GET_OTHER_USER_INFO_REQUEST';
 export const GET_OTHER_USER_INFO_SUCCESS = 'GET_OTHER_USER_INFO_SUCCESS';
 export const GET_OTHER_USER_INFO_FAILURE = 'GET_OTHER_USER_INFO_FAILURE';
-
 export const USER_TOGGLE_NSFW_SETTING_REQUEST = 'USER_TOGGLE_NSFW_SETTING';
 export const USER_TOGGLE_NSFW_SETTING_SUCCESS = 'USER_TOGGLE_NSFW_SETTING_SUCCESS';
 export const USER_TOGGLE_NSFW_SETTING_FAILURE = 'USER_TOGGLE_NSFW_SETTING_FAILURE';
@@ -80,6 +77,10 @@ export const USER_TOGGLE_PRIVATE_SETTING_SUCCESS = 'USER_TOGGLE_PRIVATE_SETTING_
 export const USER_TOGGLE_PRIVATE_SETTING_FAILURE = 'USER_TOGGLE_PRIVATE_SETTING_FAILURE';
 export const USER_SAVE_LOCATION_REQUEST = 'USER_SAVE_LOCATION_REQUEST';
 export const USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST = 'USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST';
+export const FOLLOW_USER_CARD_SUCCESS = 'FOLLOW_USER_CARD_SUCCESS';
+export const FOLLOW_USER_CARD_FAILURE = 'FOLLOW_USER_CARD_FAILURE';
+export const UNFOLLOW_USER_CARD_SUCCESS =  'UNFOLLOW_USER_CARD_SUCCESS';
+export const UNFOLLOW_USER_CARD_FAILURE = 'UNFOLLOW_USER_CARD_FAILURE';
 
 // Action creators
 export async function login(data) {
@@ -314,20 +315,41 @@ export function pickProfileImage(onUploading, onUploaded) {
 
 
 
-export async function followuserAction(data) {
-  return await followuser(data)
-    .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res, userId: data }))
+export async function followUserAction(data) {
+  return await followuser(data.owner)
+    .then((res) => ({type: FOLLOW_USER_SUCCESS, payload: res, detailList: data }))
     .catch((err) => {
-      Alert.alert('Error when follow a user, please try again later!')
-      return {type: FOLLOW_USER_FAILURE, payload: err, userId: data }
+      return {type: FOLLOW_USER_FAILURE, payload: err, detailList: data }
     });
 }
 
 // Unfollow a User
-export async function unfollowuserAction(data) {
-  return await unfollowuser(data)
-    .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res}))
-    .catch((err) => ({type: UNFOLLOW_USER_FAILURE, payload: err}));
+export async function unFollowUserAction(data) {
+  return await unfollowuser(data.owner)
+    .then((res) => ({type: UNFOLLOW_USER_SUCCESS, payload: res, detailList: data}))
+    .catch((err) => {
+      return {type: UNFOLLOW_USER_FAILURE, payload: err}
+    });
+}
+
+
+//follow a user on card
+
+export async function followUserCardAction(data) {
+  return await followuser(data.owner)
+    .then((res) => ({type: FOLLOW_USER_CARD_SUCCESS, payload: res, detailList: data }))
+    .catch((err) => {
+      return {type: FOLLOW_USER_CARD_FAILURE, payload: err, detailList: data }
+    });
+}
+
+// Unfollow a User
+export async function unFollowUserCardAction(data) {
+  return await unfollowuser(data.owner)
+    .then((res) => ({type: UNFOLLOW_USER_CARD_SUCCESS, payload: res, detailList: data}))
+    .catch((err) => {
+      return {type: UNFOLLOW_USER_CARD_FAILURE, payload: err}
+    });
 }
 
 //Get List of users you are Following

@@ -9,12 +9,19 @@ import {
   View
 } from 'react-native';
 
-function CardUser({card, time,follow,followed, showProfile}) {
-  function FollowMe() {
-      follow("follow");
-  };
-  function UnFollowMe() {
-      follow("unfollow");
+function CardUser({card, time, showProfile,onUserAction,userActionData}) {
+  console.log("dcvf",userActionData);
+  function renderUserActionIcon() {
+
+    switch(userActionData.type) {
+      case "follow_unfollow":
+        return (
+
+          <IoniconIcon style={styles.cardUserSubscribe} name={userActionData.data ? 'md-person' : 'md-person-add'}/>
+      );
+
+    }
+
   };
   const user = (card.user && card.user.length) ? card.user[0] : {f1: 'Unknown'}
   return (
@@ -26,8 +33,9 @@ function CardUser({card, time,follow,followed, showProfile}) {
             <Text style={styles.cardUserAgo}>{time}</Text>
           </View>
 
-              <TouchableOpacity onPress={() => followed ? UnFollowMe() : FollowMe()}>
-                <IoniconIcon style={styles.cardUserSubscribe} name={followed ? 'md-person' : 'md-person-add'}/>
+              <TouchableOpacity      onPress={() => onUserAction() }>
+                {renderIf(userActionData.type)(renderUserActionIcon())}
+{/*}                <IoniconIcon style={styles.cardUserSubscribe} name={followed ? 'md-person' : 'md-person-add'}/> */}
               </TouchableOpacity>
 
       </View>
@@ -54,6 +62,10 @@ const styles = StyleSheet.create({
   cardUserInfoColumn: {
     flex: 1,
     paddingTop: 4
+  },
+  ListSubscribeIcons:{
+    height: 25,
+    width: 25
   },
   cardUserName: {
     fontFamily: 'Hind-Bold',

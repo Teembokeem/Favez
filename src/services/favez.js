@@ -21,3 +21,7 @@ export async function sendUnLikeFavez(action, detailList) {
 export async function sendLikeFavez(action, detailList) {
   return post('/favez/like', { fave_id: action });
 }
+
+export async function favezSearchSite(){
+  return get (`favez/type/1`);
+}

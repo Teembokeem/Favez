@@ -14,12 +14,13 @@ import { showSubscribedlists, showFollowedlists, addrecentClickedFollow, checkOw
 
 let subscribedListsIds = [];
 let followedListsIds = [];
+let followedUserIds = [];
 const FeedView = React.createClass({
   propTypes: {},
   componentWillMount() {
     this.props.dispatch(FavezActions.requestFullFave());
     this.props.dispatch(ListActions.getListbyRelationAction("subscribed"));
-    
+
     if (this.props.user.favez) {
       this.props.dispatch(userActions.requestFollowingUsersList(this.props.user.favez.id));
       this.props.dispatch(ListActions.getMyLists());
@@ -61,6 +62,9 @@ const FeedView = React.createClass({
     }
   },
 
+
+
+
   toggleContextMenu() {
     this.props.dispatch(UIActions.toggleContextMenu('feed', 'header'));
   },
@@ -88,21 +92,18 @@ const FeedView = React.createClass({
       ? (<ContextMenu toggleContextMenu={this.toggleContextMenu} visible={visible} items={set} />)
       : null;
   },
+  userFollowUnFollow(action,detailList){
+    if (action === "follow") {
+        this.props.dispatch(userActions.followUserCardAction(detailList));
+    } else if(action === "unfollow"){
+          this.props.dispatch(userActions.unFollowUserCardAction(detailList));
+    }
+  },
+
 
   render() {
-    const { lists, subscribedlists, followedusers, user } = this.props;
-
-    // const ds = this.state.dataSource;
-
-    if (followedusers && followedusers.length > 0) {
-      followedListsIds = showFollowedlists(followedusers);
-    }
-    if (this.props.recentFollowedUser.id > -1) {
-      followedListsIds = addrecentClickedFollow(followedListsIds, this.props.recentFollowedUser);
-
-    }
+    const { lists, subscribedlists, followedusers, user,followingUsers } = this.props;
     return (
-
       <View style={{
         flex: 1
       }}>
@@ -115,9 +116,9 @@ const FeedView = React.createClass({
     );
   },
   renderCard(card, idx) {
-
-    var followed = checkOwnerIdinFollowList(followedListsIds, card.owner);
-
+    if (this.props.followingUsers.length > 0) {
+    followedUserIds = showFollowedlists(this.props.followingUsers);
+  }
     return (
       <Card
         key={'feed ' + idx}
@@ -125,15 +126,26 @@ const FeedView = React.createClass({
         track={idx}
         showUserProfile={this.showUserProfile}
         moving={this.moving}
-        followed={followed}
         userSubscribeAction={this.userSubscribe}
-        userFollowAction={this.userFollow}
         userAction={this.userLikeDislike}
         browseFave={this.browseFave}
         showProfile={() => this.showProfile(card.owner)}
+        onUserAction={() => this.onUserAction(card)}
+        userActionData={{type: 'follow_unfollow', data: this.isFollowedbyUser(card)}}
       />
     );
   },
+  isFollowedbyUser(card) {
+    return followedUserIds.indexOf(card.owner) != -1
+  },
+
+  onUserAction(card) {
+    if(!!this.props.userLoggedIn && this.props.userLoggedIn.auth0) {
+      if(this.isFollowedbyUser(card)) this.userFollowUnFollow("unfollow", card)
+      else this.userFollowUnFollow("follow", card)
+    } else Actions.login();
+  },
+
 
   showProfile(userId) {
     Actions.profile({userId});
