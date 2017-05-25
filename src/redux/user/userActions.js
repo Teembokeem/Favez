@@ -21,6 +21,7 @@ import {
   getOtherUserCollabs,
   getOtherUserComments,
   getOtherUserLikes,
+  saveSettings
 } from '../../services/user';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
@@ -188,6 +189,31 @@ export function togglePrivateSetting() {
     type: USER_TOGGLE_PRIVATE_SETTING_REQUEST
   }
 }
+
+export async function requestSaveNSFWSetting(data) {
+  return await saveSettings(data)
+    .then((res) => {
+      console.log('USER_TOGGLE_NSFW_SETTING_SUCCESS', res);
+      return {type: USER_TOGGLE_NSFW_SETTING_SUCCESS, payload: res.data}
+    })
+    .catch((err) => {
+      console.log('USER_TOGGLE_NSFW_SETTING_FAILURE', err);
+      return {type: USER_TOGGLE_NSFW_SETTING_FAILURE, payload: err}
+    });
+}
+
+export async function requestSavePrivateSetting(data) {
+  return await saveSettings(data)
+    .then((res) => {
+      console.log('USER_TOGGLE_PRIVATE_SETTING_SUCCESS', res);
+      return {type: USER_TOGGLE_PRIVATE_SETTING_SUCCESS, payload: res.data}
+    })
+    .catch((err) => {
+      console.log('USER_TOGGLE_PRIVATE_SETTING_FAILURE', err);
+      return {type: USER_TOGGLE_PRIVATE_SETTING_FAILURE, payload: err}
+    });
+}
+
 
 export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"

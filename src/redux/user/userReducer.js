@@ -51,7 +51,11 @@ import {
   GET_BLOCKED_USER_SUCCESS,
   GET_BLOCKED_USER_FAILURE,
   USER_TOGGLE_NSFW_SETTING_REQUEST,
+  USER_TOGGLE_NSFW_SETTING_SUCCESS,
+  USER_TOGGLE_NSFW_SETTING_FAILURE,
   USER_TOGGLE_PRIVATE_SETTING_REQUEST,
+  USER_TOGGLE_PRIVATE_SETTING_SUCCESS,
+  USER_TOGGLE_PRIVATE_SETTING_FAILURE,
   requestLogin,
   requestCollaborators,
   requestUserInfo,
@@ -59,7 +63,9 @@ import {
   requestRegister,
   createUser,
   followuserAction,
-  unfollowuserAction
+  unfollowuserAction,
+  requestSaveNSFWSetting,
+  requestSavePrivateSetting
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -309,9 +315,25 @@ export default function UserStateReducer(state = initialState, action = {}) {
       return state.set('loading', false).set('followerUsers', action.payload.data);
     case USER_TOGGLE_NSFW_SETTING_REQUEST:
       let currentNSFW = state.getIn(['settings','nsfw']);
+      return loop(
+        state.setIn(['settings','nsfw'], !currentNSFW),
+        Effects.promise(() => requestSaveNSFWSetting({"nsfw": !currentNSFW}))
+      )
+    case USER_TOGGLE_NSFW_SETTING_SUCCESS:
+      return state;
+    case USER_TOGGLE_NSFW_SETTING_FAILURE:
+      currentNSFW = state.getIn(['settings','nsfw']);
       return state.setIn(['settings','nsfw'], !currentNSFW);
     case USER_TOGGLE_PRIVATE_SETTING_REQUEST:
       let currentPrivate = state.getIn(['settings','priv']);
+      return loop(
+        state.setIn(['settings','priv'], !currentPrivate),
+        Effects.promise(() => requestSavePrivateSetting({"private": !currentPrivate}))
+      )
+    case USER_TOGGLE_PRIVATE_SETTING_SUCCESS:
+      return state;
+    case USER_TOGGLE_PRIVATE_SETTING_FAILURE:
+      currentPrivate = state.getIn(['settings','priv']);
       return state.setIn(['settings','priv'], !currentPrivate);
     default:
       return state;
