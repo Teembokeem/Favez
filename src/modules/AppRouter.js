@@ -31,6 +31,7 @@ import ManageFeedList from './profile/containers/ManageFeed';
 import ManageBlock from './profile/containers/ManageBlock';
 import ListCommentsContainer from './list-comments/ListCommentContainer';
 import SettingsViewContainer from '../modules/settings/SettingsViewContainer';
+import PushNotificationsView from '../modules/settings/push-notifications/pushNotificationsView';
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
     alignItems: 'center'
@@ -111,6 +112,7 @@ const NavigationView = React.createClass({
                 <Scene key='contactList' component={ContactList} title="Contact list" hideNavBar={true} hideTabBar={true}/>
                 <Scene key='userFriends' component={UserFriendsView} title="Your Friends" hideNavBar={true} hideTabBar={true}/>
                 <Scene key='userSettings' component={SettingsViewContainer} title="Settings" hideNavBar={true} hideTabBar={true}/>
+                <Scene key='pushNotifications' component={PushNotificationsView} title="Push Notifications" hideNavBar={true} hideTabBar={true}/>
               </Scene>
               <Scene key='popsearch' component={ProfileViewContainer} title='Profile' hideNavBar/>
             </Scene>
