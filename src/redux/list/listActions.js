@@ -146,8 +146,6 @@ export function requestSaveList(data, callback) {
     dispatch({type: LIST_SAVE_REQUEST});
     return listSave(listData).then((res) => {
 
-        console.log('LIST_SAVE_RESPONSE', res);
-
         let list = res.data;
         let users = inviteData;
         let promises = [];
@@ -171,7 +169,6 @@ export function requestSaveList(data, callback) {
         }
 
     }).catch((err) => {
-        console.log('LIST_SAVE_ERROR', err);
         if(!!callback) callback({successStatus: false});
         return {type: LIST_SAVE_FAILURE, payload: err}
     });
@@ -268,11 +265,9 @@ export async function requestListByTopic(data) {
 export async function requestListByTag(data) {
   return await getListByTag(data)
     .then((res) => {
-      console.log('REQUEST_LIST_BY_TAG_SUCCESS', res);
       return {type: LIST_BY_TAG_SUCCESS, payload: res}
     })
     .catch((err) => {
-      console.log('REQUEST_LIST_BY_TAG_ERROR', err);
       return {type: LIST_BY_TAG_FAILURE, payload: err}
     });
 }

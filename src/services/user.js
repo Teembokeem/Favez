@@ -87,6 +87,5 @@ export function getOtherUserLikes(userId) {
 
 export function saveSettings(settings) {
   let payload = {settings:settings};
-  console.log('SAVE_SETTING_PAYLOAD', payload);
   return put(`/api/users`, payload);
 }

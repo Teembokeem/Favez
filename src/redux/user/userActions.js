@@ -213,11 +213,9 @@ export function togglePushNotificationsSetting(settingId) {
 export async function requestSaveNSFWSetting(data) {
   return await saveSettings(data)
     .then((res) => {
-      console.log('USER_TOGGLE_NSFW_SETTING_SUCCESS', res);
       return {type: USER_TOGGLE_NSFW_SETTING_SUCCESS, payload: res.data}
     })
     .catch((err) => {
-      console.log('USER_TOGGLE_NSFW_SETTING_FAILURE', err);
       return {type: USER_TOGGLE_NSFW_SETTING_FAILURE, payload: err}
     });
 }
@@ -225,11 +223,9 @@ export async function requestSaveNSFWSetting(data) {
 export async function requestSavePrivateSetting(data) {
   return await saveSettings(data)
     .then((res) => {
-      console.log('USER_TOGGLE_PRIVATE_SETTING_SUCCESS', res);
       return {type: USER_TOGGLE_PRIVATE_SETTING_SUCCESS, payload: res.data}
     })
     .catch((err) => {
-      console.log('USER_TOGGLE_PRIVATE_SETTING_FAILURE', err);
       return {type: USER_TOGGLE_PRIVATE_SETTING_FAILURE, payload: err}
     });
 }

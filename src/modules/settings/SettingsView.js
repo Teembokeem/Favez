@@ -61,8 +61,6 @@ class SettingsView extends React.Component {
 
   render() {
 
-    console.log('SETTINGS_VIEW_PROPS', this.props);
-
     const {user, settings, countryPicker, location} = this.props;
     const loggedUser = user && user.auth0 ? user.favez : null;
     const {nsfw, priv} = Utils.toJS(settings);

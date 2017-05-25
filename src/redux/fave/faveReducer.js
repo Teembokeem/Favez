@@ -1,5 +1,10 @@
-import {fromJS} from 'immutable';
-import {loop, Effects} from 'redux-loop';
+import {
+  fromJS
+} from 'immutable';
+import {
+  loop,
+  Effects
+} from 'redux-loop';
 import {
   FAVE_SET_NEWFAVE,
   FAVE_CREATE_REQUEST,
@@ -23,7 +28,7 @@ const initialState = fromJS({
   current: {},
   loading: true,
   error: {},
-  trendingFavez:[],
+  trendingFavez: [],
   selfFavez: []
 });
 
@@ -53,45 +58,44 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_CREATE_FAILURE:
     case FAVE_SEARCH_RESULT_FALIURE:
       return state.set('ERROR', action);
-      case SELF_FAVEZ_SUCCESS:
-      console.log("self favez successsss", action);
+    case SELF_FAVEZ_SUCCESS:
       return state
-      .set('loading', false)
-      .set('selfFavez',action.payload.data)
-      case SELF_FAVEZ_FAILURE:
+        .set('loading', false)
+        .set('selfFavez', action.payload.data)
+    case SELF_FAVEZ_FAILURE:
       break;
-      case SELF_LIKE_FAVEZ_SUCCESS:
-            action.detailList.likes=1;
-            const indexOfListToUpdate = state.get('selfFavez').findIndex(listItem => {
-              return listItem.id == action.detailList.id;
-            });
-          let selfFavezArr = state.get("selfFavez");
-            let faveToUpdate = selfFavezArr[indexOfListToUpdate];
-            if(faveToUpdate){
+    case SELF_LIKE_FAVEZ_SUCCESS:
+      action.detailList.likes = 1;
+      const indexOfListToUpdate = state.get('selfFavez').findIndex(listItem => {
+        return listItem.id == action.detailList.id;
+      });
+      let selfFavezArr = state.get("selfFavez");
+      let faveToUpdate = selfFavezArr[indexOfListToUpdate];
+      if (faveToUpdate) {
 
 
-            faveToUpdate.likes = 1;
-return state.set('selfFavez',[...selfFavezArr.slice(0,indexOfListToUpdate),faveToUpdate, ...selfFavezArr.slice(indexOfListToUpdate+1)]);
-}else{
-              return state.set('selfFavez', [...state.get("selfFavez"), action.detailList]);
-}
+        faveToUpdate.likes = 1;
+        return state.set('selfFavez', [...selfFavezArr.slice(0, indexOfListToUpdate), faveToUpdate, ...selfFavezArr.slice(indexOfListToUpdate + 1)]);
+      } else {
+        return state.set('selfFavez', [...state.get("selfFavez"), action.detailList]);
+      }
       break;
-      case SELF_LIKE_FAVEZ_FAILURE:
+    case SELF_LIKE_FAVEZ_FAILURE:
       break;
-      case SELF_UNLIKE_FAVEZ_SUCCESS:
+    case SELF_UNLIKE_FAVEZ_SUCCESS:
       const indexOfListToUpdateUnlike = state.get('selfFavez').findIndex(listItem => {
         return listItem.id == action.detailList.id;
       });
       selfFavezArr = state.get("selfFavez");
       favezToUpdate = selfFavezArr[indexOfListToUpdateUnlike];
-      favezToUpdate.likes=null;
-  return state.set('selfFavez',[...selfFavezArr.slice(0,indexOfListToUpdateUnlike),
-          favezToUpdate,
-          ...selfFavezArr.slice(indexOfListToUpdateUnlike+1)
+      favezToUpdate.likes = null;
+      return state.set('selfFavez', [...selfFavezArr.slice(0, indexOfListToUpdateUnlike),
+        favezToUpdate,
+        ...selfFavezArr.slice(indexOfListToUpdateUnlike + 1)
       ]);
 
-      case SELF_UNLIKE_FAVEZ_FAILURE:
-            break;
+    case SELF_UNLIKE_FAVEZ_FAILURE:
+      break;
     default:
       return state;
   }
