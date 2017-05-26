@@ -13,6 +13,7 @@ export const WINDOW_WIDTH = deviceWidth;
 export const WINDOW_HEIGHT = deviceHeight;
 export const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
 export const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 20 : 0;
+export const TABBAR_HEIGHT = 38;
 
 export function getContentHeight(hasHeader, hasFooter) {
   let height = deviceHeight;

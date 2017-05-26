@@ -18,6 +18,7 @@ import Divider from '../presenters/Divider';
 import Followee from '../presenters/Followee';
 import Follower from '../presenters/Follower';
 
+import * as ViewUtils from '../../../utils/viewUtil';
 import * as UIActions from '../../../redux/ui/uiActions';
 import * as UserActions from '../../../redux/user/userActions';
 
@@ -130,12 +131,13 @@ class UserFriendsView extends React.Component {
             </TouchableOpacity>
             <Header title={'YOUR \nFRIENDS'}/>
             <Divider />
-            <HeaderTabs
-              view={'userFriends'}
-              setFilter={this.setFilter.bind(this)}
-              selected={selectedTab}
-              tabs={tabs}
-            />
+            <View style={{height:ViewUtils.TABBAR_HEIGHT}}>
+              <HeaderTabs
+                view={'userFriends'}
+                setFilter={this.setFilter.bind(this)}
+                selected={selectedTab}
+                tabs={tabs} />
+            </View>
           </View>
           <View style={styles.contentContainer}>
             { loading ? this.renderLoader() : this.renderTabPanels() }
