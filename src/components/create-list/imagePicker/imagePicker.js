@@ -9,11 +9,12 @@ import {
   Image,
   ActivityIndicator
 } from 'react-native';
+import * as Utils from '../../../utils/Utils';
 
 const renderIf = cond => elm => cond ? elm : null;
 
 function ImagePicker({pickListImage, listImageUri, imageStatus}) {
-
+  console.log("CURRENT_LIST_IMAGE_URI", listImageUri);
   return (
     <View
       style={styles.ImagePickerContainer}
@@ -22,7 +23,7 @@ function ImagePicker({pickListImage, listImageUri, imageStatus}) {
         style={styles.CropImageContainer}
         onPress={pickListImage}>
         <View style={styles.FillerImage}>
-          {renderIf(imageStatus === 'prefetched')(
+          {renderIf(imageStatus === 'prefetched' || Utils.isUrl(listImageUri))(
             <Image style={styles.ListCoverImage} source={{uri:listImageUri}} />
           )}
           {renderIf(imageStatus === 'uploading' || imageStatus === 'prefetching')(

@@ -20,3 +20,8 @@ export function getTopicByTaxonomy(taxonomy, topics) {
   let filteredTopic = topics.filter(topic => topic.ref === taxonomy);
   return filteredTopic[0];
 }
+
+export function isUrl(url) {
+  var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+  return regexp.test(url);
+}

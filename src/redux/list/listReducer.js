@@ -165,13 +165,10 @@ export default function ListReducer(state = initialState, action = {}) {
     newComment.author = action.currUser.favez.id;
      return state.set('commentsByList', [...state.get("commentsByList"), newComment]);
     case LIST_LOAD_DATA_TO_EDIT:
-        return state.setIn(['current', 'image'], action.payload.image)
-          .setIn(['current', 'selectedCountry'], action.payload.location)
-          .setIn(['current', 'description'], action.payload.options.description)
-          .setIn(['options', 'priv'], action.payload.options.priv)
-          .setIn(['options', 'nsfw'], action.payload.options.nsfw)
-          .setIn(['options', 'tags'], action.payload.options.tags)
-          .setIn(['options', 'topics'], action.payload.options.topics);
+        return state.set('options', fromJS(action.payload.options))
+          .setIn(['current', 'image'], action.payload.image)
+          .setIn(['current', 'selectedCountry'], action.payload.location);
+
     case LIST_MYLIST_FAILURE:
     case LIST_GET_DETAILS_FAILURE:
     case LIST_SEND_LIST_INVITATIONS_FAILURE:

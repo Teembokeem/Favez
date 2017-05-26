@@ -31,7 +31,9 @@ const FeedView = React.createClass({
       listData.tags = [];
       listData.topics = [];
       if(listData.taxonomy) listData.taxonomy.map(data => {
-        if(!!data.taxonomy) listData.topics.push(data.taxonomy)
+        let topic = Utils.getTopicByTaxonomy(data.taxonomy, this.props.topics);
+        if(!!topic) listData.topics.push(data.taxonomy);
+        else listData.tags.push(data.taxonomy);
       });
       listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
       this.props.dispatch(ListActions.loadListToEdit(listData));
@@ -126,6 +128,7 @@ const FeedView = React.createClass({
               closeCountryPicker: this.closeCountryPicker
             }}
             dataValid={this.isDataValid()}
+            editMode={!!this.props.listData}
           />
         </ ScrollView>
       </View>

@@ -11,6 +11,7 @@ export default connect(
       inviteList: state.getIn(['list', 'inviteList']).toJS(),
       currentList: state.getIn(['list', 'current']).toJS(),
       countryPicker: state.getIn(['ui', 'picker', 'countryPicker']).toJS(),
+      topics: state.getIn(['search', 'categories']).get('data').toJS(),
       form : state.get('form').toJS()
     };
   }

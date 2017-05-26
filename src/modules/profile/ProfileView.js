@@ -239,7 +239,7 @@ const ProfileView = React.createClass({
 
     render() {
 
-
+        console.log('REDUX_STATE', Utils.toJS(this.props.state));
         const authIsSelf = this.isOtherUser() ? false : true;
         const user = this.isOtherUser() ? Utils.toJS(this.props.userDetail).info : this.props.user;
         const child = this.renderChildren();

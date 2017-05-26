@@ -31,8 +31,9 @@ const renderInput = ({input: {onChange, ...restInput}, ...props}) => {
 };
 
 const CreateListForm = props => {
-  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, countryPicker, dataValid} = props;
-  const {priv, nsfw} = options;
+  const {handleSubmit, submitting, createList, toggleOption, options, collaborators, location, countryPicker, dataValid, editMode} = props;
+  const {priv, nsfw} = Utils.toJS(options);
+  console.log('LIST_CREATE_OPTIONS', Utils.toJS(options));
   const {countries, onChangeCountry, countryPickerVisibility, openCountryPicker, closeCountryPicker} = countryPicker;
   const submit = values => {
     createList(values.toJS());
@@ -128,7 +129,7 @@ const CreateListForm = props => {
         <View
           style={styles.CreateListButtonTextContainer}
         >
-          <Text style={styles.CreateListButtonText}>CREATE LIST</Text>
+          <Text style={styles.CreateListButtonText}>{editMode ? "UPDATE LIST" : "CREATE LIST"}</Text>
         </View>
       </TouchableOpacity>
     </View>

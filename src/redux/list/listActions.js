@@ -148,7 +148,7 @@ export function requestSaveList(data, callback) {
 
         console.log('LIST_SAVE_RESPONSE', res);
 
-        let list = res.data;
+        let list = res.data ? res.data : listData;
         let users = inviteData;
         let promises = [];
 
@@ -375,6 +375,7 @@ export function loadListToEdit(list) {
         nsfw: list.nsfw == 0 ? false : true,
         tags: list.tags,
         topics: list.topics,
+        currTag: ''
       },
       location: list.countryCode
     }

@@ -24,7 +24,8 @@ export default connect(state => ({
   subscribedLists: state.getIn(['list', 'subscribedLists']),
   followingUsers: state.getIn(['user', 'followingUsers']),
   userDetail: state.getIn(['user', 'userDetail']),
-  lastFetchedUserId:state.getIn(['user', 'lastFetchedUserId'])
+  lastFetchedUserId:state.getIn(['user', 'lastFetchedUserId']),
+  state: state
 }), dispatch => ({
   dispatch,
   onPickProfileImage: (onUploadingImage, onUploadedImage) => {
