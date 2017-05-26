@@ -203,6 +203,12 @@ const initialState = fromJS({
       set: ['lists', 'collabs', 'subscriptions', 'likes', 'comments']
     }
   },
+  searchView : {
+    tabs: {
+      selected: 'lists',
+      set: ['lists', 'sites']
+    }
+  },
   listShow: {
     tabs: {
       selected: 'favez',
@@ -521,6 +527,8 @@ export default function UIReducer(state = initialState, action = {}) {
         .setIn(['browser', 'viewList'],
         {set: action.payload.set, index: action.payload.index || 0});
     case UI_SET_TAB:
+    console.log("ui reduce view",action.payload.view);
+    console.log("ui reducer tab",action.payload.tab);
       return state
         .setIn([action.payload.view, 'tabs', 'selected'], action.payload.tab);
     case UI_BROWSER_SCRAPE_REQUEST:

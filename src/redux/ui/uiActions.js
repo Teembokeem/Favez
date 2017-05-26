@@ -59,6 +59,7 @@ export function toggleContextMenu(view, location) {
 
 // SET SELECTED TAB
 export function setViewTab(view, tab) {
+  console.log("view and tab",view,tab);
   return {
     type: UI_SET_TAB,
     payload: {view, tab}

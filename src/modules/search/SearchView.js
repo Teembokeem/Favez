@@ -12,8 +12,10 @@ import Category from '../../components/search/category/category';
 import Card from '../../components/globals/card/card';
 import List from '../../components/globals/list/list'
 import * as ListActions from '../../redux/list/listActions';
+import * as faveActions from '../../redux/fave/faveActions';
 import * as Utils from '../../utils/Utils';
 import { showSubscribedlists } from '../../utils/userFollow';
+import * as UIActions from '../../redux/ui/uiActions';
 let subscribedListsIds = [];
 
 
@@ -22,6 +24,7 @@ const SearchView = React.createClass({
 
   componentWillMount(){
     this.props.dispatch(ListActions.getListbyRelationAction('subscribed'));
+    this.props.dispatch(faveActions.getSiteListAction());
     this.selectTaxonomy();
   },
 
@@ -29,8 +32,11 @@ const SearchView = React.createClass({
     this.selectTaxonomy();
   },
 
-  setFilter(val) {
-    this.props.dispatch(SearchState.setFilter(val));
+  setFilter(val, tab) {
+    console.log("fvdv",val);
+    console.log("cfvr",tab);
+        this.props.dispatch(UIActions.setViewTab(val, tab));
+    // this.props.dispatch(SearchState.setFilter(val, tab));
   },
 
   showTopics() {
@@ -79,6 +85,7 @@ const SearchView = React.createClass({
 
   renderSearchTopic() {
     const {topic, tag, selected} = this.props;
+    console.log("vfvdd", this.props.tabs);
     var {height, width} = Dimensions.get('window');
     let title = tag ? tag : topic.semantic;
     return (
@@ -96,7 +103,10 @@ const SearchView = React.createClass({
           }}>
             <HeaderTabs
               setFilter={this.setFilter} selected={selected}
-              tabs={['lists', 'sites', 'filter']} />
+              tabs={this.props.tabs}
+              view={'searchView'} />
+
+
           </View>
           {this.renderChildren()}
         </ScrollView>
@@ -127,6 +137,12 @@ const SearchView = React.createClass({
 
     );
   },
+  renderSiteCards(card,index){
+    return(
+    <Text>{card.name}</Text>
+    );
+  },
+
 
   isSubscribedToList(list) {
     return subscribedListsIds.indexOf(list.id) != -1
@@ -149,7 +165,10 @@ const SearchView = React.createClass({
 
     switch (this.props.selected) {
       case 'lists':
+        return listsToRender.map(this.renderList);
       case 'sites':
+       return this.props.searchSites.map(this.renderSiteCards);
+
       case 'filter':
 
         return listsToRender.map(this.renderList);
