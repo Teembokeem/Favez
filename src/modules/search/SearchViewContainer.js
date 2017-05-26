@@ -16,6 +16,7 @@ export default connect(
       userLoggedIn: state.getIn(['user','user']),
       searchSites: state.getIn(['fave','searchSites']),
       tabs: state.getIn(['ui','searchView','tabs','set']),
+      contextMenu: state.getIn(['ui', 'search','tabbar',  'contextMenu']).toJS(),
 
     };
   }

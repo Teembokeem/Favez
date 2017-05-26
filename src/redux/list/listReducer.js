@@ -60,6 +60,8 @@ import {
     POST_COMMENTS_BY_LIST_SUCCESS,
     POST_COMMENTS_BY_LIST_FAILURE,
     commentsByListActionRes,
+    SORT_LIST_TAG,
+    SORT_LIST_TOPIC
 } from './listActions';
 import {
     requestCreateFave
@@ -126,8 +128,13 @@ export default function ListReducer(state = initialState, action = {}) {
             return state.setIn(['current', 'selectedCountry'], action.payload);
         case LIST_BY_TOPIC_SUCCESS:
             return state.set('loading', false).set('listByTopics', action.payload.data);
+        case SORT_LIST_TOPIC:
+          return state.set('loading', false).set('listByTopics', action.payload);
+
         case LIST_BY_TAG_SUCCESS:
             return state.set('loading', false).set('listByTags', action.payload.data);
+        case SORT_LIST_TAG:
+          return state.set('loading', false).set('listByTags', action.payload);
         case LIST_SEARCH_RESULT_SUCCESS:
             return state.set('loading', false).set('searchedLists', action.payload);
         case LIKE_UNLIKE_LIST_ITEM:

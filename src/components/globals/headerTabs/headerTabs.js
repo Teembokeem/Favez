@@ -28,6 +28,7 @@ function HeaderTabs({view, selected, tabs, setFilter}) {
             <TouchableOpacity
                 onPress={() => setFilter(view, tab)}
             >
+
               <Text
                 style={[styles.HeaderTabsTab, {color: tab === selected ? 'black' : '#A4A4A4'}]}
               >

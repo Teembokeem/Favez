@@ -21,7 +21,9 @@ import {
   SELF_UNLIKE_FAVEZ_SUCCESS,
   SELF_UNLIKE_FAVEZ_FAILURE,
   GET_SITE_LIST_SUCCESS,
-  GET_SITE_LIST_FAILURE
+  GET_SITE_LIST_FAILURE,
+  SORT_SITE_LIST,
+  SORT_MY_LIST
 } from './faveActions';
 
 // Initial state
@@ -63,6 +65,10 @@ export default function FaveReducer(state = initialState, action = {}) {
       return state.set('ERROR', action);
       case GET_SITE_LIST_SUCCESS:
       return state.set('searchSites',action.payload.data);
+    case SORT_SITE_LIST:
+      return state.set('searchSites',action.payload);
+  
+
     case SELF_FAVEZ_SUCCESS:
       return state
         .set('loading', false)

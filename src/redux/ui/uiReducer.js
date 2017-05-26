@@ -197,6 +197,27 @@ const initialState = fromJS({
       }
     }
   },
+  search: {
+tabbar: {
+      contextMenu: {
+        visible: false,
+        ref: 'search',
+        set: [
+          {
+            buttonAction: 'sortList',
+            uiText: 'Sort List',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-funnel',
+              style: 'listIcon'
+            }
+          },
+
+        ]
+      }
+}
+  },
+
   profileView : {
     tabs: {
       selected: 'lists',
@@ -527,8 +548,6 @@ export default function UIReducer(state = initialState, action = {}) {
         .setIn(['browser', 'viewList'],
         {set: action.payload.set, index: action.payload.index || 0});
     case UI_SET_TAB:
-    console.log("ui reduce view",action.payload.view);
-    console.log("ui reducer tab",action.payload.tab);
       return state
         .setIn([action.payload.view, 'tabs', 'selected'], action.payload.tab);
     case UI_BROWSER_SCRAPE_REQUEST:

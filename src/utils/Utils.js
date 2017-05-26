@@ -20,3 +20,10 @@ export function getTopicByTaxonomy(taxonomy, topics) {
   let filteredTopic = topics.filter(topic => topic.ref === taxonomy);
   return filteredTopic[0];
 }
+
+export function sortListbyId(list){
+console.log("vfvfv",list);
+return  list.sort(function(a,b) {
+    return new Date(b.created).getTime() - new Date(a.created).getTime()
+});
+}

@@ -79,6 +79,8 @@ export const GET_COMMENTS_BY_LIST_SUCCESS = "GET_COMMENTS_BY_LIST_SUCCESS";
 export const GET_COMMENTS_BY_LIST_FAILURE = "GET_COMMENTS_BY_LIST_FAILURE";
 export const POST_COMMENTS_BY_LIST_SUCCESS ="POST_COMMENTS_BY_LIST_SUCCESS";
 export const POST_COMMENTS_BY_LIST_FAILURE ="POST_COMMENTS_BY_LIST_FAILURE";
+export const SORT_LIST_TAG= "SORT_LIST_TAG";
+export const SORT_LIST_TOPIC = "SORT_LIST_TOPIC";
 // Action creators
 export function increment(cards, index) {
   Actions.intro();
@@ -374,4 +376,17 @@ export function loadListToEdit(list) {
       location: list.countryCode
     }
   }
+}
+
+export function sortListTagByDate(list){
+  return {
+    type: SORT_LIST_TAG,
+    payload: list
+  };
+}
+export function sortListTopicsByDate(list){
+  return {
+    type: SORT_LIST_TOPIC,
+    payload: list
+  };
 }

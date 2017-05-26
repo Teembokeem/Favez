@@ -51,6 +51,7 @@ export function browseFave(fave) {
 
 // TOGGLE HEADER CONTEXT MENU
 export function toggleContextMenu(view, location) {
+  console.log("vjdjvhn",view,location);
   return {
     type: UI_TOGGLE_CONTEXTMENU,
     payload: {view, location}

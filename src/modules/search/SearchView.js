@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import * as SearchState from './SearchState';
-import { View, ScrollView, StyleSheet, Text, Dimensions, Alert } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Dimensions, Alert,TouchableOpacity,Image } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import SearchHeader from '../../components/search/searchHeader/searchHeader';
 import SearchHeaderIcons from '../../components/search/searchHeaderIcons/searchHeaderIcons'
@@ -17,6 +17,8 @@ import * as Utils from '../../utils/Utils';
 import { showSubscribedlists } from '../../utils/userFollow';
 import * as UIActions from '../../redux/ui/uiActions';
 import SiteCard from '../../components/globals/siteCard/siteCard';
+import {sortListbyId} from '../../utils/Utils';
+import ContextMenu from './contextMenu';
 let subscribedListsIds = [];
 
 
@@ -34,8 +36,7 @@ const SearchView = React.createClass({
   },
 
   setFilter(val, tab) {
-    console.log("fvdv",val);
-    console.log("cfvr",tab);
+
         this.props.dispatch(UIActions.setViewTab(val, tab));
     // this.props.dispatch(SearchState.setFilter(val, tab));
   },
@@ -62,6 +63,15 @@ const SearchView = React.createClass({
           this.props.dispatch(ListActions.deleteListRelationAction(action, 2,detailList));
     }
   },
+  renderModal() {
+
+    const { contextMenu } = this.props;
+    const { visible, set } = contextMenu;
+
+    return visible
+      ? (<ContextMenu toggleContextMenu={this.toggleContextMenu} onSelectAction={this.onSelectAction} visible={visible} items={set} />)
+      : null;
+  },
 
   selectTaxonomy() {
     let taxonomy = this.props.taxonomy && this.props.taxonomy.toLowerCase();
@@ -71,6 +81,9 @@ const SearchView = React.createClass({
       if(!!topic) this.props.dispatch(SearchState.searchByTopic(topic));
       else this.props.dispatch(SearchState.searchByTag(taxonomy));
     }
+  },
+  toggleContextMenu() {
+    this.props.dispatch(UIActions.toggleContextMenu('search','tabbar'));
   },
 
 
@@ -86,7 +99,6 @@ const SearchView = React.createClass({
 
   renderSearchTopic() {
     const {topic, tag, selected} = this.props;
-    console.log("vfvdd", this.props.tabs);
     var {height, width} = Dimensions.get('window');
     let title = tag ? tag : topic.semantic;
     return (
@@ -100,13 +112,23 @@ const SearchView = React.createClass({
         <ScrollView contentContainerStyle={styles.contentContainer}>
           <View style={{
             flex: 1,
-            width: width
+            width: width,
+            flexDirection:'row'
+
           }}>
+          <View style={{width: width-30}}>
             <HeaderTabs
               setFilter={this.setFilter} selected={selected}
               tabs={this.props.tabs}
               view={'searchView'} />
-
+            </View>
+            <View style={{width: 30, height: 40}}>
+            <TouchableOpacity onPress={()=>this.toggleContextMenu()}>
+              <Image style={{height: 30, width: 30}} source={
+                  require('../../../images/buttons/manageButton.png')}
+                  ></Image>
+              </TouchableOpacity>
+              </View>
 
           </View>
           {this.renderChildren()}
@@ -155,9 +177,33 @@ const SearchView = React.createClass({
       else this.userSubscribe("subscribe", list)
     } else Actions.login();
   },
+  onSelectAction(buttonAction){
+    if(buttonAction=='sortList')
+    this.reverseOrder();
 
+  },
+  reverseOrder(){
+    let sortedArray=[];
+    const {index, categories, topic, tag,selected} = this.props;
+    let listsToRender = [];
+    listsToRender = tag ? this.props.listByTags : this.props.listByTopics;
+
+    if(selected=='lists'){
+      sortedArray = sortListbyId(listsToRender);
+
+    tag ?   this.props.dispatch(ListActions.sortListTagByDate(sortedArray)) : this.props.dispatch(ListActions.sortListTopicsByDate(sortedArray));
+    }
+
+    if(selected=='sites'){
+      sortedArray = sortListbyId(this.props.searchSites);
+     this.props.dispatch(faveActions.sortSiteListByDate(sortedArray));
+
+    }
+
+  },
   renderChildren() {
     const {subscribedLists, list, tag, topic} = this.props;
+
       if (subscribedLists.length > 0) {
       subscribedListsIds = showSubscribedlists(list, subscribedLists);
     }
@@ -172,10 +218,10 @@ const SearchView = React.createClass({
 
       case 'filter':
 
-        return listsToRender.map(this.renderList);
-
+      this.toggleContextMenu();
+      break;
       case 'products':
-        return (this.props.favez.map((fave, index) => (<Card key={'fave ' + index} card={fave} track={index} moving={this.moving} increment={this.increment} />)));
+{/*        return (this.props.favez.map((fave, index) => (<Card key={'fave ' + index} card={fave} track={index} moving={this.moving} increment={this.increment} />)));*/}
       default:
         return null;
     }
@@ -183,9 +229,13 @@ const SearchView = React.createClass({
 
   render() {
 
-    const {index, categories, topic, tag} = this.props;
+const {index, categories, topic, tag,selected} = this.props;
+
+
     return (
+
       <View style={styles.container}>
+        {this.renderModal()}
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {
             topic || tag
