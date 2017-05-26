@@ -5,6 +5,7 @@ import {
   Text,
   TouchableOpacity,
   Switch,
+  Linking,
   Platform,
 } from 'react-native';
 import {Actions} from 'react-native-router-flux';
@@ -14,6 +15,7 @@ import IoniconIcon from 'react-native-vector-icons/Ionicons';
 import CountryPicker from '../../components/globals/pickers/countryPicker/countryPicker';
 
 import * as Utils from '../../utils/Utils';
+import * as EmailUtils from '../../utils/emailUtils';
 import * as UserActions from '../../redux/user/userActions';
 import * as UiActions from '../../redux/ui/uiActions';
 
@@ -160,7 +162,7 @@ class SettingsView extends React.Component {
             </View>
 
             <View style={styles.settingsGroup}>
-              <TouchableOpacity style={styles.settingItem}>
+              <TouchableOpacity onPress={this.sendMail} style={styles.settingItem}>
                 <View style={styles.settingItemContentContainer}>
                   <Text style={styles.settingItemText}>Contact Us</Text>
                 </View>
@@ -199,6 +201,11 @@ class SettingsView extends React.Component {
         </ ScrollView>
       </View>
     );
+  }
+
+  sendMail() {
+
+    EmailUtils.requestSendMail().catch(err => console.error('An error occurred', err));
   }
 
   handleUserAuth() {
