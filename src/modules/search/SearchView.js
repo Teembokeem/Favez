@@ -16,6 +16,7 @@ import * as faveActions from '../../redux/fave/faveActions';
 import * as Utils from '../../utils/Utils';
 import { showSubscribedlists } from '../../utils/userFollow';
 import * as UIActions from '../../redux/ui/uiActions';
+import SiteCard from '../../components/globals/siteCard/siteCard';
 let subscribedListsIds = [];
 
 
@@ -89,7 +90,7 @@ const SearchView = React.createClass({
     var {height, width} = Dimensions.get('window');
     let title = tag ? tag : topic.semantic;
     return (
-      <View>
+      <View style={{backgroundColor: '#F6F6F6'}}>
         <View style={{height: 150, backgroundColor: topic ? topic.color : '#FF9900'}}>
           <SearchHeaderIcons
             showTopics={this.showTopics}
@@ -139,7 +140,7 @@ const SearchView = React.createClass({
   },
   renderSiteCards(card,index){
     return(
-    <Text>{card.name}</Text>
+<SiteCard card={card} key={'site' + index} />
     );
   },
 
