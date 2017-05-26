@@ -46,7 +46,11 @@ function CardUser({card, showProfile, onUserAction, userActionData}) {
             </TouchableOpacity>
 
         </View>
-        ); }; const styles = StyleSheet.create({cardUserContainer : {
+        );
+       };
+
+       const styles = StyleSheet.create({
+         cardUserContainer : {
             padding: 7,
             flex: 1,
             paddingRight: 14,
@@ -84,4 +88,6 @@ function CardUser({card, showProfile, onUserAction, userActionData}) {
             fontSize: 25
         },
         ListBackground : {}
-}
+      });
+
+      export default CardUser;
