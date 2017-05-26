@@ -6,6 +6,7 @@ import {
   Linking,
   InteractionManager,
   Alert,
+  Image,
   Dimensions,
   ScrollView,
   Text
@@ -109,14 +110,19 @@ class ManageFeedList extends React.Component {
             }}>
               <TouchableOpacity
                 onPress={Actions.ManageBlock}
-                style={styles.blockkBtn} >
-                <IoniconIcon style={styles.headerLeftButtonIcon} name='md-warning' />
+                style={styles.blockBtn} >
+                <Image
+                    source={
+                    require('../../../../images/buttons/manageBlocked.png')
+                    }
+                    style={styles.manageBlockedIcons}
+                />
               </TouchableOpacity>
             </View>
           </View>
           <Header title={'MANAGE \nFEED'} />
           <Divider />
-            <View style={{height: 30}}>
+            <View style={{height: 50}}>
           <HeaderTabs
             view={'manageFeed'}
             setFilter={this.setFilter.bind(this)}
@@ -173,8 +179,13 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     width: 40
   },
-  blockkBtn: {
+  blockBtn: {
     justifyContent: 'flex-end'
+  },
+  manageBlockedIcons:{
+    height: 25,
+    width: 25,
+    marginTop: 10
   },
   headerLeftButtonIcon: {
     width: 35,

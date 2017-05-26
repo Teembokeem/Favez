@@ -21,24 +21,27 @@ const FeedView = React.createClass({
 
   componentWillMount() {
 
-    this.loadListData();
+    if(this.props.listData) this.loadListData();
+    else this.resetListData();
   },
 
   loadListData() {
 
-    if(this.props.listData) {
-      let listData = this.props.listData;
-      listData.tags = [];
-      listData.topics = [];
-      if(listData.taxonomy) listData.taxonomy.map(data => {
-        let topic = Utils.getTopicByTaxonomy(data.taxonomy, this.props.topics);
-        if(!!topic) listData.topics.push(data.taxonomy);
-        else listData.tags.push(data.taxonomy);
-      });
-      listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
-      this.props.dispatch(ListActions.loadListToEdit(listData));
-      this.props.dispatch(change('createList','name', listData.name));
-    }
+    let listData = this.props.listData;
+    listData.tags = [];
+    listData.topics = [];
+    if(listData.taxonomy) listData.taxonomy.map(data => {
+      let topic = Utils.getTopicByTaxonomy(data.taxonomy, this.props.topics);
+      if(!!topic) listData.topics.push(data.taxonomy);
+      else listData.tags.push(data.taxonomy);
+    });
+    listData.countryCode = Utils.getCodeByCountryName(listData.location, this.props.countryPicker.set);
+    this.props.dispatch(ListActions.loadListToEdit(listData));
+    this.props.dispatch(change('createList','name', listData.name));
+  },
+
+  resetListData() {
+    this.props.dispatch(ListActions.resetCurrentListData());
   },
 
   createList(values) {
@@ -58,13 +61,10 @@ const FeedView = React.createClass({
 
     if(this.props.listData) listObj.list_id = this.props.listData.id;
 
-    console.log('SAVE_LIST_DATA_TO_SUBMIT', listObj);
-
     this.props.dispatch(ListActions.requestSaveList({
       listData: listObj,
       inviteData: inviteList
     }, (data) => {
-      console.log('List save response',data);
       if(data.successStatus) Actions.pop();
     }));
   },
@@ -100,7 +100,7 @@ const FeedView = React.createClass({
 
   render() {
 
-    //console.log('CREATE_LIST_PROPS', this.props);
+    console.log('CREATE_LIST_PROPS', this.props);
 
     const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;

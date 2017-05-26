@@ -35,6 +35,11 @@ import {
   FOLLOW_USER_FAILURE,
   UNFOLLOW_USER_SUCCESS,
   UNFOLLOW_USER_FAILURE,
+  FOLLOW_USER_CARD_SUCCESS,
+  FOLLOW_USER_CARD_FAILURE,
+  UNFOLLOW_USER_CARD_SUCCESS,
+  UNFOLLOW_USER_CARD_FAILURE,
+
   GET_FOLLOWING_LIST_SUCCESS,
   GET_FOLLOWING_LIST_FAILURE,
   GET_FOLLOWER_LIST_SUCCESS,
@@ -237,6 +242,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case GET_OTHER_USER_INFO_SUCCESS:
       return state.set('loading', false).set('userDetail', action.payload);
     case LOGIN_FAILURE:
+      return state.set('loading', false).set('loginAttempt', false).set('error', action.payload);
     case USER_UPDATE_FAILURE:
     case USER_GET_COLLABORATORS_FAILURE:
     case REGISTER_FAILURE:
@@ -253,6 +259,8 @@ export default function UserStateReducer(state = initialState, action = {}) {
         Effects.promise(() => unfollowuserAction(action.payload)));
     case GET_BLOCKED_USER_FAILURE:
     case UNFOLLOW_USER_FAILURE:
+    case UNFOLLOW_USER_CARD_FAILURE:
+    case FOLLOW_USER_CARD_FAILURE:
       return state.set('loading', false).set('error', action.payload);
     case USER_FAILURE:
       return state.set('error', action.payload).set('loginAttempt', false);
@@ -264,10 +272,12 @@ export default function UserStateReducer(state = initialState, action = {}) {
     case UNFOLLOW_USER:
       return loop(state.setIn(['recentFollowedUser', 'id'], action.payload),
         Effects.promise(() => unfollowuserAction(action.payload)));
-    case FOLLOW_USER_SUCCESS:
-      return state.setIn(['recentFollowedUser', 'status'], true);
+    case FOLLOW_USER_CARD_SUCCESS:
+let User ={};
+User.id=action.detailList.owner;
+            return state.set('followingUsers', [...state.get("followingUsers"), User]);
     case FOLLOW_USER_FAILURE:
-      return state.set('loading', false).set('user', action.payload);
+      return state.set('loading', false).set('error', action.payload);
     case FOLLOW_USER:
       {
         const collaborators = state.get('collaborators_all')
@@ -310,6 +320,7 @@ export default function UserStateReducer(state = initialState, action = {}) {
       {
         const collaborators = state.get('collaborators_all')
         const currentIndex = collaborators.findIndex(item => item.id === action.userId)
+                  let User ={};
         return state.setIn(['recentFollowedUser', 'status'], false)
           .set('collaborators_all', [
             ...collaborators.slice(0, currentIndex),
@@ -322,16 +333,14 @@ export default function UserStateReducer(state = initialState, action = {}) {
       }
     case GET_USER_SUBSCRIBED_LIST_SUCCESS:
       return state.set('loading', false).set('userSubscribedList', action.payload.data);
-
     case GET_USER_SUBSCRIBED_LIST_FAILURE:
     case GET_USER_BLOCKED_LIST_SUCCESS:
       return state.set('loading', false).set('userBlockedList', action.payload.data);
     case GET_USER_BLOCKED_LIST_FAILURE:
     case GET_BLOCKED_USER_SUCCESS:
-      console.log("blocked users by a logged in user", action.payload.data);
       return state.set('loading', false).set('userBlockedPeople', action.payload.data);
-    case UNFOLLOW_USER_SUCCESS:
-      return state.setIn(['recentFollowedUser', 'status'], false);
+    case UNFOLLOW_USER_CARD_SUCCESS:
+    return state.set('followingUsers', state.get('followingUsers').filter(o => o.id !== action.detailList.owner));
     case GET_FOLLOWING_LIST_SUCCESS:
       return state.set('loading', false).set('followingUsers', action.payload.data);
     case GET_FOLLOWER_LIST_SUCCESS:

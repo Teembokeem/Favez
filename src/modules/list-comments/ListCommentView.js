@@ -47,7 +47,7 @@ const ListShowView = React.createClass({
 
     setFilter(view, tab) {},
     searchSubmit() {
-        if (this.props.user) {
+        if (this.props.user.favez) {
             this.props.dispatch(ListActions.postCommentOnListAction(this.state.query, this.props.listId, this.props.user));
         } else {
             Alert.alert("Please Login to post a Comment");
@@ -118,17 +118,7 @@ const ListShowView = React.createClass({
     render() {
         // if (!this.state.ready) return null;
         const {commentsByList} = this.props;
-        console.log("vdojvldjbvkr", this.props.loading);
-        if(this.props.loading){
-          return(
-            <View style={styles.loaderContainer}>
-              <ActivityIndicator style={styles.centered} />
-            </View>
-
-
-          );
-        }else{
-          return (
+                  return (
 
         <View style={styles.base}>
             <View style={styles.header}>
@@ -136,30 +126,30 @@ const ListShowView = React.createClass({
 
                     <Image source={require('../../../images/rightImgSample.png')} style={styles.ListBackground}/>
                 </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    width: window.width
-                }}>
-                    <View style={{
-                        flex: 1,
-                        width: window.width - 50
-                    }}>
-                        <TouchableOpacity onPress={Actions.pop} style={styles.backBtn}>
-                            <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <TouchableOpacity onPress={Actions.pop} style={styles.backBtn}>
+                    <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
+                </TouchableOpacity>
                 <View style={styles.HeaderContainer}>
                     <Header title={'COMMENTS'} theme={'light'}/>
                 </View>
             </View>
-            <ScrollView contentContainerStyle={styles.container}>
-                <View>
-                    {this.renderComments()}
+{renderIf(!this.props.loading)(
+  <ScrollView contentContainerStyle={styles.container}>
+      <View>
+          {this.renderComments()}
 
-                </View>
-            </ScrollView>
+      </View>
+  </ScrollView>
+)}
+{
+  renderIf(this.props.loading)(
+    <View style={styles.loaderContainer}>
+      <ActivityIndicator style={styles.centered} />
+    </View>
+
+  )
+}
+
             <View>
                 <TextInput style={styles.textInput} keyboardType='default' returnKeyType='go' placeholder='Type or tap a comment to reply' blurOnSubmit={false}  onSubmitEditing={this.searchSubmit} underlineColorAndroid ={'transparent'} onChangeText={(text) => this.handleSearchInput(text)}/>
             </View>
@@ -167,7 +157,7 @@ const ListShowView = React.createClass({
     );
         }
 
-    }
+
 })
 const styles = StyleSheet.create({
     container: {
@@ -180,6 +170,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',
         // paddingBottom: 50,
         alignItems: 'center',
+        flexGrow: 1,
 
         // justifyContent: 'center'
     },
@@ -313,7 +304,8 @@ const styles = StyleSheet.create({
     backBtn: {
         marginTop: 10,
         marginLeft: 10,
-        width: 40
+        width: 40,
+        backgroundColor: 'transparent',
     },
     blockkBtn: {
         justifyContent: 'flex-end'
@@ -321,7 +313,8 @@ const styles = StyleSheet.create({
     headerLeftButtonIcon: {
         width: 35,
         fontSize: 30,
-        color: '#fff',
+        fontSize: 30,
+        color: '#000000',
         alignSelf: 'flex-start'
     },
     actions: {

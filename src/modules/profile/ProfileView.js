@@ -123,7 +123,9 @@ const ProfileView = React.createClass({
               break;
             case 'likes':
               if(this.props.userDetail.likes.length > 0){
-                  return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving} increment={this.increment}/>)));
+                  return (this.props.userDetail.likes.map((fave, idx) => (<Card key={'fave ' + idx} card={fave} track={idx} moving={this.moving}
+                  userActionData={{type: 'follow_unfollow_likes', data: false}}
+                 increment={this.increment}/>)));
               }else{
                 <View style={styles.noResultContainer}>
                   <Text style={styles.noResultText}>There are No Likes yet.</Text>

@@ -37,8 +37,14 @@ export default function Followee({followee, onPressFollow, onPressRemove,key,fol
       )}
 
       {renderIf(followuserpage === 'followuserpage')(<TouchableOpacity >
-        <View style={[styles.followBtnView, styles.followBtnGreen]}>
-        <FontAwesomeIcon name="user-o" />
+        <View>
+          <Image
+              source={
+              require('../../../../images/buttons/following.png')
+
+              }
+              style={styles.ListIcons}
+          />
         </View>
       </TouchableOpacity>)}
 
@@ -81,6 +87,11 @@ const styles = StyleSheet.create({
     height: 80,
     flexDirection: 'row',
     alignItems: 'stretch'
+  },
+  ListIcons:{
+    height: 25,
+    width: 25
+
   },
   avatarWrapper: {
     paddingTop: 8

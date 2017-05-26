@@ -13,8 +13,8 @@ export default connect(state => {
         // loading: state.getIn(['feed', 'loading'])
         followingUsers: state.getIn(['user', 'followingUsers']),
         user: state.getIn(['user', 'user']),
-        recentFollowedUser: state.getIn(['user','recentFollowedUser']).toJS(),
-        recentSubscribedList: state.getIn(['list','recentSubscribedList']).toJS()
-
+        recentFollowedUser: state.getIn(['user', 'recentFollowedUser']).toJS(),
+        recentSubscribedList: state.getIn(['list', 'recentSubscribedList']).toJS(),
+        userLoggedIn: state.getIn(['user', 'user'])
     };
 })(FeedView);

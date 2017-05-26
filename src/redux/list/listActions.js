@@ -64,6 +64,7 @@ export const GET_LIST_BY_RELATION_FAILURE = 'GET_LIST_BY_RELATION_FAILURE';
 export const LIST_SEARCH_RESULT_SUCCESS = 'LIST_SEARCH_RESULT_SUCCESS';
 export const LIST_SEARCH_RESULT_FAILURE = 'LIST_SEARCH_RESULT_FAILURE';
 export const LIST_LOAD_DATA_TO_EDIT = 'LIST_LOAD_DATA_TO_EDIT';
+export const LIST_RESET_CURRENT_DATA = 'LIST_RESET_CURRENT_DATA';
 export const SUBSCRIBE_LIST = 'SUBSCRIBE_LIST';
 export const UNSUBSCRIBE_LIST = 'UNSUBSCRIBE_LIST';
 
@@ -146,8 +147,6 @@ export function requestSaveList(data, callback) {
     dispatch({type: LIST_SAVE_REQUEST});
     return listSave(listData).then((res) => {
 
-        console.log('LIST_SAVE_RESPONSE', res);
-
         let list = res.data ? res.data : listData;
         let users = inviteData;
         let promises = [];
@@ -171,7 +170,6 @@ export function requestSaveList(data, callback) {
         }
 
     }).catch((err) => {
-        console.log('LIST_SAVE_ERROR', err);
         if(!!callback) callback({successStatus: false});
         return {type: LIST_SAVE_FAILURE, payload: err}
     });
@@ -268,11 +266,9 @@ export async function requestListByTopic(data) {
 export async function requestListByTag(data) {
   return await getListByTag(data)
     .then((res) => {
-      console.log('REQUEST_LIST_BY_TAG_SUCCESS', res);
       return {type: LIST_BY_TAG_SUCCESS, payload: res}
     })
     .catch((err) => {
-      console.log('REQUEST_LIST_BY_TAG_ERROR', err);
       return {type: LIST_BY_TAG_FAILURE, payload: err}
     });
 }
@@ -379,5 +375,11 @@ export function loadListToEdit(list) {
       },
       location: list.countryCode
     }
+  }
+}
+
+export function resetCurrentListData() {
+  return {
+    type: LIST_RESET_CURRENT_DATA
   }
 }

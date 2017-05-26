@@ -31,7 +31,6 @@ class PushNotificationsView extends React.Component {
   render() {
 
     const {notificationSettings} = this.props;
-    console.log('PUSH_NOTIFICATIONS_SETTINGS', Utils.toJS(notificationSettings));
 
     return (
       <View style={styles.container}>
@@ -72,7 +71,6 @@ class PushNotificationsView extends React.Component {
   }
 
   togglePushNotificationsSetting(settingId) {
-    console.log('togglePushNotificationsSetting request....', settingId);
     this.props.dispatch(UserActions.togglePushNotificationsSetting(settingId));
   }
 

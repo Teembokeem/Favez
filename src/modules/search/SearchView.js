@@ -163,8 +163,6 @@ const SearchView = React.createClass({
 
   render() {
 
-    console.log("SEARCH_VIEW_PROPS", this.props);
-
     const {index, categories, topic, tag} = this.props;
     return (
       <View style={styles.container}>
