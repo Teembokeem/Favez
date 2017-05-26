@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: ViewUtils.STATUSBAR_HEIGHT,
-    height: ViewUtils.APPBAR_HEIGHT + ViewUtils.STATUSBAR_HEIGHT * 2
+    height: ViewUtils.APPBAR_HEIGHT + ViewUtils.STATUSBAR_HEIGHT
   },
   flex1: {
     flex: 1,

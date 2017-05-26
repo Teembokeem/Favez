@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     flexDirection: 'row',
     paddingTop: ViewUtils.STATUSBAR_HEIGHT,
-    height: ViewUtils.APPBAR_HEIGHT + ViewUtils.STATUSBAR_HEIGHT * 2,
+    height: ViewUtils.APPBAR_HEIGHT + ViewUtils.STATUSBAR_HEIGHT,
     width: ViewUtils.WINDOW_WIDTH
   },
   headerLeftButtons: {

@@ -17,6 +17,6 @@ export const TABBAR_HEIGHT = 38;
 
 export function getContentHeight(hasHeader, hasFooter) {
   let height = deviceHeight;
-  if(hasHeader) deviceHeight - (APPBAR_HEIGHT + STATUSBAR_HEIGHT * 2);
+  if(hasHeader) deviceHeight - (APPBAR_HEIGHT + STATUSBAR_HEIGHT);
   return height;
 }
