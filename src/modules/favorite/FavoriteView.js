@@ -114,11 +114,17 @@ const FavoriteView = React.createClass({
   },
 
   moving(idx) {
+
     const {selectedTab} = this.props;
     let list;
     switch (selectedTab) {
+      case 'list':
+
       case 'your lists':
         list = 'myLists';
+
+        this.props.dispatch(ListActions.getDetailedList(idx)).then(() => Actions.listShow());
+        break;
         break;
       case 'collabs':
         list = 'collaborations';
@@ -127,7 +133,7 @@ const FavoriteView = React.createClass({
         list = 'myLists';
         break;
     }
-    this.props.dispatch(ListActions.setList(list, idx)).then(() => Actions.listShow());
+    // this.props.dispatch(ListActions.setList(list, idx)).then(() => Actions.listShow());
   },
 
   render() {
