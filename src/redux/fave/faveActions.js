@@ -4,7 +4,8 @@ import {
   getFavezSelf,
   getFavezAll,
   sendUnLikeFavez,
-  sendLikeFavez
+  sendLikeFavez,
+  favezSearchSite
 } from '../../services/favez';
 
 // Actions
@@ -24,7 +25,10 @@ export const SELF_LIKE_FAVEZ_SUCCESS ='SELF_LIKE_FAVEZ_SUCCESS';
 export const SELF_LIKE_FAVEZ_FAILURE='SELF_LIKE_FAVEZ_FAILURE';
 export const SELF_UNLIKE_FAVEZ_FAILURE = 'SELF_UNLIKE_FAVEZ_FAILURE';
 export const SELF_UNLIKE_FAVEZ_SUCCESS = 'SELF_UNLIKE_FAVEZ_SUCCESS';
-
+export const GET_SITE_LIST_SUCCESS = 'GET_SITE_LIST_SUCCESS';
+export const GET_SITE_LIST_FAILURE = 'GET_SITE_LIST_FAILURE';
+export const SORT_SITE_LIST = 'SORT_SITE_LIST';
+export const SORT_MY_LIST = 'SORT_MY_LIST';
 // Action creators
 
 export async function requestFullFave() {
@@ -89,4 +93,23 @@ export async function unlikeFavezAction(action, detailList){
   return await sendUnLikeFavez(action,detailList)
   .then((res)=>({type: SELF_UNLIKE_FAVEZ_SUCCESS, payload: res,detailList: detailList}))
   .catch((err)=>({type: SELF_UNLIKE_FAVEZ_FAILURE, payload: err}));
+}
+
+export async function getSiteListAction(){
+  return await favezSearchSite()
+  .then((res)=>({type: GET_SITE_LIST_SUCCESS, payload: res}))
+  .catch((err)=>({type: GET_LIST_LIKE_FAILURE, payload: err}));
+}
+
+export function sortMyFaveListByDate(list){
+  return {
+    type: SORT_MY_LIST,
+    payload: list
+  };
+}
+export function sortSiteListByDate(list){
+  return {
+    type: SORT_SITE_LIST,
+    payload: list
+  };
 }

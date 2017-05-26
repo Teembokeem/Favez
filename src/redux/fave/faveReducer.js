@@ -19,7 +19,11 @@ import {
   SELF_LIKE_FAVEZ_SUCCESS,
   SELF_LIKE_FAVEZ_FAILURE,
   SELF_UNLIKE_FAVEZ_SUCCESS,
-  SELF_UNLIKE_FAVEZ_FAILURE
+  SELF_UNLIKE_FAVEZ_FAILURE,
+  GET_SITE_LIST_SUCCESS,
+  GET_SITE_LIST_FAILURE,
+  SORT_SITE_LIST,
+  SORT_MY_LIST
 } from './faveActions';
 
 // Initial state
@@ -29,7 +33,8 @@ const initialState = fromJS({
   loading: true,
   error: {},
   trendingFavez: [],
-  selfFavez: []
+  selfFavez: [],
+  searchSites: [],
 });
 
 // Reducer
@@ -58,6 +63,12 @@ export default function FaveReducer(state = initialState, action = {}) {
     case FAVE_CREATE_FAILURE:
     case FAVE_SEARCH_RESULT_FALIURE:
       return state.set('ERROR', action);
+      case GET_SITE_LIST_SUCCESS:
+      return state.set('searchSites',action.payload.data);
+    case SORT_SITE_LIST:
+      return state.set('searchSites',action.payload);
+  
+
     case SELF_FAVEZ_SUCCESS:
       return state
         .set('loading', false)
@@ -80,8 +91,10 @@ export default function FaveReducer(state = initialState, action = {}) {
         return state.set('selfFavez', [...state.get("selfFavez"), action.detailList]);
       }
       break;
+    case GET_SITE_LIST_FAILURE:
     case SELF_LIKE_FAVEZ_FAILURE:
-      break;
+    return state.set('error',action.payload);
+
     case SELF_UNLIKE_FAVEZ_SUCCESS:
       const indexOfListToUpdateUnlike = state.get('selfFavez').findIndex(listItem => {
         return listItem.id == action.detailList.id;

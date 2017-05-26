@@ -51,6 +51,7 @@ export function browseFave(fave) {
 
 // TOGGLE HEADER CONTEXT MENU
 export function toggleContextMenu(view, location) {
+  console.log("vjdjvhn",view,location);
   return {
     type: UI_TOGGLE_CONTEXTMENU,
     payload: {view, location}
@@ -59,6 +60,7 @@ export function toggleContextMenu(view, location) {
 
 // SET SELECTED TAB
 export function setViewTab(view, tab) {
+  console.log("view and tab",view,tab);
   return {
     type: UI_SET_TAB,
     payload: {view, tab}

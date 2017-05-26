@@ -197,10 +197,37 @@ const initialState = fromJS({
       }
     }
   },
+  search: {
+tabbar: {
+      contextMenu: {
+        visible: false,
+        ref: 'search',
+        set: [
+          {
+            buttonAction: 'sortList',
+            uiText: 'Sort List',
+            icon: {
+              set: 'Ionicon',
+              identifier: 'ios-funnel',
+              style: 'listIcon'
+            }
+          },
+
+        ]
+      }
+}
+  },
+
   profileView : {
     tabs: {
       selected: 'lists',
       set: ['lists', 'collabs', 'subscriptions', 'likes', 'comments']
+    }
+  },
+  searchView : {
+    tabs: {
+      selected: 'lists',
+      set: ['lists', 'sites']
     }
   },
   listShow: {

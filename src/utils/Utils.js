@@ -1,4 +1,3 @@
-
 export function toJS(immutable) {
   if (immutable.toJS) {
     return immutable.toJS()
@@ -24,4 +23,10 @@ export function getTopicByTaxonomy(taxonomy, topics) {
 export function isUrl(url) {
   var regexp = /(http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
   return regexp.test(url);
+}
+
+export function sortListbyId(list) {
+  return list.sort(function (a, b) {
+    return new Date(b.created).getTime() - new Date(a.created).getTime()
+  });
 }
