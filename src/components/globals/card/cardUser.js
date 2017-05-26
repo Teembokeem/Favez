@@ -16,8 +16,15 @@ function CardUser({card, time, showProfile,onUserAction,userActionData}) {
     switch(userActionData.type) {
       case "follow_unfollow":
         return (
+          <View >
+          <Image
+              source={userActionData.data
+                ? require('../../../../images/buttons/following.png')
+                : require('../../../../images/buttons/userFollow.png')}
+              style={styles.ListBackground}
+          />
+        </View>
 
-          <IoniconIcon style={styles.cardUserSubscribe} name={userActionData.data ? 'md-person' : 'md-person-add'}/>
       );
 
     }
@@ -79,6 +86,9 @@ const styles = StyleSheet.create({
   },
   cardUserSubscribe: {
     fontSize: 25
+  },
+  ListBackground: {
+
   }
 });
 
