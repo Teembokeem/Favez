@@ -28,6 +28,7 @@ import {
   USER_SUCCESS,
   USER_SEARCH_RESULT_SUCCESS,
   USER_SEARCH_RESULT_FAILURE,
+  USER_CLEAR_DATA_REQUEST,
   FOLLOW_USER,
   UNFOLLOW_USER,
   FOLLOW_USER_SUCCESS,
@@ -55,6 +56,14 @@ import {
   GET_USER_BLOCKED_LIST_FAILURE,
   GET_BLOCKED_USER_SUCCESS,
   GET_BLOCKED_USER_FAILURE,
+  USER_TOGGLE_NSFW_SETTING_REQUEST,
+  USER_TOGGLE_NSFW_SETTING_SUCCESS,
+  USER_TOGGLE_NSFW_SETTING_FAILURE,
+  USER_TOGGLE_PRIVATE_SETTING_REQUEST,
+  USER_TOGGLE_PRIVATE_SETTING_SUCCESS,
+  USER_TOGGLE_PRIVATE_SETTING_FAILURE,
+  USER_SAVE_LOCATION_REQUEST,
+  USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST,
   requestLogin,
   requestCollaborators,
   requestUserInfo,
@@ -62,7 +71,9 @@ import {
   requestRegister,
   createUser,
   followuserAction,
-  unfollowuserAction
+  unfollowuserAction,
+  requestSaveNSFWSetting,
+  requestSavePrivateSetting
 } from './userActions';
 // Initial state
 const initialState = fromJS({
@@ -92,7 +103,32 @@ const initialState = fromJS({
     comments: [],
     likes: [],
   },
-  lastFetchedUserId: -1
+
+  lastFetchedUserId: -1,
+
+  settings: {
+    nsfw: false,
+    priv: false,
+    pushNotifications: {
+      enable: false,
+      announcements: false,
+      reccomendations: false,
+      newFollower: false,
+      followRequest: false,
+      acceptedFollowRequest: false,
+      friendsOnFavez: false,
+      newFriendList: false,
+      newListFollower: false,
+      collaborationInvitation: false,
+      collaborationResponse: false,
+      newComment: false,
+      mentionsAndReplies: false
+    }
+  },
+
+  location: {
+    country: 'RO' // default country 'Romania' code
+  }
 
 });
 // Reducer
@@ -309,6 +345,55 @@ User.id=action.detailList.owner;
       return state.set('loading', false).set('followingUsers', action.payload.data);
     case GET_FOLLOWER_LIST_SUCCESS:
       return state.set('loading', false).set('followerUsers', action.payload.data);
+    case USER_TOGGLE_NSFW_SETTING_REQUEST:
+      let currentNSFW = state.getIn(['settings','nsfw']);
+      return loop(
+        state.setIn(['settings','nsfw'], !currentNSFW),
+        Effects.promise(() => requestSaveNSFWSetting({"nsfw": !currentNSFW}))
+      )
+    case USER_TOGGLE_NSFW_SETTING_SUCCESS:
+      return state;
+    case USER_TOGGLE_NSFW_SETTING_FAILURE:
+      currentNSFW = state.getIn(['settings','nsfw']);
+      return state.setIn(['settings','nsfw'], !currentNSFW);
+    case USER_TOGGLE_PRIVATE_SETTING_REQUEST:
+      let currentPrivate = state.getIn(['settings','priv']);
+      return loop(
+        state.setIn(['settings','priv'], !currentPrivate),
+        Effects.promise(() => requestSavePrivateSetting({"private": !currentPrivate}))
+      )
+    case USER_TOGGLE_PRIVATE_SETTING_SUCCESS:
+      return state;
+    case USER_TOGGLE_PRIVATE_SETTING_FAILURE:
+      currentPrivate = state.getIn(['settings','priv']);
+      return state.setIn(['settings','priv'], !currentPrivate);
+    case USER_SAVE_LOCATION_REQUEST:
+      return state.set('location', action.payload)
+    case USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST:
+      let settingValue = state.getIn(['settings','pushNotifications', action.payload]);
+      if(action.payload === 'enable' && settingValue) {
+        return state.setIn(['settings','pushNotifications'], fromJS(
+          {
+            enable: false,
+            announcements: false,
+            reccomendations: false,
+            newFollower: false,
+            followRequest: false,
+            acceptedFollowRequest: false,
+            friendsOnFavez: false,
+            newFriendList: false,
+            newListFollower: false,
+            collaborationInvitation: false,
+            collaborationResponse: false,
+            newComment: false,
+            mentionsAndReplies: false
+          }
+        ))
+      } 
+      return state.setIn(['settings','pushNotifications', action.payload], !settingValue);
+
+    case USER_CLEAR_DATA_REQUEST:
+      return state.set('user', {});
     default:
       return state;
   }

@@ -7,8 +7,7 @@ import {
   Platform,
   TouchableOpacity
 } from 'react-native';
-const APPBAR_HEIGHT = Platform.OS === 'ios' ? 44 : 56;
-const STATUSBAR_HEIGHT = Platform.OS === 'ios' ? 30 : 0;
+import * as ViewUtils from '../../../utils/viewUtil';
 
 const renderIf = condition => element => condition ? element : null;
 
@@ -31,11 +30,13 @@ const ProfileHeader = React.createClass({
           )}
         </View>
         <View style={styles.flex2}>
-          <TouchableOpacity
-              onPress={() => Actions.userSettings()}
-              style={styles.headerRightButton} >
-              <IoniconIcon style={styles.headerButtonIcon} name="ios-settings"/>
-          </TouchableOpacity>
+          {renderIf(this.props.self)(
+            <TouchableOpacity
+                onPress={() => Actions.userSettings()}
+                style={styles.headerRightButton} >
+                <IoniconIcon style={styles.headerButtonIcon} name="ios-settings"/>
+            </TouchableOpacity>
+          )}
         </View>
     </View>
     );
@@ -49,8 +50,8 @@ const styles = StyleSheet.create({
     width: 375,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingTop: STATUSBAR_HEIGHT,
-    height: APPBAR_HEIGHT
+    paddingTop: ViewUtils.STATUSBAR_HEIGHT,
+    height: ViewUtils.APPBAR_HEIGHT + ViewUtils.STATUSBAR_HEIGHT * 2
   },
   flex1: {
     flex: 1,

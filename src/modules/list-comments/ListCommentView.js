@@ -118,7 +118,6 @@ const ListShowView = React.createClass({
     render() {
         // if (!this.state.ready) return null;
         const {commentsByList} = this.props;
-        console.log("vdojvldjbvkr", this.props.loading);
                   return (
 
         <View style={styles.base}>
@@ -127,20 +126,9 @@ const ListShowView = React.createClass({
 
                     <Image source={require('../../../images/rightImgSample.png')} style={styles.ListBackground}/>
                 </View>
-
-                <View style={{
-                    flexDirection: 'row',
-                    width: window.width
-                }}>
-                    <View style={{
-                        flex: 1,
-                        width: window.width - 50
-                    }}>
-                        <TouchableOpacity onPress={Actions.pop} style={styles.backBtn}>
-                            <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <TouchableOpacity onPress={Actions.pop} style={styles.backBtn}>
+                    <IoniconIcon style={styles.headerLeftButtonIcon} name='md-arrow-round-back'/>
+                </TouchableOpacity>
                 <View style={styles.HeaderContainer}>
                     <Header title={'COMMENTS'} theme={'light'}/>
                 </View>
@@ -316,7 +304,8 @@ const styles = StyleSheet.create({
     backBtn: {
         marginTop: 10,
         marginLeft: 10,
-        width: 40
+        width: 40,
+        backgroundColor: 'transparent',
     },
     blockkBtn: {
         justifyContent: 'flex-end'
@@ -324,7 +313,8 @@ const styles = StyleSheet.create({
     headerLeftButtonIcon: {
         width: 35,
         fontSize: 30,
-        color: '#fff',
+        fontSize: 30,
+        color: '#000000',
         alignSelf: 'flex-start'
     },
     actions: {

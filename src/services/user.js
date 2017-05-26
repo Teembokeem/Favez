@@ -84,3 +84,8 @@ export function getOtherUserComments(userId) {
 export function getOtherUserLikes(userId) {
   return get(`/favez/liked/${userId}`);
 }
+
+export function saveSettings(settings) {
+  let payload = {settings:settings};
+  return put(`/api/users`, payload);
+}

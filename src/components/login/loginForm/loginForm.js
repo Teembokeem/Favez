@@ -19,7 +19,6 @@ const renderInput = ({
 const LoginForm = props => {
 
     const {handleSubmit, submitting, login, loginAttempt, errorValue} = props;
-    console.log("vjdfvjrgvjfrg", loginAttempt);
 
     const submit = values => {
         login(values.toJS());

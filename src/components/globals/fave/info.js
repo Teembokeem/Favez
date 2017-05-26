@@ -120,7 +120,11 @@ const categories = [
 
 function Info({list}) {
   const {description, picture, owner, taxonomy} = list;
-  const {topics, tags} = organizeTaxonomies(taxonomy);
+  let topics = []
+  let tags = []
+  if ( taxonomy ) {
+    let {topics, tags} = organizeTaxonomies(taxonomy);
+  }
   return (
     <View style={styles.container}>
       <View style={styles.contentHeaderContainer}>

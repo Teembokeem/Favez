@@ -29,8 +29,7 @@ function CardBody({card, browseFave}) {
         <View
           style={styles.cardBodySiteTitleContainer}
         >
-          <Text
-          style={styles.cardBodyScrapedTitle}>{card.name}</Text>
+          <Text style={styles.cardBodyScrapedTitle}>{card.name}</Text>
           <Text style={styles.cardBodySiteSemantic}>{card.location}</Text>
         </View>
       </TouchableOpacity>
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     flexGrow: 1
   },
   cardBodySiteTitleContainer: {
-    height: 70,
+    height: 50,
     width: 340,
     paddingLeft: 7,
     paddingRight: 7,

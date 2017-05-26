@@ -21,7 +21,10 @@ import {
   getOtherUserCollabs,
   getOtherUserComments,
   getOtherUserLikes,
+  saveSettings
 } from '../../services/user';
+import * as snapshot from '../../utils/snapshot';
+import * as authentication from '../../utils/authentication';
 import * as userService from '../../services/user'
 var ImagePicker = require('react-native-image-picker');
 import * as cloudinary from '../../services/cloudinary'
@@ -44,6 +47,7 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const USER_SUCCESS = 'USER_SUCCESS';
 export const USER_FAILURE = 'USER_FAILURE';
+export const USER_CLEAR_DATA_REQUEST = 'USER_CLEAR_DATA_REQUEST';
 export const USER_SEARCH_RESULT_SUCCESS = 'USER_SEARCH_RESULT_SUCCESS';
 export const USER_SEARCH_RESULT_FAILURE = 'USER_SEARCH_RESULT_FAILURE';
 export const FOLLOW_USER = 'FOLLOW_USER';
@@ -56,23 +60,27 @@ export const GET_FOLLOWING_LIST_SUCCESS = 'GET_FOLLOWING_LIST_SUCCESS';
 export const GET_FOLLOWING_LIST_FAILURE  = 'GET_FOLLOWING_LIST_FAILURE';
 export const GET_FOLLOWER_LIST_SUCCESS = 'GET_FOLLOWER_LIST_SUCCESS';
 export const GET_FOLLOWER_LIST_FAILURE  = 'GET_FOLLOWER_LIST_FAILURE';
-
 export const GET_USER_SUBSCRIBED_LIST_SUCCESS = 'GET_USER_SUBSCRIBED_LIST_SUCCESS';
 export const GET_USER_SUBSCRIBED_LIST_FAILURE = 'GET_USER_SUBSCRIBED_LIST_FAILURE';
 export const GET_USER_BLOCKED_LIST_SUCCESS ='GET_USER_BLOCKED_LIST_SUCCESS';
 export const GET_USER_BLOCKED_LIST_FAILURE = 'GET_USER_BLOCKED_LIST_FAILURE';
 export const GET_BLOCKED_USER_SUCCESS ='GET_BLOCKED_USER_SUCCESS';
 export const GET_BLOCKED_USER_FAILURE = 'GET_BLOCKED_USER_FAILURE';
-
 export const GET_OTHER_USER_INFO_REQUEST = 'GET_OTHER_USER_INFO_REQUEST';
 export const GET_OTHER_USER_INFO_SUCCESS = 'GET_OTHER_USER_INFO_SUCCESS';
 export const GET_OTHER_USER_INFO_FAILURE = 'GET_OTHER_USER_INFO_FAILURE';
-
+export const USER_TOGGLE_NSFW_SETTING_REQUEST = 'USER_TOGGLE_NSFW_SETTING';
+export const USER_TOGGLE_NSFW_SETTING_SUCCESS = 'USER_TOGGLE_NSFW_SETTING_SUCCESS';
+export const USER_TOGGLE_NSFW_SETTING_FAILURE = 'USER_TOGGLE_NSFW_SETTING_FAILURE';
+export const USER_TOGGLE_PRIVATE_SETTING_REQUEST = 'USER_TOGGLE_PRIVATE_SETTING_REQUEST';
+export const USER_TOGGLE_PRIVATE_SETTING_SUCCESS = 'USER_TOGGLE_PRIVATE_SETTING_SUCCESS';
+export const USER_TOGGLE_PRIVATE_SETTING_FAILURE = 'USER_TOGGLE_PRIVATE_SETTING_FAILURE';
+export const USER_SAVE_LOCATION_REQUEST = 'USER_SAVE_LOCATION_REQUEST';
+export const USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST = 'USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST';
 export const FOLLOW_USER_CARD_SUCCESS = 'FOLLOW_USER_CARD_SUCCESS';
 export const FOLLOW_USER_CARD_FAILURE = 'FOLLOW_USER_CARD_FAILURE';
 export const UNFOLLOW_USER_CARD_SUCCESS =  'UNFOLLOW_USER_CARD_SUCCESS';
 export const UNFOLLOW_USER_CARD_FAILURE = 'UNFOLLOW_USER_CARD_FAILURE';
-
 
 // Action creators
 export async function login(data) {
@@ -175,6 +183,53 @@ export function requestOtherUserInfo(userId) {
     })
   }
 }
+
+export function toggleNSFWSetting() {
+  return {
+    type: USER_TOGGLE_NSFW_SETTING_REQUEST
+  }
+}
+
+export function togglePrivateSetting() {
+  return {
+    type: USER_TOGGLE_PRIVATE_SETTING_REQUEST
+  }
+}
+
+export function saveLocation(data) {
+  return {
+    type: USER_SAVE_LOCATION_REQUEST,
+    payload: data
+  }
+}
+
+export function togglePushNotificationsSetting(settingId) {
+  return {
+    type: USER_TOGGLE_PUSH_NOTIFICATIONS_SETTING_REQUEST,
+    payload: settingId
+  }
+}
+
+export async function requestSaveNSFWSetting(data) {
+  return await saveSettings(data)
+    .then((res) => {
+      return {type: USER_TOGGLE_NSFW_SETTING_SUCCESS, payload: res.data}
+    })
+    .catch((err) => {
+      return {type: USER_TOGGLE_NSFW_SETTING_FAILURE, payload: err}
+    });
+}
+
+export async function requestSavePrivateSetting(data) {
+  return await saveSettings(data)
+    .then((res) => {
+      return {type: USER_TOGGLE_PRIVATE_SETTING_SUCCESS, payload: res.data}
+    })
+    .catch((err) => {
+      return {type: USER_TOGGLE_PRIVATE_SETTING_FAILURE, payload: err}
+    });
+}
+
 
 export const UPLOAD_USER_IMAGE_START = "UPLOAD_USER_IMAGE_START"
 export const UPLOAD_USER_IMAGE_SUCCESS = "UPLOAD_USER_IMAGE_SUCCESS"
@@ -385,4 +440,12 @@ export function removeFromFollowList(removedUserId){
     })
     userService.removeFromFollowList(removedUserId).done()
   }
+}
+
+export async function logout() {
+  snapshot.clearSnapshot();
+  authentication.clearAuthenticationToken();
+  authentication.clearAuth0Token();
+
+  return { type : USER_CLEAR_DATA_REQUEST }
 }

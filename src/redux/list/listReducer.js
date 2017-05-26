@@ -1,5 +1,10 @@
-import { fromJS } from 'immutable';
-import { loop, Effects } from 'redux-loop';
+import {
+    fromJS
+} from 'immutable';
+import {
+    loop,
+    Effects
+} from 'redux-loop';
 import {
     LIST_REQUEST,
     SET_LIST,
@@ -88,132 +93,131 @@ const initialState = fromJS({
 // Reducer
 export default function ListReducer(state = initialState, action = {}) {
     switch (action.type) {
-    case LIST_REQUEST:
-        return loop(state.set('loading', true), Effects.promise(action.payload));
-    case LIST_RESPONSE:
-        return state.set('loading', false).set('all', action.payload.data);
-    case SET_LIST:
-        return state.set('current', state.get(action.payload.list)[action.payload.index]);
-    case LIST_ADD_INVITEE:
-        return state.set('inviteList', state.get('inviteList').concat(action.payload));
-    case LIST_REMOVE_INVITEE:
-        return state.set('inviteList', state.get('inviteList').filter((item) => item !== action.payload));
-    case LIST_GET_DETAILS_REQUEST:
-        return loop(state.set('loading', true), Effects.promise(() => requestSingleList(action.payload)));
-    case LIST_GET_DETAILS_SUCCESS:
-        return state.set('loading', false).set('current', action.payload.data[0]);
-    case LIST_MYLIST_REQUEST:
-        return loop(state.set('loading', true), Effects.promise(() => requestGetMyLists()));
-    case LIST_MYLIST_SUCCESS:
-        return state.set('loading', false).set('myLists', action.payload.data);
-    case LIST_SEND_LIST_INVITATIONS_REQUEST:
-        return loop(state.set('loading', true), Effects.promise(() => requestSendInvites(action.payload)));
-    case LIST_SEND_LIST_INVITATIONS_SUCCESS:
-        return state.set('loading', false).set('myLists', action.payload.data);
-    case LIST_SAVE_REQUEST:
-        return state.set('loading', true).setIn(['current', 'listData'], undefined);
-    case LIST_SAVE_SUCCESS:
-        return state.set('loading', false).setIn(['current', 'listData'], action.payload);
-    case LIST_SET_NEWLIST_OPTIONS:
-        let key = Object.keys(action.payload)[0];
-        return insertOptionParams(state, state.get('options'), key, action.payload[key]);
-    case LIST_SET_SELECTED_COUNTRY:
-        return state.setIn(['current', 'selectedCountry'], action.payload);
-    case LIST_BY_TOPIC_SUCCESS:
-        return state.set('loading', false).set('listByTopics', action.payload.data);
-    case LIST_BY_TAG_SUCCESS:
-        return state.set('loading', false).set('listByTags', action.payload.data);
-    case LIST_SEARCH_RESULT_SUCCESS:
-        return state.set('loading', false).set('searchedLists', action.payload);
-    case LIKE_UNLIKE_LIST_ITEM:
-      break;
-    case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
-      break;
-    case LIST_CREATE_RELATION_SUCCESS:
-        return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
-    case LIST_DELETE_RELATION_SUCCESS:
-        let subscribedListsres = state.get("subscribedLists");
-        return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
-    case GET_LIST_BY_RELATION_SUCCESS:
-        return state.set('loading', false).set('subscribedLists', action.payload.data);
-    case SUBSCRIBE_LIST:
-        return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => createlistRelationAction(action.payload)));
-    case UNSUBSCRIBE_LIST:
-        return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => deleteListRelationAction(action.payload)));
-    case UPLOAD_LIST_IMAGE_START:
-        return state.setIn(['current', 'imageStatus'], 'uploading');
-    case UPLOAD_LIST_IMAGE_SUCCESS:
-        return state.setIn(['current', 'image'], action.payload).setIn(['current', 'imageStatus'], 'prefetching');
-    case UPLOAD_LIST_IMAGE_PREFETCHED:
-        return state.setIn(['current', 'imageStatus'], 'prefetched');
-    case UPLOAD_LIST_IMAGE_FAIL:
-        return state.setIn(['current', 'imageStatus'], 'uploadFailed');
-    case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
-        return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
+        case LIST_REQUEST:
+            return loop(state.set('loading', true), Effects.promise(action.payload));
+        case LIST_RESPONSE:
+            return state.set('loading', false).set('all', action.payload.data);
+        case SET_LIST:
+            return state.set('current', state.get(action.payload.list)[action.payload.index]);
+        case LIST_ADD_INVITEE:
+            return state.set('inviteList', state.get('inviteList').concat(action.payload));
+        case LIST_REMOVE_INVITEE:
+            return state.set('inviteList', state.get('inviteList').filter((item) => item !== action.payload));
+        case LIST_GET_DETAILS_REQUEST:
+            return loop(state.set('loading', true), Effects.promise(() => requestSingleList(action.payload)));
+        case LIST_GET_DETAILS_SUCCESS:
+            return state.set('loading', false).set('current', action.payload.data[0]);
+        case LIST_MYLIST_REQUEST:
+            return loop(state.set('loading', true), Effects.promise(() => requestGetMyLists()));
+        case LIST_MYLIST_SUCCESS:
+            return state.set('loading', false).set('myLists', action.payload.data);
+        case LIST_SEND_LIST_INVITATIONS_REQUEST:
+            return loop(state.set('loading', true), Effects.promise(() => requestSendInvites(action.payload)));
+        case LIST_SEND_LIST_INVITATIONS_SUCCESS:
+            return state.set('loading', false).set('myLists', action.payload.data);
+        case LIST_SAVE_REQUEST:
+            return state.set('loading', true).setIn(['current', 'listData'], undefined);
+        case LIST_SAVE_SUCCESS:
+            return state.set('loading', false).setIn(['current', 'listData'], action.payload);
+        case LIST_SET_NEWLIST_OPTIONS:
+            let key = Object.keys(action.payload)[0];
+            return insertOptionParams(state, state.get('options'), key, action.payload[key]);
+        case LIST_SET_SELECTED_COUNTRY:
+            return state.setIn(['current', 'selectedCountry'], action.payload);
+        case LIST_BY_TOPIC_SUCCESS:
+            return state.set('loading', false).set('listByTopics', action.payload.data);
+        case LIST_BY_TAG_SUCCESS:
+            return state.set('loading', false).set('listByTags', action.payload.data);
+        case LIST_SEARCH_RESULT_SUCCESS:
+            return state.set('loading', false).set('searchedLists', action.payload);
+        case LIKE_UNLIKE_LIST_ITEM:
+            break;
+        case LIKE_UNLIKE_LIST_ITEM_SUCCESS:
+            break;
+        case LIST_CREATE_RELATION_SUCCESS:
+            return state.set('subscribedLists', [...state.get("subscribedLists"), action.detailList]);
+        case LIST_DELETE_RELATION_SUCCESS:
+            let subscribedListsres = state.get("subscribedLists");
+            return state.set('subscribedLists', state.get('subscribedLists').filter(o => o.id !== action.detailList.id));
+        case GET_LIST_BY_RELATION_SUCCESS:
+            return state.set('loading', false).set('subscribedLists', action.payload.data);
+        case SUBSCRIBE_LIST:
+            return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => createlistRelationAction(action.payload)));
+        case UNSUBSCRIBE_LIST:
+            return loop(state.setIn(['recentSubscribedList', 'id'], action.payload), Effects.promise(() => deleteListRelationAction(action.payload)));
+        case UPLOAD_LIST_IMAGE_START:
+            return state.setIn(['current', 'imageStatus'], 'uploading');
+        case UPLOAD_LIST_IMAGE_SUCCESS:
+            return state.setIn(['current', 'image'], action.payload).setIn(['current', 'imageStatus'], 'prefetching');
+        case UPLOAD_LIST_IMAGE_PREFETCHED:
+            return state.setIn(['current', 'imageStatus'], 'prefetched');
+        case UPLOAD_LIST_IMAGE_FAIL:
+            return state.setIn(['current', 'imageStatus'], 'uploadFailed');
+        case UPLOAD_LIST_IMAGE_PREFETCHED_FAIL:
+            return state.setIn(['current', 'imageStatus'], 'prefetchedFail');
         case GET_COMMENTS_BY_LIST_REQUEST:
-        console.log("dfce",action);
             return loop(state.set('loading', true), Effects.promise(() => commentsByListActionRes(action.payload)));
 
-    case GET_COMMENTS_BY_LIST_SUCCESS:
-        return state.set('loading', false).set('commentsByList', action.payload.data);
-    case POST_COMMENTS_BY_LIST_SUCCESS:
-    let newComment= {};
-    newComment.content = action.content;
-    newComment.username = action.currUser.favez.username ;
-    newComment.id= action.payload.data[0].id;
-    newComment.image = action.currUser.favez.image;
-    newComment.author = action.currUser.favez.id;
-     return state.set('commentsByList', [...state.get("commentsByList"), newComment]);
-    case LIST_LOAD_DATA_TO_EDIT:
-        return state.setIn(['current', 'image'], action.payload.image)
-          .setIn(['current', 'selectedCountry'], action.payload.location)
-          .setIn(['current', 'description'], action.payload.options.description)
-          .setIn(['options', 'priv'], action.payload.options.priv)
-          .setIn(['options', 'nsfw'], action.payload.options.nsfw)
-          .setIn(['options', 'tags'], action.payload.options.tags)
-          .setIn(['options', 'topics'], action.payload.options.topics);
-    case LIST_MYLIST_FAILURE:
-    case LIST_GET_DETAILS_FAILURE:
-    case LIST_SEND_LIST_INVITATIONS_FAILURE:
-    case LIST_CREATE_RELATION_FAILURE:
-    case LIST_BY_TOPIC_FAILURE:
-    case LIST_BY_TAG_FAILURE:
-    case LIST_SAVE_FAILURE:
-    case LIST_DELETE_RELATION_FAILURE:
-    case GET_LIST_BY_RELATION_FAILURE:
-    case LIST_SEARCH_RESULT_FAILURE:
-    case GET_COMMENTS_BY_LIST_FAILURE:
-    case LIKE_UNLIKE_LIST_ITEM_FAILURE:
-    case POST_COMMENTS_BY_LIST_FAILURE:
-        return state.set('ERROR', action).set('loading', false);
-    default:
-        return state;
+        case GET_COMMENTS_BY_LIST_SUCCESS:
+            return state.set('loading', false).set('commentsByList', action.payload.data);
+        case POST_COMMENTS_BY_LIST_SUCCESS:
+            let newComment = {};
+            newComment.content = action.content;
+            newComment.username = action.currUser.favez.username;
+            newComment.id = action.payload.data[0].id;
+            newComment.image = action.currUser.favez.image;
+            newComment.author = action.currUser.favez.id;
+            return state.set('commentsByList', [...state.get("commentsByList"), newComment]);
+        case LIST_LOAD_DATA_TO_EDIT:
+            return state.setIn(['current', 'image'], action.payload.image)
+                .setIn(['current', 'selectedCountry'], action.payload.location)
+                .setIn(['current', 'description'], action.payload.options.description)
+                .setIn(['options', 'priv'], action.payload.options.priv)
+                .setIn(['options', 'nsfw'], action.payload.options.nsfw)
+                .setIn(['options', 'tags'], action.payload.options.tags)
+                .setIn(['options', 'topics'], action.payload.options.topics);
+        case LIST_MYLIST_FAILURE:
+        case LIST_GET_DETAILS_FAILURE:
+        case LIST_SEND_LIST_INVITATIONS_FAILURE:
+        case LIST_CREATE_RELATION_FAILURE:
+        case LIST_BY_TOPIC_FAILURE:
+        case LIST_BY_TAG_FAILURE:
+        case LIST_SAVE_FAILURE:
+        case LIST_DELETE_RELATION_FAILURE:
+        case GET_LIST_BY_RELATION_FAILURE:
+        case LIST_SEARCH_RESULT_FAILURE:
+        case GET_COMMENTS_BY_LIST_FAILURE:
+        case LIKE_UNLIKE_LIST_ITEM_FAILURE:
+        case POST_COMMENTS_BY_LIST_FAILURE:
+            return state.set('ERROR', action).set('loading', false);
+        default:
+            return state;
     }
 }
 
 function insertOptionParams(state, obj, prop, values) {
     switch (prop) {
-    case 'description':
-    case 'currTag':
-    case 'priv':
-    case 'nsfw':
-        return state.setIn(['options', prop], values);
-    case 'topics':
-        let foundIndex = state.getIn(['options', prop]).indexOf(values);
-        if (foundIndex === -1) {
-            return state.setIn(['options', prop], state.getIn(['options', prop]).concat(values))
-        } else {
-            let newArr = state.getIn(['options', prop]).splice(foundIndex, 1);
-            return state.setIn(['options', prop], newArr);
-        }
-    case 'tags':
-        if (typeof values === 'number') {
-            let newArr = state.getIn(['options', prop]).splice(values, 1);
-            return state.setIn(['options', prop], newArr).setIn(['options', 'currTag'], '');
-        } else {
-            return state.setIn(['options', prop], state.getIn(['options', prop]).concat(values)).setIn(['options', 'currTag'], '');
-        }
-    default:
-        return null;
+        case 'description':
+        case 'currTag':
+        case 'priv':
+        case 'nsfw':
+            return state.setIn(['options', prop], values);
+        case 'topics':
+            let foundIndex = state.getIn(['options', prop]).indexOf(values);
+            if (foundIndex === -1) {
+                return state.setIn(['options', prop], state.getIn(['options', prop]).concat(values))
+            } else {
+                let newArr = state.getIn(['options', prop]).splice(foundIndex, 1);
+                return state.setIn(['options', prop], newArr);
+            }
+        case 'tags':
+            if (typeof values === 'number') {
+                let newArr = state.getIn(['options', prop]).splice(values, 1);
+                return state.setIn(['options', prop], newArr).setIn(['options', 'currTag'], '');
+            } else {
+                return state.setIn(['options', prop], state.getIn(['options', prop]).concat(values)).setIn(['options', 'currTag'], '');
+            }
+        default:
+            return null;
     }
 }
