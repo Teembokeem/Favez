@@ -23,9 +23,6 @@ function ImagePicker({pickListImage, listImageUri, imageStatus}) {
         style={styles.CropImageContainer}
         onPress={pickListImage}>
         <View style={styles.FillerImage}>
-          {renderIf(imageStatus === 'prefetched' || Utils.isUrl(listImageUri))(
-            <Image style={styles.ListCoverImage} source={{uri:listImageUri}} />
-          )}
           {renderIf(imageStatus === 'uploading' || imageStatus === 'prefetching')(
             <View style={styles.indicatorWrapper}>
               <ActivityIndicator
@@ -34,6 +31,9 @@ function ImagePicker({pickListImage, listImageUri, imageStatus}) {
                 size={'large'}
               />
             </View>
+         )}
+         {renderIf(imageStatus === 'prefetched' || Utils.isUrl(listImageUri))(
+           <Image style={styles.ListCoverImage} source={{uri:listImageUri}} />
          )}
         </View>
       </TouchableOpacity>

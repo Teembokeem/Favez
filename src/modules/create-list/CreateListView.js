@@ -100,10 +100,12 @@ const FeedView = React.createClass({
 
   render() {
 
+    //console.log('CREATE_LIST_PROPS', this.props);
 
     const {options, inviteList, currentList, countryPicker} = this.props;
     const { visible, set } = countryPicker;
     const selectedCountry = currentList.selectedCountry ? currentList.selectedCountry : 'RO' //default country 'Romania'
+    console.log('LIST_IMAGE_STATUS', currentList.imageStatus);
     return (
       <View style={{flex: 1}}>
         <CreateListHeader />
