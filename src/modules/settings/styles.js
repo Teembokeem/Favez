@@ -82,12 +82,13 @@ const styles = StyleSheet.create({
   },
   settingItemLabel: {
     fontSize:12,
+    paddingTop:4,
     fontWeight: 'bold',
     color: '#AAA'
   },
   settingItemHintText: {
     fontSize:13,
-    color: '#BBB',
+    color: '#AAA',
     fontFamily: 'Hind-Light',
     marginTop:-5
   },

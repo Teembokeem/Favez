@@ -84,7 +84,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Discover & Invite People</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -94,7 +94,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Edit Profile</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
               <View style={styles.settingItem}>
@@ -117,7 +117,7 @@ class SettingsView extends React.Component {
                   </View>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </View>
               <View style={styles.settingItem}>
@@ -146,7 +146,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Push Notification Settings</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity
@@ -156,7 +156,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Blocked & Hidden</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
             </View>
@@ -167,7 +167,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Contact Us</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
             </View>
@@ -178,7 +178,7 @@ class SettingsView extends React.Component {
                   <Text style={styles.settingItemText}>Change Password</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity style={styles.settingItem}>
@@ -186,7 +186,7 @@ class SettingsView extends React.Component {
                   <Text style={[styles.settingItemText, styles.deleteAccountText]}>Delete Account</Text>
                 </View>
                 <View style={styles.settingItemIconContainer}>
-                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-forward'/>
+                  <IoniconIcon style={styles.settingItemIcon} name='md-arrow-round-forward'/>
                 </View>
               </TouchableOpacity>
             </View>
